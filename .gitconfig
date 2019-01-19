@@ -2,7 +2,7 @@
 	name = Gwendolyn Goetz
 	email = {ID}+{username}@users.noreply.github.com
 [core]
-    editor = vim	
+	editor = vim	
 [format]
 	pretty = oneline	
 [filter "lfs"]
