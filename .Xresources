@@ -52,9 +52,10 @@
 *color20:      base04
 *color21:      base06
 
-
+! urxvt settings
 URxvt.transparent: true
 URxvt.shading:     20
 URxvt.scrollBar:   false
 URxvt.font:        xft:monospace:size=10
 URxvt.perl-ext-common: selection-to-clipboard
+!URxvt.keysym.Escape: \033\007
