@@ -53,10 +53,10 @@ module-margin-right = 2
 
 font-0 = fixed:pixelsize=11;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = FontAwesome:size=12
+font-2 = FontAwesome:size=10
 
 modules-left = i3
-modules-center = date
+modules-center = date 
 modules-right = filesystem pulseaudio memory cpu eth battery powermenu
 
 tray-position = right
@@ -139,8 +139,6 @@ wrapping-scroll = false
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
 
-
-
 ;label-mode-background = ${xrdb:color0}
 ;label-mode-foreground = ${xrdb:color7}
 ;label-mode-padding    = 1
@@ -165,11 +163,16 @@ pin-workspaces = true
 ;label-urgent-foreground = ${xrdb:color1}
 ;label-urgent-padding = 1
 
-
-
 label-mode-padding = 2
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
+
+; Available tokens: 
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon% %name%
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
@@ -234,7 +237,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = " CPU "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage:2%%
@@ -275,7 +278,8 @@ interface = enp37s0
 interval = 3.0
 
 format-connected-underline = #55aa55
-format-connected-prefix = " "
+format-connected-prefix = " " 
+;format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -288,18 +292,13 @@ format-disconnected =
 [module/date]
 type = internal/date
 interval = 5
-
-date =
-date-alt =" %Y-%m-%d"
-
-time = " %a %I:%M %p"
-time-alt = %H:%M:%S
-
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
+date = "  %{F#99}%a %b %d, %Y%{F-}"
+time = " %{F#fff} %I:%M %p%{F-}"
+;format-prefix =" "
+;format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
-
 label = %date% %time%
+
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -416,6 +415,22 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/spotify1]
+;https://github.com/NicholasFeldman/dotfiles/blob/master/polybar/.config/polybar/spotify.sh
+type = custom/script
+exec = ~/.config/polybar/scripts/spotify1.sh
+interval = 1
+
+;format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = 2
+format-underline = #0f0
+format-prefix = "  "
+format-prefix-foreground = #0f0
+label = %output:0:150%
+
 
 [settings]
 screenchange-reload = true
