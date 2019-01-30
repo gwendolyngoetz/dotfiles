@@ -26,6 +26,7 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'matze/vim-move'
 "Plugin 'Valloric/YouCompleteMe'
 "Plugin 'maralla/completor.vim'
+Plugin 'chrisbra/Colorizer'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -40,7 +41,7 @@ colorscheme space-vim-dark
 "set guifont=Consolas:h12:cANSI
 set cursorline "highlight current line
 set hlsearch "highlight search
-set viminfo+=n$HOME/.viminfo
+set viminfo+=n$HOME/.vim/.viminfo
 set number "Show line numbers
 set relativenumber "Relative line numbers with current line showing actual line number
 set expandtab "Convert tabs to spaces
@@ -127,3 +128,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "let g:pymode_python = 'python3'
 "let g:pymode_rope_lookup_project = 0
 "let g:pymode_rope = 0
+
+
+" *********************************************
+" Colorizer settings
+" *********************************************
+map <C-c> :ColorToggle<CR>
