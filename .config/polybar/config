@@ -73,7 +73,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=12;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=12;1"
 
-modules-left = i3 xbacklight
+modules-left = i3 xbacklight spotify
 modules-center = date 
 modules-right = filesystem cpu memory eth pulseaudio battery powermenu
 
@@ -342,10 +342,10 @@ type = internal/backlight
 card = intel_backlight
 
 
-[module/spotify1]
+[module/spotify]
 ;https://github.com/NicholasFeldman/dotfiles/blob/master/polybar/.config/polybar/spotify.sh
 type = custom/script
-exec = ~/.config/polybar/scripts/spotify1.sh
+exec = ~/.config/polybar/spotify.sh
 interval = 1
 
 ;format = <label>
