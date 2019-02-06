@@ -53,10 +53,9 @@ module-margin-right = 2
 
 font-0 = fixed:pixelsize=12;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = FontAwesome:size=10
-;This may be the way FontAwesome needs to be loaded for version 5
-;font-2 = FontAwesome5Free:style=Solid:pixelsize=10:antialias=false;
-;font-3 = FontAwesome5Brands:style=Solid:pixelsize=10:antialias=false;
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=12;1"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;1"
+font-4 = "Font Awesome 5 Brands:pixelsize=12;1"
 
 modules-left = i3
 modules-center = date 
@@ -125,7 +124,7 @@ type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
-;strip-wsnumbers = true
+strip-wsnumbers = true
 
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
@@ -269,7 +268,7 @@ interface = enp37s0
 interval = 3.0
 
 format-connected-underline = #9f78e1
-format-connected-prefix = "N " 
+format-connected-prefix = " " 
 ;format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
@@ -381,13 +380,13 @@ animation-discharging-framerate = 750
 [module/powermenu]
 type = custom/menu
 
-expand-right = true
+expand-right = false
 
 format-spacing = 1
 
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-open = 
+label-open-foreground = ${colors.foreground}
+label-close = 
 label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
