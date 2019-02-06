@@ -113,8 +113,8 @@ label-unfocused-padding = 2
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
-label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
+label-visible-background = ${colors.background-alt}
+label-visible-underline = ${colors.primary}
 label-visible-padding = 2
 
 ; urgent = Workspace with urgency hint set
