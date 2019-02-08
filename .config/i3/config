@@ -114,7 +114,7 @@ set_from_resource $blue        color12 #000000
 set_from_resource $darkmagenta color5  #000000
 set_from_resource $magenta     color13 #000000
 set_from_resource $darkcyan    color6  #000000
-set_from_resource $cyan        color14 #000000
+set_from_resource $cyan        color20 #000000
 set_from_resource $darkwhite   color7  #000000
 set_from_resource $white       color15 #000000
 # Use custom colors for black
@@ -122,11 +122,12 @@ set $black       #282828
 set $darkblack   #1d2021
 set $clear #00000000
 
-client.focused             #4c7899     #285577     #ffffff     #2e9ef4     #285577
-client.focused_inactive    $black      $black      $white      $darkblack  $darkblack
-client.unfocused           $clear      $clear      $clear      $clear      $clear
-client.urgent              $darkred    $darkred    $black      $darkred    $darkred
-#client.placeholder         $darkred    $darkred    $black      $darkred    $darkred
+#                          border      background    text        indicator   child-border
+client.focused             #4c7899     $magenta      $white      $cyan       $magenta
+client.focused_inactive    $black      $black        $white      $darkblack  $darkblack
+client.unfocused           $clear      $clear        $clear      $clear      $clear
+client.urgent              $darkred    $darkred      $black      $darkred    $darkred
+client.placeholder         $darkred    $darkred      $black      $darkred    $darkred
 client.background          $black
 
 # apps
