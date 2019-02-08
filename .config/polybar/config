@@ -26,7 +26,7 @@ foreground-alt = #555
 ;primary = ${xrdb:color20:#ffb52a}
 primary = #ffb52a
 secondary = #e60053
-alert = #bd2c40
+alert = ${xrdb:color1:#bd2c40}
 spotify = ${xrdb:color3:#00ff00}
 border-primary = ${xrdb:color13:#9f78e1}
 
