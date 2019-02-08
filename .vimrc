@@ -37,7 +37,7 @@ filetype plugin indent on    " required
 " Vim settings
 " *********************************************
 syntax on
-colorscheme space-vim-dark
+colorscheme dracula
 "set guifont=Consolas:h12:cANSI
 set cursorline "highlight current line
 set hlsearch "highlight search
