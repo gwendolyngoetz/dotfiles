@@ -53,6 +53,17 @@
 *color20:      base04
 *color21:      base06
 
+#if WIDTH == 3840
+    Xft.dpi: 192
+    Xft.autohint: 0
+    Xft.lcdfilter: lcddefault
+    Xft.hintstyle: hintfull
+    Xft.hinting: 1
+    Xft.antialias: 1
+    Xft.rgba: rgb
+#endif
+
+
 ! urxvt settings
 URxvt.transparent: true
 URxvt.shading:     20
