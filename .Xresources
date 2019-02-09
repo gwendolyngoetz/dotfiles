@@ -54,14 +54,14 @@
 *color21:      base06
 
 #if WIDTH == 3840
-    Xft.dpi: 192
+    Xft.dpi: 232
     Xft.autohint: 0
     Xft.lcdfilter: lcddefault
     Xft.hintstyle: hintfull
     Xft.hinting: 1
     Xft.antialias: 1
     Xft.rgba: rgb
-    polybar.height: 48
+    polybar.height: 60
 #endif
 
 
