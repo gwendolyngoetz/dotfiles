@@ -48,6 +48,7 @@ margin-bottom = 5
 monitor = ${env:MONITOR}
 width = 100%
 height = ${xrdb:polybar.height:30}
+dpi = ${xrdb:Xft.dpi:96}
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0
