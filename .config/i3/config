@@ -158,8 +158,8 @@ for_window [class="kcalc"] floating enable sticky enable border normal
 
 # start applications
 exec --no-startup-id compton -b
+exec --no-startup-id dropbox start
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpaper/space1.jpg
-
 
 
 
