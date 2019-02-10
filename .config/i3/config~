@@ -159,8 +159,6 @@ for_window [class="kcalc"] floating enable sticky enable border normal
 # start applications
 exec --no-startup-id compton -b
 exec --no-startup-id dropbox start
-#exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/kdeconnectd
-#exec --no-startup-id kdeconnect-indicator
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpaper/space1.jpg
 
 
