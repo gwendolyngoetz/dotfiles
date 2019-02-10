@@ -23,7 +23,7 @@ background = ${xrdb:color0:#dd222222}
 background-alt = #444
 foreground = ${xrdb:color7:#dfdfdf}
 foreground-alt = #555
-;primary = ${xrdb:color20:#ffb52a}
+#primary = ${xrdb:color13:#ffb52a}
 primary = #ffb52a
 secondary = #e60053
 alert = ${xrdb:color1:#bd2c40}
@@ -32,11 +32,6 @@ border-primary = ${xrdb:color13:#9f78e1}
 
 [settings]
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
 
 
 [global/wm]
@@ -49,8 +44,6 @@ monitor = ${env:MONITOR}
 width = 100%
 height = ${xrdb:polybar.height:30}
 dpi = ${xrdb:Xft.dpi:96}
-;offset-x = 1%
-;offset-y = 1%
 radius = 0
 fixed-center = true
 
@@ -58,7 +51,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
-line-color = #f00
+line-color = #ff0000
 
 border-size = 0
 border-color = #00000000
@@ -92,8 +85,6 @@ format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 strip-wsnumbers = true
-
-; Only show workspaces on the same output as the bar
 pin-workspaces = true
 
 label-mode-padding = 2
@@ -123,9 +114,6 @@ label-visible-padding = 2
 label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
 
 
 [module/date]
