@@ -1,0 +1,42 @@
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1407,
+       "width": 2554,
+       "x": 0,
+       "y": 0
+    },
+    "name": "gwendolyn : bash — Konsole",
+    "percent": 0.4,
+    "swallows": [
+       {
+           "class": "^konsole$",
+           "instance": "^x\\-terminal\\-emulator$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 818,
+       "width": 1250,
+       "x": 0,
+       "y": 0
+    },
+    "name": "i3: Layout saving in i3 - Mozilla Firefox",
+    "percent": 0.6,
+    "swallows": [
+       {
+           "class": "^Firefox$",
+           "instance": "^Navigator$"
+       }
+    ],
+    "type": "con"
+}
+
