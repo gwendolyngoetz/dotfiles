@@ -116,6 +116,7 @@ set_from_resource $darkcyan    color6  #000000
 set_from_resource $cyan        color20 #000000
 set_from_resource $darkwhite   color7  #000000
 set_from_resource $white       color15 #000000
+set_from_resource $border      color0  #000000
 # Use custom colors for black
 set $black       #282828
 set $darkblack   #1d2021
@@ -123,8 +124,8 @@ set $clear #00000000
 
 #                          border      background    text        indicator   child-border
 client.focused             #4c7899     $magenta      $white      $cyan       $magenta
-client.focused_inactive    $black      $black        $white      $darkblack  $darkblack
-client.unfocused           $clear      $clear        $clear      $clear      $clear
+client.focused_inactive    $border     $black        $white      $darkblack  $border
+client.unfocused           $border     $clear        $clear      $clear      $border
 client.urgent              $darkred    $darkred      $black      $darkred    $darkred
 client.placeholder         $darkred    $darkred      $black      $darkred    $darkred
 client.background          $black
@@ -143,7 +144,9 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &amp;
 # i3-gaps
 for_window [class="^.*"] border pixel 3
 gaps inner 8
-gaps outer 2
+gaps outer 0
+gaps left -8
+gaps right -8
 smart_gaps on
 smart_borders on
 
@@ -164,7 +167,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id dropbox start
 #exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/kdeconnectd
 #exec --no-startup-id kdeconnect-indicator
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpaper/space1.jpg
+exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpaper/black.jpg
 
 
 
