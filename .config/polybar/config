@@ -30,6 +30,9 @@ spotify = ${xrdb:color3:#00ff00}
 border-primary = ${xrdb:color13:#9f78e1}
 
 
+[variables]
+network-name = ${env:NETWORK_NAME}
+
 [settings]
 screenchange-reload = true
 
@@ -72,7 +75,7 @@ cursor-scroll = ns-resize
 
 [bar/main]
 inherit = bar/base
-modules-left = i3 xbacklight spotify
+modules-left = i3 wlan spotify
 modules-center = date 
 modules-right = cpu memory filesystem eth battery pulseaudio powermenu
 
@@ -80,7 +83,7 @@ modules-right = cpu memory filesystem eth battery pulseaudio powermenu
 [bar/primary]
 inherit = bar/base
 line-size = 0
-modules-left = i3 xbacklight 
+modules-left = i3 wlan 
 modules-center = date 
 modules-right = cpu memory filesystem eth battery powermenu
 
@@ -158,7 +161,7 @@ format-mounted-prefix-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp37s0
+interface = ${variables.network-name}
 interval = 3.0
 format-connected-prefix = " " 
 format-connected-prefix-foreground = ${colors.foreground-alt}
@@ -171,10 +174,11 @@ format-disconnected =
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0
+interface = ${variables.network-name}
 interval = 3.0
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = ${colors.border-primary}
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %essid%
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -217,15 +221,13 @@ type = internal/battery
 battery = BAT0
 adapter = ADP1
 full-at = 98
-format-charging = "<ramp-capacity>  <label-charging> "
-format-charging-prefix = " "
-format-charging-underline = ${colors.border-primary}
+format-charging = "<label-charging> "
+format-charging-prefix = " "
+format-charging-prefix-foreground = ${colors.foreground-alt}
 format-discharging = "<ramp-capacity> <label-discharging> "
 format-discharging-prefix = " "
-format-discharging-underline = ${self.format-charging-underline}
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
