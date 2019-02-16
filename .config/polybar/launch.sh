@@ -2,7 +2,8 @@
 
 killall -q polybar
 
-export NETWORK_NAME=$(ls --ignore lo /sys/class/net)
+export ETHERNET_INT=$(ls --ignore lo --ignore w* /sys/class/net)
+export WIFI_INT=$(ls --ignore lo --ignore e* /sys/class/net)
 
 # Wait until the processes have stopped
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done

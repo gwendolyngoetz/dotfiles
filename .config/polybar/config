@@ -31,7 +31,8 @@ border-primary = ${xrdb:color13:#9f78e1}
 
 
 [variables]
-network-name = ${env:NETWORK_NAME}
+ethernet-int = ${env:ETHERNET_INT}
+wifi-int = ${env:WIFI_INT}
 
 [settings]
 screenchange-reload = true
@@ -161,7 +162,7 @@ format-mounted-prefix-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = ${variables.network-name}
+interface = ${variables.ethernet-int}
 interval = 3.0
 format-connected-prefix = " " 
 format-connected-prefix-foreground = ${colors.foreground-alt}
@@ -174,16 +175,19 @@ format-disconnected =
 
 [module/wlan]
 type = internal/network
-interface = ${variables.network-name}
+interface = ${variables.wifi-int}
 interval = 3.0
+
 format-connected = <ramp-signal> <label-connected>
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %essid%
+
 format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+
 ramp-signal-0 = 
 ramp-signal-1 = 
 ramp-signal-2 = 
