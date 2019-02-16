@@ -2,6 +2,8 @@
 
 killall -q polybar
 
+export NETWORK_NAME=$(ls --ignore lo /sys/class/net)
+
 # Wait until the processes have stopped
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
