@@ -132,7 +132,7 @@ client.background          $black
 
 # apps
 bindsym $mod+minus exec urxvt
-bindsym $mod+backslash exec firefox
+bindsym $mod+backslash exec env GTK_THEME=Adwaita:light firefox
 bindsym $mod+apostrophe exec yakyak
 bindsym $mod+s exec flameshot gui
 bindsym $mod+e exec thunar
