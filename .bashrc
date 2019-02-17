@@ -133,4 +133,9 @@ if [ "$XDG_CURRENT_DESKTOP" = "i3" ]; then
     export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
 fi 
 
+# Set up to manage dotfiles in git repository
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# This keeps vim from freezing when pressing ctrl-s. Without you have to 
+#press ctrl-q to resume
+stty -ixon
