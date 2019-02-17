@@ -78,7 +78,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 wlan spotify
 modules-center = date 
-modules-right = cpu memory filesystem eth battery pulseaudio powermenu
+modules-right = cpu memory filesystem eth battery pulseaudio
 
 
 [bar/primary]
@@ -86,7 +86,7 @@ inherit = bar/base
 line-size = 0
 modules-left = i3 wlan 
 modules-center = date 
-modules-right = cpu memory filesystem eth battery powermenu
+modules-right = cpu memory filesystem eth battery
 
 
 [bar/secondary]
