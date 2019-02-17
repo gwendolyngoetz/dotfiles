@@ -128,7 +128,7 @@ label-urgent-padding = 2
 [module/date]
 type = internal/date
 interval = 5
-date = "  %{F#99}%a %b %d, %Y%{F-}"
+date = "  %{F#99}%a, %b %d%{F-}"
 time = " %{F#fff} %I:%M %p%{F-}"
 label = "%date% %time% "
 
