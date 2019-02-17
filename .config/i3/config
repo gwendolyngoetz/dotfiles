@@ -117,13 +117,14 @@ set_from_resource $cyan        color20 #000000
 set_from_resource $darkwhite   color7  #000000
 set_from_resource $white       color15 #000000
 set_from_resource $border      color0  #000000
+set_from_resource $indicator   color22 #000000
 # Use custom colors for black
 set $black       #282828
 set $darkblack   #1d2021
 set $clear #00000000
 
 #                          border      background    text        indicator   child-border
-client.focused             #4c7899     $magenta      $white      $cyan       $magenta
+client.focused             #4c7899     $magenta      $white      $indicator  $magenta
 client.focused_inactive    $border     $black        $white      $darkblack  $border
 client.unfocused           $border     $clear        $clear      $clear      $border
 client.urgent              $darkred    $darkred      $black      $darkred    $darkred
