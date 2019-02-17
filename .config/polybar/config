@@ -112,15 +112,15 @@ label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 ; Available tokens: %name% %icon% %index% %output%
 ; Default: %icon% %name%
-label-focused = %index%
+label-focused = %name%
 label-focused-background = ${colors.border-primary}
 label-focused-padding = 2
-label-unfocused = %index%
+label-unfocused = %name%
 label-unfocused-padding = 2
-label-visible = %index%
+label-visible = %name%
 label-visible-background = ${colors.background-alt}
 label-visible-padding = 2
-label-urgent = %index%
+label-urgent = %name%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
@@ -328,6 +328,7 @@ format-underline = ${colors.spotify}
 format-prefix = " "
 format-prefix-foreground = ${colors.spotify}
 label = %output:0:150%
+click-left = "i3-msg 'workspace 10:'"
 
 
 [module/demo-ipc]
