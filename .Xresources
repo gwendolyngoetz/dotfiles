@@ -17,6 +17,7 @@
 #define base0D #62d6e8
 #define base0E #9f78e1
 #define base0F #00f769
+#define base10 #e1c078
 
 *foreground:   base05
 
@@ -52,6 +53,7 @@
 *color19:      base02
 *color20:      base04
 *color21:      base06
+*color22:      base10
 
 #if WIDTH == 3840
     Xft.dpi: 232
