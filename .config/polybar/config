@@ -319,7 +319,7 @@ card = intel_backlight
 [module/spotify]
 ;https://github.com/NicholasFeldman/dotfiles/blob/master/polybar/.config/polybar/spotify.sh
 type = custom/script
-exec = ~/.config/polybar/spotify.sh
+exec = ~/.config/polybar/scripts/spotify.sh
 interval = 1
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
