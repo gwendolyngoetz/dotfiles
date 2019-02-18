@@ -77,7 +77,7 @@ cursor-scroll = ns-resize
 [bar/main]
 inherit = bar/base
 modules-left = i3 wlan spotify
-modules-center = date 
+modules-center = date time
 modules-right = cpu memory filesystem weather eth battery pulseaudio
 
 
@@ -126,11 +126,27 @@ label-urgent-padding = 2
 
 
 [module/date]
-type = internal/date
+type = custom/script
+exec = ~/.config/polybar/scripts/date.sh
+interval = 300
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = -1
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %output%
+
+
+[module/time]
+type = custom/script
+exec = ~/.config/polybar/scripts/time.sh
 interval = 5
-date = "  %{F#99}%a, %b %d%{F-}"
-time = " %{F#fff} %I:%M %p%{F-}"
-label = "%date% %time% "
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = -1
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+label = %output%
 
 
 [module/cpu]
