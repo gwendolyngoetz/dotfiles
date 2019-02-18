@@ -78,7 +78,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 wlan spotify
 modules-center = date 
-modules-right = cpu memory filesystem eth battery pulseaudio
+modules-right = cpu memory filesystem weather eth battery pulseaudio
 
 
 [bar/primary]
@@ -329,6 +329,18 @@ format-prefix = " "
 format-prefix-foreground = ${colors.spotify}
 label = %output:0:150%
 click-left = "i3-msg 'workspace 10:'"
+
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/scripts/weather.sh
+interval = 900
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = 1
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %output%
 
 
 [module/demo-ipc]
