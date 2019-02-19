@@ -1,3 +1,4 @@
+!Theme originally based on Darcula, but has been tweaked
 !scheme: "Dracula"
 !author: "Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)"
 
@@ -10,12 +11,12 @@
 #define base06 #f1f2f8
 #define base07 #f7f7fb
 #define base08 #ea51b2
-#define base09 #9f78e1
+#define base09 #5a4799
 #define base0A #00f769
 #define base0B #a1b56c
 #define base0C #a1efe4
 #define base0D #62d6e8
-#define base0E #9f78e1
+#define base0E #5a4799
 #define base0F #00f769
 #define base10 #e1c078
 
