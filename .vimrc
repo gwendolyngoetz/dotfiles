@@ -14,8 +14,8 @@ call vundle#begin('$HOME/.vim/bundle/')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 " Add all your plugins here, call :PluginInstall after starting
-"Plugin 'tmhedberg/SimpylFold'
-"Plugin 'w0rp/ale'
+""Plugin 'tmhedberg/SimpylFold'
+Plugin 'w0rp/ale'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'python-mode/python-mode'
@@ -24,8 +24,8 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'davidhalter/jedi-vim'
 "Plugin 'PProvost/vim-ps1' 
 "Plugin 'matze/vim-move'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'maralla/completor.vim'
+""Plugin 'Valloric/YouCompleteMe'
+""Plugin 'maralla/completor.vim'
 Plugin 'chrisbra/Colorizer'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,6 +91,18 @@ nnoremap <S-Tab> :bprevious<CR>
 
 " NERDTree settings
 map <C-N> :NERDTreeToggle<CR>
+
+" ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+" Autocmd Settings
+" ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    "\ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
 
 
 " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
