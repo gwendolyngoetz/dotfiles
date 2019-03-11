@@ -13,7 +13,7 @@ bindsym $mod+Return exec urxvt #i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec "rofi -modi drun,window -show drun -sidebar-mode"
+bindsym $mod+d exec "QT_QPA_PLATFORMTHEME=kde rofi -modi drun,window -show drun -sidebar-mode"
 
 # change focus
 bindsym $mod+h focus left
@@ -136,7 +136,7 @@ bindsym $mod+minus exec urxvt
 bindsym $mod+backslash exec env GTK_THEME=Adwaita:light firefox
 bindsym $mod+apostrophe exec yakyak
 bindsym $mod+s exec flameshot gui
-bindsym $mod+e exec thunar
+bindsym $mod+e exec QT_QPA_PLATFORMTHEME=kde dolphin
 bindsym $mod+c exec wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
 
 # polybar
