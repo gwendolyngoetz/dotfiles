@@ -157,6 +157,7 @@ hide_edge_borders smart
 
 # open specific applications in floating mode
 for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [title="Copying" class="dolphin" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
