@@ -139,3 +139,6 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # This keeps vim from freezing when pressing ctrl-s. Without you have to 
 #press ctrl-q to resume
 stty -ixon
+
+# Tired of have to retype when I use the wrong commandTired of have to retype when I use the wrong command
+alias cls=clear
