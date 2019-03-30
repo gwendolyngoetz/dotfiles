@@ -307,6 +307,14 @@ label = %output:0:150%
 click-left = "i3-msg 'workspace 10:'"
 
 
+[module/title]
+type = internal/xwindow
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %title:30:30%
+#label-maxlen = 30
+
+
 [module/weather]
 type = custom/script
 exec = ~/.config/polybar/scripts/weather.sh
