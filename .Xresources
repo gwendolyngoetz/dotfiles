@@ -65,6 +65,7 @@
     Xft.antialias: 1
     Xft.rgba: rgb
     polybar.height: 60
+    rofi.dpi: 232
 #endif
 
 
