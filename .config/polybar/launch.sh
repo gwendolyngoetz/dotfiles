@@ -8,8 +8,13 @@ export WIFI_INT=$(ls --ignore lo --ignore e* /sys/class/net)
 # Wait until the processes have stopped
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-for m in $(polybar --list-monitors | cut -d":" -f1); do
+# Add main bar to both displays
+for m in $(xrandr --query | grep -w connected | cut -d' ' -f1); do
 	MONITOR=$m polybar --reload main &
 	#MONITOR=$m polybar --reload primary &
-	#MONITOR=$m polybar --reload secondary &
 done
+
+# Add tray bar to first display
+for m in $(xrandr --query | grep -w connected | cut -d' ' -f1 | head -n 1); do
+    MONITOR=$m polybar --reload secondary &
+done 

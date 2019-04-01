@@ -91,13 +91,14 @@ modules-right = cpu memory filesystem eth battery
 
 [bar/secondary]
 inherit = bar/base
-;background = #0
+background = #000000
 bottom = true
-modules-left = spotify
+modules-left = placeholder
 modules-center = 
-modules-right = pulseaudio 
-;tray-position = right
-;tray-padding = 2
+modules-right =
+height = 16
+tray-position = right
+tray-padding = 2
 
 
 [module/i3]
@@ -123,6 +124,13 @@ label-visible-padding = 2
 label-urgent = %name%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
+
+
+[module/placeholder]
+type = custom/text
+content = .
+content-background = #000000
+content-foreground = #000000
 
 
 [module/date]
