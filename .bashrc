@@ -142,3 +142,7 @@ stty -ixon
 
 # Tired of have to retype when I use the wrong commandTired of have to retype when I use the wrong command
 alias cls=clear
+
+# Opt-out of dotnet telemtry
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
