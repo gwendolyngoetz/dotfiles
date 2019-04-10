@@ -1,0 +1,14 @@
+-----Blogs-----
+https://feeds.hanselman.com/ScottHanselman "~Hanselman Blog"
+https://feeds.feedburner.com/d0od "~OMG! Ubuntu"
+https://rob.conery.io/feed "~Rob Conery"
+
+-----Github-----
+https://github.com/i3/i3/releases.atom "~GITHUB: i3"
+https://github.com/jaagr/polybar/releases.atom "~GITHUB: polybar"
+https://github.com/newsboat/newsboat/releases.atom "~GITHUB: newsboat"
+https://github.com/vector-im/riot-web/releases.atom "~GITHUB: riot-web"
+https://github.com/matrix-org/synapse/releases.atom "~GITHUB: matrix-synapse"
+
+-----Youtube-----
+https://www.youtube.com/feeds/videos.xml?user=BryanLunduke "~YOUTUBE: Lunduke"
