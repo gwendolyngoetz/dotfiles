@@ -179,7 +179,7 @@ workspace $ws10 output DP-4
 
 # start applications
 #exec --no-startup-id compton -b
-exec --no-startup-id dropbox start
+#exec --no-startup-id dropbox start
 #exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/kdeconnectd
 #exec --no-startup-id "sleep 2 && QT_QPA_PLATFORMTHEME=qt5ct kdeconnect-indicator"
 exec_always --no-startup-id xset s off
