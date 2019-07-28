@@ -124,8 +124,8 @@ fi
 
 # Python Virtual Env
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-. /usr/local/bin/virtualenvwrapper.sh
+source ~/.local/bin/virtualenvwrapper.sh
+. ~/.local/bin/virtualenvwrapper.sh
 
 # QT config
 if [ "$XDG_CURRENT_DESKTOP" = "i3" ]; then
