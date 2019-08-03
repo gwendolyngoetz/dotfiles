@@ -1,0 +1,45 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 436,
+       "width": 804,
+       "x": 0,
+       "y": 0
+    },
+    "name": "Terminal",
+    "percent": 0.344444444444444,
+    "swallows": [
+       {
+        "class": "^URxvt$",
+        "instance": "^urxvt$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1378,
+       "width": 1526,
+       "x": 0,
+       "y": 0
+    },
+    "name": "Blank Firefox Page",
+    "percent": 0.655555555555556,
+    "swallows": [
+       {
+        "class": "^Firefox$",
+        "instance": "^Navigator$",
+        "title": "^Mozilla Firefox$",
+        "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}
+
