@@ -12,3 +12,5 @@
 	process = git-lfs filter-process
 [credential]
 	helper = store
+[alias]
+	st = status
