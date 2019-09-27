@@ -70,7 +70,8 @@
 
 
 ! urxvt settings
-URxvt.transparent: true
+!URxvt.transparent: true
+URxvt.background:  black
 URxvt.shading:     20
 URxvt.scrollBar:   false
 URxvt.font:        xft:monospace:size=10
