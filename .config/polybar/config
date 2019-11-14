@@ -335,6 +335,12 @@ format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 
 
+[module/pomo]
+type = custom/script
+interval = 1
+exec = pomo status
+
+
 [module/demo-ipc]
 ;make sure to enable ipc in the bar settings
 type = custom/ipc
