@@ -18,7 +18,7 @@
                "y": 0
             },
             "name": "Video",
-            "percent": 0.7,
+            "percent": 0.6,
             "swallows": [
                {
                 "class": "^Firefox$",
@@ -39,12 +39,12 @@
                "y": 0
             },
             "name": "Chat",
-            "percent": 0.3,
+            "percent": 0.4,
             "swallows": [
                {
-                  "class": "^Firefox$",
-                  "instance": "^Navigator$",
-                  "window_role": "^browser$"
+                "class": "^Firefox$",
+                "instance": "^Navigator$",
+                "window_role": "^browser$"
                }
             ],
             "type": "con"
@@ -66,8 +66,8 @@
     "percent": 0.5,
     "swallows": [
        {
-          "class": "^URxvt$",
-          "instance": "^urxvt$"
+        "class": "^URxvt$",
+        "instance": "^urxvt$"
        }
     ],
     "type": "con"
