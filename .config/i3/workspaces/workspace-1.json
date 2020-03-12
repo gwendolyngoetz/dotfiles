@@ -10,7 +10,7 @@
        "y": 0
     },
     "name": "Terminal",
-    "percent": 0.344444444444444,
+    "percent": 0.244444444444444,
     "swallows": [
        {
         "class": "^URxvt$",
@@ -31,7 +31,7 @@
        "y": 0
     },
     "name": "Blank Firefox Page",
-    "percent": 0.655555555555556,
+    "percent": 0.755555555555556,
     "swallows": [
        {
         "class": "^Firefox$",
