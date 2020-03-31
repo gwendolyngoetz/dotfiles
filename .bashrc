@@ -142,7 +142,7 @@ stty -ixon
 
 # Tired of have to retype when I use the wrong commandTired of have to retype when I use the wrong command
 alias cls=clear
-
+alias aptup='sudo apt update && sudo apt list --upgradable'
 # Opt-out of dotnet telemtry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
