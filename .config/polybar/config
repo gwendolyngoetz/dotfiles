@@ -78,7 +78,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 wlan spotify
 modules-center = date time
-modules-right = cpu memory filesystem weather eth battery pulseaudio
+modules-right = covid-infected covid-dead cpu memory filesystem weather eth battery pulseaudio
 
 
 [bar/primary]
@@ -339,6 +339,30 @@ label = %output%
 type = custom/script
 interval = 1
 exec = pomo status
+
+
+[module/covid-infected]
+type = custom/script
+exec = ~/.config/polybar/scripts/covid-infected.sh
+interval = 3600
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = 1
+format-prefix = "若 "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %output%
+
+
+[module/covid-dead]
+type = custom/script
+exec = ~/.config/polybar/scripts/covid-dead.sh
+interval = 3600
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = 1
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %output%
 
 
 [module/demo-ipc]
