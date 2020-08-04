@@ -23,7 +23,7 @@ window {
 }
 
 mainbox {
-	children: [inputbar, message, sidebar, listview];
+	children: [inputbar, message, listview];
 	spacing: 30px;
 	/*margin: 20%;*/
 	padding: 30px 0;
