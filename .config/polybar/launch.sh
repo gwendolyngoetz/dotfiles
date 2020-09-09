@@ -2,7 +2,7 @@
 
 killall -q polybar
 
-export ETHERNET_INT=$(ls --ignore lo --ignore docker* --ignore virbr* /sys/class/net)
+export ETHERNET_INT=$(ls --ignore lo --ignore docker* --ignore virbr* --ignore w* /sys/class/net)
 export WIFI_INT=$(ls --ignore lo --ignore e* --ignore docker* /sys/class/net)
 
 # Wait until the processes have stopped
