@@ -78,7 +78,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 wlan spotify
 modules-center = date time
-modules-right = cpu memory filesystem weather eth battery pulseaudio
+modules-right = cpu memory filesystem weather airquality eth battery pulseaudio
 
 
 [bar/primary]
@@ -147,6 +147,15 @@ type = custom/script
 exec = ~/.config/polybar/scripts/time.sh
 interval = 5
 format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %output%
+
+
+[module/airquality]
+type = custom/script
+exec = ~/.config/polybar/scripts/air-quality.sh
+interval = 900
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 
