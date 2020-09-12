@@ -34,6 +34,7 @@ border-primary = ${xrdb:color13:#9f78e1}
 ethernet-int = ${env:ETHERNET_INT}
 wifi-int = ${env:WIFI_INT}
 
+
 [settings]
 screenchange-reload = true
 
@@ -78,7 +79,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 wlan spotify
 modules-center = date time
-modules-right = cpu memory filesystem weather airquality eth battery pulseaudio
+modules-right = cpu memory filesystem temperature weather airquality eth battery pulseaudio
 
 
 [bar/primary]
@@ -348,6 +349,12 @@ label = %output%
 type = custom/script
 interval = 1
 exec = pomo status
+
+
+[module/temperature]
+type = internal/temperature
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
 
 
 [module/covid-infected]
