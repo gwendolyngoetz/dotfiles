@@ -11,11 +11,12 @@ AIRNOW_API_URL="http://www.airnowapi.org/aq/observation/zipCode/current/?format=
 AIRNOW_API_RESPONSE=$(curl --silent --location --request GET $AIRNOW_API_URL)
 
 
-echo $AIRNOW_API_RESPONSE | jq -r '.[]
+OUTPUT=$(echo $AIRNOW_API_RESPONSE | jq -r '.[]
 | select(.ParameterName=="PM2.5")
 | ((.AQI|tostring) + " " + .Category.Name)
-| .[0:5]'
+| .[0:5]')
 
 
+echo $OUTPUT | awk -F" " '{ print $1 "-" substr($2,1,1) }'
 
 
