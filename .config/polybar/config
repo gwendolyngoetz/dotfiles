@@ -355,6 +355,8 @@ exec = pomo status
 type = internal/temperature
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
+interval = 2
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input
 
 
 [module/covid-infected]
