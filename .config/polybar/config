@@ -383,6 +383,17 @@ format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 
 
+[module/menu1]
+type = custom/script
+click-left = ~/.config/polybar/scripts/menu1.sh
+exec = ~/.config/polybar/scripts/xmenu-button.sh
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = 1
+tail = true
+interval = 90
+
+
 [module/demo-ipc]
 ;make sure to enable ipc in the bar settings
 type = custom/ipc
