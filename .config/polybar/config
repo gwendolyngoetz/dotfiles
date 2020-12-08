@@ -79,7 +79,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 wlan spotify
 modules-center = date time
-modules-right = cpu memory filesystem temperature weather airquality eth battery pulseaudio
+modules-right = cpu memory filesystem temperature weather airquality eth battery pulseaudio shutdown-menu
 
 
 [bar/primary]
@@ -383,9 +383,9 @@ format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 
 
-[module/menu1]
+[module/shutdown-menu]
 type = custom/script
-click-left = ~/.config/polybar/scripts/menu1.sh
+click-left = ~/.config/polybar/scripts/shutdown-menu.sh
 exec = ~/.config/polybar/scripts/xmenu-button.sh
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
