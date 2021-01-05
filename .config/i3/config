@@ -166,6 +166,8 @@ for_window [title="Copying" class="dolphin" window_type="dialog"] floating enabl
 for_window [class="Inkscape" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="obs" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Solaar"] floating enable sticky enable border normal
+for_window [class="Pavucontrol"] floating enable sticky enable border normal
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="kcalc"] floating enable sticky enable border normal
