@@ -13,8 +13,8 @@
     "percent": 0.244444444444444,
     "swallows": [
        {
-        "class": "^URxvt$",
-        "instance": "^urxvt$"
+        "class": "^Alacritty$",
+        "instance": "^alacritty$"
        }
     ],
     "type": "con"

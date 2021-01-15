@@ -81,9 +81,9 @@ window:
   #dynamic_title: true
 
   # Window class (Linux/BSD only):
-  #class:
+  class:
     # Application instance name
-    #instance: Alacritty
+    instance: alacritty
     # General application class
     #general: Alacritty
 
