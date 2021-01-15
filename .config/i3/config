@@ -193,7 +193,8 @@ no_focus [title="Microsoft Teams Notification"]
 exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset dpms 0 0 3600
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpaper/black.jpg
-exec_always --no-startup-id dunst -config "~/.config/dunst/dunstrc"
+exec --no-startup-id solaar
+exec --no-startup-id dunst -config "~/.config/dunst/dunstrc"
 exec --no-startup-id "~/.config/i3/scripts/load-workspaces.sh"
 
 
