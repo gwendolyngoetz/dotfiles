@@ -1,0 +1,3 @@
+polybar 3.4.0-79-g853ea99
+
+Features: +alsa +curl +i3 +mpd +network(libnl) +pulseaudio +xkeyboard
