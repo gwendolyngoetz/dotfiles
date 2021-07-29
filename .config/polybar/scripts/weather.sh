@@ -1,5 +1,6 @@
 #!/bin/bash
 
 # Print the current temperature
+OUTPUT=$(curl -s wttr.in/seattle?format=j1 | jq -r '.current_condition[0].FeelsLikeF')
 
-curl -s wttr.in/seattle?format=%t | awk -F + '{print substr($1$2,1,7)}'
+echo $OUTPUT°F
