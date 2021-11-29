@@ -33,7 +33,7 @@ border-primary = ${xrdb:color13:#9f78e1}
 [variables]
 ethernet-int = ${env:ETHERNET_INT}
 wifi-int = ${env:WIFI_INT}
-
+i3-padding = 3
 
 [settings]
 screenchange-reload = true
@@ -109,22 +109,22 @@ index-sort = true
 wrapping-scroll = false
 strip-wsnumbers = true
 pin-workspaces = true
-label-mode-padding = 2
+label-mode-padding = ${variables.i3-padding}
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 ; Available tokens: %name% %icon% %index% %output%
 ; Default: %icon% %name%
 label-focused = %name%
 label-focused-background = ${colors.border-primary}
-label-focused-padding = 2
+label-focused-padding = ${variables.i3-padding}
 label-unfocused = %name%
-label-unfocused-padding = 2
+label-unfocused-padding = ${variables.i3-padding}
 label-visible = %name%
 label-visible-background = ${colors.background-alt}
-label-visible-padding = 2
+label-visible-padding = ${variables.i3-padding}
 label-urgent = %name%
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding = ${variables.i3-padding}
 
 
 [module/placeholder]
