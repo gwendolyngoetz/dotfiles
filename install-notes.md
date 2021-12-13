@@ -23,6 +23,10 @@ Purged required or you get errors with AppArmor
 sudo touch /etc/cloud/cloud-init.disabled
 ```
 
+## Set timezone
+```
+sudo timedatectl set-timezone America/Los_Angeles
+```
 
 ## Disable Wifi
 
@@ -45,6 +49,15 @@ edit  /etc/netplan config to set unused eth adapter to
   - dhcp4=false
   - dhcp6=false
 
+
+## Audio
+
+```
+sudo apt install alsa-utils
+sudo usermod -aG audio $USER
+
+sudo apt install pavucontrol
+```
 
 
 ## Install i3
@@ -243,6 +256,31 @@ sudo apt install
 
 ```
 
+
+## Install apps used by my polybar scripts
+```
+sudo apt install jq
+```
+
+## Install xmenu
+```
+sudo apt install libxinerama-dev
+sudo apt install libimlib2-dev
+
+
+cd ~/src/github
+git clone https://github.com/phillbush/xmenu.git
+cd xmenu
+make
+make install
+```
+
+
+## Install apps used by other
+```
+sudo apt install libnotify-bin
+```
+
 ## Install Spotify (from deb)
 ```
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
@@ -252,8 +290,52 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 sudo apt-get update && sudo apt-get install spotify-client
 ```
 
+## Install obs
+
+```
+sudo apt install ffmpeg
+```
+
+### Install v4lsloopback
+```
+sudo apt install v4l2loopback-dkms
+```
+
+FIX FOR NOW
+
+Download from https://packages.debian.org/sid/all/v4l2loopback-dkms/download
+sudo modprobe -r v4l2loopback
+sudo dpkg -i $HOME/Downloads/v4l2loopback-dkms_0.12.5-1_all.deb
+sudo apt-mark hold v4l2loopback-dkms
+
+
+sudo apt install mesa-utils  #for glxinfo
+
+sudo add-apt-repository ppa:obsproject/obs-studio
+sudo apt update
+sudo apt install obs-studio
+```
+
+
 ## Install other apps
 
 ```
+sudo apt install zip
+sudo apt install unzip
 sudo apt install newsboat
+sudo apt install virtualbox
+sudo apt install htop
+sudo apt install keepassx
+sudo apt install virtualbox-ext-pack
+sudo apt install meld
+```
+
+
+
+
+
+## Vim
+```
+mkdir ~/.vim
+mkdir ~/.tmp
 ```
