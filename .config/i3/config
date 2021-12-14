@@ -13,7 +13,7 @@ bindsym $mod+Return exec alacritty #i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec "QT_QPA_PLATFORMTHEME=kde rofi -modi drun -show drun -sidebar-mode"
+bindsym $mod+d exec "rofi -modi drun -show drun -sidebar-mode"
 
 # play/pause spotify
 bindsym $mod+slash exec "~/.config/i3/scripts/playpause.sh"
@@ -141,7 +141,7 @@ bindsym $mod+minus exec alacritty
 bindsym $mod+backslash exec env GTK_THEME=Adwaita:light firefox
 bindsym $mod+apostrophe exec yakyak
 bindsym $mod+s exec flameshot gui
-bindsym $mod+e exec QT_QPA_PLATFORMTHEME=kde dolphin
+bindsym $mod+e exec dolphin
 bindsym $mod+c exec wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
 
 # polybar
