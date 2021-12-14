@@ -141,7 +141,7 @@ bindsym $mod+minus exec alacritty
 bindsym $mod+backslash exec env GTK_THEME=Adwaita:light firefox
 bindsym $mod+apostrophe exec yakyak
 bindsym $mod+s exec flameshot gui
-bindsym $mod+e exec dolphin
+bindsym $mod+e exec thunar
 bindsym $mod+c exec wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
 
 # polybar

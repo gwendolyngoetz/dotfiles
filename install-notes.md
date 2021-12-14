@@ -329,6 +329,7 @@ sudo apt install keepassx
 sudo apt install virtualbox-ext-pack
 sudo apt install meld
 sudo apt install qt5ct
+sudo apt install thunar
 ```
 
 
