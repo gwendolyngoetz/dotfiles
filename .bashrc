@@ -127,12 +127,6 @@ fi
 #source ~/.local/bin/virtualenvwrapper.sh
 #. ~/.local/bin/virtualenvwrapper.sh
 
-# QT config
-if [ "$XDG_CURRENT_DESKTOP" = "i3" ]; then
-    export QT_QPA_PLATFORMTHEME=kde
-    export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
-fi 
-
 # Set up to manage dotfiles in git repository
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
