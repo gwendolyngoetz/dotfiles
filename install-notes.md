@@ -328,10 +328,15 @@ sudo apt install htop
 sudo apt install keepassx
 sudo apt install virtualbox-ext-pack
 sudo apt install meld
+sudo apt install qt5ct
 ```
 
 
-
+## Install dracula qt5 theme
+```
+git clone https://github.com/dracula/qt5.git ~/src/github/qt5-dracula-theme
+cp ~/src/github/qt5-dracula-theme/Dracula.conf ~/.config/qt5ct/colors/
+```
 
 
 ## Vim
