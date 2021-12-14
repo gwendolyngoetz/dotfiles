@@ -3,9 +3,11 @@
 
 ## Install Tools
 
-- network-manager  // for nmcli
-- git
-
+```
+sudo apt install git
+sudo apt install network-manager  // for nmcli
+sudo apt install vim
+```
 
 ## Remove Snapd
 
@@ -14,7 +16,7 @@ sudo apt remove snapd
 sudo apt purge snapd
 ```
 
-Purged required or you get errors with AppArmor
+Purge required or you get errors with AppArmor
 
 
 ## Disable Cloud init
@@ -38,25 +40,45 @@ sudo printf "\n# 12/12/2021 Block wifi\nblacklist iwlwifi" | sudo tee -a /etc/mo
 
 Removed wifi specific file from /etc/netplan directory
 
-```
-sudo netplan apply
-```
 
 ## Disable Extra Ethernet Adapter
 
-edit  /etc/netplan config to set unused eth adapter to 
+```
+sudo vim /etc/netplan/00-installer-config.yaml
+```
+
+Change the renderer to NetworkManager and make enp7s0 optional
   - optional=true
   - dhcp4=false
   - dhcp6=false
 
 
+### Sample
+```
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp6s0:
+      dhcp4: true
+    enp7s0:
+      dhcp4: false
+      dhcp6: false
+      optional: true
+```
+
+### Regenerate netplan 
+```
+sudo netplan apply
+```
+
+
 ## Audio
 
 ```
+sudo apt install pavucontrol
 sudo apt install alsa-utils
 sudo usermod -aG audio $USER
-
-sudo apt install pavucontrol
 ```
 
 
@@ -167,10 +189,57 @@ sudo apt install firefox
 ```
 
 
-## Install SDDM
+## Configure SDDM
+
+### Install SDDM
 ```
 sudo apt install sddm
-sudo sddm --example-config | sudo tee -a /etc/sddm/sddm.conf
+sudo sddm --example-config | sudo tee -a /etc/sddm.conf
+```
+
+### Get SDDM Theme
+```
+git clone https://github.com/MarianArlt/sddm-chili.git ~/src/github/sddm-chili
+
+sudo mkdir /usr/share/sddm/themes/chili
+cd ~/src/github/sddm-chili
+rsync -av --exclude=".*" . /usr/share/sddm/themes/chili
+```
+
+Need to fix the perms too
+
+### Set SDDM Theme
+
+```
+sudo vim /etc/sddm.conf
+```
+
+Find [Theme] section set current theme to chili
+
+```
+[Theme]
+Current=chili
+```
+
+### Install theme dependencies
+
+```
+sudo apt install -y qml-module-qtquick-controls
+sudo apt install -y qml-module-qtquick-controls2
+```
+
+### Set perms for user icon
+
+```
+ln -s ~/.face ~/.face.icon
+
+setfacl -m u:sddm:x /home/username
+setfacl -m u:sddm:r /home/username/.face.icon
+```
+
+### Test SDDM
+```
+ sddm-greeter --test-mode --theme /usr/share/sddm/themes/chili
 ```
 
 
@@ -250,24 +319,28 @@ sudo apt install solaar
 sudo apt install flameshot
 sudo apt install zenity
 sudo apt install rofi
-
-sudo apt install 
-sudo apt install 
-
+sudo apt install thunar
 ```
 
 
-## Install apps used by my polybar scripts
+## Install apps used by my Polybar scripts
 ```
 sudo apt install jq
 ```
+### Set values in .profile
+Need to add the AIRNOW values in .profile for the air quality api
+
 
 ## Install xmenu
+
+### Install depencendies
 ```
 sudo apt install libxinerama-dev
 sudo apt install libimlib2-dev
+```
 
-
+### Compile xmenu
+```
 cd ~/src/github
 git clone https://github.com/phillbush/xmenu.git
 cd xmenu
@@ -290,27 +363,36 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 sudo apt-get update && sudo apt-get install spotify-client
 ```
 
-## Install obs
+## Install OBS Studio
+
+### Install dependencies
 
 ```
 sudo apt install ffmpeg
 ```
 
 ### Install v4lsloopback
+
+<!--
 ```
 sudo apt install v4l2loopback-dkms
 ```
+-->
 
-FIX FOR NOW
+<pre><code><del>sudo apt install v4l2loopback-dkms</del></code></pre>
+#### FIX FOR NOW
 
-Download from https://packages.debian.org/sid/all/v4l2loopback-dkms/download
+Currently the package on Ubuntu has issues when trying to start again. Download from https://packages.debian.org/sid/all/v4l2loopback-dkms/download
+
+```
 sudo modprobe -r v4l2loopback
+
 sudo dpkg -i $HOME/Downloads/v4l2loopback-dkms_0.12.5-1_all.deb
 sudo apt-mark hold v4l2loopback-dkms
+```
 
-
-sudo apt install mesa-utils  #for glxinfo
-
+### Install OBS Studio
+```
 sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt update
 sudo apt install obs-studio
@@ -320,16 +402,17 @@ sudo apt install obs-studio
 ## Install other apps
 
 ```
-sudo apt install zip
-sudo apt install unzip
-sudo apt install newsboat
-sudo apt install virtualbox
 sudo apt install htop
 sudo apt install keepassx
-sudo apt install virtualbox-ext-pack
 sudo apt install meld
+sudo apt install mesa-utils  #for glxinfo
+sudo apt install newsboat
 sudo apt install qt5ct
 sudo apt install thunar
+sudo apt install unzip
+sudo apt install virtualbox
+sudo apt install virtualbox-ext-pack
+sudo apt install zip
 ```
 
 
@@ -344,4 +427,29 @@ cp ~/src/github/qt5-dracula-theme/Dracula.conf ~/.config/qt5ct/colors/
 ```
 mkdir ~/.vim
 mkdir ~/.tmp
+
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+vim +PluginInstall +qall
+```
+
+
+## Install VSCode
+
+### Setup apt
+```
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+
+rm -f packages.microsoft.gpg
+```
+
+### Install VS Code
+
+```
+sudo apt update
+sudo apt install code
 ```
