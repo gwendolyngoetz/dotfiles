@@ -410,6 +410,7 @@ sudo apt install mesa-utils  #for glxinfo
 sudo apt install newsboat
 sudo apt install qt5ct
 sudo apt install thunar
+sudo apt install ttf-mscorefonts-installer
 sudo apt install unzip
 sudo apt install virtualbox
 sudo apt install virtualbox-ext-pack
