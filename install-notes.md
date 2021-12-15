@@ -404,6 +404,7 @@ sudo apt install obs-studio
 ```
 sudo apt install htop
 sudo apt install keepassx
+sudo apt install lxappearance
 sudo apt install meld
 sudo apt install mesa-utils  #for glxinfo
 sudo apt install newsboat
