@@ -412,3 +412,7 @@
 #    set_stack_tag = "volume"
 #
 # vim: ft=cfg
+#
+[solaar]
+    appname = "Solaar"
+    format = ""
