@@ -436,6 +436,8 @@ sudo apt install obs-studio
 ## Install other apps
 
 ```
+sudo apt install darktable
+sudo apt install gimp
 sudo apt install htop
 sudo apt install keepassxc
 sudo apt install libreoffice
