@@ -454,6 +454,16 @@ sudo apt install virtualbox-ext-pack
 sudo apt install zip
 ```
 
+### Install bat
+
+Create a symlink because of Ubuntu conflict
+
+```
+sudo apt install bat
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
+```
+
 
 ## Install dracula qt5 theme
 ```
