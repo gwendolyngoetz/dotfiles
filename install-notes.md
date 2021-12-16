@@ -9,6 +9,40 @@ sudo apt install network-manager  // for nmcli
 sudo apt install vim
 ```
 
+## Fix Partition Size
+
+### Check freespace
+```
+df -h
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv  196G  143G   44G  77% /
+```
+
+### Resize the logical volume
+```
+sudo lvm
+lvm> lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+lvm> exit
+```
+
+### Resize the file system
+```
+resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+
+resize2fs 1.44.1 (24-Mar-2018)
+Filesystem at /dev/mapper/ubuntu--vg-ubuntu--lv is mounted on /; on-line resizing required
+old_desc_blocks = 1, new_desc_blocks = 58
+The filesystem on /dev/mapper/ubuntu--vg-ubuntu--lv is now 120784896 (4k) blocks long.
+```
+
+### Verify freespace
+```
+$ df -h
+
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv  915G  143G  734G  17% /
+```
+
 ## Remove Snapd
 
 ```
@@ -403,7 +437,8 @@ sudo apt install obs-studio
 
 ```
 sudo apt install htop
-sudo apt install keepassx
+sudo apt install keepassxc
+sudo apt install libreoffice
 sudo apt install lxappearance
 sudo apt install meld
 sudo apt install mesa-utils  #for glxinfo
@@ -454,4 +489,10 @@ rm -f packages.microsoft.gpg
 ```
 sudo apt update
 sudo apt install code
+```
+
+
+## Install dev headers
+```
+sudo apt install libssl-dev
 ```
