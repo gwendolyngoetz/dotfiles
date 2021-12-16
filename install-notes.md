@@ -349,13 +349,19 @@ sudo make install
 ```
 sudo apt install feh
 sudo apt install dunst
-sudo apt install solaar
 sudo apt install flameshot
 sudo apt install zenity
 sudo apt install rofi
 sudo apt install thunar
 ```
 
+### Install solaar
+```
+sudo add-apt-repository ppa:solaar-unifying/stable
+sudo apt-get update
+
+sudo apt install solaar
+```
 
 ## Install apps used by my Polybar scripts
 ```
