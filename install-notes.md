@@ -515,3 +515,11 @@ sudo apt install code
 ```
 sudo apt install libssl-dev
 ```
+
+
+## Symlink theme related folders so sudo'd apps get themes
+```
+sudo ln -s ~/.themes /root/.themes
+sudo ln -s ~/.fonts /root/.fonts
+sudo ln -s ~/.icons /root/.icons
+```
