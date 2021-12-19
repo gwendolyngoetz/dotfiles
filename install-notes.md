@@ -348,11 +348,35 @@ sudo make install
 ## Install apps used by my i3 config
 ```
 sudo apt install feh
-sudo apt install dunst
 sudo apt install flameshot
 sudo apt install zenity
 sudo apt install rofi
 sudo apt install thunar
+```
+
+### Install dunst
+
+Ubuntu package is too old
+
+```
+sudo apt install libdbus-1-dev
+sudo apt install libglib2.0-dev
+sudo apt install libgtk2.0-dev
+sudo apt install libnotify-dev
+sudo apt install libpango1.0-dev
+sudo apt install libx11-dev
+sudo apt install libxdg-basedir-dev
+sudo apt install libxinerama-dev
+sudo apt install libxrandr-dev
+sudo apt install libxss-dev
+
+git clone https://github.com/dunst-project/dunst.git
+cd dunst
+make WAYLAND=0 SYSTEMD=0 SYSCONFDIR=/etc/xdg
+sudo make WAYLAND=0 SYSTEMD=0 SYSCONFDIR=/etc/xdg install
+
+# TO REMOVE
+#sudo make WAYLAND=0 SYSTEMD=0 SYSCONFDIR=/etc/xdg uninstall-purge
 ```
 
 ### Install solaar
