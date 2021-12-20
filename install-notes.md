@@ -476,6 +476,7 @@ sudo apt install libreoffice
 sudo apt install lxappearance
 sudo apt install meld
 sudo apt install mesa-utils  #for glxinfo
+sudo apt install neofetch
 sudo apt install newsboat
 sudo apt install qt5ct
 sudo apt install thunar
