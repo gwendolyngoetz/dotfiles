@@ -1,3 +1,5 @@
+# vim: ft=cfg
+
 [global]
     ### Display ###
 
@@ -150,6 +152,7 @@
     #   %%  Literal %
     # Markup is allowed
     format = "<b>%s</b>\n%b"
+    #format = "<b>summary|%s</b>\nbody|%b\nappname|%a\niconname|%i"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -409,32 +412,18 @@
 #    summary = "foobar"
 #    skip_display = yes
 
-#[signed_on]
-#    appname = Pidgin
-#    summary = "*signed on*"
-#    urgency = low
-#
-#[signed_off]
-#    appname = Pidgin
-#    summary = *signed off*
-#    urgency = low
-#
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
-#
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
-#
 #[stack-volumes]
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
 #
-# vim: ft=cfg
 #
 [Solaar]
     appname = "Solaar"
     skip_display = yes
+
+[Microsoft Teams - Preview]
+    appname = "Microsoft Teams - Preview"
+    background = "#505ac9" 
+    foreground = "#ffffff"
+    frame_color = "#7b83eb"
+    format = "<b>%s</b>\n%b"
