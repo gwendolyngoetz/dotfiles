@@ -480,6 +480,7 @@ sudo apt install neofetch
 sudo apt install newsboat
 sudo apt install qt5ct
 sudo apt install thunar
+sudo apt install tmux
 sudo apt install ttf-mscorefonts-installer
 sudo apt install unzip
 sudo apt install virtualbox
