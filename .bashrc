@@ -139,6 +139,7 @@ alias cls=clear
 alias aptup='sudo apt update && sudo apt list --upgradable'
 alias diff='diff --color'
 alias fd='fdfind'
+alias tree='exa --tree'
 
 # Opt-out of dotnet telemtry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
