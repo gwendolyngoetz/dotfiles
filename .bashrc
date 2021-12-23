@@ -140,6 +140,7 @@ alias aptup='sudo apt update && sudo apt list --upgradable'
 alias diff='diff --color'
 alias fd='fdfind'
 alias tree='exa --tree'
+alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
 
 # Opt-out of dotnet telemtry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
