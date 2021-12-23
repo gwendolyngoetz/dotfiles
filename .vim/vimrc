@@ -42,9 +42,9 @@ colorscheme dracula
 set cursorline "highlight current line
 set hlsearch "highlight search
 set viminfo+=n$HOME/.vim/.viminfo
-set backupdir=$HOME/.tmp//,.
-set directory=$HOME/.tmp//,.
-set undodir=$HOME/.tmp//,.
+set backupdir=$HOME/.vim/.tmp//,.
+set directory=$HOME/.vim/.tmp//,.
+set undodir=$HOME/.vim/.tmp//,.
 set number "Show line numbers
 set relativenumber "Relative line numbers with current line showing actual line number
 set expandtab "Convert tabs to spaces
