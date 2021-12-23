@@ -551,3 +551,12 @@ sudo ln -s ~/.themes /root/.themes
 sudo ln -s ~/.fonts /root/.fonts
 sudo ln -s ~/.icons /root/.icons
 ```
+
+## Install Segoe Fonts
+```
+cd ~/src/github/tools
+git clone https://github.com/mrbvrz/segoe-ui-linux.git
+cd ./segoe-ui-linux/font
+cp *.ttf ~/.fonts
+sudo fc-cache -fv
+```
