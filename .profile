@@ -30,6 +30,8 @@ fi
 # environment variables not to check in to source control
 if [ -f "$HOME/.private-env" ] ; then
     source "$HOME/.private-env"
+else
+    echo "$HOME/.private-env file not found" 1>&2
 fi
 
 export HISTFILE="$HOME/.config/bash/bash_history"
