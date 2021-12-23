@@ -192,7 +192,7 @@ no_focus [title="Microsoft Teams Notification"]
 #exec --no-startup-id "sleep 2 && QT_QPA_PLATFORMTHEME=qt5ct kdeconnect-indicator"
 exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset dpms 0 0 3600
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpaper/black.jpg
+exec_always --no-startup-id feh --no-fehbg --bg-scale ~/.config/i3/wallpaper/black.jpg
 exec --no-startup-id solaar --window hide
 exec --no-startup-id dunst -config "~/.config/dunst/dunstrc"
 exec --no-startup-id "~/.config/i3/scripts/load-workspaces.sh"
