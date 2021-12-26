@@ -350,7 +350,6 @@ sudo make install
 sudo apt install feh
 sudo apt install flameshot
 sudo apt install zenity
-sudo apt install rofi
 sudo apt install thunar
 ```
 
@@ -378,6 +377,27 @@ sudo make WAYLAND=0 SYSTEMD=0 SYSCONFDIR=/etc/xdg install
 # TO REMOVE
 #sudo make WAYLAND=0 SYSTEMD=0 SYSCONFDIR=/etc/xdg uninstall-purge
 ```
+
+
+### Install rofi
+
+Ubuntu package is too old
+
+```
+sudo apt install bison
+sudo apt install flex
+
+cd ~/src/github/system-repos
+git clone --recursive https://github.com/davatorium/rofi.git
+cd rofi
+autoreconf -i
+mkdir build && cd build
+
+../configure --disable-check
+make
+sudo make install
+```
+
 
 ### Install solaar
 ```
