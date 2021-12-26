@@ -1,115 +1,90 @@
-// Originally based on Base16 Material Color Scheme (https://github.com/ntpeters/base16-materialtheme-scheme)
-// Colors modified
-
 * {
-    
-    base00: #282936;
-    base03: #626483;
-    base07: #f7f7fb;
-    base0B: #a1b56c;
-    base0E: #9f78e1;
-    base0F: #00f769;
+    color-bg:  #282936CC;
+    color-fg:  #f7f7fb;
+    color-alt: #626483;
+    color-pri: #5a4799;
 
 	spacing: 0;
 	background-color: transparent;
-
-	font: "Roboto Mono 13";
+	font: "Roboto Mono 14";
 }
 
 window {
 	transparency: "real";
-	/*fullscreen: true;*/
-	background-color: #282936CC; /*base00 + CC (80% opacity)*/
+	background-color: @color-bg;
+    width: 700px;
+    height: 448px;
 }
 
 mainbox {
 	children: [inputbar, message, listview];
-	spacing: 30px;
-	/*margin: 20%;*/
-	padding: 30px 0;
+	spacing: 20px;
+	padding: 20px 0;
 	border: 1px;
-	border-color: @base0E;
+	border-color: @color-pri;
 }
 
 inputbar {
-	padding: 0 30px;
+	padding: 0 20px;
 	children: [prompt, textbox-prompt-colon, entry, case-indicator];
 }
 
 prompt {
-	text-color: @base0E;
+	text-color: @color-pri;
 }
 
 textbox-prompt-colon {
 	expand: false;
 	str: ":";
 	margin: 0 1ch 0 0;
-	text-color: @base0E;
+	text-color: @color-pri;
 }
 
 entry {
-	text-color: @base07;
-}
-
-case-indicator {
-	text-color: @base0F;
+	text-color: @color-fg;
 }
 
 sidebar, message {
+    margin: 0 10px 0 20px;
 	border: 1px 0;
-	border-color: @base0E;
+	border-color: @color-pri;
 }
 
 button, textbox {
-	background-color: @base03;
-	text-color: @base07;
+	text-color: @color-fg;
 	padding: 5px;
 }
 
 button selected {
-	background-color: @base0E;
+	background-color: @color-pri;
 }
 
 listview {
 	scrollbar: true;
-	margin: 0 10px 0 30px;
+    border: 0;
+	margin: 0 10px 0 20px;
 }
 
 scrollbar {
-	background-color: @base03;
-	handle-color: @base0E;
+	background-color: @color-alt;
+	handle-color: @color-pri;
 	handle-width: 10px;
 	border: 0 1px;
-	border-color: @base0E;
+	border-color: @color-pri;
 	margin: 0 0 0 20px;
 }
 
 element {
 	padding: 5px;
-	highlight: bold underline;
 }
 
-element normal {
-	background-color: transparent;
+element selected normal {
+	background-color: @color-pri;
 }
 
-element selected {
-	background-color: @base0E;
+element normal normal, element alternate normal {
+	text-color: @color-fg;
+	background-color: @color-bg;
 }
 
-element alternate {
-	/*background-color: @base03; 
-*/
-}
-
-element normal normal, element selected normal, element alternate normal {
-	text-color: @base07;
-}
-
-element normal urgent, element selected urgent, element alternate urgent {
-	text-color: @base0F;
-}
-
-element normal active, element selected active, element alternate active {
-	text-color: @base0B;
-}
+/* vim:ft=css
