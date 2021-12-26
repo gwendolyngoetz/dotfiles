@@ -13,7 +13,7 @@ bindsym $mod+Return exec alacritty #i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec "rofi -modi drun -show drun -sidebar-mode"
+bindsym $mod+d exec "rofi -modi drun -show drun -sidebar-mode -show-icons"
 
 # play/pause spotify
 bindsym $mod+slash exec "~/.config/i3/scripts/playpause.sh"
