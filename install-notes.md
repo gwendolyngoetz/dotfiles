@@ -4,6 +4,7 @@
 ## Install Tools
 
 ```
+sudo apt install exa
 sudo apt install git
 sudo apt install network-manager  // for nmcli
 sudo apt install vim
@@ -487,7 +488,6 @@ sudo apt install obs-studio
 
 ```
 sudo apt install darktable
-sudo apt install exa
 sudo apt install fd-find
 sudo apt install gimp
 sudo apt install htop
