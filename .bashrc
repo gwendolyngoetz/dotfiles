@@ -16,8 +16,6 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-# HISTSIZE=1000
-# HISTFILESIZE=2000
 HISTSIZE= HISTFILESIZE= # Infinite history
 
 # check the window size after each command and, if necessary,
@@ -76,9 +74,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias ls='exa --color=auto --icons'
 
     alias grep='grep --color=auto --ignore-case'
     alias fgrep='fgrep --color=auto'
@@ -90,13 +86,7 @@ fi
 
 # some more ls aliases
 alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-# commented out as vim thinks there may be an error
-##alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias la='ls -a'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -122,24 +112,18 @@ fi
 # My stuff
 #######################
 
-# Python Virtual Env
-#export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-#source ~/.local/bin/virtualenvwrapper.sh
-#. ~/.local/bin/virtualenvwrapper.sh
-
 # Set up to manage dotfiles in git repository
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # This keeps vim from freezing when pressing ctrl-s. Without you have to 
-#press ctrl-q to resume
+# press ctrl-q to resume
 stty -ixon
 
-# Tired of have to retype when I use the wrong commandTired of have to retype when I use the wrong command
 alias cls=clear
 alias aptup='sudo apt update && sudo apt list --upgradable'
 alias diff='diff --color'
 alias fd='fdfind'
-alias tree='exa --tree'
+alias tree='exa --tree --icons'
 alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
 
 # Opt-out of dotnet telemtry
