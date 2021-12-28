@@ -506,6 +506,7 @@ sudo apt install ttf-mscorefonts-installer
 sudo apt install unzip
 sudo apt install virtualbox
 sudo apt install virtualbox-ext-pack
+sudo apt install xsel
 sudo apt install youtube-dl
 sudo apt install zip
 ```
@@ -582,6 +583,10 @@ cp *.ttf ~/.fonts
 sudo fc-cache -fv
 ```
 
+## Install Neovim
+
+Add notes here
+
 ## Install Docker
 
 Use ansible playbook
@@ -595,3 +600,4 @@ Use latest version
 ```
 sudo apt-get install dotnet-sdk-6.0
 ```
+
