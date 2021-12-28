@@ -119,6 +119,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # press ctrl-q to resume
 stty -ixon
 
+alias ..='cd ..'
 alias cls=clear
 alias aptup='sudo apt update && sudo apt list --upgradable'
 alias diff='diff --color'

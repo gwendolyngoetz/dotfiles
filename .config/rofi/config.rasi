@@ -6,14 +6,14 @@
 
 	spacing: 0;
 	background-color: transparent;
-	font: "Roboto Mono 14";
+	font: "Roboto Mono 13";
 }
 
 window {
 	transparency: "real";
 	background-color: @color-bg;
     width: 700px;
-    height: 448px;
+    height: 438px;
 }
 
 mainbox {

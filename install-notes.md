@@ -350,8 +350,9 @@ sudo make install
 ```
 sudo apt install feh
 sudo apt install flameshot
-sudo apt install zenity
 sudo apt install thunar
+sudo apt install wmctrl
+sudo apt install zenity
 ```
 
 ### Install dunst

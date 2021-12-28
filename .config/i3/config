@@ -7,7 +7,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty #i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -138,8 +138,7 @@ client.background          $black
 
 # apps
 bindsym $mod+minus exec alacritty
-bindsym $mod+backslash exec env GTK_THEME=Adwaita:light firefox
-bindsym $mod+apostrophe exec yakyak
+bindsym $mod+backslash exec firefox
 bindsym $mod+s exec flameshot gui
 bindsym $mod+e exec thunar
 bindsym $mod+c exec wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
