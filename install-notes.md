@@ -581,3 +581,17 @@ cd ./segoe-ui-linux/font
 cp *.ttf ~/.fonts
 sudo fc-cache -fv
 ```
+
+## Install Docker
+
+Use ansible playbook
+
+## Programming Languages
+
+### Dotnet
+
+Use latest version
+
+```
+sudo apt-get install dotnet-sdk-6.0
+```
