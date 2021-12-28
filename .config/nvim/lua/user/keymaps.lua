@@ -29,9 +29,17 @@ keymap("i", "<Left>", "<Nop>", opts)
 keymap("i", "<Left>", "<Nop>", opts)
 
 
-
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
+
+
+-- Nvim tree
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+
+
+-- Comment
+keymap("n", "<leader>/", "<cmd>lua require('Comment').toggle()<CR>", opts)
+keymap("v", "<leader>/", ":lua require(\"Comment.api\").gc(vim.fn.visualmode())<cr>", opts)
 
