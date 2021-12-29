@@ -484,6 +484,34 @@ sudo apt update
 sudo apt install obs-studio
 ```
 
+## Install Streamdeck
+
+### Install dependencies
+```
+sudo apt install python3-pip
+sudo apt install libhidapi-libusb0
+sudo apt install libxcb-xinerama0
+```
+
+### Install Streamdeck
+```
+sudo vim /etc/udev/rules.d/70-streamdeck.rules
+```
+
+Paste in
+```
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="0060", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="0063", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="006c", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="006d", TAG+="uaccess"
+```
+
+```
+sudo udevadm control --reload-rules
+pip3 install --user streamdeck_ui
+
+```
+
 
 ## Install other apps
 
