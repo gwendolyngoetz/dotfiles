@@ -4,6 +4,9 @@
 ## Install Tools
 
 ```
+sudo apt install ansible
+ansible-galaxy collection install community.general
+
 sudo apt install exa
 sudo apt install git
 sudo apt install network-manager  // for nmcli
@@ -629,3 +632,9 @@ Use latest version
 sudo apt-get install dotnet-sdk-6.0
 ```
 
+### Nodejs
+
+```
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
