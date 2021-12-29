@@ -1,0 +1,100 @@
+{
+    "streamdeck_ui_version": 1,
+    "state": {
+        "AL28J2C08834": {
+            "buttons": {
+                "0": {
+                    "0": {
+                        "write": "python3 /home/gwendolyn/scripts/change-elgato-lights.py off",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_off.png",
+                        "text": "",
+                        "command": "",
+                        "brightness_change": 0
+                    },
+                    "1": {
+                        "write": "python3 /home/gwendolyn/scripts/change-elgato-lights.py on",
+                        "text": "",
+                        "command": "",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_on.png"
+                    },
+                    "2": {
+                        "write": "",
+                        "command": "/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_prev.png"
+                    },
+                    "3": {
+                        "write": "",
+                        "command": "/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_play_pause.png"
+                    },
+                    "4": {
+                        "write": "",
+                        "command": "/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_next.png",
+                        "text": ""
+                    },
+                    "5": {
+                        "command": "firefox",
+                        "write": "",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_ff.png"
+                    },
+                    "6": {},
+                    "7": {
+                        "command": "",
+                        "write": ""
+                    },
+                    "8": {
+                        "command": "",
+                        "write": ""
+                    },
+                    "9": {},
+                    "10": {},
+                    "11": {},
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                },
+                "1": {
+                    "0": {
+                        "write": ""
+                    },
+                    "1": {},
+                    "2": {},
+                    "3": {},
+                    "4": {},
+                    "5": {},
+                    "6": {},
+                    "7": {},
+                    "8": {},
+                    "9": {},
+                    "10": {},
+                    "11": {},
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                },
+                "9": {
+                    "0": {
+                        "write": ""
+                    },
+                    "1": {},
+                    "2": {},
+                    "3": {},
+                    "4": {},
+                    "5": {},
+                    "6": {},
+                    "7": {},
+                    "8": {},
+                    "9": {},
+                    "10": {},
+                    "11": {},
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                }
+            },
+            "brightness": 43,
+            "page": 0
+        }
+    }
+}
