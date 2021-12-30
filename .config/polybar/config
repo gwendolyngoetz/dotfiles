@@ -339,8 +339,9 @@ exec = ~/.config/polybar/scripts/weather.sh
 interval = 900
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
-format-padding = 1
-format-prefix = " "
+format-padding = 0
+#format-prefix = " "
+format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 
