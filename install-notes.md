@@ -559,6 +559,12 @@ git clone https://github.com/dracula/qt5.git ~/src/github/qt5-dracula-theme
 cp ~/src/github/qt5-dracula-theme/Dracula.conf ~/.config/qt5ct/colors/
 ```
 
+## Install breeze gtk theme
+```
+sudo apt install breeze-gtk-theme
+sudo apt install breeze-icon-theme
+sudo apt install breeze-cursor-theme
+```
 
 ## Vim
 ```
