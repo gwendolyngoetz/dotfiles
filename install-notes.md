@@ -553,6 +553,30 @@ ln -s /usr/bin/batcat ~/.local/bin/bat
 ```
 
 
+## Install and configure pass
+
+### Install pass
+```
+sudo apt install pass
+sudo apt install pass-extension-otp
+```
+
+### Configure pass
+```
+gpg --full-gen-key
+pass init $USER
+pass git init
+pass generate test 10
+```
+
+### Configure and use pass otp (optional)
+```
+pass otp insert -e work
+pass otp work
+pass otp work --clip
+```
+
+
 ## Install dracula qt5 theme
 ```
 git clone https://github.com/dracula/qt5.git ~/src/github/qt5-dracula-theme
