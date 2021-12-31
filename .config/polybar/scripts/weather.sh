@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Print the current temperature
-JSON=$(curl -s wttr.in/seattle?format=j1)
-TEMP=$(echo $JSON | jq -r '.current_condition[0].temp_F')
-WEATHERCODE=$(echo $JSON | jq -r '.current_condition[0].weatherCode')
-SUNRISE=$(echo $JSON | jq -r '.weather[0].astronomy[0].sunrise')
-SUNSET=$(echo $JSON | jq -r '.weather[0].astronomy[0].sunset')
-DATEYMD=$(echo $JSON | jq -r '.weather[0].date')
+JSONFILE=~/.config/polybar/scripts/weather.json
+curl -s wttr.in/seattle?format=j1 -o $JSONFILE
+
+TEMP=$(jq -r '.current_condition[0].temp_F' $JSONFILE )
+WEATHERCODE=$(jq -r '.current_condition[0].weatherCode' $JSONFILE)
+SUNRISE=$(jq -r '.weather[0].astronomy[0].sunrise' $JSONFILE)
+SUNSET=$(jq -r '.weather[0].astronomy[0].sunset' $JSONFILE)
+DATEYMD=$(jq -r '.weather[0].date' $JSONFILE)
 
 SUNRISE=$(date --date="$DATEYMD $SUNRISE" "+%k%M")
 SUNSET=$(date --date="$DATEYMD $SUNSET" "+%k%M")
