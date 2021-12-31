@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JSONFILE=~/.config/polybar/scripts/weather.json
+JSONFILE=~/.config/polybar/scripts/.weather.json
 curl -s wttr.in/seattle?format=j1 -o $JSONFILE
 
 TEMP=$(jq -r '.current_condition[0].temp_F' $JSONFILE )
