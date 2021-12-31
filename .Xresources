@@ -79,7 +79,7 @@ URxvt.perl-ext-common: selection-to-clipboard
 !URxvt.keysym.Escape: \033\007
 
 !Xcursor.theme: breeze_cursors
-!Xcursor.size: 16
+Xcursor.size: 24
 
 ! xmenu settings
 xmenu.font: "fixed:pixelsize=15;2,Font Awesome 5 Free:style=Regular:pixelsize=16;1,Font Awesome 5 Free:style=Solid:pixelsize=16;1,Font Awesome 5 Brands:pixelsize=15;1"
