@@ -62,7 +62,7 @@ esac
         
 
 
-echo "%{F#555}$WEATHERICON%{F-} $TEMP°F"
+echo "%{F#555}$WEATHERICON%{F-}   $TEMP°F"
 
 
 
