@@ -2,9 +2,12 @@
 
 killall -q polybar
 
-export ETHERNET_INT=$(ls --ignore lo --ignore docker* --ignore virbr* --ignore w* /sys/class/net)
 export ETHERNET_INT=$(nmcli device | grep connected | grep ethernet | cut -d' ' -f1)
 export WIFI_INT=$(ls --ignore lo --ignore e* --ignore docker* /sys/class/net)
+
+# The hwmon# directory keeps changing on reboot. Find the right folder and build the path manually
+temperature_dir=$(find /sys/class/hwmon/* -maxdepth 1 -exec grep -rw --include=name "{}/" -l -e "k10temp" \; | xargs dirname)
+export TEMPERATURE_PATH="$temperature_dir/temp1_input"
 
 # Wait until the processes have stopped
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
