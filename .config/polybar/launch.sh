@@ -15,7 +15,6 @@ while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 # Add main bar to both displays
 for m in $(xrandr --query | grep -E "(connected primary [0-9])|(connected [0-9])" | cut -d' ' -f1); do
 	MONITOR=$m polybar --reload main &
-	#MONITOR=$m polybar --reload primary &
 done
 
 # Add tray bar to first display
