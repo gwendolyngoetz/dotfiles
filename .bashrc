@@ -126,6 +126,7 @@ alias diff='diff --color'
 alias fd='fdfind'
 alias tree='exa --tree --icons'
 alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
+alias vim=nvim
 
 # Opt-out of dotnet telemtry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
