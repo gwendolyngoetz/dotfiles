@@ -537,8 +537,10 @@ sudo apt install ttf-mscorefonts-installer
 sudo apt install unzip
 sudo apt install virtualbox
 sudo apt install virtualbox-ext-pack
+sudo apt install xdotool
 sudo apt install xsel
 sudo apt install youtube-dl
+sudo apt install zathura
 sudo apt install zip
 ```
 
