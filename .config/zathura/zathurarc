@@ -1,0 +1,26 @@
+# zathurarc
+
+# colors
+set statusbar-bg "#282936"
+set statusbar-fg "#ffffff"
+
+# settings
+set window-height 1024
+set window-width 768
+set adjust-open width
+
+# use sqlite as bookmarks database backend
+set database sqlite
+
+# key bindings
+map <S-j> navigate half-down
+map <S-k> navigate half-up
+map <C-j> navigate next
+map <C-k> navigate previous
+map <gg> navigate top
+map <G> navigate bottom
+
+map + zoom in
+map - zoom out
+
+map <C-q> quit
