@@ -170,6 +170,7 @@ for_window [class="Pavucontrol"] floating enable sticky enable border normal
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="kcalc"] floating enable sticky enable border normal
+for_window [class="Galculator"] floating enable sticky enable border normal
 for_window [class="etcher"] floating enable sticky enable border normal
 for_window [title="ZenityCalendar"] floating enable sticky enable border normal
 for_window [instance="origin.exe"] floating enable
@@ -193,8 +194,8 @@ exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset dpms 0 0 3600
 exec_always --no-startup-id feh --no-fehbg --bg-scale ~/.config/i3/wallpaper/black.jpg
 exec_always --no-startup-id streamdeck --no-ui
+exec_always --no-startup-id "~/.config/i3/scripts/start-dunst.sh"
 exec --no-startup-id solaar --window hide
-exec --no-startup-id dunst -config "~/.config/dunst/dunstrc"
 exec --no-startup-id "~/.config/i3/scripts/load-workspaces.sh"
 
 
