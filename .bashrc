@@ -104,7 +104,8 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
-
+# Disable less history
+export LESSHISTFILE=-
 # Opt-out of dotnet telemtry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
