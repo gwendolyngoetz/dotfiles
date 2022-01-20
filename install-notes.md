@@ -670,3 +670,22 @@ sudo apt-get install dotnet-sdk-6.0
 curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
+
+## Android for LG-G6
+
+```
+lsusb
+
+# Bus 006 Device 014: ID 1004:633e Device Name Might Be Here
+# ID format: vendor:product
+```
+
+```
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="1004", ATTRS{idProduct}=="633e", MODE="0660" GROUP="plugdev", SYMLINK+="android%n"' | sudo tee -a ./51-android.rules
+```
+
+
+## Printer Support
+```
+sudo apt install cups
+```
