@@ -530,6 +530,7 @@ sudo apt install meld
 sudo apt install mesa-utils  #for glxinfo
 sudo apt install neofetch
 sudo apt install newsboat
+sudo apt install nfs-common
 sudo apt install qt5ct
 sudo apt install thunar
 sudo apt install tmux
