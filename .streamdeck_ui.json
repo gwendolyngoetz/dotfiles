@@ -5,16 +5,16 @@
             "buttons": {
                 "0": {
                     "0": {
-                        "write": "python3 /home/gwendolyn/scripts/change-elgato-lights.py off",
+                        "write": "",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_off.png",
                         "text": "",
-                        "command": "",
+                        "command": "python3 /home/gwendolyn/scripts/change-elgato-lights.py off",
                         "brightness_change": 0
                     },
                     "1": {
-                        "write": "python3 /home/gwendolyn/scripts/change-elgato-lights.py on",
+                        "write": "",
                         "text": "",
-                        "command": "",
+                        "command": "python3 /home/gwendolyn/scripts/change-elgato-lights.py on",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_on.png"
                     },
                     "2": {
