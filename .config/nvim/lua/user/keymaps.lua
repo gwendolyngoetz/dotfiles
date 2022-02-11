@@ -62,13 +62,13 @@ keymap("v", "<A-j>", ":m .+1<CR>==", opts)
 keymap("v", "<A-k>", ":m .-2<CR>==", opts)
 keymap("v", "p", '"_dP', opts)
 
--- Nvim tree
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+---- Nvim tree
+--keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 
--- Comment
-keymap("n", "<leader>/", "<cmd>lua require('Comment').toggle()<CR>", opts)
-keymap("v", "<leader>/", ":lua require(\"Comment.api\").gc(vim.fn.visualmode())<cr>", opts)
+---- Comment
+--keymap("n", "<leader>/", "<cmd>lua require('Comment').toggle()<CR>", opts)
+--keymap("v", "<leader>/", ":lua require(\"Comment.api\").gc(vim.fn.visualmode())<cr>", opts)
 
 
 -- Visual Block --
