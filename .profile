@@ -36,3 +36,4 @@ fi
 
 export HISTFILE="$HOME/.config/bash/bash_history"
 export HISTCONTROL=ignoreboth
+. "$HOME/.cargo/env"

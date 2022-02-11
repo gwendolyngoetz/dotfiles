@@ -109,3 +109,4 @@ export LESSHISTFILE=-
 # Opt-out of dotnet telemtry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+. "$HOME/.cargo/env"
