@@ -119,6 +119,13 @@ sudo apt install alsa-utils
 sudo usermod -aG audio $USER
 ```
 
+## Bluetooth
+
+```
+sudo apt install bluez 
+sudo apt install bluez-tools 
+sudo apt install blueman
+```
 
 ## Install i3
 
@@ -407,7 +414,7 @@ sudo make install
 ### Install solaar
 ```
 sudo add-apt-repository ppa:solaar-unifying/stable
-sudo apt-get update
+sudo apt update
 
 sudo apt install solaar
 ```
@@ -449,7 +456,7 @@ curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo 
 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
-sudo apt-get update && sudo apt-get install spotify-client
+sudo apt update && sudo apt install spotify-client
 ```
 
 ## Install OBS Studio
@@ -531,6 +538,7 @@ sudo apt install mesa-utils  #for glxinfo
 sudo apt install neofetch
 sudo apt install newsboat
 sudo apt install nfs-common
+sudo apt install policykit-1-gnome
 sudo apt install qt5ct
 sudo apt install thunar
 sudo apt install tmux
@@ -649,7 +657,11 @@ sudo fc-cache -fv
 
 ## Install Neovim
 
-Add notes here
+```
+sudo add-apt-repository ppa:neovim-ppa/unstable 
+sudo apt update
+sudo apt install neovim
+```
 
 ## Install Docker
 
@@ -662,14 +674,14 @@ Use ansible playbook
 Use latest version
 
 ```
-sudo apt-get install dotnet-sdk-6.0
+sudo apt install dotnet-sdk-6.0
 ```
 
 ### Nodejs
 
 ```
 curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt install -y nodejs
 ```
 
 ## Android for LG-G6
