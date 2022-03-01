@@ -601,6 +601,30 @@ sudo apt install breeze-icon-theme
 sudo apt install breeze-cursor-theme
 ```
 
+## Install JetBrains IntelliJ IDEA
+
+```
+JB_UPDATES_XML="/tmp/updates.xml"
+
+curl https://www.jetbrains.com/updates/updates.xml -o $JB_UPDATES_XML
+
+INTELLIJ_VER="$(xmllint --xpath 'string((/products/product/channel[@id="IC-IU-RELEASE-licensing-RELEASE"]/build/@fullNumber)[1])' $JB_UPDATES_XML)"
+
+rm $JB_UPDATES_XML
+
+
+INTELLIJ_NAME="idea-IU-$INTELLIJ_VER"
+INTELLIJ_TAR="/tmp/$INTELLIJ_NAME.tar.gz"
+
+curl -L "https://download.jetbrains.com/product?code=IU&latest&distribution=linux" -o $INTELLIJ_TAR
+
+
+sudo tar -xzf $INTELLIJ_TAR -C /opt
+sudo chown -R $USER:$USER /opt/$INTELLIJ_NAME
+sudo ln -s /opt/$INTELLIJ_NAME /opt/intellij
+sudo chown $USER:$USER /opt/intellij
+```
+
 ## Vim
 ```
 mkdir ~/.vim
