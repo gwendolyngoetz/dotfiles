@@ -244,10 +244,10 @@ sudo sddm --example-config | sudo tee -a /etc/sddm.conf
 
 ### Get SDDM Theme
 ```
-git clone https://github.com/MarianArlt/sddm-chili.git ~/src/github/sddm-chili
+git clone https://github.com/MarianArlt/sddm-chili.git ~/src/github/system-repos/sddm-chili
 
 sudo mkdir /usr/share/sddm/themes/chili
-cd ~/src/github/sddm-chili
+cd ~/src/github/system-repos/sddm-chili
 rsync -av --exclude=".*" . /usr/share/sddm/themes/chili
 ```
 
