@@ -522,6 +522,12 @@ pip3 install --user streamdeck_ui
 
 ```
 
+### Install FlatPak
+
+```
+sudo apt install flatpak
+```
+
 
 ## Install other apps
 
