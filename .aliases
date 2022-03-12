@@ -1,4 +1,4 @@
-alias ls='exa --color=auto --icons'
+alias ls='exa --color=auto --icons --group'
 alias ll='ls -alF'
 alias la='ls -a'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -10,3 +10,4 @@ alias fd='fdfind'
 alias tree='exa --tree --icons'
 alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
 alias vim=nvim
+alias env='env | grep -v LS_COLORS | sort'
