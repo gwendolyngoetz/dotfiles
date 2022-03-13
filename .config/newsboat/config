@@ -1,4 +1,4 @@
-browser "open -g -a 'Google Chrome' %u"
+browser "xdg-open %u"
 #browser lynx
 
 #unbind-key q 
