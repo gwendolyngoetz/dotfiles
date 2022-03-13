@@ -114,4 +114,8 @@ export AWS_CONFIG_FILE=~/.config/aws/config
 export AWS_DATA_PATH=~/.config/aws/models
 export AWS_SHARED_CREDENTIALS_FILE=~/.config/aws/credentials
 
+#
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+
+
 . "$HOME/.cargo/env"
