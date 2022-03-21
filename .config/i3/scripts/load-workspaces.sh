@@ -3,5 +3,5 @@ i3-msg "workspace 1:1; append_layout ~/.config/i3/workspaces/workspace-1.json; e
 
 #sleep 1s
 
-i3-msg "workspace 2:2; append_layout ~/.config/i3/workspaces/workspace-2.json; exec --no-startup-id firefox; exec --no-startup-id firefox; exec --no-startup-id alacritty --working-directory ~;"
+i3-msg "workspace 4:4; append_layout ~/.config/i3/workspaces/workspace-4.json; exec --no-startup-id firefox; exec --no-startup-id firefox; exec --no-startup-id alacritty --working-directory ~;"
 
