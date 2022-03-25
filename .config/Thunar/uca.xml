@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1639444584908959-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>application-x-zip</icon>
+	<name>Unzip</name>
+	<unique-id>1640648588898489-1</unique-id>
+	<command>$HOME/.config/tools/unzip.sh %f</command>
+	<description>Unzip</description>
+	<patterns>*.zip</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>meld</icon>
+	<name>Compare</name>
+	<unique-id>1640898038353738-1</unique-id>
+	<command>meld %F</command>
+	<description>Compare files / directories</description>
+	<patterns>*</patterns>
+	<directories/>
+	<other-files/>
+	<text-files/>
+</action>
+<action>
+	<icon>qpdfview</icon>
+	<name>PDF</name>
+	<unique-id>1641181134321001-1</unique-id>
+	<command>zathura %f</command>
+	<description>PDF</description>
+	<patterns>*.pdf</patterns>
+	<other-files/>
+</action>
+</actions>
