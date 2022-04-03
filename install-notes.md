@@ -528,6 +528,9 @@ pip3 install --user streamdeck_ui
 sudo apt install flatpak
 ```
 
+### Install FlatPak apps
+flatpak install com.github.PintaProject.Pinta
+flatpak install com.rafaelmardojai.Blanket
 
 ## Install other apps
 
@@ -731,4 +734,9 @@ echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="1004", ATTRS{idProduct}=="633e", MODE=
 ## Printer Support
 ```
 sudo apt install cups
+```
+
+## Install bash git prompt
+```
+git clone https://github.com/magicmonty/bash-git-prompt.git ~/src/github/system-repos/bash-git-prompt --depth=1
 ```
