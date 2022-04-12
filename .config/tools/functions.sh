@@ -11,7 +11,6 @@ function workon {
   for dir in $(find $HOME/src -name .git -type d -prune); do
     dir=$(dirname $dir)
     if [[ $dir == *$repo_name ]]; then
-      echo $dir
       cd $dir
       return
     fi
