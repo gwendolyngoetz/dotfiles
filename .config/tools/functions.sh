@@ -4,7 +4,7 @@ function workon {
   repo_name=$1
 
   if [[ -z $repo_name ]]; then
-    echo "Missing repo parameter" >&2
+    echo "Missing repo_name parameter" >&2
     return
   fi
 
