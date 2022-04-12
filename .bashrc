@@ -124,6 +124,10 @@ if [ -f "$HOME/.cargo/env" ]; then
 . "$HOME/.cargo/env"
 fi
 
+if [ -f "$HOME/.config/tools/functions.sh" ]; then
+  source "$HOME/.config/tools/functions.sh"
+fi
+
 # Git Prompt
 if [ -f "$HOME/src/github/system-repos/bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_ONLY_IN_REPO=1
