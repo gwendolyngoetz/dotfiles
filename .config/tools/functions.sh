@@ -4,7 +4,7 @@ function workon {
   repo_name=$1
 
   if [[ -z $repo_name ]]; then
-    echo "Missing repo_name parameter" >&2
+    find $HOME/src -name .git -type d -prune -exec dirname {} \; | sort
     return
   fi
 
