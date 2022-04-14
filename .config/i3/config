@@ -11,6 +11,7 @@ bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
+bindsym button2 kill
 
 # start rofi (a program launcher)
 bindsym $mod+d exec "rofi -modi drun -show drun -sidebar-mode -show-icons"
