@@ -4,7 +4,7 @@
 [core]
 	editor = vim	
 [format]
-	pretty = oneline	
+	pretty = format:%C(yellow)%h%Creset -%C(auto)%d%Creset %s %C(dim green)(%cr) %C(blue)[%an]
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
