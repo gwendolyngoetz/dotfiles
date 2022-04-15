@@ -100,8 +100,8 @@ fi
 # press ctrl-q to resume
 stty -ixon
 
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f ~/.config/aliases ]; then
+    . ~/.config/aliases
 fi
 
 # Disable less history
