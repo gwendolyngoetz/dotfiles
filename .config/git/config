@@ -4,7 +4,7 @@
 [core]
     editor = vim
 [format]
-    pretty = format:%C(yellow)%h%Creset -%C(auto)%d%Creset %s %C(dim green)(%cr) %C(blue)[%an]
+    pretty = tformat:%C(yellow)%h%Creset -%C(auto)%d%Creset %s %C(dim green)(%cr) %C(blue)[%an]
 [filter "lfs"]
     required = true
     clean = git-lfs clean -- %f
@@ -13,8 +13,13 @@
 [credential]
     helper = store
 [alias]
+    alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | grep -v "alias" | sort | column -t -s'='
     st = status
     dt = difftool -d
+    l  = !git --no-pager log -30
+    aa = add .
+    au = add -u
+    co = commit -m
 [diff]
     tool = meld
 [difftool "meld"]
