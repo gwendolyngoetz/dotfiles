@@ -1,0 +1,16 @@
+
+export PATH="$PATH:/opt/homebrew/bin:/usr/local/share/dotnet/x64:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/gwendolyn/Library/Python/3.8/bin"
+
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
+
+
+export USE_LOCAL_CIVIFORM=1
+
+
+if [ -f $HOME/.bashrc ]; then
+    source $HOME/.bashrc
+fi
+
+unset DOCKER_HOST
