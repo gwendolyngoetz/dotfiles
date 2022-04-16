@@ -68,9 +68,7 @@ export AWS_DATA_PATH=~/.config/aws/models
 export AWS_SHARED_CREDENTIALS_FILE=~/.config/aws/credentials
 
 # Docker
-if [ "$(uname -s)" == "Linux" ]; then
-    export DOCKER_HOST=unix:///run/user/1000/docker.sock
-fi
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
 
 # Ansible
 #export ANSIBLE_CONFIG=~/.config/ansible/ansible.cfg
