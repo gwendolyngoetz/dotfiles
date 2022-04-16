@@ -77,8 +77,8 @@ if [ -f "$HOME/.cargo/env" ]; then
     source $HOME/.cargo/env
 fi
 
-if [ -f "$HOME/.config/tools/functions.sh" ]; then
-    source $HOME/.config/tools/functions.sh
+if [ -f "$HOME/.config/functions" ]; then
+    source $HOME/.config/functions
 fi
 
 # Git Prompt

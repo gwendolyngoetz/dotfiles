@@ -1,4 +1,4 @@
-#!/bin/bash
+# vim: ft=sh
 
 function workon {
   repo_name=$1
