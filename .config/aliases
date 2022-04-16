@@ -11,9 +11,12 @@ alias ..='cd ..'
 alias cls=clear
 alias aptup='sudo apt update && sudo apt list --upgradable'
 alias diff='diff --color'
-alias fd='fdfind'
 alias tree='exa --tree --icons'
 alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
 alias vim=nvim
 alias env='env | grep -v LS_COLORS | sort'
 alias g=git
+
+if [ -f "/usr/bin/fdfind" ]; then
+    alias fd='fdfind'
+fi
