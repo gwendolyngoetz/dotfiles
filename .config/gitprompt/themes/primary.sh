@@ -1,6 +1,6 @@
 # This is an alternative approach. Single line in git repo.
 override_git_prompt_colors() {
-  GIT_PROMPT_THEME_NAME="Custom"
+  GIT_PROMPT_THEME_NAME="Primary"
 
   GIT_PROMPT_PREFIX="[ "
   GIT_PROMPT_SUFFIX=" ]"
@@ -26,6 +26,6 @@ override_git_prompt_colors() {
 
 }
 
-reload_git_prompt_colors "Custom"
+reload_git_prompt_colors "Primary"
 
 
