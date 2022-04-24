@@ -82,7 +82,7 @@ if [ -f "$HOME/.config/functions" ]; then
 fi
 
 # Git Prompt
-if [ -f "$HOME/.config/gitprompt/config" ]; then
-    source $HOME/.config/gitprompt/config
-fi
+#if [ -f "$HOME/.config/gitprompt/config" ]; then
+#    source $HOME/.config/gitprompt/config
+#fi
 
