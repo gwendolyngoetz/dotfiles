@@ -41,7 +41,7 @@ function git::get_short_commit_hash {
 }
 
 function ssh::is_remote {
-    local result=1
+    local result=0
 
     if [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] ; then 
         result=1
@@ -60,7 +60,7 @@ function ssh::is_remote {
 #}
 
 function sudo::is_sudo {
-    local result=1
+    local result=0
 
     if [[ -n ${SUDO_USER} ]]; then
         result=1
@@ -88,8 +88,8 @@ function computer::get_os_icon {
     local result=""
 
     case "$(uname -s)" in
-        "Darwin") result="A" ;;
-        "Linux")  result="L" ;;
+        "Darwin") result="" ;;
+        "Linux")  result="" ;;
     esac
 
     echo "${result}"
@@ -99,7 +99,7 @@ function computer::get_pwd {
     dirs +0
 }
 
-source ~/gs-colors.sh
+source "$(dirname ${BASH_SOURCE})/lib/colors.sh"
 
 #
 is_repo=$(git::is_repo)
@@ -120,7 +120,7 @@ if [[ ${is_repo} -eq 1 ]]; then
         while [[ -n ${status} ]]; do
             case "${status}" in
                 #two fixed character matches, loop finished
-                \#\#)branch_line=$(awk -F '\\\.\\\.\\\.' '{print substr($1,4) }' <<< $line); break ;;
+                \#\#)branch_line=$(awk -F '\\.\\.\\.' '{print substr($1,4) }' <<< $line); break ;;
                 \?\?) ((num_untracked++)); break ;;
                 U?) ((num_conflicts++)); break;;
                 ?U) ((num_conflicts++)); break;;
@@ -159,75 +159,83 @@ hostname="$(computer::get_hostname ${is_remote})"
 current_dir=$(computer::get_pwd)
 os_icon=$(computer::get_os_icon)
 
+
+
 # Labels
-LabelOpen="[ "
-LabelClose=" ]"
-LabelSeparator=" | "
-LabelOS="${Black}${BgYellow} ${os_icon} ${NoColor}${NoColor}"
-LabelUsername="${Black}${BgRed} ${username}${NoColor}${NoColor}"
-LabelHostname="${Black}${BgLightGreen}${hostname} ${NoColor}${NoColor}"
-#LabelPrefix="${Green}✔${NoColor} "
-LabelPwd="${Black}${BgLightBlue} ${current_dir} ${NoColor}${NoColor}"
-LabelBranch="${Purple}${branch_line}${NoColor}"
-LabelStaged="${Red}●${NoColor} ${num_staged}"
-LabelChanged=" ${Blue}✚${NoColor} ${num_changed}"
-LabelUntracked=" ${Cyan}…${NoColor}${num_untracked}"
-LabelConflicts=" ${Cyan}~${NoColor}${num_conflicts}"
-LabelStashed=" ${Blue}⚑ ${NoColor}${num_stashed}"
+LabelGitOpen="[ "
+LabelGitClose=" ]"
+LabelGitSeparator=" | "
+#LabelSeparator=" "
+#LabelSeparator=""
+LabelSeparator=""
+LabelOS="${Black}${BgYellow} ${os_icon}  ${RC2}${Yellow}${BgRed}${LabelSeparator}${RC2}"
+LabelUsername="${Black}${BgRed}  ${username} ${RC2}${Red}${BgLightGreen}${LabelSeparator}${RC2}"
+#LabelHostname="${Black}${BgLightGreen}  ${hostname}${LightBlue}${LabelSeparator}${RC3}"
+#LabelHostname="${Black}${BgLightGreen}  ${hostname}${RC2}${LightGreen}${BgLightBlue}${LabelSeparator}${RC2}"
+LabelHostname="${Black}${BgLightGreen}  ${hostname} ${RC2}"
+#LabelPrefix="${Green}✔${RC} "
+LabelPwd="  ${LightBlue}${RC}${Black}${BgLightBlue} ﱮ ${current_dir}${RC2}${LightBlue}${LabelSeparator}${RC}"
+LabelBranch="${Purple} ${branch_line}${RC}"
+LabelStaged="${Red}●${RC} ${num_staged}"
+LabelChanged=" ${Blue}✚${RC} ${num_changed}"
+LabelUntracked=" ${Cyan}…${RC}${num_untracked}"
+LabelConflicts=" ${Cyan}~${RC}${num_conflicts}"
+LabelStashed=" ${Blue}⚑ ${RC}${num_stashed}"
 
 #
-LabelOutput=""
+Output=""
 
-LabelOutput+="${LabelOS}"
+Output+="${LabelOS}"
 
 if [[ ${is_sudo} -eq 1 ]]; then
-    LabelOutput+="${LabelUsername}"
+    Output+="${LabelUsername}"
 fi
 
-if [[ ${is_sudo} -eq 1 && ${is_remote} -eq 1 ]]; then
-    LabelOutput+="${Black}${BgLightGreen}@${NoColor}${NoColor}"
-fi
+#if [[ ${is_sudo} -eq 1 && ${is_remote} -eq 1 ]]; then
+#    LabelOutput+="${Black}${BgLightGreen}@${RC}${RC}"
+#fi
 
 if [[ ${is_remote} -eq 1 ]]; then
-    LabelOutput+="${LabelHostname}"
+    Output+="${LabelHostname}"
 fi
 
-LabelOutput+="${LabelPwd}\n"
-#LabelOutput+="${LabelPrefix}"
+Output+="${LabelPwd}"
+#Output+="${LabelPrefix}"
 
 
 if [[ ${is_repo} -eq 1 ]]; then
-    LabelOutput+="${LabelOpen}"
-    LabelOutput+="${LabelBranch}"
+    Output+="\n"
+    Output+="${LabelGitOpen}"
+    Output+="${LabelBranch}"
 
     if [[ ${num_staged} -gt 0 ]]; then
-        LabelOutput+="${LabelSeparator}"
+        Output+="${LabelGitSeparator}"
     fi
 
     if [[ ${num_staged} -gt 0 ]]; then
-        LabelOutput+="${LabelStaged}"
+        Output+="${LabelStaged}"
     fi
 
     if [[ ${num_changed} -gt 0 ]]; then
-        LabelOutput+="${LabelChanged}"
+        Output+="${LabelChanged}"
     fi
 
     if [[ ${num_untracked} -gt 0 ]]; then
-        LabelOutput+="${LabelUntracked}"
+        Output+="${LabelUntracked}"
     fi
 
     if [[ ${num_conflicts} -gt 0 ]]; then
-        LabelOutput+="${LabelConflicts}"
+        Output+="${LabelConflicts}"
     fi
 
     if [[ ${num_stashed} -gt 0 ]]; then
-        LabelOutput+="${LabelStashed}"
+        Output+="${LabelStashed}"
     fi
 
-    LabelOutput+="${LabelClose}"
+    Output+="${LabelGitClose}"
 fi
 
-printf "${LabelOutput}\n"
+printf "${Output}\n"
 
 
 

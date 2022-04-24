@@ -37,4 +37,11 @@ BgLightPurple='\033[1;45m'
 BgLightCyan='\033[1;46m'
 BgWhite='\033[1;47m'
 
-NoColor='\033[0m'
+# Reset Color
+ResetColor='\033[0m'
+RC="${ResetColor}"
+RC2="${RC}${RC}"
+RC3="${RC}${RC}${RC}"
+RC4="${RC}${RC}${RC}${RC}"
+
+
