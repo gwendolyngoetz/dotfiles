@@ -198,12 +198,12 @@ os_icon=$(computer::get_os_icon)
 LabelGitOpen="[ "
 LabelGitClose=" ]"
 LabelGitSeparator=" | "
+LabelGitSeparator="  "
 #LabelSeparator=" "
 #LabelSeparatorClose=""
 LabelSeparatorOpen=""
 LabelSeparatorClose=""
 
-#LabelPrefix="${Green}✔${RC} "
 
 logoBorder=1
 usernameBorder=0
@@ -220,22 +220,29 @@ else
     logoBorder=3
 fi
 
-
-    # 0 = curved-both
-    # 1 = no border
-    # 2 = curved-left
+pwdBorder=0
+if [[ ${is_repo} -eq 1 ]]; then
+    pwdBorder=2
+fi
 
 LabelOS="$(format "${os_icon} " "${Black}" "${Yellow}" "${BgYellow}" ${logoBorder})"
 LabelUsername="$(format " ${username}" "${White}" "${Red}" "${BgRed}" ${usernameBorder})"
 LabelHostname="$(format " ${hostname}" "${Black}" "${LightGreen}" "${BgLightGreen}" ${hostnameBorder})"
-LabelPwd="  $(format "ﱮ ${current_dir}" "${Black}" "${LightBlue}" "${BgLightBlue}" 0)"
+LabelPwd="  $(format "ﱮ ${current_dir}" "${Black}" "${LightBlue}" "${BgLightBlue}" ${pwdBorder})"
 
 LabelBranch="${Purple} ${branch_line}${RC}"
-LabelStaged="${Red}●${RC} ${num_staged}"
-LabelChanged=" ${Blue}✚${RC} ${num_changed}"
-LabelUntracked=" ${Cyan}…${RC}${num_untracked}"
-LabelConflicts=" ${Cyan}~${RC}${num_conflicts}"
-LabelStashed=" ${Blue}⚑ ${RC}${num_stashed}"
+#LabelStaged="${Red}●${RC} ${num_staged}"
+#LabelChanged=" ${Blue}✚${RC} ${num_changed}"
+#LabelUntracked=" ${Cyan}…${RC}${num_untracked}"
+#LabelConflicts=" ${Cyan}~${RC}${num_conflicts}"
+#LabelStashed=" ${Blue}⚑ ${RC}${num_stashed}"
+
+
+LabelStaged="${Red}●${RC}"
+LabelChanged=" ${Blue}✚${RC}"
+LabelUntracked=" ${Cyan}…${RC}"
+LabelConflicts=" ${Cyan}~${RC}"
+LabelStashed=" ${Blue}⚑ ${RC}"
 
 #
 Output=""
@@ -246,51 +253,55 @@ if [[ ${is_sudo} -eq 1 ]]; then
     Output+="${LabelUsername}"
 fi
 
-#if [[ ${is_sudo} -eq 1 && ${is_remote} -eq 1 ]]; then
-#    LabelOutput+="${Black}${BgLightGreen}@${RC}${RC}"
-#fi
-
 if [[ ${is_remote} -eq 1 ]]; then
     Output+="${LabelHostname}"
 fi
 
 Output+="${LabelPwd}"
-#Output+="${LabelPrefix}"
 
 
 if [[ ${is_repo} -eq 1 ]]; then
-    Output+="\n"
-    Output+="${LabelGitOpen}"
+
+    LabelChanges=""
+    if [[ ${clean} -eq 0 ]]; then
+        LabelChanges="  "
+    fi
+
+    LabelBranch="$(format " ${branch_line}${LabelChanges}" "${Black}" "${LightPurple}" "${BgLightPurple}" 3)"
+
     Output+="${LabelBranch}"
 
-    if [[ ${num_staged} -gt 0 ]]; then
-        Output+="${LabelGitSeparator}"
-    fi
+    #if [[ ${clean} -eq 0 ]]; then
+    #    Output+=" $(format "" "${Black}" "${LightBlue}" "${BgLightBlue}" 0)"
+    #fi
 
-    if [[ ${num_staged} -gt 0 ]]; then
-        Output+="${LabelStaged}"
-    fi
+    Output+="\n"
 
-    if [[ ${num_changed} -gt 0 ]]; then
-        Output+="${LabelChanged}"
-    fi
+#    if [[ ${num_staged} -gt 0 ]]; then
+#        Output+="${LabelStaged}"
+#    fi
+#
+#    if [[ ${num_changed} -gt 0 ]]; then
+#        Output+="${LabelChanged}"
+#    fi
+#
+#    if [[ ${num_untracked} -gt 0 ]]; then
+#        Output+="${LabelUntracked}"
+#    fi
+#
+#    if [[ ${num_conflicts} -gt 0 ]]; then
+#        Output+="${LabelConflicts}"
+#    fi
+#
+#    if [[ ${num_stashed} -gt 0 ]]; then
+#        Output+="${LabelStashed}"
+#    fi
 
-    if [[ ${num_untracked} -gt 0 ]]; then
-        Output+="${LabelUntracked}"
-    fi
-
-    if [[ ${num_conflicts} -gt 0 ]]; then
-        Output+="${LabelConflicts}"
-    fi
-
-    if [[ ${num_stashed} -gt 0 ]]; then
-        Output+="${LabelStashed}"
-    fi
-
-    Output+="${LabelGitClose}"
+    #Output+="${LabelGitClose}"
+    #Output+="  "
 fi
 
-printf "${Output}\n"
+printf "${Output}$ \n"
 
 #printf "branch:     ${LabelBranch}\n"
 #printf "staged:     ${LabelStaged}\n"
