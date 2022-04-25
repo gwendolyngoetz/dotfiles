@@ -99,6 +99,39 @@ function computer::get_pwd {
     dirs +0
 }
 
+function format {
+    local str="${1}"
+    local textcolor="${2}"
+    local fgcolor="${3}"
+    local bgcolor="${4}"
+    local borderstyle="${5}"
+
+    # 0 = curved-both
+    # 1 = no border
+    # 2 = curved-left
+    # 3 = curved-right
+    
+    local text="${textcolor}${bgcolor}${str}${RC2}"
+
+    local label=""
+
+    if [[ "${borderstyle}" -eq 0 || "${borderstyle}" -eq 2 ]]; then
+        label+="${fgcolor}${LabelSeparatorOpen}${RC}"
+    else
+        label+="${bgcolor} ${RC}"
+    fi
+
+    label+="${text}"
+    
+    if [[ "${borderstyle}" -eq 0 || "${borderstyle}" -eq 3 ]]; then
+        label+="${fgcolor}${LabelSeparatorClose}${RC}"
+    else
+        label+="${bgcolor} ${RC}"
+    fi
+    
+    echo "${label}"
+}
+
 source "$(dirname ${BASH_SOURCE})/lib/colors.sh"
 
 #
@@ -166,15 +199,37 @@ LabelGitOpen="[ "
 LabelGitClose=" ]"
 LabelGitSeparator=" | "
 #LabelSeparator=" "
-#LabelSeparator=""
-LabelSeparator=""
-LabelOS="${Black}${BgYellow} ${os_icon}  ${RC2}${Yellow}${BgRed}${LabelSeparator}${RC2}"
-LabelUsername="${Black}${BgRed}  ${username} ${RC2}${Red}${BgLightGreen}${LabelSeparator}${RC2}"
-#LabelHostname="${Black}${BgLightGreen}  ${hostname}${LightBlue}${LabelSeparator}${RC3}"
-#LabelHostname="${Black}${BgLightGreen}  ${hostname}${RC2}${LightGreen}${BgLightBlue}${LabelSeparator}${RC2}"
-LabelHostname="${Black}${BgLightGreen}  ${hostname} ${RC2}"
+#LabelSeparatorClose=""
+LabelSeparatorOpen=""
+LabelSeparatorClose=""
+
 #LabelPrefix="${Green}✔${RC} "
-LabelPwd="  ${LightBlue}${RC}${Black}${BgLightBlue} ﱮ ${current_dir}${RC2}${LightBlue}${LabelSeparator}${RC}"
+
+logoBorder=1
+usernameBorder=0
+hostnameBorder=0
+
+if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
+    usernameBorder=1
+    hostnameBorder=3
+elif [[ ${is_remote} -eq 1 ]]; then
+    hostnameBorder=3
+elif [[ ${is_sudo} -eq 1 ]]; then
+    usernameBorder=3
+else
+    logoBorder=3
+fi
+
+
+    # 0 = curved-both
+    # 1 = no border
+    # 2 = curved-left
+
+LabelOS="$(format "${os_icon} " "${Black}" "${Yellow}" "${BgYellow}" ${logoBorder})"
+LabelUsername="$(format " ${username}" "${White}" "${Red}" "${BgRed}" ${usernameBorder})"
+LabelHostname="$(format " ${hostname}" "${Black}" "${LightGreen}" "${BgLightGreen}" ${hostnameBorder})"
+LabelPwd="  $(format "ﱮ ${current_dir}" "${Black}" "${LightBlue}" "${BgLightBlue}" 0)"
+
 LabelBranch="${Purple} ${branch_line}${RC}"
 LabelStaged="${Red}●${RC} ${num_staged}"
 LabelChanged=" ${Blue}✚${RC} ${num_changed}"
@@ -236,8 +291,6 @@ if [[ ${is_repo} -eq 1 ]]; then
 fi
 
 printf "${Output}\n"
-
-
 
 #printf "branch:     ${LabelBranch}\n"
 #printf "staged:     ${LabelStaged}\n"
