@@ -105,20 +105,17 @@ window:
 font:
   size: 10.0
   normal:
-    #family: monospace
-    family: JetBrainsMono Nerd Font
+    family: Cousine Nerd Font
     style: Regular
 
   # Bold font face
   bold:
-    #family: monospace
-    family: JetBrainsMono Nerd Font Mono
+    family: Cousine Nerd Font
     style: Bold
 
   # Italic font face
   italic:
-    #family: monospace
-    family: JetBrainsMono Nerd Font Mono
+    family: Cousine Nerd Font
     style: Italic
 
   # Bold italic font face
