@@ -81,8 +81,9 @@ if [ -f "$HOME/.config/functions" ]; then
     source $HOME/.config/functions
 fi
 
-# Git Prompt
-#if [ -f "$HOME/.config/gitprompt/config" ]; then
-#    source $HOME/.config/gitprompt/config
-#fi
+# Prompt
+if [ -f "$HOME/.config/prompt/prompt.sh" ]; then
+    source $HOME/.config/prompt/prompt.sh
+    PROMPT_COMMAND=prompt::set_prompt
+fi
 

@@ -99,7 +99,7 @@ function computer::get_pwd {
     dirs +0
 }
 
-function format {
+function prompt::format {
     local str="${1}"
     local textcolor="${2}"
     local fgcolor="${3}"
@@ -132,184 +132,140 @@ function format {
     echo "${label}"
 }
 
+function prompt::display {
+    #
+    is_repo=$(git::is_repo)
+    git_status=$(git::get_status ${is_repo})
+
+
+    #
+    branch_line=""
+    num_staged=0
+    num_changed=0
+    num_conflicts=0
+    num_untracked=0
+    clean=0
+
+    if [[ ${is_repo} -eq 1 ]]; then
+        while IFS='' read -r line || [[ -n "${line}" ]]; do
+            status="${line:0:2}"
+            while [[ -n ${status} ]]; do
+                case "${status}" in
+                    #two fixed character matches, loop finished
+                    \#\#)branch_line=$(awk -F '\\.\\.\\.' '{print substr($1,4) }' <<< $line); break ;;
+                    \?\?) ((num_untracked++)); break ;;
+                    U?) ((num_conflicts++)); break;;
+                    ?U) ((num_conflicts++)); break;;
+                    DD) ((num_conflicts++)); break;;
+                    AA) ((num_conflicts++)); break;;
+                    #two character matches, first loop
+                    ?M) ((num_changed++)) ;;
+                    ?D) ((num_changed++)) ;;
+                    ?\ ) ;;
+                    #single character matches, second loop
+                    U) ((num_conflicts++)) ;;
+                    \ ) ;;
+                    *) ((num_staged++)) ;;
+                esac
+                status="${status:0:(${#status}-1)}"
+            done
+        done <<< "$git_status"
+
+        num_stashed=$(git::get_stash_count ${is_repo})
+
+        if (( num_changed == 0 && num_staged == 0 && num_untracked == 0 && num_stashed == 0 && num_conflicts == 0)) ; then
+            clean=1
+        fi
+
+        if [[ ${branch_line} == "HEAD (no branch)" ]]; then
+            branch_line=":$(git::get_short_commit_hash ${is_repo})"
+        fi
+    fi
+
+
+    is_remote=$(ssh::is_remote)
+    is_sudo=$(sudo::is_sudo)
+
+    username=$(computer::get_username)
+    hostname="$(computer::get_hostname ${is_remote})"
+    current_dir=$(computer::get_pwd)
+    os_icon=$(computer::get_os_icon)
+
+
+
+    # Labels
+    LabelGitOpen="[ "
+    LabelGitClose=" ]"
+    LabelGitSeparator=" | "
+    LabelGitSeparator="  "
+    #LabelSeparator=" "
+    #LabelSeparatorClose=""
+    LabelSeparatorOpen=""
+    LabelSeparatorClose=""
+
+
+    logoBorder=1
+    usernameBorder=0
+    hostnameBorder=0
+
+    if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
+        usernameBorder=1
+        hostnameBorder=3
+    elif [[ ${is_remote} -eq 1 ]]; then
+        hostnameBorder=3
+    elif [[ ${is_sudo} -eq 1 ]]; then
+        usernameBorder=3
+    else
+        logoBorder=3
+    fi
+
+    pwdBorder=0
+    if [[ ${is_repo} -eq 1 ]]; then
+        pwdBorder=2
+    fi
+
+    LabelOS="$(prompt::format "${os_icon} " "${Black}" "${Yellow}" "${BgYellow}" ${logoBorder})"
+    LabelUsername="$(prompt::format " ${username}" "${White}" "${Red}" "${BgRed}" ${usernameBorder})"
+    LabelHostname="$(prompt::format " ${hostname}" "${Black}" "${LightGreen}" "${BgLightGreen}" ${hostnameBorder})"
+    LabelPwd="  $(prompt::format "ﱮ ${current_dir}" "${Black}" "${LightBlue}" "${BgLightBlue}" ${pwdBorder})"
+
+    LabelBranch="${Purple} ${branch_line}${RC}"
+
+
+    #
+    Output=""
+
+    Output+="${LabelOS}"
+
+    if [[ ${is_sudo} -eq 1 ]]; then
+        Output+="${LabelUsername}"
+    fi
+
+    if [[ ${is_remote} -eq 1 ]]; then
+        Output+="${LabelHostname}"
+    fi
+
+    Output+="${LabelPwd}"
+
+
+    if [[ ${is_repo} -eq 1 ]]; then
+
+        LabelChanges=""
+        if [[ ${clean} -eq 0 ]]; then
+            LabelChanges="  "
+        fi
+
+        LabelBranch="$(prompt::format " ${branch_line}${LabelChanges}" "${Black}" "${LightPurple}" "${BgLightPurple}" 3)"
+
+        Output+="${LabelBranch}"
+    fi
+
+    printf "${Output}\n$ \n"
+}
+
+function prompt::set_prompt {
+    PS1=$(prompt::display)
+}
+
+
 source "$(dirname ${BASH_SOURCE})/lib/colors.sh"
-
-#
-is_repo=$(git::is_repo)
-git_status=$(git::get_status ${is_repo})
-
-
-#
-branch_line=""
-num_staged=0
-num_changed=0
-num_conflicts=0
-num_untracked=0
-clean=0
-
-if [[ ${is_repo} -eq 1 ]]; then
-    while IFS='' read -r line || [[ -n "${line}" ]]; do
-        status="${line:0:2}"
-        while [[ -n ${status} ]]; do
-            case "${status}" in
-                #two fixed character matches, loop finished
-                \#\#)branch_line=$(awk -F '\\.\\.\\.' '{print substr($1,4) }' <<< $line); break ;;
-                \?\?) ((num_untracked++)); break ;;
-                U?) ((num_conflicts++)); break;;
-                ?U) ((num_conflicts++)); break;;
-                DD) ((num_conflicts++)); break;;
-                AA) ((num_conflicts++)); break;;
-                #two character matches, first loop
-                ?M) ((num_changed++)) ;;
-                ?D) ((num_changed++)) ;;
-                ?\ ) ;;
-                #single character matches, second loop
-                U) ((num_conflicts++)) ;;
-                \ ) ;;
-                *) ((num_staged++)) ;;
-            esac
-            status="${status:0:(${#status}-1)}"
-        done
-    done <<< "$git_status"
-
-    num_stashed=$(git::get_stash_count ${is_repo})
-
-    if (( num_changed == 0 && num_staged == 0 && num_untracked == 0 && num_stashed == 0 && num_conflicts == 0)) ; then
-        clean=1
-    fi
-
-    if [[ ${branch_line} == "HEAD (no branch)" ]]; then
-        branch_line=":$(git::get_short_commit_hash ${is_repo})"
-    fi
-fi
-
-
-is_remote=$(ssh::is_remote)
-is_sudo=$(sudo::is_sudo)
-
-username=$(computer::get_username)
-hostname="$(computer::get_hostname ${is_remote})"
-current_dir=$(computer::get_pwd)
-os_icon=$(computer::get_os_icon)
-
-
-
-# Labels
-LabelGitOpen="[ "
-LabelGitClose=" ]"
-LabelGitSeparator=" | "
-LabelGitSeparator="  "
-#LabelSeparator=" "
-#LabelSeparatorClose=""
-LabelSeparatorOpen=""
-LabelSeparatorClose=""
-
-
-logoBorder=1
-usernameBorder=0
-hostnameBorder=0
-
-if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
-    usernameBorder=1
-    hostnameBorder=3
-elif [[ ${is_remote} -eq 1 ]]; then
-    hostnameBorder=3
-elif [[ ${is_sudo} -eq 1 ]]; then
-    usernameBorder=3
-else
-    logoBorder=3
-fi
-
-pwdBorder=0
-if [[ ${is_repo} -eq 1 ]]; then
-    pwdBorder=2
-fi
-
-LabelOS="$(format "${os_icon} " "${Black}" "${Yellow}" "${BgYellow}" ${logoBorder})"
-LabelUsername="$(format " ${username}" "${White}" "${Red}" "${BgRed}" ${usernameBorder})"
-LabelHostname="$(format " ${hostname}" "${Black}" "${LightGreen}" "${BgLightGreen}" ${hostnameBorder})"
-LabelPwd="  $(format "ﱮ ${current_dir}" "${Black}" "${LightBlue}" "${BgLightBlue}" ${pwdBorder})"
-
-LabelBranch="${Purple} ${branch_line}${RC}"
-#LabelStaged="${Red}●${RC} ${num_staged}"
-#LabelChanged=" ${Blue}✚${RC} ${num_changed}"
-#LabelUntracked=" ${Cyan}…${RC}${num_untracked}"
-#LabelConflicts=" ${Cyan}~${RC}${num_conflicts}"
-#LabelStashed=" ${Blue}⚑ ${RC}${num_stashed}"
-
-
-LabelStaged="${Red}●${RC}"
-LabelChanged=" ${Blue}✚${RC}"
-LabelUntracked=" ${Cyan}…${RC}"
-LabelConflicts=" ${Cyan}~${RC}"
-LabelStashed=" ${Blue}⚑ ${RC}"
-
-#
-Output=""
-
-Output+="${LabelOS}"
-
-if [[ ${is_sudo} -eq 1 ]]; then
-    Output+="${LabelUsername}"
-fi
-
-if [[ ${is_remote} -eq 1 ]]; then
-    Output+="${LabelHostname}"
-fi
-
-Output+="${LabelPwd}"
-
-
-if [[ ${is_repo} -eq 1 ]]; then
-
-    LabelChanges=""
-    if [[ ${clean} -eq 0 ]]; then
-        LabelChanges="  "
-    fi
-
-    LabelBranch="$(format " ${branch_line}${LabelChanges}" "${Black}" "${LightPurple}" "${BgLightPurple}" 3)"
-
-    Output+="${LabelBranch}"
-
-    #if [[ ${clean} -eq 0 ]]; then
-    #    Output+=" $(format "" "${Black}" "${LightBlue}" "${BgLightBlue}" 0)"
-    #fi
-
-    #Output+="\n"
-
-#    if [[ ${num_staged} -gt 0 ]]; then
-#        Output+="${LabelStaged}"
-#    fi
-#
-#    if [[ ${num_changed} -gt 0 ]]; then
-#        Output+="${LabelChanged}"
-#    fi
-#
-#    if [[ ${num_untracked} -gt 0 ]]; then
-#        Output+="${LabelUntracked}"
-#    fi
-#
-#    if [[ ${num_conflicts} -gt 0 ]]; then
-#        Output+="${LabelConflicts}"
-#    fi
-#
-#    if [[ ${num_stashed} -gt 0 ]]; then
-#        Output+="${LabelStashed}"
-#    fi
-
-    #Output+="${LabelGitClose}"
-    #Output+="  "
-fi
-
-printf "${Output}\n$ \n"
-
-#printf "branch:     ${LabelBranch}\n"
-#printf "staged:     ${LabelStaged}\n"
-#printf "changed:   ${LabelChanged}\n"
-#printf "conflicts:  ${num_conflicts}\n"
-#printf "untracked: ${LabelUntracked}\n"
-#printf "stashed:   ${LabelStashed}\n"
-#printf "clean:      ${clean}\n"
-#printf  "ssh:        ${is_remote}\n"
-
-# printf "\n\e[1;41m\e[1;32m\e    \U25b0\e[0m\e[0m  dd \n\n" 
