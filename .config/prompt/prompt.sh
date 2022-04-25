@@ -275,7 +275,7 @@ if [[ ${is_repo} -eq 1 ]]; then
     #    Output+=" $(format "" "${Black}" "${LightBlue}" "${BgLightBlue}" 0)"
     #fi
 
-    Output+="\n"
+    #Output+="\n"
 
 #    if [[ ${num_staged} -gt 0 ]]; then
 #        Output+="${LabelStaged}"
@@ -301,7 +301,7 @@ if [[ ${is_repo} -eq 1 ]]; then
     #Output+="  "
 fi
 
-printf "${Output}$ \n"
+printf "${Output}\n$ \n"
 
 #printf "branch:     ${LabelBranch}\n"
 #printf "staged:     ${LabelStaged}\n"
