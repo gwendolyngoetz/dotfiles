@@ -100,35 +100,27 @@ function computer::get_pwd {
 }
 
 function prompt::format {
-    local str="${1}"
-    local textcolor="${2}"
-    local fgcolor="${3}"
-    local bgcolor="${4}"
-    local borderstyle="${5}"
+    local text="${1}"
+    local textColor="${2}"
+    local bgColor="${3}"
+    local nextBgColor="${4}"
+    local labelSeparatorClose="${5}"
 
-    # 0 = curved-both
-    # 1 = no border
-    # 2 = curved-left
-    # 3 = curved-right
-    
-    local text="${textcolor}${bgcolor}${str}${RC2}"
+    # Reset Color
+    RC='\033[0m'
+    RC2="${RC}${RC}"
+
 
     local label=""
+    label+="\e[48;2;${bgColor}m"        # bg text
+    label+="\e[1;38;2;${textColor}m"    # fg text
+    label+=" ${text} "                  # text
+    label+="${RC2}"                     # reset text
+    label+="\e[48;2;${nextBgColor}m"    # bg separator
+    label+="\e[1;38;2;${bgColor}m"      # fg separator
+    label+="${labelSeparatorClose}"     # separator
+    label+="${RC2}"                     # reset separator
 
-    if [[ "${borderstyle}" -eq 0 || "${borderstyle}" -eq 2 ]]; then
-        label+="${fgcolor}${LabelSeparatorOpen}${RC}"
-    else
-        label+="${bgcolor} ${RC}"
-    fi
-
-    label+="${text}"
-    
-    if [[ "${borderstyle}" -eq 0 || "${borderstyle}" -eq 3 ]]; then
-        label+="${fgcolor}${LabelSeparatorClose}${RC}"
-    else
-        label+="${bgcolor} ${RC}"
-    fi
-    
     echo "${label}"
 }
 
@@ -194,42 +186,38 @@ function prompt::display {
 
 
     # Labels
-    LabelGitOpen="[ "
-    LabelGitClose=" ]"
-    LabelGitSeparator=" | "
-    LabelGitSeparator="  "
-    #LabelSeparator=" "
+    
     #LabelSeparatorClose=""
     LabelSeparatorOpen=""
     LabelSeparatorClose=""
 
 
-    logoBorder=1
-    usernameBorder=0
-    hostnameBorder=0
 
-    if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
-        usernameBorder=1
-        hostnameBorder=3
-    elif [[ ${is_remote} -eq 1 ]]; then
-        hostnameBorder=3
-    elif [[ ${is_sudo} -eq 1 ]]; then
-        usernameBorder=3
-    else
-        logoBorder=3
-    fi
+    #   if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
+    #   elif [[ ${is_remote} -eq 1 ]]; then
+    #   elif [[ ${is_sudo} -eq 1 ]]; then
+    #   else
+    #   fi
 
-    pwdBorder=0
-    if [[ ${is_repo} -eq 1 ]]; then
-        pwdBorder=2
-    fi
+  
+    ColorFont="0;0;0"
+    ColorOS="225;192;120" # drac red
+    ColorOS="134;153;71" # drac red
+    #ColorOS="241;250;140" # drac yellow
+    #ColorOS="255;184;108" # drac orange
+    ColorUsername="225;85;85"
+    ColorHostname="33;170;18"
+    ColorPwd="90;71;153"
+    #ColorPwd="189;147;249" # drac purple
+    ColorBranch="98;114;164" #drac comment
 
-    LabelOS="$(prompt::format "${os_icon} " "${Black}" "${Yellow}" "${BgYellow}" ${logoBorder})"
-    LabelUsername="$(prompt::format " ${username}" "${White}" "${Red}" "${BgRed}" ${usernameBorder})"
-    LabelHostname="$(prompt::format " ${hostname}" "${Black}" "${LightGreen}" "${BgLightGreen}" ${hostnameBorder})"
-    LabelPwd="  $(prompt::format "ﱮ ${current_dir}" "${Black}" "${LightBlue}" "${BgLightBlue}" ${pwdBorder})"
+    #                                 Text                 TextColor        BgColor              NextBgColor          Separator
+    #LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorUsername}"   "${LabelSeparatorClose}")"
+    LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorPwd}"        "${LabelSeparatorClose}")"
+    LabelUsername="$(prompt::format   " ${username}"      "${ColorFont}"   "${ColorUsername}"   "${ColorHostname}"   "${LabelSeparatorClose}")"
+    LabelHostname="$(prompt::format   " ${hostname}"      "${ColorFont}"   "${ColorHostname}"   "${ColorPwd}"        "${LabelSeparatorClose}")"
+    LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFont}"   "${ColorPwd}"        "${ColorBranch}"     "${LabelSeparatorClose}")"
 
-    LabelBranch="${Purple} ${branch_line}${RC}"
 
 
     #
@@ -252,15 +240,16 @@ function prompt::display {
 
         LabelChanges=""
         if [[ ${clean} -eq 0 ]]; then
-            LabelChanges="  "
+            LabelChanges=" "
         fi
 
-        LabelBranch="$(prompt::format " ${branch_line}${LabelChanges}" "${Black}" "${LightPurple}" "${BgLightPurple}" 3)"
+        LabelBranch="$(prompt::format     " ${branch_line}${LabelChanges}"   "${ColorFont}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
 
         Output+="${LabelBranch}"
     fi
 
-    printf "${Output}\n$ \n"
+    printf "${Output}\n \n"
+    #printf "${Output}\n$ \n"
 }
 
 function prompt::set_prompt {
@@ -268,4 +257,3 @@ function prompt::set_prompt {
 }
 
 
-source "$(dirname ${BASH_SOURCE})/lib/colors.sh"
