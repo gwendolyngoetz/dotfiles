@@ -41,7 +41,7 @@ function git::get_short_commit_hash {
 }
 
 function ssh::is_remote {
-    local result=0
+    local result=1
 
     if [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] ; then 
         result=1
@@ -213,7 +213,7 @@ function prompt::display {
 
     #                                 Text                 TextColor        BgColor              NextBgColor          Separator
     #LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorUsername}"   "${LabelSeparatorClose}")"
-    LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorPwd}"        "${LabelSeparatorClose}")"
+    LabelOS="$(prompt::format         "${os_icon} "         "${ColorFont}"   "${ColorOS}"         "${ColorPwd}"        "")"
     LabelUsername="$(prompt::format   " ${username}"      "${ColorFont}"   "${ColorUsername}"   "${ColorHostname}"   "${LabelSeparatorClose}")"
     LabelHostname="$(prompt::format   " ${hostname}"      "${ColorFont}"   "${ColorHostname}"   "${ColorPwd}"        "${LabelSeparatorClose}")"
     LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFont}"   "${ColorPwd}"        "${ColorBranch}"     "${LabelSeparatorClose}")"
