@@ -41,7 +41,7 @@ function git::get_short_commit_hash {
 }
 
 function ssh::is_remote {
-    local result=1
+    local result=0
 
     if [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] ; then 
         result=1
