@@ -87,9 +87,32 @@ function computer::get_hostname {
 function computer::get_os_icon {
     local result=""
 
-    case "$(uname -s)" in
-        "Darwin") result="" ;;
-        "Linux")  result="" ;;
+    os="$(uname -s)"
+    distro=""
+
+    case "${os}" in
+        "Darwin")    distro="osx" ;;
+        "GNU/Linux") distro="linux" ;;
+    esac
+
+    if [[ "${distro}" -eq "linux" ]]; then
+        distro="$(egrep '^ID=' /etc/os-release | cut -d"=" -f2)"
+
+        if [[ -z $"distro" ]]; then
+            distro="linux"
+        fi
+    fi
+
+    case "${distro}" in
+        "osx")     result="" ;;
+        "ubuntu")  result="" ;;
+        "debian")  result="" ;;
+        "fedora")  result="" ;;
+        "arch")    result="" ;;
+        "manjaro") result="" ;;
+        "nixos")   result="" ;;
+        "linux")   result="" ;;
+        "*")       result="" ;;
     esac
 
     echo "${result}"
@@ -97,6 +120,16 @@ function computer::get_os_icon {
 
 function computer::get_pwd {
     dirs +0
+}
+
+function computer::is_narrow_window {
+    local result=0
+
+    if [[ "$(tput cols)" -le 64 ]]; then
+        result=1
+    fi
+
+    echo "${result}"
 }
 
 function prompt::format {
@@ -165,7 +198,7 @@ function prompt::display {
 
         num_stashed=$(git::get_stash_count ${is_repo})
 
-        if (( num_changed == 0 && num_staged == 0 && num_untracked == 0 && num_stashed == 0 && num_conflicts == 0)) ; then
+        if [[ $(( ${num_changed} + ${num_staged} + ${num_untracked} + ${num_stashed} + ${num_conflicts} )) -eq 0 ]]; then
             clean=1
         fi
 
@@ -174,55 +207,80 @@ function prompt::display {
         fi
     fi
 
-
     is_remote=$(ssh::is_remote)
     is_sudo=$(sudo::is_sudo)
+    is_narrow_window=$(computer::is_narrow_window)
+
+
 
     username=$(computer::get_username)
     hostname="$(computer::get_hostname ${is_remote})"
     current_dir=$(computer::get_pwd)
     os_icon=$(computer::get_os_icon)
 
-
-
-    # Labels
+    # Format Labels
     
     #LabelSeparatorClose=""
-    LabelSeparatorOpen=""
+    #LabelSeparatorOpen=""
     LabelSeparatorClose=""
+    # LabelSeparatorClose=" "
+    # LabelSeparatorClose=" "
 
-
-
-    #   if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
-    #   elif [[ ${is_remote} -eq 1 ]]; then
-    #   elif [[ ${is_sudo} -eq 1 ]]; then
-    #   else
-    #   fi
 
   
     ColorFont="0;0;0"
     ColorOS="225;192;120" # drac red
     ColorOS="134;153;71" # drac red
-    #ColorOS="241;250;140" # drac yellow
+    ColorOS="241;250;140" # drac yellow
     #ColorOS="255;184;108" # drac orange
     ColorUsername="225;85;85"
     ColorHostname="33;170;18"
-    ColorPwd="90;71;153"
-    #ColorPwd="189;147;249" # drac purple
+    #ColorPwd="90;71;153"
+    ColorPwd="189;147;249" # drac purple
     ColorBranch="98;114;164" #drac comment
 
-    #                                 Text                 TextColor        BgColor              NextBgColor          Separator
-    #LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorUsername}"   "${LabelSeparatorClose}")"
-    LabelOS="$(prompt::format         "${os_icon} "         "${ColorFont}"   "${ColorOS}"         "${ColorPwd}"        "")"
-    LabelUsername="$(prompt::format   " ${username}"      "${ColorFont}"   "${ColorUsername}"   "${ColorHostname}"   "${LabelSeparatorClose}")"
-    LabelHostname="$(prompt::format   " ${hostname}"      "${ColorFont}"   "${ColorHostname}"   "${ColorPwd}"        "${LabelSeparatorClose}")"
-    LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFont}"   "${ColorPwd}"        "${ColorBranch}"     "${LabelSeparatorClose}")"
+    ColorOSClose=""
+    ColorUsernameClose=""
+    ColorHostnameClose=""
+
+    if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
+        ColorOSClose="${ColorUsername}"
+        ColorUsernameClose="${ColorHostname}"
+        ColorHostnameClose="${ColorPwd}" 
+    elif [[ ${is_sudo} -eq 1 ]]; then
+        ColorOSClose="${ColorUsername}"
+        ColorUsernameClose="${ColorPwd}"
+    elif [[ ${is_remote} -eq 1 ]]; then
+        ColorOSClose="${ColorHostname}"
+        ColorHostnameClose="${ColorPwd}" 
+    else
+        ColorOSClose="${ColorPwd}"
+    fi
+
+    LabelChanges=""
+    if [[ ${clean} -eq 0 ]]; then
+        LabelChanges=" "
+    fi
+
+    if [[ "${is_narrow_window}" -eq 1 ]]; then
+        branch_line=""
+    fi
+
+    ColorPwdClose=""
+    if [[ ${is_repo} -eq 1 ]]; then
+        ColorPwdClose="${ColorBranch}"
+        LabelBranch="$(prompt::format     " ${branch_line}${LabelChanges}"   "${ColorFont}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
+    fi
+
+    #                                 Text                 TextColor        BgColor              NextBgColor               Separator
+    LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorOSClose}"         "${LabelSeparatorClose}")"
+    LabelUsername="$(prompt::format   ""                  "${ColorFont}"   "${ColorUsername}"   "${ColorUsernameClose}"   "${LabelSeparatorClose}")"
+    LabelHostname="$(prompt::format   ""                  "${ColorFont}"   "${ColorHostname}"   "${ColorHostnameClose}"   "${LabelSeparatorClose}")"
+    LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFont}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
 
 
-
-    #
+    # Format output
     Output=""
-
     Output+="${LabelOS}"
 
     if [[ ${is_sudo} -eq 1 ]]; then
@@ -235,20 +293,12 @@ function prompt::display {
 
     Output+="${LabelPwd}"
 
-
     if [[ ${is_repo} -eq 1 ]]; then
-
-        LabelChanges=""
-        if [[ ${clean} -eq 0 ]]; then
-            LabelChanges=" "
-        fi
-
-        LabelBranch="$(prompt::format     " ${branch_line}${LabelChanges}"   "${ColorFont}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
-
         Output+="${LabelBranch}"
     fi
 
-    printf "${Output}\n \n"
+    #printf "${Output}\n \n"
+    printf "${Output}\n_ \n"
     #printf "${Output}\n$ \n"
 }
 
