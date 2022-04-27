@@ -87,18 +87,20 @@ function computer::get_hostname {
 function computer::get_os_icon {
     local result=""
 
-    os="$(uname -s)"
     distro=""
 
-    case "${os}" in
+    case "$(uname -s)" in
         "Darwin")    distro="osx" ;;
         "GNU/Linux") distro="linux" ;;
     esac
+    distro="osx"
 
     if [[ "${distro}" -eq "linux" ]]; then
-        distro="$(egrep '^ID=' /etc/os-release | cut -d"=" -f2)"
+        if [[ -f "/etc/os-release" ]]; then
+            distro="$(egrep '^ID=' /etc/os-release | cut -d"=" -f2)"
+        fi
 
-        if [[ -z $"distro" ]]; then
+        if [[ -z "${distro}" ]]; then
             distro="linux"
         fi
     fi
