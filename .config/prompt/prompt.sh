@@ -148,7 +148,8 @@ function prompt::format {
 
     local label=""
     label+="\e[48;2;${bgColor}m"        # bg text
-    label+="\e[1;38;2;${textColor}m"    # fg text
+    #label+="\e[1;38;2;${textColor}m"    # fg text
+    label+="\e[38;2;${textColor}m"    # fg text
     label+=" ${text} "                  # text
     label+="${RC2}"                     # reset text
     label+="\e[48;2;${nextBgColor}m"    # bg separator
@@ -230,16 +231,16 @@ function prompt::display {
 
 
   
-    ColorFont="0;0;0"
-    ColorOS="225;192;120" # drac red
-    ColorOS="134;153;71" # drac red
-    ColorOS="241;250;140" # drac yellow
-    #ColorOS="255;184;108" # drac orange
+    ColorFontBlack="0;0;0"
+    ColorFontWhite="224;224;224"
+    ColorOS="241;250;140"
+    ColorOS="181;187;104"
+    ColorOS="149;154;85"
     ColorUsername="225;85;85"
     ColorHostname="33;170;18"
-    #ColorPwd="90;71;153"
-    ColorPwd="189;147;249" # drac purple
-    ColorBranch="98;114;164" #drac comment
+    ColorPwd="189;147;249"
+    ColorPwd="90;85;154"
+    ColorBranch="98;114;164"
 
     ColorOSClose=""
     ColorUsernameClose=""
@@ -271,14 +272,14 @@ function prompt::display {
     ColorPwdClose=""
     if [[ ${is_repo} -eq 1 ]]; then
         ColorPwdClose="${ColorBranch}"
-        LabelBranch="$(prompt::format     " ${branch_line}${LabelChanges}"   "${ColorFont}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
+        LabelBranch="$(prompt::format     " ${branch_line}${LabelChanges}"   "${ColorFontBlack}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
     fi
 
     #                                 Text                 TextColor        BgColor              NextBgColor               Separator
-    LabelOS="$(prompt::format         "${os_icon}"         "${ColorFont}"   "${ColorOS}"         "${ColorOSClose}"         "${LabelSeparatorClose}")"
-    LabelUsername="$(prompt::format   ""                  "${ColorFont}"   "${ColorUsername}"   "${ColorUsernameClose}"   "${LabelSeparatorClose}")"
-    LabelHostname="$(prompt::format   ""                  "${ColorFont}"   "${ColorHostname}"   "${ColorHostnameClose}"   "${LabelSeparatorClose}")"
-    LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFont}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
+    LabelOS="$(prompt::format         "${os_icon}"         "${ColorFontBlack}"   "${ColorOS}"         "${ColorOSClose}"         "${LabelSeparatorClose}")"
+    LabelUsername="$(prompt::format   ""                  "${ColorFontBlack}"   "${ColorUsername}"   "${ColorUsernameClose}"   "${LabelSeparatorClose}")"
+    LabelHostname="$(prompt::format   ""                  "${ColorFontBlack}"   "${ColorHostname}"   "${ColorHostnameClose}"   "${LabelSeparatorClose}")"
+    LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFontWhite}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
 
 
     # Format output
