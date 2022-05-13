@@ -8,14 +8,43 @@ function git::is_repo {
     fi
 }
 
-function git::get_status {
+function git::get_repo_name {
+    local repo_git_dir="$(git rev-parse --absolute-git-dir)"
+    local repo_dir="$(dirname ${repo_git_dir})"
+    local repo_name="$(basename ${repo_dir})"
+
+    echo "${repo_name}"
+}
+
+function git::get_repo_relative_path {
+    local repo_git_dir="$(git rev-parse --absolute-git-dir)"
+    local repo_dir="$(dirname ${repo_git_dir})"
+    local pwd="$(pwd)"
+    pwd="${pwd#${repo_dir}}"
+
+    if [[ -z "${pwd}" ]]; then
+        pwd="/"
+    fi
+
+    echo "${pwd}"
+}
+
+function git::get_repo_pretty_path {
+    local repo_name="$(git::get_repo_name)"
+    local repo_rel_path="$(git::get_repo_relative_path)"
+
+    echo "${repo_name}: ${repo_rel_path}"
+}
+
+function git::get_status_count {
     local is_repo=${1}
+    local result=0
 
     if [[ ${is_repo} -eq 1 ]]; then
-        git status --porcelain --branch --untracked-files=normal --ignore-submodules=all --show-stash --no-column
-    else
-        echo ""
+        result="$(git status --porcelain --branch --untracked-files=normal --ignore-submodules=all --show-stash --no-column 2>/dev/null | wc -l | tr -d ' ')"
     fi
+    
+    echo "${result}"
 }
 
 function git::get_stash_count {
@@ -29,12 +58,32 @@ function git::get_stash_count {
     echo "${result}"
 }
 
-function git::get_short_commit_hash {
+function git::is_clean {
+    local is_repo=${1}
+    local result=0
+
+    if [[ ${is_repo} -eq 1 ]]; then
+        status_count=$(git::get_status_count ${is_repo})
+        stash_count=$(git::get_stash_count ${is_repo})
+
+        if [[ $(( ${status_count} + ${stash_count} )) -le 1 ]]; then
+            result=1
+        fi
+    fi
+
+    echo "${result}"
+}
+
+function git::get_branch_name {
     local is_repo=${1}
     local result=""
 
     if [[ ${is_repo} -eq 1 ]]; then
-        result=$(git rev-parse --short HEAD)
+        result=$(git branch --show-current)
+
+        if [[ -z "${result}" ]]; then
+            result=":$(git rev-parse --short HEAD)"
+        fi
     fi
 
     echo "${result}"
@@ -49,15 +98,6 @@ function ssh::is_remote {
 
     echo "${result}"
 }
-
-#function ssh::is_remote2 {
-    #p=${1:-$PPID}
-    #read pid name x ppid y < <( cat /proc/$p/stat )
-    ## or: read pid name ppid < <(ps -o pid= -o comm= -o ppid= -p $p) 
-    #[[ "$name" =~ sshd ]] && { echo "Is SSH : $pid $name"; return 0; }
-    #[ "$ppid" -le 1 ]     && { echo "Adam is $pid $name";  return 1; }
-    #is_ssh $ppid
-#}
 
 function sudo::is_sudo {
     local result=0
@@ -163,82 +203,25 @@ function prompt::format {
 function prompt::display {
     #
     is_repo=$(git::is_repo)
-    git_status=$(git::get_status ${is_repo})
-
-
-    #
-    branch_line=""
-    num_staged=0
-    num_changed=0
-    num_conflicts=0
-    num_untracked=0
-    clean=0
-
-    if [[ ${is_repo} -eq 1 ]]; then
-        while IFS='' read -r line || [[ -n "${line}" ]]; do
-            status="${line:0:2}"
-            while [[ -n ${status} ]]; do
-                case "${status}" in
-                    #two fixed character matches, loop finished
-                    \#\#)branch_line=$(awk -F '\\.\\.\\.' '{print substr($1,4) }' <<< $line); break ;;
-                    \?\?) ((num_untracked++)); break ;;
-                    U?) ((num_conflicts++)); break;;
-                    ?U) ((num_conflicts++)); break;;
-                    DD) ((num_conflicts++)); break;;
-                    AA) ((num_conflicts++)); break;;
-                    #two character matches, first loop
-                    ?M) ((num_changed++)) ;;
-                    ?D) ((num_changed++)) ;;
-                    ?\ ) ;;
-                    #single character matches, second loop
-                    U) ((num_conflicts++)) ;;
-                    \ ) ;;
-                    *) ((num_staged++)) ;;
-                esac
-                status="${status:0:(${#status}-1)}"
-            done
-        done <<< "$git_status"
-
-        num_stashed=$(git::get_stash_count ${is_repo})
-
-        if [[ $(( ${num_changed} + ${num_staged} + ${num_untracked} + ${num_stashed} + ${num_conflicts} )) -eq 0 ]]; then
-            clean=1
-        fi
-
-        if [[ ${branch_line} == "HEAD (no branch)" ]]; then
-            branch_line=":$(git::get_short_commit_hash ${is_repo})"
-        fi
-    fi
-
+    branch_name="$(git::get_branch_name ${is_repo})"
+    is_clean=$(git::is_clean ${is_repo})
     is_remote=$(ssh::is_remote)
     is_sudo=$(sudo::is_sudo)
     is_narrow_window=$(computer::is_narrow_window)
-
-
-
     username=$(computer::get_username)
     hostname="$(computer::get_hostname ${is_remote})"
     current_dir=$(computer::get_pwd)
     os_icon=$(computer::get_os_icon)
 
     # Format Labels
-    
-    #LabelSeparatorClose=""
-    #LabelSeparatorOpen=""
     LabelSeparatorClose=""
-    # LabelSeparatorClose=" "
-    # LabelSeparatorClose=" "
-
 
   
     ColorFontBlack="0;0;0"
     ColorFontWhite="224;224;224"
-    ColorOS="241;250;140"
-    ColorOS="181;187;104"
     ColorOS="149;154;85"
     ColorUsername="225;85;85"
     ColorHostname="33;170;18"
-    ColorPwd="189;147;249"
     ColorPwd="90;85;154"
     ColorBranch="98;114;164"
 
@@ -261,25 +244,35 @@ function prompt::display {
     fi
 
     LabelChanges=""
-    if [[ ${clean} -eq 0 ]]; then
+    if [[ ${is_clean} -eq 0 ]]; then
         LabelChanges=" "
     fi
 
-    if [[ "${is_narrow_window}" -eq 1 ]]; then
-        branch_line=""
-    fi
-
     ColorPwdClose=""
+    LabelBranch=""
     if [[ ${is_repo} -eq 1 ]]; then
         ColorPwdClose="${ColorBranch}"
-        LabelBranch="$(prompt::format     " ${branch_line}${LabelChanges}"   "${ColorFontBlack}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
+
+        if [[ "${is_narrow_window}" -eq 1 ]]; then
+            branch_name=""
+        fi
+
+        LabelBranch="$(prompt::format     " ${branch_name}${LabelChanges}"   "${ColorFontBlack}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
     fi
 
     #                                 Text                 TextColor        BgColor              NextBgColor               Separator
     LabelOS="$(prompt::format         "${os_icon}"         "${ColorFontBlack}"   "${ColorOS}"         "${ColorOSClose}"         "${LabelSeparatorClose}")"
     LabelUsername="$(prompt::format   ""                  "${ColorFontBlack}"   "${ColorUsername}"   "${ColorUsernameClose}"   "${LabelSeparatorClose}")"
     LabelHostname="$(prompt::format   ""                  "${ColorFontBlack}"   "${ColorHostname}"   "${ColorHostnameClose}"   "${LabelSeparatorClose}")"
-    LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFontWhite}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
+   
+    LabelPwd=""
+    if [[ ${is_repo} -eq 1 ]]; then
+        repo_pretty_path="$(git::get_repo_pretty_path)"
+        LabelPwd="$(prompt::format        " ${repo_pretty_path}"   "${ColorFontWhite}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
+    else
+        LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFontWhite}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
+    fi
+
 
 
     # Format output
@@ -300,9 +293,7 @@ function prompt::display {
         Output+="${LabelBranch}"
     fi
 
-    #printf "${Output}\n \n"
     printf "${Output}\n_ \n"
-    #printf "${Output}\n$ \n"
 }
 
 function prompt::set_prompt {
