@@ -1,5 +1,5 @@
 [KDiff3 Options]
-ApplicationFont=Noto Sans,10,-1,0,50,0,0,0,0,0,Regular
+ApplicationFont=Noto Sans,10,-1,0,50,0,0,0,0,0
 AutoAdvance=false
 AutoAdvanceDelay=500
 AutoCopySelection=false
@@ -36,9 +36,9 @@ FilePattern=*
 FindHidden=true
 FollowDirLinks=false
 FollowFileLinks=false
-Font=Noto Sans,10,-1,0,50,0,0,0,0,0,Regular
+Font=Noto Sans,10,-1,0,50,0,0,0,0,0
 FullAnalysis=false
-Geometry=2560,1410
+Geometry=1270,1378
 HistoryEntryStartRegExp=s*\\\\main\\\\(S+)s+([0-9]+) (JanFebMarAprMayJunJulAugSepOctNovDec) ([0-9][0-9][0-9][0-9]) ([0-9][0-9]:[0-9][0-9]:[0-9][0-9])s+(.*)
 HistoryEntryStartSortKeyOrder=4,3,2,5,1,6
 HistoryMergeSorting=false
@@ -59,7 +59,7 @@ MidAgeFileColor=192,192,0
 MissingFileColor=0,0,0
 NewestFileColor=0,208,0
 OldestFileColor=240,0,0
-Position=2560,30
+Position=1284,38
 PreProcessorCmd=\\0
 RecentAFiles=
 RecentBFiles=
@@ -92,12 +92,18 @@ UseCvsIgnore=false
 WhiteSpace2FileMergeDefault=0
 WhiteSpace3FileMergeDefault=0
 WhiteSpaceEqual=true
+WindowStateFullScreen=false
 WindowStateMaximised=false
 WordWrap=false
 
 [MainWindow]
+DisplayPort-0 DisplayPort-1 HDMI-A-0 Height 2560x1440=1440
+DisplayPort-0 DisplayPort-1 HDMI-A-0 Width 2560x1440=2560
+DisplayPort-0 DisplayPort-1 HDMI-A-0 XPosition 2560x1440=1287
+DisplayPort-0 DisplayPort-1 HDMI-A-0 YPosition 2560x1440=41
 Height 1440=1440
-State=AAAA/wAAAAD9AAAAAAAACgAAAAU1AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+RestorePositionForNextInstance=false
+State=AAAA/wAAAAD9AAAAAAAABPYAAAUDAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
 ToolBarsMovable=Disabled
 Width 2560=2560
 Window-Maximized 1440x2560=true
