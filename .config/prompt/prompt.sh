@@ -1,5 +1,14 @@
 #!/bin/bash
 
+SEPARATOR_ICON=""
+COLOR_FONT_BLACK="0;0;0"
+COLOR_FONT_WHITE="224;224;224"
+COLOR_OS="149;154;85"
+COLOR_USERNAME="225;85;85"
+COLOR_HOSTNAME="33;170;18"
+COLOR_PWD="90;85;154"
+COLOR_BRANCH="98;114;164"
+
 function git::is_repo {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         echo "1"
@@ -214,33 +223,23 @@ function prompt::display {
     os_icon=$(computer::get_os_icon)
 
     # Format Labels
-    LabelSeparatorClose=""
-
-  
-    ColorFontBlack="0;0;0"
-    ColorFontWhite="224;224;224"
-    ColorOS="149;154;85"
-    ColorUsername="225;85;85"
-    ColorHostname="33;170;18"
-    ColorPwd="90;85;154"
-    ColorBranch="98;114;164"
 
     ColorOSClose=""
     ColorUsernameClose=""
     ColorHostnameClose=""
 
     if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
-        ColorOSClose="${ColorUsername}"
-        ColorUsernameClose="${ColorHostname}"
-        ColorHostnameClose="${ColorPwd}" 
+        ColorOSClose="${COLOR_USERNAME}"
+        ColorUsernameClose="${COLOR_HOSTNAME}"
+        ColorHostnameClose="${COLOR_PWD}" 
     elif [[ ${is_sudo} -eq 1 ]]; then
-        ColorOSClose="${ColorUsername}"
-        ColorUsernameClose="${ColorPwd}"
+        ColorOSClose="${COLOR_USERNAME}"
+        ColorUsernameClose="${COLOR_PWD}"
     elif [[ ${is_remote} -eq 1 ]]; then
-        ColorOSClose="${ColorHostname}"
-        ColorHostnameClose="${ColorPwd}" 
+        ColorOSClose="${COLOR_HOSTNAME}"
+        ColorHostnameClose="${COLOR_PWD}" 
     else
-        ColorOSClose="${ColorPwd}"
+        ColorOSClose="${COLOR_PWD}"
     fi
 
     LabelChanges=""
@@ -251,26 +250,26 @@ function prompt::display {
     ColorPwdClose=""
     LabelBranch=""
     if [[ ${is_repo} -eq 1 ]]; then
-        ColorPwdClose="${ColorBranch}"
+        ColorPwdClose="${COLOR_BRANCH}"
 
         if [[ "${is_narrow_window}" -eq 1 ]]; then
             branch_name=""
         fi
 
-        LabelBranch="$(prompt::format     " ${branch_name}${LabelChanges}"   "${ColorFontBlack}"   "${ColorBranch}"     ""     "${LabelSeparatorClose}")"
+        LabelBranch="$(prompt::format     " ${branch_name}${LabelChanges}"   "${COLOR_FONT_BLACK}"   "${COLOR_BRANCH}"     ""     "${SEPARATOR_ICON}")"
     fi
 
-    #                                 Text                 TextColor        BgColor              NextBgColor               Separator
-    LabelOS="$(prompt::format         "${os_icon}"         "${ColorFontBlack}"   "${ColorOS}"         "${ColorOSClose}"         "${LabelSeparatorClose}")"
-    LabelUsername="$(prompt::format   ""                  "${ColorFontBlack}"   "${ColorUsername}"   "${ColorUsernameClose}"   "${LabelSeparatorClose}")"
-    LabelHostname="$(prompt::format   ""                  "${ColorFontBlack}"   "${ColorHostname}"   "${ColorHostnameClose}"   "${LabelSeparatorClose}")"
+    #                                 Text                 TextColor               BgColor               NextBgColor               Separator
+    LabelOS="$(prompt::format         "${os_icon}"         "${COLOR_FONT_BLACK}"   "${COLOR_OS}"         "${ColorOSClose}"         "${SEPARATOR_ICON}")"
+    LabelUsername="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_USERNAME}"   "${ColorUsernameClose}"   "${SEPARATOR_ICON}")"
+    LabelHostname="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_HOSTNAME}"   "${ColorHostnameClose}"   "${SEPARATOR_ICON}")"
    
     LabelPwd=""
     if [[ ${is_repo} -eq 1 ]]; then
         repo_pretty_path="$(git::get_repo_pretty_path)"
-        LabelPwd="$(prompt::format        " ${repo_pretty_path}"   "${ColorFontWhite}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
+        LabelPwd="$(prompt::format   " ${repo_pretty_path}"   "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${ColorPwdClose}"   "${SEPARATOR_ICON}")"
     else
-        LabelPwd="$(prompt::format        "ﱮ ${current_dir}"   "${ColorFontWhite}"   "${ColorPwd}"        "${ColorPwdClose}"        "${LabelSeparatorClose}")"
+        LabelPwd="$(prompt::format   "ﱮ ${current_dir}"        "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${ColorPwdClose}"   "${SEPARATOR_ICON}")"
     fi
 
 
