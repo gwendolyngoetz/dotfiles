@@ -16,6 +16,9 @@ alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
 alias vim=nvim
 alias env='env | grep -v LS_COLORS | sort'
 alias g=git
+alias docker-rm-all='$HOME/.config/docker/scripts/docker-rm-all.sh'
+alias docker-rm-vol='$HOME/.config/docker/scripts/docker-rm-vol.sh'
+alias docker-rm-img='$HOME/.config/docker/scripts/docker-rm-img.sh'
 
 if [ -f "/usr/bin/fdfind" ]; then
     alias fd='fdfind'
