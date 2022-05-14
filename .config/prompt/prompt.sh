@@ -1,11 +1,12 @@
 #!/bin/bash
 
 SEPARATOR_ICON=""
-COLOR_FONT_BLACK="0;0;0"
-COLOR_FONT_WHITE="224;224;224"
+COLOR_BLACK="0;0;0"
+COLOR_WHITE="224;224;224"
 COLOR_OS="149;154;85"
 COLOR_USERNAME="225;85;85"
 COLOR_HOSTNAME="33;170;18"
+COLOR_GIT="255;0;0"
 COLOR_PWD="90;85;154"
 COLOR_BRANCH="98;114;164"
 
@@ -18,31 +19,40 @@ function git::is_repo {
 }
 
 function git::get_repo_name {
-    local repo_git_dir="$(git rev-parse --absolute-git-dir)"
-    local repo_dir="$(dirname ${repo_git_dir})"
-    local repo_name="$(basename ${repo_dir})"
+    local is_repo=${1}
+    local result=""
 
-    echo "${repo_name}"
+    if [[ ${is_repo} -eq 1 ]]; then
+        local repo_git_dir="$(git rev-parse --absolute-git-dir)"
+        local repo_dir="$(dirname ${repo_git_dir})"
+        local repo_name="$(basename ${repo_dir})"
+
+        result="${repo_name}"
+    fi
+
+    echo "${result}"
 }
 
 function git::get_repo_relative_path {
-    local repo_git_dir="$(git rev-parse --absolute-git-dir)"
-    local repo_dir="$(dirname ${repo_git_dir})"
-    local pwd="$(pwd)"
-    pwd="${pwd#${repo_dir}}"
+    local is_repo=${1}
+    local result=""
 
-    if [[ -z "${pwd}" ]]; then
-        pwd="/"
+    if [[ ${is_repo} -eq 1 ]]; then
+        local repo_git_dir="$(git rev-parse --absolute-git-dir)"
+        local repo_dir="$(dirname ${repo_git_dir})"
+        local pwd="$(pwd)"
+        pwd="${pwd#${repo_dir}}"
+        pwd="${pwd:1}"
+
+        if [[ -z "${pwd}" ]]; then
+            pwd=""
+        else
+            pwd=":${pwd}"
+        fi
+
+        result="${pwd}"
     fi
-
-    echo "${pwd}"
-}
-
-function git::get_repo_pretty_path {
-    local repo_name="$(git::get_repo_name)"
-    local repo_rel_path="$(git::get_repo_relative_path)"
-
-    echo "${repo_name}: ${repo_rel_path}"
+    echo "${result}"
 }
 
 function git::get_status_count {
@@ -183,12 +193,12 @@ function computer::is_narrow_window {
     echo "${result}"
 }
 
-function prompt::format {
+function prompt::format_label {
     local text="${1}"
     local text_color="${2}"
     local bg_color="${3}"
     local next_bg_color="${4}"
-    local separator_icon="${5}"
+    local no_separator="${5}"
 
     # Reset Color
     reset_color='\033[0m'
@@ -198,33 +208,46 @@ function prompt::format {
     local label=""
     label+="\e[48;2;${bg_color}m"        # bg text
     label+="\e[38;2;${text_color}m"      # fg text
-    label+=" ${text} "                   # text
+    label+="${text}"                    # text
+
+    if [[ -z "${no_separator}" ]]; then
+        label+=""                       # separator
+    fi
+
     label+="${reset_color_2}"            # reset text
     label+="\e[48;2;${next_bg_color}m"   # bg separator
     label+="\e[1;38;2;${bg_color}m"      # fg separator
-    label+="${separator_icon}"           # separator
+
+    if [[ -z "${no_separator}" ]]; then
+        label+="${SEPARATOR_ICON}"       # separator
+    fi
+
     label+="${reset_color_2}"            # reset separator
 
     echo "${label}"
 }
 
 function prompt::display {
-    #
+    # Gather settings
     is_repo=$(git::is_repo)
     branch_name="$(git::get_branch_name ${is_repo})"
     is_clean=$(git::is_clean ${is_repo})
-    is_remote=1 #$(ssh::is_remote)
-    is_sudo=1 #$(sudo::is_sudo)
+    is_remote=$(ssh::is_remote)
+    is_sudo=$(sudo::is_sudo)
     is_narrow_window=$(computer::is_narrow_window)
     username=$(computer::get_username)
     hostname="$(computer::get_hostname ${is_remote})"
-    current_dir=$(computer::get_pwd)
     os_icon=$(computer::get_os_icon)
+    current_dir=$(computer::get_pwd)
 
-    # Format Labels
+    repo_name="$(git::get_repo_name ${is_repo})"
+    repo_rel_path="$(git::get_repo_relative_path ${is_repo})"
+
+    # Format label close colors
     color_os_close=""
     color_username_close=""
     color_hostname_close=""
+    color_git_close=""
 
     if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
         color_os_close="${COLOR_USERNAME}"
@@ -240,13 +263,8 @@ function prompt::display {
         color_os_close="${COLOR_PWD}"
     fi
 
-    label_changes=""
-    if [[ ${is_clean} -eq 0 ]]; then
-        label_changes=" "
-    fi
-
+    # Format branch name
     color_pwd_close=""
-    label_branch=""
     if [[ ${is_repo} -eq 1 ]]; then
         color_pwd_close="${COLOR_BRANCH}"
 
@@ -254,22 +272,26 @@ function prompt::display {
             branch_name=""
         fi
 
-        label_branch="$(prompt::format     " ${branch_name}${label_changes}"   "${COLOR_FONT_BLACK}"   "${COLOR_BRANCH}"     ""     "${SEPARATOR_ICON}")"
+        if [[ ${is_clean} -eq 0 ]]; then
+            branch_name+=" "
+        fi
     fi
 
-    #                                 Text                 TextColor               BgColor               NextBgColor               Separator
-    label_os="$(prompt::format         "${os_icon}"         "${COLOR_FONT_BLACK}"   "${COLOR_OS}"         "${color_os_close}"         "${SEPARATOR_ICON}")"
-    label_username="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_USERNAME}"   "${color_username_close}"   "${SEPARATOR_ICON}")"
-    label_hostname="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_HOSTNAME}"   "${color_hostname_close}"   "${SEPARATOR_ICON}")"
-   
-    label_pwd=""
+    # Format pwd
     if [[ ${is_repo} -eq 1 ]]; then
-        repo_pretty_path="$(git::get_repo_pretty_path)"
-        label_pwd="$(prompt::format   " ${repo_pretty_path}"   "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${color_pwd_close}"   "${SEPARATOR_ICON}")"
+        current_dir="${repo_rel_path}"
     else
-        label_pwd="$(prompt::format   "ﱮ ${current_dir}"        "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${color_pwd_close}"   "${SEPARATOR_ICON}")"
+        current_dir=" ﱮ ${current_dir}"
     fi
 
+    #                                        Text                  TextColor          BgColor               NextBgColor
+    label_os="$(prompt::format_label         " ${os_icon} "        "${COLOR_BLACK}"   "${COLOR_OS}"         "${color_os_close}"              )"
+    label_username="$(prompt::format_label   "  "                 "${COLOR_BLACK}"   "${COLOR_USERNAME}"   "${color_username_close}"        )"
+    label_hostname="$(prompt::format_label   "  "                 "${COLOR_BLACK}"   "${COLOR_HOSTNAME}"   "${color_hostname_close}"        )"
+    label_git="$(prompt::format_label        "  ${repo_name}"     "${COLOR_BLACK}"   "${COLOR_PWD}"        "${COLOR_PWD}"             "hide")"
+    label_pwd="$(prompt::format_label        "${current_dir}"      "${COLOR_WHITE}"   "${COLOR_PWD}"        "${color_pwd_close}"             )"
+    label_branch="$(prompt::format_label     "  ${branch_name} "  "${COLOR_BLACK}"   "${COLOR_BRANCH}"                                      )"
+    
 
 
     # Format output
@@ -282,6 +304,10 @@ function prompt::display {
 
     if [[ ${is_remote} -eq 1 ]]; then
         output+="${label_hostname}"
+    fi
+
+    if [[ ${is_repo} -eq 1 ]]; then
+        output+="${label_git}"
     fi
 
     output+="${label_pwd}"
