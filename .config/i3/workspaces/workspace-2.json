@@ -21,7 +21,7 @@
             "percent": 0.6,
             "swallows": [
                {
-                "class": "^Firefox$",
+                "class": "^firefox$",
                 "instance": "^Navigator$",
                 "window_role": "^browser$"
                }
@@ -42,7 +42,7 @@
             "percent": 0.4,
             "swallows": [
                {
-                "class": "^Firefox$",
+                "class": "^firefox$",
                 "instance": "^Navigator$",
                 "window_role": "^browser$"
                }
