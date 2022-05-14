@@ -185,26 +185,25 @@ function computer::is_narrow_window {
 
 function prompt::format {
     local text="${1}"
-    local textColor="${2}"
-    local bgColor="${3}"
-    local nextBgColor="${4}"
-    local labelSeparatorClose="${5}"
+    local text_color="${2}"
+    local bg_color="${3}"
+    local next_bg_color="${4}"
+    local separator_icon="${5}"
 
     # Reset Color
-    RC='\033[0m'
-    RC2="${RC}${RC}"
+    reset_color='\033[0m'
+    reset_color_2="${reset_color}${reset_color}"
 
 
     local label=""
-    label+="\e[48;2;${bgColor}m"        # bg text
-    #label+="\e[1;38;2;${textColor}m"    # fg text
-    label+="\e[38;2;${textColor}m"    # fg text
-    label+=" ${text} "                  # text
-    label+="${RC2}"                     # reset text
-    label+="\e[48;2;${nextBgColor}m"    # bg separator
-    label+="\e[1;38;2;${bgColor}m"      # fg separator
-    label+="${labelSeparatorClose}"     # separator
-    label+="${RC2}"                     # reset separator
+    label+="\e[48;2;${bg_color}m"        # bg text
+    label+="\e[38;2;${text_color}m"      # fg text
+    label+=" ${text} "                   # text
+    label+="${reset_color_2}"            # reset text
+    label+="\e[48;2;${next_bg_color}m"   # bg separator
+    label+="\e[1;38;2;${bg_color}m"      # fg separator
+    label+="${separator_icon}"           # separator
+    label+="${reset_color_2}"            # reset separator
 
     echo "${label}"
 }
@@ -214,8 +213,8 @@ function prompt::display {
     is_repo=$(git::is_repo)
     branch_name="$(git::get_branch_name ${is_repo})"
     is_clean=$(git::is_clean ${is_repo})
-    is_remote=$(ssh::is_remote)
-    is_sudo=$(sudo::is_sudo)
+    is_remote=1 #$(ssh::is_remote)
+    is_sudo=1 #$(sudo::is_sudo)
     is_narrow_window=$(computer::is_narrow_window)
     username=$(computer::get_username)
     hostname="$(computer::get_hostname ${is_remote})"
@@ -223,76 +222,75 @@ function prompt::display {
     os_icon=$(computer::get_os_icon)
 
     # Format Labels
-
-    ColorOSClose=""
-    ColorUsernameClose=""
-    ColorHostnameClose=""
+    color_os_close=""
+    color_username_close=""
+    color_hostname_close=""
 
     if [[ ${is_remote} -eq 1 && ${is_sudo} -eq 1 ]]; then
-        ColorOSClose="${COLOR_USERNAME}"
-        ColorUsernameClose="${COLOR_HOSTNAME}"
-        ColorHostnameClose="${COLOR_PWD}" 
+        color_os_close="${COLOR_USERNAME}"
+        color_username_close="${COLOR_HOSTNAME}"
+        color_hostname_close="${COLOR_PWD}" 
     elif [[ ${is_sudo} -eq 1 ]]; then
-        ColorOSClose="${COLOR_USERNAME}"
-        ColorUsernameClose="${COLOR_PWD}"
+        color_os_close="${COLOR_USERNAME}"
+        color_username_close="${COLOR_PWD}"
     elif [[ ${is_remote} -eq 1 ]]; then
-        ColorOSClose="${COLOR_HOSTNAME}"
-        ColorHostnameClose="${COLOR_PWD}" 
+        color_os_close="${COLOR_HOSTNAME}"
+        color_hostname_close="${COLOR_PWD}" 
     else
-        ColorOSClose="${COLOR_PWD}"
+        color_os_close="${COLOR_PWD}"
     fi
 
-    LabelChanges=""
+    label_changes=""
     if [[ ${is_clean} -eq 0 ]]; then
-        LabelChanges=" "
+        label_changes=" "
     fi
 
-    ColorPwdClose=""
-    LabelBranch=""
+    color_pwd_close=""
+    label_branch=""
     if [[ ${is_repo} -eq 1 ]]; then
-        ColorPwdClose="${COLOR_BRANCH}"
+        color_pwd_close="${COLOR_BRANCH}"
 
         if [[ "${is_narrow_window}" -eq 1 ]]; then
             branch_name=""
         fi
 
-        LabelBranch="$(prompt::format     " ${branch_name}${LabelChanges}"   "${COLOR_FONT_BLACK}"   "${COLOR_BRANCH}"     ""     "${SEPARATOR_ICON}")"
+        label_branch="$(prompt::format     " ${branch_name}${label_changes}"   "${COLOR_FONT_BLACK}"   "${COLOR_BRANCH}"     ""     "${SEPARATOR_ICON}")"
     fi
 
     #                                 Text                 TextColor               BgColor               NextBgColor               Separator
-    LabelOS="$(prompt::format         "${os_icon}"         "${COLOR_FONT_BLACK}"   "${COLOR_OS}"         "${ColorOSClose}"         "${SEPARATOR_ICON}")"
-    LabelUsername="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_USERNAME}"   "${ColorUsernameClose}"   "${SEPARATOR_ICON}")"
-    LabelHostname="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_HOSTNAME}"   "${ColorHostnameClose}"   "${SEPARATOR_ICON}")"
+    label_os="$(prompt::format         "${os_icon}"         "${COLOR_FONT_BLACK}"   "${COLOR_OS}"         "${color_os_close}"         "${SEPARATOR_ICON}")"
+    label_username="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_USERNAME}"   "${color_username_close}"   "${SEPARATOR_ICON}")"
+    label_hostname="$(prompt::format   ""                  "${COLOR_FONT_BLACK}"   "${COLOR_HOSTNAME}"   "${color_hostname_close}"   "${SEPARATOR_ICON}")"
    
-    LabelPwd=""
+    label_pwd=""
     if [[ ${is_repo} -eq 1 ]]; then
         repo_pretty_path="$(git::get_repo_pretty_path)"
-        LabelPwd="$(prompt::format   " ${repo_pretty_path}"   "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${ColorPwdClose}"   "${SEPARATOR_ICON}")"
+        label_pwd="$(prompt::format   " ${repo_pretty_path}"   "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${color_pwd_close}"   "${SEPARATOR_ICON}")"
     else
-        LabelPwd="$(prompt::format   "ﱮ ${current_dir}"        "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${ColorPwdClose}"   "${SEPARATOR_ICON}")"
+        label_pwd="$(prompt::format   "ﱮ ${current_dir}"        "${COLOR_FONT_WHITE}"   "${COLOR_PWD}"   "${color_pwd_close}"   "${SEPARATOR_ICON}")"
     fi
 
 
 
     # Format output
-    Output=""
-    Output+="${LabelOS}"
+    output=""
+    output+="${label_os}"
 
     if [[ ${is_sudo} -eq 1 ]]; then
-        Output+="${LabelUsername}"
+        output+="${label_username}"
     fi
 
     if [[ ${is_remote} -eq 1 ]]; then
-        Output+="${LabelHostname}"
+        output+="${label_hostname}"
     fi
 
-    Output+="${LabelPwd}"
+    output+="${label_pwd}"
 
     if [[ ${is_repo} -eq 1 ]]; then
-        Output+="${LabelBranch}"
+        output+="${label_branch}"
     fi
 
-    printf "${Output}\n_ \n"
+    printf "${output}\n_ \n"
 }
 
 function prompt::set_prompt {
