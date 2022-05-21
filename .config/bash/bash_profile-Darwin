@@ -1,5 +1,5 @@
 
-export PATH="$PATH:/opt/homebrew/bin:/usr/local/share/dotnet/x64:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/gwendolyn/Library/Python/3.8/bin"
+export PATH="$PATH:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/share/dotnet/x64:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/gwendolyn/Library/Python/3.8/bin"
 
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
