@@ -1,6 +1,6 @@
 # vim: ft=bash
 function set_prompt {
-  PS1=$(~/.local/bin/prompt)
+  PS1=$($HOME/.local/bin/prompt)
 }
 
 
