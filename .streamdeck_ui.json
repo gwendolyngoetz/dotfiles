@@ -38,7 +38,11 @@
                         "write": "",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_ff.png"
                     },
-                    "6": {},
+                    "6": {
+                        "text": "",
+                        "command": "firefox https://docs.civiform.us",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_civiform.png"
+                    },
                     "7": {
                         "command": "",
                         "write": ""
