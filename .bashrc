@@ -82,8 +82,6 @@ if [ -f "$HOME/.config/functions" ]; then
 fi
 
 # Prompt
-if [ -f "$HOME/.config/prompt/prompt.sh" ]; then
-    source $HOME/.config/prompt/prompt.sh
-    PROMPT_COMMAND=prompt::set_prompt
+if [ -f "$HOME/.local/bin/prompt" ]; then
+    PROMPT_COMMAND=set_prompt
 fi
-
