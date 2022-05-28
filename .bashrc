@@ -85,3 +85,9 @@ fi
 if [ -f "$HOME/.local/bin/prompt" ]; then
     PROMPT_COMMAND=set_prompt
 fi
+
+
+# Completion for workon function
+if [ -f "$HOME/.config/bash/workon_completions.sh" ]; then
+    source $HOME/.config/bash/workon_completions.sh
+fi
