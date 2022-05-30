@@ -33,6 +33,7 @@ local options = {
   scrolloff = 8,                           -- is one of my fav
   sidescrolloff = 8,
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
+  laststatus = 3,                          -- global status line
 }
 
 vim.opt.shortmess:append "c"
@@ -44,3 +45,6 @@ end
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+vim.cmd "let g:loaded_perl_provider = 0"
+vim.cmd "let g:loaded_ruby_provider = 0"
+

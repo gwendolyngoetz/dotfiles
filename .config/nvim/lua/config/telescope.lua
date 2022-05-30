@@ -14,6 +14,7 @@ telescope.setup {
 
     mappings = {
       i = {
+        ["<esc>"] = actions.close,
         ["<C-n>"] = actions.cycle_history_next,
         ["<C-p>"] = actions.cycle_history_prev,
 
@@ -94,3 +95,4 @@ telescope.setup {
     -- please take a look at the readme of the extension you want to configure
   },
 }
+

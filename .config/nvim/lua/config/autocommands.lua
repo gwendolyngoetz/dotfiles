@@ -35,3 +35,10 @@ vim.cmd [[
 --   autocmd!
 --   autocmd BufWritePre * lua vim.lsp.buf.formatting()
 -- augroup end
+
+
+vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
+  callback = function()
+    require("config.winbar").get_winbar()
+  end,
+})
