@@ -18,14 +18,25 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ] ; then
+    export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+    export PATH="$JAVA_HOME/bin":$PATH
+fi
+
+
+# set PATH for coursier install directory
+if [ -d "$HOME/.local/share/coursier/bin" ] ; then
+    export PATH="$PATH:$HOME/.local/share/coursier/bin"
+fi
 
 # environment variables not to check in to source control
 if [ -f "$HOME/.private-env" ] ; then
@@ -37,3 +48,4 @@ fi
 export HISTFILE="$HOME/.config/bash/bash_history"
 export HISTCONTROL=ignoreboth
 . "$HOME/.cargo/env"
+
