@@ -7,6 +7,7 @@ alias ls='exa --color=auto --icons --group'
 alias ll='ls -alF'
 alias la='ls -a'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias con='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ..='cd ..'
 alias cls=clear
 alias aptup='sudo apt update && sudo apt list --upgradable'
