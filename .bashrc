@@ -86,6 +86,10 @@ if [ -f "$HOME/.local/bin/prompt" ]; then
     PROMPT_COMMAND=set_prompt
 fi
 
+# Configure less for man page coloring
+if [ -f "$HOME/.config/bash/less.conf" ]; then
+    source $HOME/.config/bash/less.conf
+fi
 
 # Completion for workon function
 if [ -f "$HOME/.config/bash/workon_completions.sh" ]; then
