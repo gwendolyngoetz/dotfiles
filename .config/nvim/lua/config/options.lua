@@ -48,3 +48,6 @@ vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 vim.cmd "let g:loaded_perl_provider = 0"
 vim.cmd "let g:loaded_ruby_provider = 0"
 
+
+-- Disable for Metals
+vim.opt.shortmess:remove("F")

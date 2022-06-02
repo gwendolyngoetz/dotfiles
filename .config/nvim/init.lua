@@ -17,5 +17,6 @@ require "config.commentstring"
 require "config.functions"
 require "config.gps"
 require "config.winbar"
+require "config.metals"
 --require "config.prettyfold"
 

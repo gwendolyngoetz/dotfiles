@@ -60,9 +60,6 @@ return packer.startup(function(use)
     commit = "b9cc0a26f3b5610ce772004e1efd452b10b36bc9"
   }
 
-  -- use "numToStr/Comment.nvim" -- Easily comment stuff
-
-
   use {
     "kyazdani42/nvim-web-devicons",
     commit = "d096ee903e04019ec8b4dff66a888189b3b99e44"
@@ -96,8 +93,6 @@ return packer.startup(function(use)
       "kyazdani42/nvim-web-devicons"
     }
   }
-  -- use "akinsho/toggleterm.nvim"
-  -- use "ahmedkhalf/project.nvim"
 
   use {
     "lewis6991/impatient.nvim",
@@ -109,14 +104,10 @@ return packer.startup(function(use)
     tag = "v2.18.*"
   }
 
-  -- use "goolord/alpha-nvim"
-
   use {
     "antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
     commit = "1bfb32e7ba1344925ad815cb0d7f901dbc0ff7c1"
   }
-
-  -- use "folke/which-key.nvim"
 
   -- Colorschemes
   use {
@@ -226,7 +217,21 @@ return packer.startup(function(use)
 
   use {
     "christianchiarulli/nvim-gps",
-    branch = "text_hl"
+    branch = "text_hl",
+    commit = "b8e8b386dcc003453968df65047518c1b761e637"
+  }
+
+  use {
+    "mfussenegger/nvim-dap",
+    commit = "0062c19424ac751f47227b440c3d6c7e584687ff"
+  }
+
+  use {
+    "scalameta/nvim-metals",
+    commit = "9f8272802d35928df6c739f8e06f0e2767ad53a7",
+    requires = {
+      "nvim-lua/plenary.nvim"
+    }
   }
 
   -- Folding
@@ -234,6 +239,13 @@ return packer.startup(function(use)
   --  "anuvyklack/pretty-fold.nvim",
   --  commit = "e6385d62eec67fdc8a21700b42a701d0d6fb8b32"
   --}
+
+  -- use "folke/which-key.nvim"
+  -- use "akinsho/toggleterm.nvim"
+  -- use "ahmedkhalf/project.nvim"
+  -- use "goolord/alpha-nvim"
+  -- use "numToStr/Comment.nvim" -- Easily comment stuff
+
 
 
   -- Automatically set up your configuration after cloning packer.nvim
