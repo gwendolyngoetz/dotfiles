@@ -22,6 +22,9 @@ if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
+if [ -d "$HOME/Library/Application Support/Coursier/bin" ]; then
+    export PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
+fi
 
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
