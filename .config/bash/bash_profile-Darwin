@@ -1,5 +1,27 @@
+# vim: ft=bash
 
-export PATH="$PATH:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/share/dotnet/x64:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/gwendolyn/Library/Python/3.8/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
+if [ -d "/opt/homebrew/bin" ]; then
+    export PATH="$PATH:/opt/homebrew/bin"
+fi
+
+if [ -d "/usr/local/share/dotnet/x64" ]; then
+    export PATH="$PATH:/usr/local/share/dotnet/x64"
+fi
+
+if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
+    export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi
+
+if [ -d "$HOME/Library/Python/3.8/bin" ]; then
+    export PATH="$PATH:$HOME/Library/Python/3.8/bin"
+fi
+
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
 
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
