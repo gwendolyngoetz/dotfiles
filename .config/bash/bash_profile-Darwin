@@ -6,8 +6,8 @@ if [ -d "/opt/homebrew/bin" ]; then
     export PATH="$PATH:/opt/homebrew/bin"
 fi
 
-if [ -d "/usr/local/share/dotnet/x64" ]; then
-    export PATH="$PATH:/usr/local/share/dotnet/x64"
+if [ -d "/usr/local/share/dotnet" ]; then
+    export PATH="$PATH:/usr/local/share/dotnet"
 fi
 
 if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then

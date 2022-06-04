@@ -4,6 +4,20 @@ if not status_ok then
 end
 
 configs.setup {
+  ensure_installed = {
+    "bash",
+    "c_sharp",
+    "cmake",
+    "css",
+    "go",
+    "html",
+    "java",
+    "json",
+    "lua",
+    "markdown",
+    "scala",
+    "yaml"
+  },
   window = {
     documentation = "native" -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   },
