@@ -1,6 +1,10 @@
 # vim: ft=bash
 function set_prompt {
-  PS1=$($HOME/.local/bin/prompt)
+    if [[ "$(hostname -s)" != "hestia" ]]; then
+        PS1=$($HOME/.local/bin/prompt --showHostname)
+    else
+        PS1=$($HOME/.local/bin/prompt)
+    fi
 }
 
 
