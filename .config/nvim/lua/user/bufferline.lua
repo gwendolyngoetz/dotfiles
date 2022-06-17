@@ -6,14 +6,11 @@ end
 bufferline.setup {
   options = {
     mode = "buffers",
-    numbers = "none",
+    numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
     close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-    -- NOTE: this plugin is designed with this icon in mind,
-    -- and so changing this is NOT recommended, this is intended
-    -- as an escape hatch for people who cannot bear it for whatever reason
     indicator_icon = "▎",
     buffer_close_icon = "",
     modified_icon = "●",
@@ -23,19 +20,18 @@ bufferline.setup {
     max_name_length = 30,
     max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
     tab_size = 21,
-    diagnostics = false,
+    diagnostics = false, -- | "nvim_lsp" | "coc",
     diagnostics_update_in_insert = false,
     offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
-    -- color_icons = false, -- Not working
     show_buffer_icons = true,
     show_buffer_close_icons = true,
     show_buffer_default_icon = true,
     show_close_icon = true,
     show_tab_indicators = true,
-    persist_buffer_sort = true,
-    separator_style = "thin",
+    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+    separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = true,
-    always_show_bufferline = true
+    always_show_bufferline = true,
   },
   highlights = {
     fill = {
@@ -46,10 +42,12 @@ bufferline.setup {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
     },
+
     buffer_visible = {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
     },
+
     close_button = {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
@@ -58,6 +56,7 @@ bufferline.setup {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
     },
+
     tab_selected = {
       guifg = { attribute = "fg", highlight = "Normal" },
       guibg = { attribute = "bg", highlight = "Normal" },
@@ -70,6 +69,7 @@ bufferline.setup {
       guifg = { attribute = "fg", highlight = "TabLineSel" },
       guibg = { attribute = "bg", highlight = "Normal" },
     },
+
     duplicate_selected = {
       guifg = { attribute = "fg", highlight = "TabLineSel" },
       guibg = { attribute = "bg", highlight = "TabLineSel" },
@@ -85,6 +85,7 @@ bufferline.setup {
       guibg = { attribute = "bg", highlight = "TabLine" },
       gui = "italic",
     },
+
     modified = {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
@@ -97,6 +98,7 @@ bufferline.setup {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
     },
+
     separator = {
       guifg = { attribute = "bg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
@@ -111,4 +113,3 @@ bufferline.setup {
     },
   },
 }
-

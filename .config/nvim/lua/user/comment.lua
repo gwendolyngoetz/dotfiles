@@ -20,4 +20,3 @@ comment.setup {
     }
   end,
 }
-

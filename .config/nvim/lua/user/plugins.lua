@@ -61,6 +61,19 @@ return packer.startup(function(use)
   }
 
   use {
+    "numToStr/Comment.nvim", -- Easily comment stuff
+    commit = ""
+  }
+
+  use {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    commit = "88343753dbe81c227a1c1fd2c8d764afb8d36269",
+    requires = {
+        "nvim-treesitter/nvim-treesitter"
+    }
+  }
+
+  use {
     "kyazdani42/nvim-web-devicons",
     commit = "d096ee903e04019ec8b4dff66a888189b3b99e44"
   }
@@ -95,6 +108,16 @@ return packer.startup(function(use)
   }
 
   use {
+    "akinsho/toggleterm.nvim",
+    commit = ""
+  }
+
+  use {
+    "ahmedkhalf/project.nvim",
+    commit = ""
+  }
+
+  use {
     "lewis6991/impatient.nvim",
     commit = "bcc22509bdf1c9d9e63e5e44ad00f5fcf581d651"
   }
@@ -105,8 +128,8 @@ return packer.startup(function(use)
   }
 
   use {
-    "antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
-    commit = "1bfb32e7ba1344925ad815cb0d7f901dbc0ff7c1"
+    "goolord/alpha-nvim",
+    commit = ""
   }
 
   -- Colorschemes
@@ -146,7 +169,12 @@ return packer.startup(function(use)
     commit = "affe808a5c56b71630f17aa7c38e15c59fd648a8"
   }
 
-  -- -- snippets
+  use { 
+    "hrsh7th/cmp-nvim-lua",
+    commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21" 
+  }
+
+  -- snippets
   use {
     "L3MON4D3/LuaSnip", --snippet engine
     commit = "52f4aed58db32a3a03211d31d2b12c0495c45580"
@@ -172,24 +200,22 @@ return packer.startup(function(use)
   }
 
   use {
-    "tamago324/nlsp-settings.nvim", -- language server settings defined in json for
-    commit = "dadedae362f20c0a874290241c2aae21ad3e86db",
-    requires = {
-      "neovim/nvim-lspconfig"
-    }
-  }
-
-  use {
     "jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
     commit = "5ef0680d66d4fbebdcc8bed8cabe056470c802ff"
   }
 
-  -- Treesitter
   use {
-    "nvim-treesitter/nvim-treesitter",
-    commit = "09e73bc72d30ac09ea5300ce6a95c945e96db901",
-    run = ":TSUpdate",
+    "RRethy/vim-illuminate", 
+    commit = "c82e6d04f27a41d7fdcad9be0bce5bb59fcb78e5" 
   }
+
+  --use {
+  --  "tamago324/nlsp-settings.nvim", -- language server settings defined in json for
+  --  commit = "dadedae362f20c0a874290241c2aae21ad3e86db",
+  --  requires = {
+  --    "neovim/nvim-lspconfig"
+  --  }
+  --}
 
   -- Telescope
   use {
@@ -201,12 +227,11 @@ return packer.startup(function(use)
     }
   }
 
+  -- Treesitter
   use {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    commit = "88343753dbe81c227a1c1fd2c8d764afb8d36269",
-    requires = {
-        "nvim-treesitter/nvim-treesitter"
-    }
+    "nvim-treesitter/nvim-treesitter",
+    commit = "09e73bc72d30ac09ea5300ce6a95c945e96db901",
+    run = ":TSUpdate",
   }
 
   -- Git
@@ -215,36 +240,40 @@ return packer.startup(function(use)
     commit = "27aeb2e715c32cbb99aa0b326b31739464b61644"
   }
 
+  --use {
+  --  "scalameta/nvim-metals",
+  --  commit = "6738fe3c0e2142de01c753f8b7c18281d11488ce",
+  --  requires = {
+  --   "nvim-lua/plenary.nvim"
+  --  }
+  --}
+
+  -- DAP
   use {
-    "christianchiarulli/nvim-gps",
-    branch = "text_hl",
-    commit = "b8e8b386dcc003453968df65047518c1b761e637"
+    "mfussenegger/nvim-dap", 
+    commit = "0062c19424ac751f47227b440c3d6c7e584687ff" 
   }
 
   use {
-    "mfussenegger/nvim-dap",
-    commit = "0062c19424ac751f47227b440c3d6c7e584687ff"
+    "rcarriga/nvim-dap-ui", 
+    --commit = "d76d6594374fb54abf2d94d6a320f3fd6e9bb2f7" 
   }
 
-  use {
-    "scalameta/nvim-metals",
-    commit = "9f8272802d35928df6c739f8e06f0e2767ad53a7",
-    requires = {
-      "nvim-lua/plenary.nvim"
-    }
+  use{
+    "ravenxrz/DAPInstall.nvim", 
+    --commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de" 
   }
 
-  -- Folding
+  ---- Folding
   --use {
   --  "anuvyklack/pretty-fold.nvim",
   --  commit = "e6385d62eec67fdc8a21700b42a701d0d6fb8b32"
   --}
 
-  -- use "folke/which-key.nvim"
-  -- use "akinsho/toggleterm.nvim"
-  -- use "ahmedkhalf/project.nvim"
-  -- use "goolord/alpha-nvim"
-  -- use "numToStr/Comment.nvim" -- Easily comment stuff
+  -- use {
+  --   "folke/which-key.nvim",
+  --   commit = ""
+  -- }
 
 
 
