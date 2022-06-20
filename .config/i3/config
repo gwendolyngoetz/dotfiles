@@ -199,8 +199,8 @@ no_focus [title="Microsoft Teams Notification"]
 exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset dpms 0 0 3600
 exec_always --no-startup-id feh --no-fehbg --bg-scale ~/.config/i3/wallpaper/black.jpg
-exec_always --no-startup-id streamdeck --no-ui
 exec_always --no-startup-id "~/.config/i3/scripts/start-dunst.sh"
+exec --no-startup-id streamdeck --no-ui
 exec --no-startup-id solaar --window hide
 exec --no-startup-id "~/.config/i3/scripts/load-workspaces.sh"
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
