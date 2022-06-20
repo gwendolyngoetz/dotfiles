@@ -251,17 +251,27 @@ return packer.startup(function(use)
   -- DAP
   use {
     "mfussenegger/nvim-dap", 
-    commit = "0062c19424ac751f47227b440c3d6c7e584687ff" 
+    commit = "0062c19424ac751f47227b440c3d6c7e584687ff"
   }
 
   use {
-    "rcarriga/nvim-dap-ui", 
-    --commit = "d76d6594374fb54abf2d94d6a320f3fd6e9bb2f7" 
+    "rcarriga/nvim-dap-ui",
+    commit = "52f4840cb95e6638f18a74b71b536c3bd12e9fd8"
   }
 
-  use{
-    "ravenxrz/DAPInstall.nvim", 
-    --commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de" 
+  use {
+    "ravenxrz/DAPInstall.nvim",
+    commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de"
+  }
+
+  use {
+    "norcalli/nvim-colorizer.lua",
+    commit = "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6"
+  }
+
+  use {
+    "klen/nvim-test",
+    commit = "32f162c27045fc712664b9ddbd33d3c550cb2bfc"
   }
 
   ---- Folding
