@@ -9,23 +9,53 @@ function set_prompt {
 
 
 function workon {
-  repo_name=$1
+  function slowfind {
+    local repo_name=$1
 
-  if [[ -z $repo_name ]]; then
-    find $HOME/src -name .git -type d -prune -exec dirname {} \; | 
-    sort --ignore-case |
-    awk 'BEGIN{OFS="/";FS="/"} {$NF="\033[34m"$NF"\033[0m"; print $0}'
-
-    return
-  fi
-
-  for dir in $(find $HOME/src -name .git -type d -prune); do
-    dir=$(dirname $dir)
-    if [[ $dir == *$repo_name ]]; then
-      cd $dir
+    if [[ -z $repo_name ]]; then
+      find $HOME/src -name .git -type d -prune -exec dirname {} \; | 
+      sort --ignore-case |
+      awk 'BEGIN{OFS="/";FS="/"} {$NF="\033[34m"$NF"\033[0m"; print $0}'
+      
       return
     fi
-  done
+     
+    for dir in $(find $HOME/src -name .git -type d -prune); do
+      dir=$(dirname $dir)
+      if [[ $dir == *$repo_name ]]; then
+        cd $dir
+        return
+      fi
+    done
+  }
+  
+  function fastfind {
+    local repo_name=$1
+
+    if [[ -z $repo_name ]]; then
+      fd -H --type directory --prune ^.git$ $HOME/src --exec-batch dirname | 
+      sort --ignore-case |
+      awk 'BEGIN{OFS="/";FS="/"} {$NF="\033[34m"$NF"\033[0m"; print $0}'
+      
+      return
+    fi
+     
+    for dir in $(fd -H --type directory --prune ^.git$ $HOME/src); do
+      dir=$(dirname $dir)
+      if [[ $dir == *$repo_name ]]; then
+        cd $dir
+        return
+      fi
+    done
+  }
+  
+  local repo_name=$1
+
+  if [[ -f /usr/bin/fdfind ]]; then
+    fastfind $repo_name
+  else
+    slowfind $repo_name
+  fi
 }
 
 function cd_git_root {
