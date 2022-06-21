@@ -169,9 +169,9 @@ return packer.startup(function(use)
     commit = "affe808a5c56b71630f17aa7c38e15c59fd648a8"
   }
 
-  use { 
+  use {
     "hrsh7th/cmp-nvim-lua",
-    commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21" 
+    commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21"
   }
 
   -- snippets
@@ -205,8 +205,8 @@ return packer.startup(function(use)
   }
 
   use {
-    "RRethy/vim-illuminate", 
-    commit = "c82e6d04f27a41d7fdcad9be0bce5bb59fcb78e5" 
+    "RRethy/vim-illuminate",
+    commit = "c82e6d04f27a41d7fdcad9be0bce5bb59fcb78e5"
   }
 
   --use {
@@ -240,17 +240,17 @@ return packer.startup(function(use)
     commit = "27aeb2e715c32cbb99aa0b326b31739464b61644"
   }
 
-  --use {
-  --  "scalameta/nvim-metals",
-  --  commit = "6738fe3c0e2142de01c753f8b7c18281d11488ce",
-  --  requires = {
-  --   "nvim-lua/plenary.nvim"
-  --  }
-  --}
+  use {
+    "scalameta/nvim-metals",
+    commit = "6738fe3c0e2142de01c753f8b7c18281d11488ce",
+    requires = {
+     "nvim-lua/plenary.nvim"
+    }
+  }
 
   -- DAP
   use {
-    "mfussenegger/nvim-dap", 
+    "mfussenegger/nvim-dap",
     commit = "0062c19424ac751f47227b440c3d6c7e584687ff"
   }
 
