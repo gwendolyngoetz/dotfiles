@@ -3,7 +3,7 @@ if not status_ok then
   return
 end
 
-configs.setup {
+configs.setup({
   ensure_installed = {
     "bash",
     "c_sharp",
@@ -27,7 +27,4 @@ configs.setup {
     enable = true,
   },
   indent = { enable = true, disable = { "python", "css" } },
-}
-
---vim.cmd "set foldmethod=expr"
---vim.cmd "set foldexpr=nvim_treesitter#foldexpr()"
+})
