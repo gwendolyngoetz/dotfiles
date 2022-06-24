@@ -62,7 +62,7 @@ return packer.startup(function(use)
 
   use {
     "numToStr/Comment.nvim", -- Easily comment stuff
-    commit = ""
+    commit = "2c26a00f32b190390b664e56e32fd5347613b9e2"
   }
 
   use {
@@ -109,12 +109,12 @@ return packer.startup(function(use)
 
   use {
     "akinsho/toggleterm.nvim",
-    commit = ""
+    commit = "ce755e3a07f2464287dc60ed448fdbbe6ea157f5"
   }
 
   use {
     "ahmedkhalf/project.nvim",
-    commit = ""
+    commit = "541115e762764bc44d7d3bf501b6e367842d3d4f"
   }
 
   use {
@@ -129,7 +129,7 @@ return packer.startup(function(use)
 
   use {
     "goolord/alpha-nvim",
-    commit = ""
+    commit = "ef27a59e5b4d7b1c2fe1950da3fe5b1c5f3b4c94"
   }
 
   -- Colorschemes
@@ -280,10 +280,10 @@ return packer.startup(function(use)
   --  commit = "e6385d62eec67fdc8a21700b42a701d0d6fb8b32"
   --}
 
-  -- use {
-  --   "folke/which-key.nvim",
-  --   commit = ""
-  -- }
+  use {
+    "folke/which-key.nvim",
+    commit = "bd4411a2ed4dd8bb69c125e339d837028a6eea71"
+  }
 
 
 
