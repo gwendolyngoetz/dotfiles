@@ -240,6 +240,12 @@ return packer.startup(function(use)
     commit = "27aeb2e715c32cbb99aa0b326b31739464b61644"
   }
 
+  -- Java/Scala
+  use {
+    "mfussenegger/nvim-jdtls",
+    commit = "3a148dac526396678f141a033270961d0d9ccb88"
+  }
+
   use {
     "scalameta/nvim-metals",
     commit = "6738fe3c0e2142de01c753f8b7c18281d11488ce",
