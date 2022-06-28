@@ -134,8 +134,8 @@ return packer.startup(function(use)
 
   -- Colorschemes
   use {
-    "dracula/vim",
-    commit = "d7723a842a6cfa2f62cf85530ab66eb418521dc2"
+    "Mofiqul/dracula.nvim",
+    commit = "a219971291c56bcca3827cb7bd40aaaef23feeca"
   }
 
   -- cmp plugins
