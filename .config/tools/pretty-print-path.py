@@ -11,9 +11,9 @@ def get_username():
     return pwd.getpwuid(os.getuid())[0]
 
 color_mapping = {
-    'root':        '98;214;232',
+    'root':         '98;214;232',
     get_username(): '90;71;153',
-    'missing':     '255;0;0'
+    'missing':      '255;0;0'
 }
 
 if __name__ == '__main__':
