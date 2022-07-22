@@ -10,10 +10,15 @@ def get_owner(path: str):
 def get_username():
     return pwd.getpwuid(os.getuid())[0]
 
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.replace('#', '')
+    rgb = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+    return '{};{};{}'.format(str(rgb[0]), str(rgb[1]), str(rgb[2]))
+
 color_mapping = {
-    'root':        '98;214;232',
-    get_username(): '90;71;153',
-    'missing':     '255;0;0'
+    'root':         hex_to_rgb('#62d6e8'),
+    get_username(): hex_to_rgb('#5a4799'),
+    'missing':      hex_to_rgb('#ff0000')
 }
 
 if __name__ == '__main__':
