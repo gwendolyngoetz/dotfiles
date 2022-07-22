@@ -21,6 +21,7 @@ alias g=git
 alias docker-rm-all='$HOME/.config/docker/scripts/docker-rm-all.sh'
 alias docker-rm-vol='$HOME/.config/docker/scripts/docker-rm-vol.sh'
 alias docker-rm-img='$HOME/.config/docker/scripts/docker-rm-img.sh'
+alias path="$HOME/.config/tools/pretty-print-path.py"
 
 if [ -f "/usr/bin/fdfind" ]; then
     alias fd='fdfind'
