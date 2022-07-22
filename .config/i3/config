@@ -7,19 +7,19 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
 bindsym button2 kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec "rofi -modi drun -show drun -sidebar-mode -show-icons"
+bindsym $mod+d exec --no-startup-id "rofi -modi drun -show drun -sidebar-mode -show-icons"
 
 # play/pause spotify
-bindsym $mod+slash exec "~/.config/i3/scripts/playpause.sh"
-bindsym $mod+comma exec "~/.config/i3/scripts/prev.sh"
-bindsym $mod+period exec "~/.config/i3/scripts/next.sh"
+bindsym $mod+slash exec --no-startup-id "~/.config/i3/scripts/playpause.sh"
+bindsym $mod+comma exec --no-startup-id "~/.config/i3/scripts/prev.sh"
+bindsym $mod+period exec --no-startup-id "~/.config/i3/scripts/next.sh"
 
 # change focus
 bindsym $mod+h focus left
@@ -96,7 +96,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '' -b 'Log Out' 'i3-msg exit' -b 'Shutdown' 'shutdown -h now' -b 'Reboot' 'reboot'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m '' -b 'Log Out' 'i3-msg exit' -b 'Shutdown' 'shutdown -h now' -b 'Reboot' 'reboot'"
 
 bindsym $mod+y resize shrink width 10 px or 10 ppt
 bindsym $mod+u resize grow height 10 px or 10 ppt
@@ -138,11 +138,11 @@ client.placeholder         $darkred    $darkred      $black      $darkred    $da
 client.background          $black
 
 # apps
-bindsym $mod+minus exec alacritty
-bindsym $mod+backslash exec firefox
-bindsym $mod+s exec flameshot gui
-bindsym $mod+e exec thunar
-bindsym $mod+c exec wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
+bindsym $mod+minus exec --no-startup-id alacritty
+bindsym $mod+backslash exec --no-startup-id firefox
+bindsym $mod+s exec --no-startup-id flameshot gui
+bindsym $mod+e exec --no-startup-id thunar
+bindsym $mod+c exec --no-startup-id wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
 
 # polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh &amp;
