@@ -101,3 +101,9 @@ fi
 if [ -f "$HOME/.config/bash/workon_completions.sh" ]; then
     source $HOME/.config/bash/workon_completions.sh
 fi
+
+# Java sdkman source
+if [ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
+    export SDKMAN_DIR="$HOME/.sdkman"
+    source $HOME/.sdkman/bin/sdkman-init.sh
+fi
