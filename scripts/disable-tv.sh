@@ -1,3 +1,3 @@
 #!/bin/sh
-xrandr --output HDMI-A-1 --off
+xrandr --output HDMI-A-0 --off
 
