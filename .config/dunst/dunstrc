@@ -427,3 +427,17 @@
     foreground = "#ffffff"
     frame_color = "#7b83eb"
     format = "<b>%s</b>\n%b"
+
+[CiviForm Staging Deploy - Normal]
+    appname = "CiviForm Staging Deploy"
+    background = "#75b798"
+    foreground = "#0f5132"
+    frame_color = "#0f5132"
+    msg_urgency = "normal"
+
+[CiviForm Staging Deploy - Critical]
+    appname = "CiviForm Staging Deploy"
+    background = "#ea868f"
+    foreground = "#842029"
+    frame_color = "#842029"
+    msg_urgency = "critical"
