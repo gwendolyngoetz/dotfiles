@@ -82,5 +82,5 @@ URxvt.perl-ext-common: selection-to-clipboard
 Xcursor.size: 24
 
 ! xmenu settings
-xmenu.font: "fixed:pixelsize=15;2,Font Awesome 5 Free:style=Regular:pixelsize=16;1,Font Awesome 5 Free:style=Solid:pixelsize=16;1,Font Awesome 5 Brands:pixelsize=15;1"
+xmenu.font: "fixed:pixelsize=15;2,Font Awesome 5 Free:style=Regular:pixelsize=16;1,Font Awesome 5 Free:style=Solid:pixelsize=16;1,Font Awesome 5 Brands:pixelsize=15;1,Font Awesome 5 Pro:style=Regular:pixelsize=16;1,Font Awesome 5 Pro:style=Solid:pixelsize=16;1"
 xmenu.selbackground: base09
