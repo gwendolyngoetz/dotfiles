@@ -18,11 +18,7 @@ TEMP_LOW=$(echo $TEMP_LOW | awk '{print int($1+0.5)}')
 SUNRISE=$(date --date="@$SUNRISE" "+%-I:%M %p")
 SUNSET=$(date --date="@$SUNSET" "+%-I:%M %p")
 
-
-
-
-cat <<EOF | xmenu -i | sh &
- City             $CITY
+MENU_TEXT=" City             $CITY
 
  Weather      $WEATHER
 
@@ -34,5 +30,11 @@ cat <<EOF | xmenu -i | sh &
 
  Date             $DATEYMD	
  Sunrise        $SUNRISE	
- Sunset         $SUNSET	
-EOF
+ Sunset         $SUNSET"
+
+
+if ! xhost > /dev/null 2>&1; then
+  echo "$MENU_TEXT"
+else
+  echo "$MENU_TEXT" | xmenu -i | sh &
+fi
