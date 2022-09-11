@@ -182,6 +182,7 @@ for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable borde
 for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
 for_window [class="firefox" window_role="page-info"] floating enable border normal 
 for_window [class="Code" window_type="dialog"] floating enable border normal
+for_window [class="Conky"] floating enable border normal
 
 # default workspace assignments
 workspace $ws2 output DP-4
