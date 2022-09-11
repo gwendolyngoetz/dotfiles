@@ -32,10 +32,15 @@ if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ] ; then
     export PATH="$JAVA_HOME/bin":$PATH
 fi
 
-
 # set PATH for coursier install directory
 if [ -d "$HOME/.local/share/coursier/bin" ] ; then
     export PATH="$PATH:$HOME/.local/share/coursier/bin"
+fi
+
+# set PATH for dotnet install directory
+if [ -d "$HOME/.dotnet" ] ; then
+    export DOTNET_ROOT=$HOME/.dotnet
+    export PATH="$PATH:$HOME/.dotnet:$HOME/.dotnet/tools"
 fi
 
 # environment variables not to check in to source control
