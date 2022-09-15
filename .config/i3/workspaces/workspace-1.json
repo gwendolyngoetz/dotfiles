@@ -9,6 +9,7 @@
        "x": 0,
        "y": 0
     },
+    "marks": [],
     "name": "Terminal",
     "percent": 0.244444444444444,
     "swallows": [
@@ -30,6 +31,7 @@
        "x": 0,
        "y": 0
     },
+    "marks": [],
     "name": "Blank Firefox Page",
     "percent": 0.755555555555556,
     "swallows": [

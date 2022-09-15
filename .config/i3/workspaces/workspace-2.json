@@ -4,7 +4,8 @@
     "border": "normal",
     "floating": "auto_off",
     "layout": "splitv",
-    "percent": 0.5,
+    "marks": [],
+    "percent": 0.6,
     "type": "con",
     "nodes": [
         {
@@ -17,8 +18,9 @@
                "x": 0,
                "y": 0
             },
+            "marks": [],
             "name": "Video",
-            "percent": 0.6,
+            "percent": 0.7,
             "swallows": [
                {
                 "class": "^firefox$",
@@ -38,8 +40,9 @@
                "x": 0,
                "y": 0
             },
+            "marks": [],
             "name": "Chat",
-            "percent": 0.4,
+            "percent": 0.3,
             "swallows": [
                {
                 "class": "^firefox$",
@@ -62,8 +65,9 @@
        "x": 0,
        "y": 0
     },
+    "marks": [],
     "name": "Terminal",
-    "percent": 0.5,
+    "percent": 0.4,
     "swallows": [
        {
         "class": "^Alacritty$",
