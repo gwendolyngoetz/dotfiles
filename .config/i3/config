@@ -185,9 +185,11 @@ for_window [class="Code" window_type="dialog"] floating enable border normal
 for_window [class="Conky"] floating enable border normal
 
 # default workspace assignments
-workspace $ws2 output DP-4
+workspace $ws2 output DisplayPort-1
+workspace $ws8 output DisplayPort-2
 for_window [class="Spotify"] move to workspace $ws10
-workspace $ws10 output DP-4
+workspace $ws10 output DisplayPort-1
+
 
 # don't change focus to these
 no_focus [title="Microsoft Teams Notification"]
