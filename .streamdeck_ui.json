@@ -5,96 +5,58 @@
             "buttons": {
                 "0": {
                     "0": {
-                        "write": "",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_off.png",
                         "text": "",
-                        "command": "python3 /home/gwendolyn/scripts/change-elgato-lights.py off",
-                        "brightness_change": 0
+                        "command": "python3 /home/gwendolyn/scripts/change-elgato-lights.py off"
                     },
                     "1": {
-                        "write": "",
                         "text": "",
                         "command": "python3 /home/gwendolyn/scripts/change-elgato-lights.py on",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_on.png"
                     },
                     "2": {
-                        "write": "",
                         "command": "/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_prev.png"
                     },
                     "3": {
-                        "write": "",
                         "command": "/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_play_pause.png"
                     },
                     "4": {
-                        "write": "",
                         "command": "/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_next.png",
                         "text": ""
                     },
                     "5": {
-                        "command": "firefox",
-                        "write": "",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_ff.png"
-                    },
-                    "6": {
                         "text": "",
                         "command": "firefox https://docs.civiform.us",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_civiform.png"
                     },
-                    "7": {
-                        "command": "",
-                        "write": ""
-                    },
-                    "8": {
-                        "command": "",
-                        "write": ""
-                    },
-                    "9": {},
-                    "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
-                },
-                "1": {
-                    "0": {
-                        "write": ""
-                    },
-                    "1": {},
-                    "2": {},
-                    "3": {},
-                    "4": {},
-                    "5": {},
                     "6": {},
                     "7": {},
                     "8": {},
                     "9": {},
                     "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
-                },
-                "9": {
-                    "0": {
-                        "write": ""
+                    "11": {
+                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 3",
+                        "text": "",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_3.png"
                     },
-                    "1": {},
-                    "2": {},
-                    "3": {},
-                    "4": {},
-                    "5": {},
-                    "6": {},
-                    "7": {},
-                    "8": {},
-                    "9": {},
-                    "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
+                    "12": {
+                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 4",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_4.png",
+                        "text": ""
+                    },
+                    "13": {
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_8.png",
+                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 8",
+                        "text": ""
+                    },
+                    "14": {
+                        "text": "",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_9.png",
+                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 9"
+                    }
                 }
             },
             "brightness": 43,
