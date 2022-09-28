@@ -1,0 +1,23 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 502,
+       "width": 640,
+       "x": 0,
+       "y": 30
+    },
+    "marks": [],
+    "name": "VirtualBox",
+    "percent": 1,
+    "swallows": [
+       {
+         "class": "^VirtualBox\\ Machine$",
+         "instance": "^VirtualBox\\ Machine$"
+       }
+    ],
+    "type": "con"
+}
+

@@ -1,0 +1,76 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 600,
+       "width": 800,
+       "x": 0,
+       "y": 0
+    },
+    "marks": [],
+    "name": "Terminal",
+    "percent": 0.5,
+    "swallows": [
+       {
+         "class": "^Alacritty$",
+         "instance": "^alacritty$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "marks": [],
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 600,
+               "width": 800,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "Terminal",
+            "percent": 0.5,
+            "swallows": [
+               {
+                 "class": "^Alacritty$",
+                 "instance": "^alacritty$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 600,
+               "width": 800,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "Terminal",
+            "percent": 0.5,
+            "swallows": [
+               {
+                 "class": "^Alacritty$",
+                 "instance": "^alacritty$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
