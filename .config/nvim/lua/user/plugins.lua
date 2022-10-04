@@ -194,7 +194,7 @@ return packer.startup(function(use)
   use {
     "williamboman/mason-lspconfig.nvim",
     commit = "38ab1f3b5e6182118f53f069c526f1251b2a951f",
-    requires ={
+    requires = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig"
     }
