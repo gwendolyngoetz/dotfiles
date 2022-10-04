@@ -185,18 +185,25 @@ return packer.startup(function(use)
     commit = "2be79d8a9b03d4175ba6b3d14b082680de1b31b1"
   }
 
+  -- Install Helper
+  use {
+    "williamboman/mason.nvim",
+    commit = "a01073d9903ff25d9045b357d3d9fb63c4bc8e92"
+  }
+
+  use {
+    "williamboman/mason-lspconfig.nvim",
+    commit = "38ab1f3b5e6182118f53f069c526f1251b2a951f",
+    requires ={
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig"
+    }
+  }
+
   -- LSP
   use {
     "neovim/nvim-lspconfig",
     commit = "af43c300d4134db3550089cd4df6c257e3734689"
-  }
-
-  use {
-    "williamboman/nvim-lsp-installer", -- simple to use language server installer
-    commit = "23820a878a5c2415bfd3b971d1fe3c79e4dd6763",
-    requires = {
-      "neovim/nvim-lspconfig"
-    }
   }
 
   use {
@@ -213,7 +220,7 @@ return packer.startup(function(use)
   use {
     "nvim-telescope/telescope.nvim",
     commit = "76ea9a898d3307244dce3573392dcf2cc38f340f",
-    requries = {
+    requires = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter"
     }
