@@ -127,11 +127,6 @@ return packer.startup(function(use)
     tag = "v2.20.*"
   }
 
-  use {
-    "goolord/alpha-nvim",
-    commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31"
-  }
-
   -- Colorschemes
   use {
     "Mofiqul/dracula.nvim",
@@ -264,11 +259,7 @@ return packer.startup(function(use)
     commit = "8d0768a83f7b89bd8cb8811800bc121b9353f0b2"
   }
 
-  use {
-    "ravenxrz/DAPInstall.nvim",
-    commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de"
-  }
-
+  -- 
   use {
     "norcalli/nvim-colorizer.lua",
     commit = "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6"
