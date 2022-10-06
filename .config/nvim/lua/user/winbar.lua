@@ -68,7 +68,7 @@ local get_filename = function()
 end
 
 local get_navic = function()
-  navic_location = navic.get_location()
+  local navic_location = navic.get_location()
 
   if not navic.is_available() or navic_location == "error" then
     return ""
