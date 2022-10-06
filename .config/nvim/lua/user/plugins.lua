@@ -211,6 +211,14 @@ return packer.startup(function(use)
     commit = "a2e8476af3f3e993bb0d6477438aad3096512e42"
   }
 
+  use {
+    "SmiteshP/nvim-navic",
+    --commit = "",
+    requries = {
+      "neovim/nvim-lspconfig"
+    }
+  }
+
   -- Telescope
   use {
     "nvim-telescope/telescope.nvim",
@@ -226,6 +234,15 @@ return packer.startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     commit = "aebc6cf6bd4675ac86629f516d612ad5288f7868",
     run = ":TSUpdate",
+  }
+  
+  -- Notifications
+  use {
+    "rcarriga/nvim-notify",
+    comment = "414465468c93f693be4e2f69f47586cf37f3f751",
+    requires = {
+      "nvim-lua/plenary.nvim"
+    }
   }
 
   -- Git

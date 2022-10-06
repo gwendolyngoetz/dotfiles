@@ -1,3 +1,19 @@
+local navic_ok, navic = pcall(require, "nvim-navic")
+if not navic_ok then
+  vim.notify("Missing plugin: nvim-navic", "warn")
+  return ""
+end
+
+navic.setup {
+  highlight = true
+}
+
+require("lspconfig").omnisharp.setup {
+  on_attach = function (client, bufnr)
+    navic.attach(client, bufnr)
+  end
+}
+
 local M = {}
 
 M.winbar_filetype_exclude = {
@@ -15,12 +31,24 @@ M.winbar_filetype_exclude = {
   "toggleterm",
 }
 
+local isempty = function (s)
+  return s == nil or s == ""
+end
+
+local get_buf_option = function(opt)
+  local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
+  if not status_ok then
+    return nil
+  else
+    return buf_option
+  end
+end
+
 local get_filename = function()
   local filename = vim.fn.expand "%:t"
   local extension = vim.fn.expand "%:e"
-  local f = require "config.functions"
 
-  if not f.isempty(filename) then
+  if not isempty(filename) then
     local file_icon, file_icon_color = require("nvim-web-devicons").get_icon_color(
       filename,
       extension,
@@ -30,7 +58,7 @@ local get_filename = function()
     local hl_group = "FileIconColor" .. extension
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
-    if f.isempty(file_icon) then
+    if isempty(file_icon) then
       file_icon = ""
       file_icon_color = ""
     end
@@ -39,23 +67,15 @@ local get_filename = function()
   end
 end
 
-local get_gps = function()
-  local status_gps_ok, gps = pcall(require, "nvim-gps")
-  if not status_gps_ok then
+local get_navic = function()
+  navic_location = navic.get_location()
+
+  if not navic.is_available() or navic_location == "error" then
     return ""
   end
 
-  local status_ok, gps_location = pcall(gps.get_location, {})
-  if not status_ok then
-    return ""
-  end
-
-  if not gps.is_available() or gps_location == "error" then
-    return ""
-  end
-
-  if not require("config.functions").isempty(gps_location) then
-    return require("config.icons").ui.ChevronRight .. " " .. gps_location
+  if not isempty(navic_location) then
+    return "> " .. navic_location
   else
     return ""
   end
@@ -73,21 +93,21 @@ M.get_winbar = function()
   if excludes() then
     return
   end
-  local f = require "config.functions"
+
   local value = get_filename()
 
-  local gps_added = false
-  if not f.isempty(value) then
-    local gps_value = get_gps()
-    value = value .. " " .. gps_value
-    if not f.isempty(gps_value) then
-      gps_added = true
+  local navic_added = false
+  if not isempty(value) then
+    local navic_value = get_navic()
+    value = value .. " " .. navic_value
+    if not isempty(navic_value) then
+      navic_added = true
     end
   end
 
-  if not f.isempty(value) and f.get_buf_option "mod" then
-    local mod = "%#LineNr#" .. require("config.icons").ui.Circle .. "%*"
-    if gps_added then
+  if not isempty(value) and get_buf_option "mod" then
+    local mod = "%#LineNr#" .. "" .. "%*"
+    if navic_added then
       value = value .. " " .. mod
     else
       value = value .. mod
@@ -101,4 +121,3 @@ M.get_winbar = function()
 end
 
 return M
-
