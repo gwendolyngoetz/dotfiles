@@ -213,7 +213,7 @@ return packer.startup(function(use)
 
   use {
     "SmiteshP/nvim-navic",
-    --commit = "",
+    commit = "132b273773768b36e9ecab2138b82234a9faf5ed",
     requries = {
       "neovim/nvim-lspconfig"
     }
