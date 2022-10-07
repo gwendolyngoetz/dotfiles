@@ -100,8 +100,8 @@ return packer.startup(function(use)
   }
 
   use {
-    "moll/vim-bbye",
-    commit = "25ef93ac5a87526111f43e5110675032dbcacf56"
+    "famiu/bufdelete.nvim",
+    commit = "e88dbe0ba5829119d8edb5fc69d3c8553e324a93"
   }
 
   use {
