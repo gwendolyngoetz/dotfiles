@@ -81,7 +81,6 @@ keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fm", "<cmd>lua require('telescope').extensions.notify.notify()<CR>", opts)
-
 keymap("n", "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>", opts)
 keymap("n", "<leader>fD", ":Telescope diagnostics<CR>", opts)
 
@@ -92,12 +91,18 @@ keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 
 -- DAP
-keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", opts)
 keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", opts)
 keymap("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", opts)
 keymap("n", "<leader>dO", "<cmd>lua require'dap'.step_out()<cr>", opts)
+keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
 keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
 keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>ds", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
+
+-- Test Runner
+keymap("n", "<leader>ta", ":TestSuite<CR>", opts)
+keymap("n", "<leader>tf", ":TestFile<CR>", opts)
+keymap("n", "<leader>tc", ":TestNearest<CR>", opts)
+keymap("n", "<leader>tr", ":TestLast<CR>", opts)
