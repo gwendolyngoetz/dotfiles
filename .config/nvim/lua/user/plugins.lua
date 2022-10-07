@@ -61,6 +61,11 @@ return packer.startup(function(use)
   }
 
   use {
+    "windwp/nvim-ts-autotag",
+    commit = "fdefe46c6807441460f11f11a167a2baf8e4534b"
+  }
+
+  use {
     "numToStr/Comment.nvim", -- Easily comment stuff
     commit = "d9cfae1059b62f7eacc09dba181efe4894e3b086"
   }
