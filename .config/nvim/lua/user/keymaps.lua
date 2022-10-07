@@ -59,6 +59,8 @@ keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
+-- Folding
+keymap("n", "<leader>a", "za", opts)
 
 -- Visual --
 -- Stay in indent mode

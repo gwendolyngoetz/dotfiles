@@ -47,3 +47,7 @@ vim.cmd "let g:loaded_ruby_provider = 0"
 -- Disable for Metals
 vim.opt.shortmess:remove("F")
 
+-- Folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 9999

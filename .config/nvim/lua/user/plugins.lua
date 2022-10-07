@@ -287,11 +287,11 @@ return packer.startup(function(use)
     commit = "32f162c27045fc712664b9ddbd33d3c550cb2bfc"
   }
 
-  ---- Folding
-  --use {
-  --  "anuvyklack/pretty-fold.nvim",
-  --  commit = "e6385d62eec67fdc8a21700b42a701d0d6fb8b32"
-  --}
+  -- Folding
+  use {
+    "anuvyklack/pretty-fold.nvim",
+    commit = "e6385d62eec67fdc8a21700b42a701d0d6fb8b32"
+  }
 
   use {
     "folke/which-key.nvim",
