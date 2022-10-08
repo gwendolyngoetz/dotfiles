@@ -224,6 +224,21 @@ return packer.startup(function(use)
     }
   }
 
+  -- Treesitter
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    commit = "aebc6cf6bd4675ac86629f516d612ad5288f7868",
+    run = ":TSUpdate",
+  }
+
+  use {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    commit = "80a38f9408102693539f54eef3e6a57d44c6147d",
+    require = {
+      "nvim-treesitter/nvim-treesitter"
+    }
+  }
+  
   -- Telescope
   use {
     "nvim-telescope/telescope.nvim",
@@ -234,13 +249,6 @@ return packer.startup(function(use)
     }
   }
 
-  -- Treesitter
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    commit = "aebc6cf6bd4675ac86629f516d612ad5288f7868",
-    run = ":TSUpdate",
-  }
-  
   -- Notifications
   use {
     "rcarriga/nvim-notify",

@@ -1,5 +1,7 @@
-local status_ok, impatient = pcall(require, "impatient")
-if not status_ok then
+local helpers = require("helpers")
+
+local impatient = helpers.require("impatient")
+if not impatient then
   return
 end
 

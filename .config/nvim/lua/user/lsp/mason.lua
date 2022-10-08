@@ -1,3 +1,20 @@
+local helpers = require("helpers")
+
+local mason = helpers.require("mason")
+if not mason then
+  return
+end
+
+local mason_lspconfig = helpers.require("mason-lspconfig")
+if not mason_lspconfig then
+  return
+end
+
+local lspconfig = helpers.require("lspconfig")
+if not lspconfig then
+  return
+end
+
 local servers = {
   "sumneko_lua",
   "cssls",
@@ -13,21 +30,6 @@ local servers = {
   "rust_analyzer"
 }
 
-local mason_status_ok, mason = pcall(require, "mason")
-if not mason_status_ok then
-  return
-end
-
-local masonlsp_status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not masonlsp_status_ok then
-  return
-end
-
-local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status_ok then
-  return
-end
-
 mason.setup {
   ui = {
     border = "rounded",
@@ -38,7 +40,6 @@ mason.setup {
     }
   },
 }
-
 
 mason_lspconfig.setup {
   ensure_installed = servers,
@@ -54,12 +55,12 @@ for _, server in pairs(servers) do
   }
 
   if server == "sumneko_lua" then
-    local sumneko_opts = require "user.lsp.settings.sumneko_lua"
+    local sumneko_opts = require("user.lsp.settings.sumneko_lua")
     opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
   end
 
   if server == "pyright" then
-    local pyright_opts = require "user.lsp.settings.pyright"
+    local pyright_opts = require("user.lsp.settings.pyright")
     opts = vim.tbl_deep_extend("force", pyright_opts, opts)
   end
 

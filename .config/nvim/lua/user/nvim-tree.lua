@@ -1,10 +1,12 @@
-local status_ok, nvim_tree = pcall(require, "nvim-tree")
-if not status_ok then
+local helpers = require("helpers")
+
+local nvim_tree = helpers.require("nvim-tree")
+if not nvim_tree then
   return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not config_status_ok then
+local nvim_tree_config = helpers.require("nvim-tree.config")
+if not nvim_tree_config then
   return
 end
 

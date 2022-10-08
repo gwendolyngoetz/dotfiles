@@ -1,5 +1,7 @@
-local colorizer_status_ok, colorizer = pcall(require, "colorizer")
-if not colorizer_status_ok then
+local helpers = require("helpers")
+
+local colorizer = helpers.require("colorizer")
+if not colorizer then
   return
 end
 

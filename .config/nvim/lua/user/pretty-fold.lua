@@ -1,5 +1,7 @@
-local status_ok, prettyfold = pcall(require, "pretty-fold")
-if not status_ok then
+local helpers = require("helpers")
+
+local prettyfold = helpers.require("pretty-fold")
+if not prettyfold then
   return
 end
 

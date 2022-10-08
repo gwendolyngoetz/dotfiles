@@ -1,7 +1,8 @@
-local navic_ok, navic = pcall(require, "nvim-navic")
-if not navic_ok then
-  vim.notify("Missing plugin: nvim-navic", "warn")
-  return ""
+local helpers = require("helpers")
+
+local navic = helpers.require("nvim-navic")
+if not navic then
+  return
 end
 
 navic.setup {

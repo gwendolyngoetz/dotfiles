@@ -1,5 +1,7 @@
-local status_ok, indent_blankline = pcall(require, "indent_blankline")
-if not status_ok then
+local helpers = require("helpers")
+
+local indent_blankline = helpers.require("indent_blankline")
+if not indent_blankline then
   return
 end
 

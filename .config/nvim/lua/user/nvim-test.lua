@@ -1,5 +1,7 @@
-local status_ok, nvim_test = pcall(require, "nvim-test")
-if not status_ok then
+local helpers = require("helpers")
+
+local nvim_test = helpers.require("nvim-test")
+if not nvim_test then
   return
 end
 

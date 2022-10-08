@@ -1,5 +1,7 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
+local helpers = require("helpers")
+
+local bufferline = helpers.require("bufferline")
+if not bufferline then
   return
 end
 

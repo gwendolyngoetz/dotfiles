@@ -1,14 +1,14 @@
-local dap_status_ok, dap = pcall(require, "dap")
-if not dap_status_ok then
+local helpers = require("helpers")
+
+local dap = helpers.require("dap")
+if not dap then
   return
 end
 
-local dapui_status_ok, dapui = pcall(require, "dapui")
-if not dapui_status_ok then
+local dapui = helpers.require("dapui")
+if not dapui then
   return
 end
-
-
 
 dapui.setup({
   layouts = {
@@ -68,8 +68,12 @@ dap.adapters.coreclr = {
 --  }
 --}
 
-local dap_vscode_status_ok, dap_vscode = pcall(require, "dap.ext.vscode")
-if not dap_vscode_status_ok then
+local dap_vscode = helpers.require("dap.ext.vscode")
+if not dap_vscode then
   return
 end
-dap_vscode.load_launchjs(nil, { coreclr = {'cs'}})
+
+dap_vscode.load_launchjs(nil, {
+  coreclr = {'cs'}
+})
+

@@ -1,5 +1,7 @@
-local status_ok, lualine = pcall(require, "lualine")
-if not status_ok then
+local helpers = require("helpers")
+
+local lualine = helpers.require("lualine")
+if not lualine then
   return
 end
 
@@ -18,8 +20,8 @@ local diagnostics = {
 
 local diff = {
   "diff",
-  colored = false,
-  symbols = { added = "", modified = "", removed = "" }, -- changes diff symbols
+  colored = true,
+  symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
   cond = hide_in_width,
 }
 

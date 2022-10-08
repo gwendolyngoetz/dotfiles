@@ -1,17 +1,21 @@
--- Setup nvim-cmp.
-local status_ok, npairs = pcall(require, "nvim-autopairs")
-if not status_ok then
+local helpers = require("helpers")
+
+local autopairs = helpers.require("nvim-autopairs")
+if not autopairs then
   return
 end
 
-npairs.setup {
+autopairs.setup {
   check_ts = true, -- treesitter integration
   disable_filetype = { "TelescopePrompt" },
 }
 
-local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
+local cmp = helpers.require("cmp")
+if not cmp then
   return
 end
+
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done {})
+

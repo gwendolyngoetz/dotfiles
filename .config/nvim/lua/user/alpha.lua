@@ -1,5 +1,7 @@
-local status_ok, alpha = pcall(require, "alpha")
-if not status_ok then
+local helpers = require("helpers")
+
+local alpha = helpers.require("alpha")
+if not alpha then
   return
 end
 

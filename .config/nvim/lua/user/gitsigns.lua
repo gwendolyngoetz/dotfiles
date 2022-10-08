@@ -1,5 +1,7 @@
-local status_ok, gitsigns = pcall(require, "gitsigns")
-if not status_ok then
+local helpers = require("helpers")
+
+local gitsigns = helpers.require("gitsigns")
+if not gitsigns then
   return
 end
 
@@ -10,5 +12,5 @@ gitsigns.setup {
     delete = { hl = "GitSignsDelete", text = "契", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
     topdelete = { hl = "GitSignsDelete", text = "契", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
     changedelete = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-  },
+  }
 }

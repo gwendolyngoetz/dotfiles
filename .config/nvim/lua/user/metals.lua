@@ -1,4 +1,11 @@
-local metals_config = require("metals").bare_config()
+local helpers = require("helpers")
+
+local metals = helpers.require("metals")
+if not metals then
+  return
+end
+
+local metals_config = metals.bare_config()
 
 -- Example of settings
 metals_config.settings = {
@@ -18,7 +25,10 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 -- Debug settings if you're using nvim-dap
-local dap = require("dap")
+local dap = helpers.require("dap")
+if not dap then
+  return
+end
 
 dap.configurations.scala = {
   {

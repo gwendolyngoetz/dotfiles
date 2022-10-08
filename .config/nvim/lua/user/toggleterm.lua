@@ -1,6 +1,8 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-	return
+local helpers = require("helpers")
+
+local toggleterm = helpers.require("toggleterm")
+if not toggleterm then
+  return
 end
 
 toggleterm.setup {
@@ -20,6 +22,9 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+
+  --vim.api.nvim_buf_set_keymap(0, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+  --vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')

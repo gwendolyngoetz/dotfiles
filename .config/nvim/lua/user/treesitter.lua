@@ -1,5 +1,7 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
+local helpers = require("helpers")
+
+local configs = helpers.require("nvim-treesitter.configs")
+if not configs then
   return
 end
 

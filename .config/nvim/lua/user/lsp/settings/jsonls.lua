@@ -1,6 +1,8 @@
+local helpers = require("helpers")
+
 local default_schemas = nil
-local status_ok, jsonls_settings = pcall(require, "nlspsettings.jsonls")
-if status_ok then
+local jsonls_settings = helpers.require("nlspsettings.jsonls")
+if jsonls_settings then
   default_schemas = jsonls_settings.get_default_schemas()
 end
 

@@ -1,5 +1,7 @@
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
+local helpers = require("helpers")
+
+local which_key = helpers.require("which-key")
+if not which_key then
   return
 end
 

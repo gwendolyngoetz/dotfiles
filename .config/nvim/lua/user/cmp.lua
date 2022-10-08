@@ -1,10 +1,12 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
+local helpers = require("helpers")
+
+local cmp = helpers.require("cmp")
+if not cmp then
   return
 end
 
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
+local luasnip = helpers.require("luasnip")
+if not luasnip then
   return
 end
 

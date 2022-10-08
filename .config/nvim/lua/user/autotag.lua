@@ -1,5 +1,6 @@
-local status_ok, autotag = pcall(require, "nvim-ts-autotag")
-if not status_ok then
+local helpers = require("helpers")
+local autotag = helpers.require("nvim-ts-autotag")
+if not autotag then
   return
 end
 
