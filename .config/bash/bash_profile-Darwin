@@ -6,9 +6,12 @@ if [ -d "/opt/homebrew/bin" ]; then
     export PATH="$PATH:/opt/homebrew/bin"
 fi
 
-if [ -d "/usr/local/share/dotnet" ]; then
-    export PATH="$PATH:/usr/local/share/dotnet"
+if [ -d "$HOME/.dotnet" ]; then
+    export DOTNET_ROOT=$HOME/.dotnet
+    export PATH=$PATH:$DOTNET_ROOT
 fi
+
+
 
 if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
     export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -44,3 +47,5 @@ if [ -f $HOME/.bashrc ]; then
 fi
 
 unset DOCKER_HOST
+
+
