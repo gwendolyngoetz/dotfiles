@@ -52,5 +52,11 @@ vim.opt.shortmess:append("c")
 vim.opt.shortmess:remove("F") -- Disable for Metals
 vim.opt.whichwrap:append("<,>,[,],h,l")
 
-vim.cmd "let g:loaded_perl_provider = 0"
-vim.cmd "let g:loaded_ruby_provider = 0"
+vim.cmd("let g:loaded_perl_provider = 0")
+vim.cmd("let g:loaded_ruby_provider = 0")
+
+
+-- Color Scheme
+local colorscheme = "dracula"
+vim.cmd("colorscheme " .. colorscheme)
+
