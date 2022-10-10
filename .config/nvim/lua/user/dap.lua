@@ -1,4 +1,5 @@
 local helpers = require("helpers")
+local settings = require("settings")
 
 local dap = helpers.require("dap")
 if not dap then
@@ -37,12 +38,17 @@ dapui.setup({
     element = "repl"
   },
   floating = {
-    border = "rounded"
+    border = settings.ui.border
   }
 })
 
 -- dap
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpoint", {
+  text = settings.icons.debugging.breakpoint,
+  texthl = "DiagnosticSignError",
+  linehl = "",
+  numhl = ""
+})
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()

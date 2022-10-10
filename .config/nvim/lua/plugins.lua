@@ -1,3 +1,4 @@
+local settings = require("settings")
 local fn = vim.fn
 
 -- Automatically install packer
@@ -35,7 +36,9 @@ end
 packer.init {
   display = {
     open_fn = function()
-      return require("packer.util").float { border = "rounded" }
+      return require("packer.util").float {
+        border = settings.ui.border
+      }
     end,
   },
 }

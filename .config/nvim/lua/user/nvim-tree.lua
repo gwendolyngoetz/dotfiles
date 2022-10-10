@@ -1,4 +1,5 @@
 local helpers = require("helpers")
+local icons = require("settings").icons
 
 local nvim_tree = helpers.require("nvim-tree")
 if not nvim_tree then
@@ -21,26 +22,26 @@ nvim_tree.setup {
     root_folder_modifier = ":t",
     icons = {
       glyphs = {
-        default = "",
-        symlink = "",
+        default = icons.nvimtree.default,
+        symlink = icons.nvimtree.symlink,
         folder = {
-          arrow_open = "",
-          arrow_closed = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
+          arrow_open = icons.folder.arrow_open,
+          arrow_closed = icons.folder.arrow_closed,
+          default = icons.folder.default,
+          open = icons.folder.open,
+          empty = icons.folder.empty,
+          empty_open = icons.folder.empty_open,
+          symlink = icons.folder.symlink,
+          symlink_open = icons.folder.symlink_open,
         },
         git = {
-          unstaged = "",
-          staged = "S",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "U",
-          deleted = "",
-          ignored = "◌",
+          unstaged = icons.git.unstaged,
+          staged = icons.git.staged,
+          unmerged = icons.git.unmerged,
+          renamed = icons.git.renamed,
+          untracked = icons.git.untracked,
+          deleted = icons.git.deleted,
+          ignored = icons.git.ignored,
         },
       },
     },
@@ -49,10 +50,10 @@ nvim_tree.setup {
     enable = true,
     show_on_dirs = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = icons.diagnostics.hint,
+      info = icons.diagnostics.info,
+      warning = icons.diagnostics.warn,
+      error = icons.diagnostics.error,
     },
   },
   view = {

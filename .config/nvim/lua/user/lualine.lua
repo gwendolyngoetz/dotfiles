@@ -1,4 +1,5 @@
 local helpers = require("helpers")
+local icons = require("settings").icons
 
 local lualine = helpers.require("lualine")
 if not lualine then
@@ -13,7 +14,10 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
-  symbols = { error = " ", warn = " " },
+  symbols = {
+    error = icons.diagnostics.error,
+    warn = icons.diagnostics.warn
+  },
   colored = false,
   always_visible = true,
 }
@@ -21,7 +25,11 @@ local diagnostics = {
 local diff = {
   "diff",
   colored = true,
-  symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+  symbols = {
+    added = icons.diagnostics.added,
+    modified = icons.diff.modified,
+    removed = icons.diff.removed
+  },
   cond = hide_in_width,
 }
 
@@ -41,7 +49,7 @@ local filetype = {
 local branch = {
   "branch",
   icons_enabled = true,
-  icon = "",
+  icon = icons.git.branch,
 }
 
 local location = {

@@ -1,4 +1,5 @@
 local helpers = require("helpers")
+local icons = require("settings").icons
 
 local telescope = helpers.require("telescope")
 if not telescope then
@@ -10,8 +11,8 @@ local actions = require("telescope.actions")
 telescope.setup {
   defaults = {
 
-    prompt_prefix = " ",
-    selection_caret = " ",
+    prompt_prefix = icons.telescope.prompt_prefix,
+    selection_caret = icons.telescope.selection_caret,
     path_display = { "smart" },
     file_ignore_patterns = { ".git/", "node_modules" },
 

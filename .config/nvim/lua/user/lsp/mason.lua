@@ -1,4 +1,6 @@
 local helpers = require("helpers")
+local settings = require("settings")
+local icons = settings.icons
 
 local mason = helpers.require("mason")
 if not mason then
@@ -32,11 +34,11 @@ local servers = {
 
 mason.setup {
   ui = {
-    border = "rounded",
+    border = settings.ui.border,
     icons = {
-      package_installed = "✓",
-      package_pending = "➜",
-      package_uninstalled = "✗"
+      package_installed = icons.mason.package_installed,
+      package_pending = icons.mason.package_pending,
+      package_uninstalled = icons.mason.package_uninstalled
     }
   },
 }

@@ -1,4 +1,6 @@
 local helpers = require("helpers")
+local settings = require("settings")
+local icons = settings.icons
 
 local which_key = helpers.require("which-key")
 if not which_key then
@@ -15,12 +17,12 @@ local setup = {
     },
   },
   icons = {
-    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-    separator = "➜", -- symbol used between a key and it's label
-    group = "+", -- symbol prepended to a group
+    breadcrumb = icons.whichkey.breadcrumb,
+    separator = icons.whichkey.separator,
+    group = icons.whichkey.group
   },
   window = {
-    border = "rounded", -- none, single, double, shadow
+    border = settings.ui.border,
   },
   ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
 }

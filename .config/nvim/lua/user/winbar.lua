@@ -1,4 +1,5 @@
 local helpers = require("helpers")
+local icons = require("settings").icons
 
 local navic = helpers.require("nvim-navic")
 if not navic then
@@ -56,7 +57,7 @@ local get_filename = function()
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
     if helpers.is_empty(file_icon) then
-      file_icon = ""
+      file_icon = icons.file.icon
       file_icon_color = ""
     end
 
