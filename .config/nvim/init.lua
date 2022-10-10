@@ -1,6 +1,6 @@
 require "options"
 require "keymaps"
-require "user.plugins"
+require "plugins"
 require "user.notify"
 require "user.autocommands"
 require "user.colorscheme"
