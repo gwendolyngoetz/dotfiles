@@ -1,5 +1,5 @@
 require "options"
-require "user.keymaps"
+require "keymaps"
 require "user.plugins"
 require "user.notify"
 require "user.autocommands"
