@@ -51,9 +51,15 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
+local netcoredbg_path = helpers.get_from_data_path("/mason/bin/netcoredbg")
+
+if helpers.is_empty(netcoredbg_path) then
+  return
+end
+
 dap.adapters.coreclr = {
   type = 'executable',
-  command = '/home/gwendolyn/.local/share/nvim/mason/bin/netcoredbg',
+  command = netcoredbg_path,
   args = {'--interpreter=vscode'}
 }
 

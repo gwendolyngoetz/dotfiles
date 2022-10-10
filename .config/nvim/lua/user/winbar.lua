@@ -32,10 +32,6 @@ M.winbar_filetype_exclude = {
   "toggleterm",
 }
 
-local isempty = function (s)
-  return s == nil or s == ""
-end
-
 local get_buf_option = function(opt)
   local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
   if not status_ok then
@@ -49,7 +45,7 @@ local get_filename = function()
   local filename = vim.fn.expand "%:t"
   local extension = vim.fn.expand "%:e"
 
-  if not isempty(filename) then
+  if not helpers.is_empty(filename) then
     local file_icon, file_icon_color = require("nvim-web-devicons").get_icon_color(
       filename,
       extension,
@@ -59,7 +55,7 @@ local get_filename = function()
     local hl_group = "FileIconColor" .. extension
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
-    if isempty(file_icon) then
+    if helpers.is_empty(file_icon) then
       file_icon = ""
       file_icon_color = ""
     end
@@ -75,7 +71,7 @@ local get_navic = function()
     return ""
   end
 
-  if not isempty(navic_location) then
+  if not helpers.is_empty(navic_location) then
     return "> " .. navic_location
   else
     return ""
@@ -98,15 +94,15 @@ M.get_winbar = function()
   local value = get_filename()
 
   local navic_added = false
-  if not isempty(value) then
+  if not helpers.is_empty(value) then
     local navic_value = get_navic()
     value = value .. " " .. navic_value
-    if not isempty(navic_value) then
+    if not helpers.is_empty(navic_value) then
       navic_added = true
     end
   end
 
-  if not isempty(value) and get_buf_option "mod" then
+  if not helpers.is_empty(value) and get_buf_option "mod" then
     local mod = "%#LineNr#" .. "" .. "%*"
     if navic_added then
       value = value .. " " .. mod
