@@ -1,4 +1,4 @@
-require "user.options"
+require "options"
 require "user.keymaps"
 require "user.plugins"
 require "user.notify"
