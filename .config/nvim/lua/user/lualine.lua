@@ -36,7 +36,7 @@ local diff = {
 local mode = {
   "mode",
   fmt = function(str)
-    return "-- " .. str .. " --"
+    return string.sub(str, 1, 1)
   end,
 }
 
