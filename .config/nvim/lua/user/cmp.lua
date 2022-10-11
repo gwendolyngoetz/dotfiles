@@ -1,5 +1,6 @@
 local helpers = require("helpers")
 local settings = require("settings")
+local icons = settings.icons
 
 local cmp = helpers.require("cmp")
 if not cmp then
@@ -72,10 +73,10 @@ cmp.setup({
     format = function(entry, vim_item)
       vim_item.kind = settings.icons.kind[vim_item.kind]
       vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        luasnip = "[Snippet]",
-        buffer = "[Buffer]",
-        path = "[Path]",
+        nvim_lsp = icons.cmp.lsp,
+        luasnip = icons.cmp.snippets,
+        buffer = icons.cmp.buffer,
+        path = icons.cmp.path,
       })[entry.source.name]
       return vim_item
     end,
