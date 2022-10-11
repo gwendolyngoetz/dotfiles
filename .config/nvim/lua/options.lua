@@ -57,6 +57,7 @@ vim.cmd("let g:loaded_ruby_provider = 0")
 
 
 -- Color Scheme
-local colorscheme = "dracula"
+--local colorscheme = "dracula"
+local colorscheme = "tokyonight-night"
 vim.cmd("colorscheme " .. colorscheme)
 

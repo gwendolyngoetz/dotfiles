@@ -141,7 +141,12 @@ return packer.startup {
     -- Colorschemes
     use {
       "Mofiqul/dracula.nvim",
-      commit = "0b4f6e009867027caddc1f28a81d8a7da6a2b277"
+      commit = "0b4f6e0"
+    }
+
+    use {
+      "folke/tokyonight.nvim",
+      commit = "23c0038"
     }
 
     -- cmp plugins
