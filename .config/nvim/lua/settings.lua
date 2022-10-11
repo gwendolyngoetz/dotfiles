@@ -64,6 +64,12 @@ M.icons = {
     default = "",
     symlink = "",
   },
+  chevron = {
+    down = "",
+    left = "",
+    right = "",
+    up = "",
+  },
   file = {
     icon = ""
   },

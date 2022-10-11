@@ -7,7 +7,8 @@ if not navic then
 end
 
 navic.setup {
-  highlight = true
+  highlight = true,
+  separator = " " .. icons.chevron.right .. " "
 }
 
 require("lspconfig").omnisharp.setup {
@@ -73,7 +74,7 @@ local get_navic = function()
   end
 
   if not helpers.is_empty(navic_location) then
-    return "> " .. navic_location
+    return icons.chevron.right .. " " .. navic_location
   else
     return ""
   end
