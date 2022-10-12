@@ -1,65 +1,8 @@
 local helpers = require("helpers")
-local settings = require("settings")
 
 local dap = helpers.require("dap")
 if not dap then
   return
-end
-
-local dapui = helpers.require("dapui")
-if not dapui then
-  return
-end
-
--- dapui
-dapui.setup({
-  layouts = {
-    {
-      elements = {
-        "scopes",
-        "watches",
-        "stacks",
-        "breakpoints"
-      },
-      size = 40,
-      position = "right"
-    },
-    {
-      elements = {
-        "repl",
-        "console",
-      },
-      size = 0.25,
-      position = "bottom"
-    }
-  },
-  controls = {
-    enabled = true,
-    element = "repl"
-  },
-  floating = {
-    border = settings.ui.border
-  }
-})
-
--- dap
-vim.fn.sign_define("DapBreakpoint", {
-  text = settings.icons.debugging.breakpoint,
-  texthl = "DiagnosticSignError",
-  linehl = "",
-  numhl = ""
-})
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
-
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
 end
 
 -- Adapters: dotnet
@@ -94,17 +37,6 @@ if not helpers.is_empty(chrome_path) then
     args = { chrome_path };
   }
 end
-
---dap.configurations.cs = {
---  {
---    name = "launch - netcoredbg",
---    type = "coreclr",
---    request = "launch",
---    program = function ()
---      return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. 'ColorDisplay.Web/bin/Debug/net7.0/ColorDisplay.Web.dll', 'file')
---    end
---  }
---}
 
 dap.configurations.javascript = {
   {
