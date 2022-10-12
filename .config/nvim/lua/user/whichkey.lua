@@ -38,7 +38,7 @@ local opts = {
 
 local mappings = {
   ["b"] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers" },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+  ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
@@ -110,7 +110,7 @@ local mappings = {
   d = {
     name = "Debugging",
     b = { "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Toggle Breakpoint" },
-    r = { "<cmd>lua require('dap').repl_toggle()<CR>", "Toggle REPL" },
+    r = { "<cmd>lua require('dap').repl.toggle()<CR>", "Toggle REPL" },
     l = { "<cmd>lua require('dap').run_last()<CR>", "Run Last" },
     s = { "<cmd>lua require('dapui').toggle()<CR>", "Toggle UI" },
     t = { "<cmd>lua require('dap').terminate()<CR>", "Terminate" },
