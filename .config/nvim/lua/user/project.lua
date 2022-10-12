@@ -6,8 +6,8 @@ if not project then
 end
 
 project.setup({
-	detection_methods = { "pattern" },
-	patterns = { ".git", "Makefile", "package.json" },
+  detection_methods = { "pattern" },
+  patterns = { ".git", "Makefile", "package.json" },
 })
 
 local telescope = helpers.require("telescope")

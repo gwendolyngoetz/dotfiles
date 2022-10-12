@@ -12,4 +12,3 @@ colorizer.setup {
     mode = 'foreground'
   }
 }
-

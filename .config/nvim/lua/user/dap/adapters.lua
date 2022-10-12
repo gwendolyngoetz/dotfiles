@@ -12,7 +12,7 @@ if not helpers.is_empty(netcoredbg_path) then
   dap.adapters.coreclr = {
     type = 'executable',
     command = netcoredbg_path,
-    args = {'--interpreter=vscode'}
+    args = { '--interpreter=vscode' }
   }
 end
 
@@ -91,6 +91,5 @@ dap.configurations.typescriptreact = {
 
 -- Looks for launch.json files in dotnet projects
 require("dap.ext.vscode").load_launchjs(nil, {
-  coreclr = {'cs'}
+  coreclr = { 'cs' }
 })
-

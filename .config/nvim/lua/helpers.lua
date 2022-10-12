@@ -22,7 +22,7 @@ M.get_from_data_path = function(part)
   return path
 end
 
-M.is_empty = function (value)
+M.is_empty = function(value)
   return value == nil or value == ""
 end
 

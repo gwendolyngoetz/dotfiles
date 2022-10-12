@@ -80,7 +80,7 @@ return packer.startup {
       "JoosepAlviste/nvim-ts-context-commentstring",
       commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08",
       requires = {
-          "nvim-treesitter/nvim-treesitter"
+        "nvim-treesitter/nvim-treesitter"
       }
     }
 
@@ -285,7 +285,7 @@ return packer.startup {
       "scalameta/nvim-metals",
       commit = "b7587a9155d22761f1b28c18f7927e6df0d08387",
       requires = {
-       "nvim-lua/plenary.nvim"
+        "nvim-lua/plenary.nvim"
       }
     }
 
@@ -300,7 +300,7 @@ return packer.startup {
       commit = "8d0768a83f7b89bd8cb8811800bc121b9353f0b2"
     }
 
-    -- 
+    --
     use {
       "norcalli/nvim-colorizer.lua",
       commit = "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6"

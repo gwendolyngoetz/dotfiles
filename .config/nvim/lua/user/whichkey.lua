@@ -142,4 +142,3 @@ local mappings = {
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
-

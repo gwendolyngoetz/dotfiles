@@ -12,7 +12,7 @@ navic.setup {
 }
 
 require("lspconfig").omnisharp.setup {
-  on_attach = function (client, bufnr)
+  on_attach = function(client, bufnr)
     navic.attach(client, bufnr)
   end
 }
