@@ -26,7 +26,7 @@ local diff = {
   "diff",
   colored = true,
   symbols = {
-    added = icons.diagnostics.added,
+    added = icons.diff.added,
     modified = icons.diff.modified,
     removed = icons.diff.removed
   },
@@ -39,6 +39,16 @@ local mode = {
     return string.sub(str, 1, 1)
   end,
 }
+
+local lspinfo = function()
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+  if #clients > 0 then
+    return icons.lualine.language_server .. #clients
+  end
+
+  return ""
+end
 
 local filetype = {
   "filetype",
@@ -68,7 +78,7 @@ local progress = function()
 end
 
 local spaces = function()
-  return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+  return icons.lualine.spaces .. " " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
 lualine.setup {
@@ -84,7 +94,7 @@ lualine.setup {
   sections = {
     lualine_a = { branch, diagnostics },
     lualine_b = { mode },
-    lualine_c = {},
+    lualine_c = { lspinfo },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { location },
     lualine_z = { progress },

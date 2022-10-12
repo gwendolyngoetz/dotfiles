@@ -103,6 +103,10 @@ M.icons = {
     snippets = "",
     buffer = "﬘",
     path = "",
+  },
+  lualine = {
+    language_server = "力",
+    spaces = ""
   }
 }
 
