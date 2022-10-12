@@ -71,11 +71,11 @@ M.on_attach = function(client, bufnr)
   end
 
   if client.name == "tsserver" then
-    client.server_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
   end
 
   if client.name == "sumneko_lua" then
-    client.server_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
   end
 
   lsp_keymaps(bufnr)
