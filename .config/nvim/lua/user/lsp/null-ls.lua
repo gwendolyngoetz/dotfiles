@@ -17,7 +17,7 @@ null_ls.setup {
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
     formatting.black.with { extra_args = { "--fast" } },
-    formatting.stylua,
+    formatting.stylua.with { extra_args = { "--indent-type Spaces" } },
     formatting.google_java_format,
     diagnostics.flake8,
   },
