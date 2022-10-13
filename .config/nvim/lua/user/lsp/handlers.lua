@@ -1,7 +1,17 @@
+local helpers = require("helpers")
 local settings = require("settings")
 local icons = settings.icons
 
 local M = {}
+
+local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not status_cmp_ok then
+  return
+end
+
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
 M.setup = function()
   local signs = {
@@ -53,23 +63,18 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format { async = true }<cr>", opts)
-  keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<cr>", opts)
-  keymap(bufnr, "n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts)
-  keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-  keymap(bufnr, "n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
-  keymap(bufnr, "n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
-  keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+  keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format { async = true }<CR>", opts)
+  keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+  keymap(bufnr, "n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts)
+  keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+  keymap(bufnr, "n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts)
+  keymap(bufnr, "n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts)
+  keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 end
 
 M.on_attach = function(client, bufnr)
-  local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-  if not status_cmp_ok then
-    return
-  end
-
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
   end
@@ -79,11 +84,6 @@ M.on_attach = function(client, bufnr)
   end
 
   lsp_keymaps(bufnr)
-  local status_ok, illuminate = pcall(require, "illuminate")
-  if not status_ok then
-    return
-  end
-  illuminate.on_attach(client)
 
   if client.name == "jdt.ls" then
     vim.lsp.codelens.refresh()
@@ -95,9 +95,15 @@ M.on_attach = function(client, bufnr)
     client.resolved_capabilities.textDocument.completion.completionItem.snippetSupport = false
   end
 
-  M.capabilities = vim.lsp.protocol.make_client_capabilities()
-  M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-  M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
+  local illuminate = helpers.require("illuminate")
+  if illuminate then
+    illuminate.on_attach(client)
+  end
+
+  local navic = helpers.require("nvim-navic")
+  if navic then
+    navic.attach(client, bufnr)
+  end
 end
 
 return M

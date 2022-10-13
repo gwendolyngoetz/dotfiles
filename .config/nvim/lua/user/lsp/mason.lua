@@ -32,7 +32,7 @@ local servers = {
   "rust_analyzer"
 }
 
-mason.setup {
+mason.setup({
   ui = {
     border = settings.ui.border,
     icons = {
@@ -41,12 +41,12 @@ mason.setup {
       package_uninstalled = icons.mason.package_uninstalled
     }
   },
-}
+})
 
-mason_lspconfig.setup {
+mason_lspconfig.setup({
   ensure_installed = servers,
   automatic_installation = true
-}
+})
 
 local opts = {}
 
@@ -56,18 +56,12 @@ for _, server in pairs(servers) do
     capabilities = require("user.lsp.handlers").capabilities,
   }
 
-  if server == "sumneko_lua" then
-    local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-    opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-  end
+  server = vim.split(server, "@")[1]
 
-  if server == "pyright" then
-    local pyright_opts = require("user.lsp.settings.pyright")
-    opts = vim.tbl_deep_extend("force", pyright_opts, opts)
+  local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
+  if require_ok then
+    opts = vim.tbl_deep_extend("force", conf_opts, opts)
   end
-
-  if server == "jdtls" then goto continue end
 
   lspconfig[server].setup(opts)
-  ::continue::
 end

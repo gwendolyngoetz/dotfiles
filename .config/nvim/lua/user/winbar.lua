@@ -11,12 +11,6 @@ navic.setup {
   separator = " " .. icons.chevron.right .. " "
 }
 
-require("lspconfig").omnisharp.setup {
-  on_attach = function(client, bufnr)
-    navic.attach(client, bufnr)
-  end
-}
-
 local M = {}
 
 M.winbar_filetype_exclude = {
@@ -55,14 +49,17 @@ local get_filename = function()
     )
 
     local hl_group = "FileIconColor" .. extension
+    local hl_text = "WinbarFileNameColor"
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+    vim.api.nvim_set_hl(0, hl_text, { italic = true, bold = true })
+
     if helpers.is_empty(file_icon) then
       file_icon = icons.file.icon
       file_icon_color = ""
     end
 
-    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#NavicText#" .. filename .. "%*"
+    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#" .. hl_text .. "#" .. filename .. "%*"
   end
 end
 
@@ -74,7 +71,7 @@ local get_navic = function()
   end
 
   if not helpers.is_empty(navic_location) then
-    return icons.chevron.right .. " " .. navic_location
+    return icons.winbar.file_separator .. " " .. navic_location
   else
     return ""
   end

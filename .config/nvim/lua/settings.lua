@@ -107,6 +107,9 @@ M.icons = {
   lualine = {
     language_server = "力",
     spaces = ""
+  },
+  winbar = {
+    file_separator = ":"
   }
 }
 
