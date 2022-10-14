@@ -29,7 +29,7 @@ local servers = {
   "omnisharp",
   "gopls",
   "sqlls",
-  "rust_analyzer"
+  "rust_analyzer",
 }
 
 mason.setup({
@@ -38,14 +38,14 @@ mason.setup({
     icons = {
       package_installed = icons.mason.package_installed,
       package_pending = icons.mason.package_pending,
-      package_uninstalled = icons.mason.package_uninstalled
-    }
+      package_uninstalled = icons.mason.package_uninstalled,
+    },
   },
 })
 
 mason_lspconfig.setup({
   ensure_installed = servers,
-  automatic_installation = true
+  automatic_installation = true,
 })
 
 local opts = {}
