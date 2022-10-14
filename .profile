@@ -40,7 +40,7 @@ fi
 # set PATH for dotnet install directory
 if [ -d "$HOME/.dotnet" ] ; then
     export DOTNET_ROOT=$HOME/.dotnet
-    export PATH="$PATH:$HOME/.dotnet:$HOME/.dotnet/tools"
+    export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
 fi
 
 # environment variables not to check in to source control
