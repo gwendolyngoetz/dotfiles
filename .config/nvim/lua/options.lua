@@ -1,3 +1,4 @@
+-- stylua: ignore
 local options = {
   backup         = false,
   clipboard      = "unnamed,unnamedplus",
@@ -46,7 +47,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.opt.fillchars.eob=" "
+vim.opt.fillchars.eob = " "
 vim.opt.iskeyword:append("-")
 vim.opt.shortmess:append("c")
 vim.opt.shortmess:remove("F") -- Disable for Metals
@@ -55,9 +56,7 @@ vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.cmd("let g:loaded_perl_provider = 0")
 vim.cmd("let g:loaded_ruby_provider = 0")
 
-
 -- Color Scheme
 --local colorscheme = "dracula"
 local colorscheme = "tokyonight-night"
 vim.cmd("colorscheme " .. colorscheme)
-
