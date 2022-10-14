@@ -6,10 +6,17 @@ if not navic then
   return
 end
 
-navic.setup {
-  highlight = true,
-  separator = " " .. icons.chevron.right .. " "
+local filetype_depth_settings = {
+  lua = {
+    depth_limit = 4,
+    depth_limit_indicator = "",
+  },
 }
+
+navic.setup({
+  highlight = true,
+  separator = " " .. icons.chevron.right .. " ",
+})
 
 local M = {}
 
@@ -38,15 +45,12 @@ local get_buf_option = function(opt)
 end
 
 local get_filename = function()
-  local filename = vim.fn.expand "%:t"
-  local extension = vim.fn.expand "%:e"
+  local filename = vim.fn.expand("%:t")
+  local extension = vim.fn.expand("%:e")
 
   if not helpers.is_empty(filename) then
-    local file_icon, file_icon_color = require("nvim-web-devicons").get_icon_color(
-      filename,
-      extension,
-      { default = true }
-    )
+    local file_icon, file_icon_color =
+      require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
 
     local hl_group = "FileIconColor" .. extension
     local hl_text = "WinbarFileNameColor"
@@ -64,7 +68,7 @@ local get_filename = function()
 end
 
 local get_navic = function()
-  local navic_location = navic.get_location()
+  local navic_location = navic.get_location(filetype_depth_settings[vim.bo.filetype])
 
   if not navic.is_available() or navic_location == "error" then
     return ""
@@ -101,7 +105,7 @@ M.get_winbar = function()
     end
   end
 
-  if not helpers.is_empty(value) and get_buf_option "mod" then
+  if not helpers.is_empty(value) and get_buf_option("mod") then
     local mod = "%#LineNr#" .. "" .. "%*"
     if navic_added then
       value = value .. " " .. mod
