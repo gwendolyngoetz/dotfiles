@@ -37,18 +37,18 @@ keymap("n", "<Up>", "<C-w>k", opts)
 keymap("n", "<Right>", "<C-w>l", opts)
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<C-Up>", "<cmd>resize -2<CR>", opts)
+keymap("n", "<C-Down>", "<cmd>resize +2<CR>", opts)
+keymap("n", "<C-Left>", "<cmd>vertical resize -2<CR>", opts)
+keymap("n", "<C-Right>", "<cmd>vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<S-l>", "<cmd>bnext<CR>", opts)
+keymap("n", "<S-h>", "<cmd>bprevious<CR>", opts)
 
 -- Move text up and down
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+keymap("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", opts)
+keymap("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", opts)
 
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
@@ -71,7 +71,7 @@ keymap("v", ">", ">gv", opts)
 -- Plugins --
 
 -- Colorizer
-keymap("n", "<C-c>", ":ColorizerToggle<CR>", opts)
+keymap("n", "<C-c>", "<cmd>ColorizerToggle<CR>", opts)
 
 -- NvimTree
 keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
