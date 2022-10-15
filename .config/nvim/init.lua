@@ -1,27 +1,27 @@
-require "options"
-require "keymaps"
-require "plugins"
-require "autocommands"
-require "user.notify"
-require "user.cmp"
-require "user.telescope"
-require "user.treesitter"
-require "user.autopairs"
-require "user.autotag"
-require "user.comment"
-require "user.gitsigns"
-require "user.nvim-tree"
-require "user.lualine"
-require "user.toggleterm"
-require "user.project"
-require "user.impatient"
-require "user.illuminate"
-require "user.indentline"
-require "user.lsp"
-require "user.dap"
-require "user.winbar"
-require "user.colorizer"
-require "user.nvim-test"
-require "user.metals"
-require "user.whichkey"
-require "user.pretty-fold"
+require("options")
+require("keymaps")
+require("plugins")
+require("autocommands")
+require("user.notify")
+require("user.cmp")
+require("user.telescope")
+require("user.treesitter")
+require("user.autopairs")
+require("user.autotag")
+require("user.comment")
+require("user.gitsigns")
+require("user.nvim-tree")
+require("user.lualine")
+require("user.toggleterm")
+require("user.project")
+require("user.impatient")
+require("user.illuminate")
+require("user.indentline")
+require("user.lsp")
+require("user.dap")
+require("user.winbar")
+require("user.colorizer")
+require("user.nvim-test")
+require("user.metals")
+require("user.whichkey")
+require("user.pretty-fold")
