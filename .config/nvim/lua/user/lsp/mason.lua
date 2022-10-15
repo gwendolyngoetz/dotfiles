@@ -30,6 +30,7 @@ local servers = {
   "gopls",
   "sqlls",
   "rust_analyzer",
+  "terraformls",
 }
 
 mason.setup({

@@ -32,6 +32,7 @@ null_ls.setup({
     diagnostics.flake8,
     formatting.goimports,
     formatting.gofumpt,
+    formatting.terraform_fmt,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
@@ -55,6 +56,7 @@ mason_null_ls.setup({
     "stylua",
     "black",
     "flake8",
+    "terraform_fmt",
   },
   automatic_installation = true,
 })
