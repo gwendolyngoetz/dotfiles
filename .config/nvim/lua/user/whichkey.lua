@@ -19,7 +19,7 @@ local setup = {
   icons = {
     breadcrumb = icons.whichkey.breadcrumb,
     separator = icons.whichkey.separator,
-    group = icons.whichkey.group
+    group = icons.whichkey.group,
   },
   window = {
     border = settings.ui.border,
@@ -37,7 +37,10 @@ local opts = {
 }
 
 local mappings = {
-  ["b"] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers" },
+  ["b"] = {
+    "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+    "Buffers",
+  },
   ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
@@ -126,6 +129,14 @@ local mappings = {
     f = { "<cmd>TestFile<CR>", "Test File" },
     c = { "<cmd>TestNearest<CR>", "Test Nearest" },
     r = { "<cmd>TestLast<CR>", "Rerun Last Test" },
+
+    --f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "Test File" },
+    --c = { "<cmd>lua require('neotest').run.run()<CR>", "Test Nearest" },
+    --d = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<CR>", "Debug File" },
+    --h = { "<cmd>lua require('neotest').output.open({ enter = true, short = false })<CR>", "Open Output" },
+    --r = { "<cmd>lua require('neotest').run.run_last()<CR>", "Rerun Last Test" },
+    --s = { "<cmd>lua require('neotest').summary.toggle()<CR>", "Summary" },
+    --a = { "<cmd>lua require('neotest').diagnostic()<CR>", "diagnostic" },
   },
 
   --T = {

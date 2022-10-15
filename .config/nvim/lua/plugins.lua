@@ -329,6 +329,25 @@ return packer.startup({
       commit = "32f162c27045fc712664b9ddbd33d3c550cb2bfc",
     })
 
+    use({
+      "nvim-neotest/neotest",
+      commit = "272a22b",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        --"antoinemadec/FixCursorHold.nvim",
+        --"Issafalcon/neotest-dotnet",
+      },
+    })
+
+    use({
+      "Issafalcon/neotest-dotnet",
+      commit = "8198c57",
+      requires = {
+        --  "nvim-neotest/neotest",
+      },
+    })
+
     -- Folding
     use({
       "anuvyklack/pretty-fold.nvim",
