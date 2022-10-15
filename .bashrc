@@ -107,3 +107,7 @@ if [ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
     export SDKMAN_DIR="$HOME/.sdkman"
     source $HOME/.sdkman/bin/sdkman-init.sh
 fi
+
+if [ -f "/usr/bin/terraform" ]; then
+  complete -C /usr/bin/terraform terraform
+fi
