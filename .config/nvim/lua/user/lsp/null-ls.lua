@@ -28,7 +28,7 @@ null_ls.setup({
     formatting.stylua.with({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
-    formatting.google_java_format,
+    --formatting.google_java_format,
     diagnostics.flake8,
     formatting.goimports,
     formatting.gofumpt,
