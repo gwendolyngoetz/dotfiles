@@ -256,7 +256,7 @@ return packer.startup({
     -- Treesitter
     use({
       "nvim-treesitter/nvim-treesitter",
-      commit = "aebc6cf",
+      commit = "addc129a",
       run = ":TSUpdate",
     })
 
