@@ -1,6 +1,5 @@
 import:
   - ~/.config/alacritty/common.yml
-  - ~/.config/alacritty/themes/dracula.yml
 
 font:
   size: 15.0

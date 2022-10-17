@@ -1,3 +1,2 @@
 import:
   - ~/.config/alacritty/common.yml
-  - ~/.config/alacritty/themes/dracula.yml
