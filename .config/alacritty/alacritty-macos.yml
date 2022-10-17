@@ -8,6 +8,7 @@ colors:
   primary:
     background: '#282935'
 
+# This nonsense is here since macos sends a different code than standard alt
 key_bindings:
   - { key: A, mods: Alt, chars: "\x1ba" }
   - { key: B, mods: Alt, chars: "\x1bb" }
