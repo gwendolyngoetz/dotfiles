@@ -281,7 +281,7 @@ return packer.startup({
     -- Notifications
     use({
       "rcarriga/nvim-notify",
-      comment = "4144654",
+      commit = "af935fd",
       requires = {
         "nvim-lua/plenary.nvim",
       },
