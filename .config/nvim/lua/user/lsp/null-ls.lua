@@ -29,7 +29,9 @@ null_ls.setup({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
     --formatting.google_java_format,
-    diagnostics.flake8,
+    diagnostics.flake8.with({
+      extra_args = { "--max-line-length", "120" },
+    }),
     formatting.goimports,
     formatting.gofumpt,
     formatting.terraform_fmt,
