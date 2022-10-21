@@ -356,7 +356,6 @@ return packer.startup({
 
     use({
       "folke/which-key.nvim",
-      disable = false,
       commit = "6885b66",
     })
 
