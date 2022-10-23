@@ -6,7 +6,7 @@ font:
 
 colors:
   primary:
-    background: '#282935'
+    background: '#14151c'
 
 # This nonsense is here since macos sends a different code than standard alt
 key_bindings:
