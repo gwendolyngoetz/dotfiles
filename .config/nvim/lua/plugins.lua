@@ -90,10 +90,12 @@ return packer.startup({
     })
 
     use({
-      "kyazdani42/nvim-tree.lua",
-      commit = "45d386a",
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
       requires = {
+        "nvim-lua/plenary.nvim",
         "kyazdani42/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
       },
     })
 

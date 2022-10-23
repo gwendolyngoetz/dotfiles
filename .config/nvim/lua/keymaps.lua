@@ -73,8 +73,8 @@ keymap("v", ">", ">gv", opts)
 -- Colorizer
 keymap("n", "<C-c>", "<cmd>ColorizerToggle<CR>", opts)
 
--- NvimTree
-keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+-- Neotree
+keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 
 -- Telescope
 --vim.api.nvim_del_keymap("n", "<leader>f")
