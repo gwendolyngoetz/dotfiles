@@ -29,7 +29,7 @@ M.icons = {
     TypeParameter = "",
   },
   debugging = {
-    breakpoint = ""
+    breakpoint = "",
   },
   git = {
     add = "▎",
@@ -38,13 +38,13 @@ M.icons = {
     delete = "契",
     topdelete = "契",
     branch = "",
-    unstaged = "",
-    staged = "S",
+    unstaged = "",
+    staged = "",
     unmerged = "",
     renamed = "➜",
-    untracked = "U",
+    untracked = "",
     deleted = "",
-    ignored = "◌",
+    ignored = "",
   },
   indent = {
     blankline_char = "▏",
@@ -58,7 +58,7 @@ M.icons = {
   diff = {
     added = " ",
     modified = " ",
-    removed = " "
+    removed = " ",
   },
   nvimtree = {
     default = "",
@@ -71,7 +71,8 @@ M.icons = {
     up = "",
   },
   file = {
-    icon = ""
+    icon = "",
+    modified = "",
   },
   folder = {
     arrow_open = "",
@@ -95,7 +96,7 @@ M.icons = {
   mason = {
     package_installed = "✓",
     package_pending = "➜",
-    package_uninstalled = "✗"
+    package_uninstalled = "✗",
   },
   cmp = {
     lsp = "",
@@ -106,16 +107,27 @@ M.icons = {
   },
   lualine = {
     language_server = "力",
-    spaces = ""
+    spaces = "",
   },
   winbar = {
-    file_separator = ":"
-  }
+    file_separator = ":",
+  },
+  ui = {
+    left = "▏",
+    right = "▕",
+    middle = "│",
+    lower_left_corner = "└",
+  },
+  truncation_character = "…", -- character to use when truncating the tab label
+  neotree = {
+    files = "",
+    buffer = "﬘",
+    git = "",
+  },
 }
 
 M.ui = {
-  border = "rounded"
+  border = "rounded",
 }
-
 
 return M

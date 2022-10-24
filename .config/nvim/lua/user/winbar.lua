@@ -20,6 +20,10 @@ navic.setup({
 
 local M = {}
 
+M.non_code_path_text = {
+  "neo-tree",
+}
+
 M.winbar_filetype_exclude = {
   "help",
   "startify",
@@ -81,19 +85,24 @@ local get_navic = function()
   end
 end
 
-local excludes = function()
+local skip_non_code_path_text = function()
+  if vim.tbl_contains(M.non_code_path_text, vim.bo.filetype) then
+    return true
+  end
+
+  return false
+end
+
+local exclude_block_list = function()
   if vim.tbl_contains(M.winbar_filetype_exclude, vim.bo.filetype) then
     vim.opt_local.winbar = nil
     return true
   end
+
   return false
 end
 
-M.get_winbar = function()
-  if excludes() then
-    return
-  end
-
+local get_code_path_text = function()
   local value = get_filename()
 
   local navic_added = false
@@ -113,6 +122,20 @@ M.get_winbar = function()
       value = value .. mod
     end
   end
+
+  return value
+end
+
+M.get_winbar = function()
+  if exclude_block_list() then
+    return
+  end
+
+  if skip_non_code_path_text() then
+    return
+  end
+
+  local value = get_code_path_text()
 
   local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
   if not status_ok then
