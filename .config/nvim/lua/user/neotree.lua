@@ -18,16 +18,10 @@ vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 neotree.setup({
   close_if_last_window = true,
   popup_border_style = settings.ui.border,
-  source_selector = {
-    winbar = true,
-    tab_labels = {
-      filesystem = icons.neotree.files .. " Files",
-      buffers = icons.neotree.buffer .. " Bufs",
-      git_status = icons.neotree.git .. " Git",
-    },
-    truncation_character = icons.truncation_character, -- character to use when truncating the tab label
-    padding = { left = 1, right = 1 },
+  sources = {
+    "filesystem",
   },
+  log_level = "error",
   default_component_configs = {
     indent = {
       expander_collapsed = icons.chevron.right,
@@ -58,7 +52,6 @@ neotree.setup({
     },
   },
   window = {
-    position = "left",
     width = 32,
     mappings = {
       ["<space>"] = { "toggle_node", nowait = false },
@@ -110,30 +103,6 @@ neotree.setup({
       never_show = {
         ".DS_Store",
         "thumbs.db",
-      },
-    },
-  },
-  buffers = {
-    window = {
-      mappings = {
-        ["bd"] = "buffer_delete",
-        ["<bs>"] = "navigate_up",
-        ["."] = "set_root",
-      },
-    },
-  },
-  git_status = {
-    window = {
-      position = "float",
-      --position = "left",
-      mappings = {
-        ["A"] = "git_add_all",
-        ["gu"] = "git_unstage_file",
-        ["ga"] = "git_add_file",
-        ["gr"] = "git_revert_file",
-        ["gc"] = "git_commit",
-        ["gp"] = "git_push",
-        ["gg"] = "git_commit_and_push",
       },
     },
   },
