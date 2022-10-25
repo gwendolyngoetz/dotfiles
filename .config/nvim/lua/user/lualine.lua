@@ -16,7 +16,7 @@ local diagnostics = {
   sections = { "error", "warn" },
   symbols = {
     error = icons.diagnostics.error,
-    warn = icons.diagnostics.warn
+    warn = icons.diagnostics.warn,
   },
   colored = false,
   always_visible = true,
@@ -28,7 +28,7 @@ local diff = {
   symbols = {
     added = icons.diff.added,
     modified = icons.diff.modified,
-    removed = icons.diff.removed
+    removed = icons.diff.removed,
   },
   cond = hide_in_width,
 }
@@ -81,7 +81,7 @@ local spaces = function()
   return icons.lualine.spaces .. " " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-lualine.setup {
+lualine.setup({
   options = {
     globalstatus = true,
     icons_enabled = true,
@@ -99,4 +99,4 @@ lualine.setup {
     lualine_y = { location },
     lualine_z = { progress },
   },
-}
+})
