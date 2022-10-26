@@ -181,6 +181,8 @@ for_window [title="Microsoft Teams Notification"] floating enable
 for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable border normal
 for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
 for_window [class="firefox" window_role="page-info"] floating enable border normal 
+# Organizer is firefox history
+for_window [class="firefox" window_role="Organizer"] floating enable border normal 
 for_window [class="Code" window_type="dialog"] floating enable border normal
 for_window [class="Conky"] floating enable border normal
 
