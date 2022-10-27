@@ -96,6 +96,7 @@ neotree.setup({
         "node_modules",
       },
       never_show = {
+        ".git",
         ".DS_Store",
         "thumbs.db",
       },
