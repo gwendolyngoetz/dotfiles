@@ -5,13 +5,11 @@ filetype off                  " required
 " Don't delete!
 source $VIMRUNTIME/vimrc_example.vim
 
-" *********************************************
-" Vim settings
-" *********************************************
 syntax on
-colorscheme molokai
-"set guifont=Consolas:h12:cANSI
+colorscheme torte
 set cursorline "highlight current line
+hi CursorLine term=NONE cterm=NONE
+hi CursorLineNr term=bold cterm=NONE
 set hlsearch "highlight search
 set viminfo+=n$HOME/.vim/.viminfo
 set directory=$HOME/.vim/.tmp//,.
@@ -23,12 +21,8 @@ set relativenumber "Relative line numbers with current line showing actual line 
 set expandtab "Convert tabs to spaces
 set tabstop=4 "Tab size
 set backspace=indent,eol,start
-"set nowrap
-"" folding settings
 set foldmethod=indent
 set foldlevel=99
-
-" split settings
 set splitbelow
 set splitright
 
