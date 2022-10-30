@@ -12,13 +12,14 @@ configs.setup({
     "cmake",
     "css",
     "go",
+    "hcl",
     "html",
     "java",
     "json",
     "lua",
     "markdown",
     "scala",
-    "yaml"
+    "yaml",
   },
   ignore_install = { "" }, -- List of parsers to ignore installing
   highlight = {
@@ -30,6 +31,6 @@ configs.setup({
   },
   indent = {
     enable = true,
-    disable = { "python", "css" }
+    disable = { "python", "css" },
   },
 })
