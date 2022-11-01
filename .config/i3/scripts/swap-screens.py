@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import asyncio
 import argparse
-import sys
 from i3ipc.aio import Connection
 from pprint import pprint
 
