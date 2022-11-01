@@ -1,23 +1,21 @@
 #!/usr/bin/python3
-import sys
 import leglight
 
-state = False
-if len(sys.argv) > 1:
-    state = sys.argv[1] == 'on'
 
-light1 = leglight.LegLight('10.1.1.144',9123)
-light2 = leglight.LegLight('10.1.1.135',9123)
-colortemp = 4200
+def get_light(ip):
+    colortemp = 4200
+    light = leglight.LegLight(ip, 9123)
+    light.brightness(25)
+    light.color(colortemp)
+    return light
 
-if state == True:
-    light1.on()
-    light1.brightness(25)
-    light1.color(colortemp)
 
-    light2.on()
-    light2.brightness(25)
-    light2.color(colortemp)
-else:
-    light1.off()
-    light2.off()
+def toggle_light(light):
+    light.off() if light.isOn == 1 else light.on()
+
+
+light1 = get_light("10.1.1.144")
+light2 = get_light("10.1.1.135")
+
+toggle_light(light1)
+toggle_light(light2)
