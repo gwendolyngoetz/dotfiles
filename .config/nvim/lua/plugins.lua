@@ -90,6 +90,15 @@ return packer.startup({
     })
 
     use({
+      "kyazdani42/nvim-tree.lua",
+      disable = true,
+      commit = "45d386a",
+      requires = {
+        "kyazdani42/nvim-web-devicons",
+      },
+    })
+
+    use({
       "nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",
       requires = {

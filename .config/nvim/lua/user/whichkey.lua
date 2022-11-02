@@ -36,12 +36,15 @@ local opts = {
   nowait = true, -- use `nowait` when creating keymaps
 }
 
+-- Tree
+local _, treetoggle_cmd = require("generic-tree").get_treetoggle_command()
+
 local mappings = {
   ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     "Buffers",
   },
-  ["e"] = { "<cmd>Neotree toggle<CR>", "Explorer" },
+  ["e"] = { treetoggle_cmd, "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
