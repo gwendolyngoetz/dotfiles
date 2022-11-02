@@ -3,7 +3,7 @@
 # Unzip into a folder the same name as the file without the .zip extension
 
 file="$1";
-dirname="$(basename $file .zip)";
+dirname="$(basename "$file" .zip)";
 
 #echo "$file";
 #echo "$dirname";
