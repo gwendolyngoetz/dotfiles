@@ -8,9 +8,13 @@ end
 
 local actions = require("telescope.actions")
 
-telescope.setup {
+telescope.setup({
   defaults = {
-
+    layout_strategy = "vertical",
+    layout_config = {
+      vertical = { width = 0.9 },
+      horizontal = { width = 0.9 },
+    },
     prompt_prefix = icons.telescope.prompt_prefix,
     selection_caret = icons.telescope.selection_caret,
     path_display = { "smart" },
@@ -25,4 +29,4 @@ telescope.setup {
       },
     },
   },
-}
+})
