@@ -5,14 +5,13 @@
             "buttons": {
                 "0": {
                     "0": {
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_off.png",
-                        "text": "",
-                        "command": "python3 /home/gwendolyn/.config/tools/change-elgato-lights.py off"
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_1_2.png",
+                        "command": "/home/gwendolyn/.config/i3/scripts/swap-screens.py 1 2"
                     },
                     "1": {
                         "text": "",
-                        "command": "python3 /home/gwendolyn/.config/tools/change-elgato-lights.py on",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_on.png",
+                        "command": "/home/gwendolyn/.config/tools/change-elgato-lights.py",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_light_on_off.png",
                         "text_vertical_align": "top"
                     },
                     "2": {
@@ -30,8 +29,9 @@
                     },
                     "5": {
                         "text": "",
-                        "command": "firefox https://docs.civiform.us",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_civiform.png"
+                        "command": "/home/gwendolyn/.config/i3/scripts/swap-screens.py 1 3",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_1_3.png",
+                        "switch_page": 0
                     },
                     "6": {
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_dec.png",
@@ -51,7 +51,11 @@
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_full.png",
                         "command": "/home/gwendolyn/.config/tools/brightness.sh full"
                     },
-                    "10": {},
+                    "10": {
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_2_3.png",
+                        "text": "",
+                        "command": "/home/gwendolyn/.config/i3/scripts/swap-screens.py 2 3"
+                    },
                     "11": {
                         "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 3",
                         "text": "",
@@ -74,7 +78,10 @@
                     }
                 },
                 "1": {
-                    "0": {},
+                    "0": {
+                        "switch_page": 0,
+                        "text": ""
+                    },
                     "1": {},
                     "2": {},
                     "3": {},
