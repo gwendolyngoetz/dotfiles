@@ -109,5 +109,10 @@ if [ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
 fi
 
 if [ -f "/usr/bin/terraform" ]; then
-  complete -C /usr/bin/terraform terraform
+    complete -C /usr/bin/terraform terraform
 fi
+
+# if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
+#     TMUX_SESSION="remote"
+#     tmux attach-session -t $TMUX_SESSION || tmux new-session -s $TMUX_SESSION
+# fi
