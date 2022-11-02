@@ -10,9 +10,7 @@ M.get_treetoggle_command = function()
 
   if ok_neo_tree then
     command = "<cmd>Neotree toggle<CR>"
-  end
-
-  if ok_nvim_tree then
+  elseif ok_nvim_tree then
     command = "<cmd>NvimTreeToggle<CR>"
   end
 
@@ -25,9 +23,7 @@ M.setup = function()
 
   if ok_neo_tree then
     require("user.neotree")
-  end
-
-  if ok_nvim_tree then
+  elseif ok_nvim_tree then
     require("user.nvim-tree")
   end
 end
