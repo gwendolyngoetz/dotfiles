@@ -95,7 +95,7 @@ lualine.setup({
     lualine_a = { branch, diagnostics },
     lualine_b = { mode },
     lualine_c = { lspinfo },
-    lualine_x = { diff, spaces, "encoding", filetype },
+    lualine_x = { diff, spaces, filetype },
     lualine_y = { location },
     lualine_z = { progress },
   },
