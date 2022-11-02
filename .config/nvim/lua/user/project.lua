@@ -6,6 +6,7 @@ if not project then
 end
 
 project.setup({
+  manual_mode = true,
   detection_methods = { "pattern" },
   patterns = { ".git", "Makefile", "package.json" },
 })
@@ -15,4 +16,4 @@ if not telescope then
   return
 end
 
-telescope.load_extension('projects')
+telescope.load_extension("projects")
