@@ -49,6 +49,8 @@ mason_lspconfig.setup({
   automatic_installation = true,
 })
 
+require("lspconfig.ui.windows").default_options.border = settings.ui.border
+
 local opts = {}
 
 for _, server in pairs(servers) do
