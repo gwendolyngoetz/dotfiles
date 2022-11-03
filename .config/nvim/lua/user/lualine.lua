@@ -50,10 +50,21 @@ local lspinfo = function()
   return ""
 end
 
+local filetype_exclusions = {
+  "TelescopePrompt",
+  "neo-tree",
+}
+
 local filetype = {
   "filetype",
   icons_enabled = false,
   icon = nil,
+  fmt = function(str)
+    if vim.tbl_contains(filetype_exclusions, str) then
+      return ""
+    end
+    return str
+  end,
 }
 
 local branch = {
