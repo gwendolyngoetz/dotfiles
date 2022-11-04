@@ -108,11 +108,10 @@ return packer.startup({
       },
     })
 
-    -- Update to v3 and test that this still works
     use({
       "akinsho/bufferline.nvim",
       disable = true,
-      tag = "v2.11.*",
+      tag = "v3.*",
       requires = {
         "kyazdani42/nvim-web-devicons",
       },
