@@ -59,7 +59,10 @@ local get_filename = function()
     local hl_group = "FileIconColor" .. extension
     local hl_text = "WinbarFileNameColor"
 
-    vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+    if vim.fn.hlexists(hl_group) == true then
+      vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+    end
+
     vim.api.nvim_set_hl(0, hl_text, { italic = true, bold = true })
 
     if helpers.is_empty(file_icon) then
