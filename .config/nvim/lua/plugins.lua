@@ -372,7 +372,8 @@ return packer.startup({
 
     use({
       "folke/which-key.nvim",
-      commit = "61553ae",
+      commit = "6885b66", -- see the error in messages here
+      --commit = "fbf0381", -- started seeing vim.notify message here
     })
 
     use({
