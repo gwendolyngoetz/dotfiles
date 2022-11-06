@@ -51,7 +51,7 @@ function workon {
   
   local repo_name=$1
 
-  if [[ -f /usr/bin/fdfind ]]; then
+  if [[ -f /usr/bin/fdfind ]] || [[ -f /opt/homebrew/bin/fd ]]; then
     fastfind $repo_name
   else
     slowfind $repo_name
