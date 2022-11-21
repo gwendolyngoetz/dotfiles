@@ -1,4 +1,5 @@
 #!/bin/sh 
 
-~/.config/i3/scripts/load-workspaces.py 1 2 8
-
+i3-companion load --workspace=1 --output-to=DisplayPort-0
+i3-companion load --workspace=2 --output-to=DisplayPort-1
+i3-companion load --workspace=8 --output-to=DisplayPort-2
