@@ -17,6 +17,12 @@ local setup = {
     border = settings.ui.border,
   },
   ignore_missing = true,
+  disable = {
+    filetypes = {
+      "TelescopePrompt",
+      "neo-tree",
+    },
+  },
 }
 
 -- Tree
