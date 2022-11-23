@@ -5,6 +5,11 @@ ACTION="${1}"
 BRIGHTNESS=1.0
 CURRENT_BRIGHTNESS=$(xrandr --verbose | grep -m 1 -i brightness | cut -d' ' -f2)
 
+if [[ "${ACTION}" == "toggle" ]] && [[ "$CURRENT_BRIGHTNESS" == "1.0" ]]; then
+  ACTION="dim"  
+elif [[ "${ACTION}" == "toggle" ]] && [[ "$CURRENT_BRIGHTNESS" != "1.0" ]]; then
+  ACTION="full"  
+fi
 
 if [[ "${ACTION}" == "dim" ]]; then
     BRIGHTNESS=0.7
@@ -15,7 +20,7 @@ elif [[ "${ACTION}" == "inc" ]]; then
 elif [[ "${ACTION}" == "dec" ]]; then
     BRIGHTNESS=$(bc <<< "$CURRENT_BRIGHTNESS-0.1")
 else
-    echo "Use 'dim', 'full', 'inc', or 'dec' only"
+    echo "Use 'dim', 'full', 'inc', 'dec', or 'toggle' only"
     exit 1
 fi
 
