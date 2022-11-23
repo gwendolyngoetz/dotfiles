@@ -6,7 +6,8 @@
                 "0": {
                     "0": {
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_1_2.png",
-                        "command": "/home/gwendolyn/.config/i3/scripts/swap-screens.py 1 2"
+                        "command": "i3-companion swap --output1=DisplayPort-0 --output2=DisplayPort-1",
+                        "write": ""
                     },
                     "1": {
                         "text": "",
@@ -29,52 +30,54 @@
                     },
                     "5": {
                         "text": "",
-                        "command": "/home/gwendolyn/.config/i3/scripts/swap-screens.py 1 3",
+                        "command": "i3-companion swap --output1=DisplayPort-0 --output2=DisplayPort-2",
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_1_3.png",
                         "switch_page": 0
                     },
                     "6": {
+                        "icon": "",
+                        "command": "",
+                        "text": ""
+                    },
+                    "7": {
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_dec.png",
                         "command": "/home/gwendolyn/.config/tools/brightness.sh dec"
                     },
-                    "7": {
+                    "8": {
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_inc.png",
                         "command": "/home/gwendolyn/.config/tools/brightness.sh inc",
                         "text": ""
                     },
-                    "8": {
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_dim.png",
-                        "command": "/home/gwendolyn/.config/tools/brightness.sh dim",
-                        "text": ""
-                    },
                     "9": {
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_full.png",
-                        "command": "/home/gwendolyn/.config/tools/brightness.sh full"
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_brightness_toggle.png",
+                        "command": "/home/gwendolyn/.config/tools/brightness.sh toggle"
                     },
                     "10": {
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_2_3.png",
                         "text": "",
-                        "command": "/home/gwendolyn/.config/i3/scripts/swap-screens.py 2 3"
+                        "command": "i3-companion swap --output1=DisplayPort-1 --output2=DisplayPort-2"
                     },
                     "11": {
-                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 3",
+                        "command": "",
                         "text": "",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_3.png"
+                        "icon": "",
+                        "write": ""
                     },
                     "12": {
-                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 4",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_4.png",
+                        "command": "1",
+                        "icon": "",
                         "text": ""
                     },
                     "13": {
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_8.png",
-                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 8",
-                        "text": ""
+                        "text": "",
+                        "icon": "",
+                        "command": "2",
+                        "text_vertical_align": ""
                     },
                     "14": {
-                        "text": "",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_9.png",
-                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces.py 9"
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_load_workspaces.png",
+                        "command": "/home/gwendolyn/.config/i3/scripts/load-workspaces-secondary.sh",
+                        "text": ""
                     }
                 },
                 "1": {
