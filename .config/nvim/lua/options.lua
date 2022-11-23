@@ -51,7 +51,7 @@ vim.opt.fillchars.eob = " "
 vim.opt.iskeyword:append("-")
 vim.opt.shortmess:append("c")
 vim.opt.shortmess:remove("F") -- Disable for Metals
-vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.whichwrap:append("<,>,[,]")
 
 vim.cmd("let g:loaded_perl_provider = 0")
 vim.cmd("let g:loaded_ruby_provider = 0")
