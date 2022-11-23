@@ -161,30 +161,30 @@ focus_follows_mouse no
 hide_edge_borders smart
 
 # open specific applications in floating mode
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [title="Copying" class="dolphin" window_type="dialog"] floating enable sticky disable border normal
-for_window [class="jetbrains-idea" window_type="dialog"] floating enable sticky disable border normal
-for_window [class="Inkscape" window_type="dialog"] floating enable sticky disable border normal
-for_window [class="obs" window_type="dialog"] floating enable sticky disable border normal
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Solaar"] floating enable sticky enable border normal
-for_window [class="Pavucontrol"] floating enable sticky enable border normal
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="kcalc"] floating enable sticky enable border normal
-for_window [class="Galculator"] floating enable sticky enable border normal
-for_window [class="streamdeck"] floating enable border normal
-for_window [class="etcher"] floating enable sticky enable border normal
-for_window [title="ZenityCalendar"] floating enable sticky enable border normal
-for_window [instance="origin.exe"] floating enable
-for_window [title="Microsoft Teams Notification"] floating enable
-for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable border normal
-for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
-for_window [class="firefox" window_role="page-info"] floating enable border normal 
-# Organizer is firefox history
-for_window [class="firefox" window_role="Organizer"] floating enable border normal 
 for_window [class="Code" window_type="dialog"] floating enable border normal
 for_window [class="Conky"] floating enable border normal
+for_window [class="etcher"] floating enable sticky enable border normal
+for_window [class="firefox" window_role="page-info"] floating enable border normal 
+# Organizer is firefox history
+for_window [class="firefox" window_role="Organizer"] floating enable border normal
+for_window [class="Galculator"] floating enable sticky enable border normal
+for_window [class="Inkscape" window_type="dialog"] floating enable sticky disable border normal
+for_window [class="jetbrains-idea" window_type="dialog"] floating enable sticky disable border normal
+for_window [class="kcalc"] floating enable sticky enable border normal
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="obs" window_type="dialog"] floating enable sticky disable border normal
+for_window [class="Pavucontrol"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Solaar"] floating enable sticky enable border normal
+for_window [class="streamdeck"] floating enable border normal
+for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
+for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable border normal
+for_window [instance="origin.exe"] floating enable
+for_window [title="Copying" class="dolphin" window_type="dialog"] floating enable sticky disable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [title="Microsoft Teams Notification"] floating enable
+for_window [title="ZenityCalendar"] floating enable sticky enable border normal
 
 # default workspace assignments
 workspace $ws2 output DisplayPort-1
