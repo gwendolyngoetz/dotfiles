@@ -16,6 +16,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+# Don't rerun if under tmux
 if [ -n "$TMUX" ]; then
     return
 fi
@@ -30,21 +31,34 @@ if [ -d "$HOME/.local/bin" ] ; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# Java-11
 if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ] ; then
     export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
     export PATH="$JAVA_HOME/bin":$PATH
 fi
 
-# set PATH for coursier install directory
+# Coursier
 if [ -d "$HOME/.local/share/coursier/bin" ] ; then
     export PATH="$PATH:$HOME/.local/share/coursier/bin"
 fi
 
-# set PATH for dotnet install directory
+# Dotnet
 if [ -d "$HOME/.dotnet" ] ; then
     export DOTNET_ROOT=$HOME/.dotnet
     export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
+fi
+
+# Go
+if [ -f "$HOME/.golang/bin/go" ]; then
+    export GOROOT="$HOME/.golang/bin/go"
+    export GOPATH="$HOME/.golang" 
+    export PATH="$GOPATH/bin:$PATH"
+fi
+
+# Node
+if [ -d "$HOME/.local/share/nvm" ]; then
+  export NVM_DIR="$HOME/.local/share/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
 # environment variables not to check in to source control
