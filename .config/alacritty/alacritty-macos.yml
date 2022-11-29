@@ -1,8 +1,8 @@
 import:
   - ~/.config/alacritty/common.yml
 
-window:
-  decorations: 'buttonless'
+#window:
+#  decorations: 'buttonless'
 
 font:
   size: 16.0
