@@ -17,9 +17,13 @@ if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; the
     export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 fi
 
-if [ -d "$HOME/Library/Python/3.8/bin" ]; then
-    export PATH="$PATH:$HOME/Library/Python/3.8/bin"
+if [ -d "/opt/homebrew/opt/python3/libexec/bin" ]; then
+    export PATH="$PATH:/opt/homebrew/opt/python3/libexec/bin"
 fi
+
+#if [ -d "$HOME/Library/Python/3.9/bin" ]; then
+#    export PATH="$PATH:$HOME/Library/Python/3.9/bin"
+#fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="$PATH:$HOME/.cargo/bin"
