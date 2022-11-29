@@ -48,12 +48,14 @@ class MenuPopupWidget(CTk):
     DEFAULT_FONT = "Cousine Nerd Font"
 
     def __init__(self, title: str, width: int, height: int) -> None:
-        super().__init__()
+        super().__init__(className=title)
 
         self.title(title)
         self.set_geometry(width, height)
-        self.bind("<FocusOut>", self.on_focusout)
         self.resizable(0, 0)
+
+        self.bind("<Escape>", self.on_keypressed)
+        self.bind("<FocusOut>", self.on_focusout)
 
     def set_geometry(self, width: int, height: int) -> None:
         x = self.winfo_pointerx() - 20
@@ -63,6 +65,9 @@ class MenuPopupWidget(CTk):
     def on_focusout(self, event) -> None:
         if event.widget == self:
             self.destroy()
+
+    def on_keypressed(self, event) -> None:
+        self.destroy()
 
     def get_next_row(self) -> int:
         (_, row) = self.grid_size()
@@ -102,7 +107,9 @@ class WeatherWidget(MenuPopupWidget):
 
         font = (self.DEFAULT_FONT, 13)
         label = CTkLabel(master=self, text=info.label, text_font=font, anchor="w", padx=8, width=112)
-        text = CTkLabel(master=self, text=info.value, text_font=font, anchor="w", padx=8, width=100, text_color=info.color)
+        text = CTkLabel(
+            master=self, text=info.value, text_font=font, anchor="w", padx=8, width=100, text_color=info.color
+        )
 
         row = self.get_next_row()
         icon.grid(row=row, column=0)
