@@ -15,7 +15,14 @@ function get_quantity_label {
     if [[ "${UNFORMATTED}" == "true" ]]; then
       RESULT=" ${LABEL}/${QUANTITY}"
     else
-      RESULT="${ICON} %{B#005221} ${LABEL}%{F#888} / %{F-}${QUANTITY} %{B-}"
+      BGCOLOR_OPEN="%{B#005221}"
+      BGCOLOR_CLOSE="%{B-}"
+      if [[ "${QUANTITY}" == "0" ]]; then
+        BGCOLOR_OPEN=""
+        BGCOLOR_CLOSE=""
+      fi
+      
+      RESULT="${ICON} ${BGCOLOR_OPEN} ${LABEL}%{F#888} / %{F-}${QUANTITY} ${BGCOLOR_CLOSE}"
     fi
   fi
 
@@ -79,7 +86,7 @@ function print_formatted {
     TITLE="${1}"
     TXT1="${2}"
     TXT2="${3}"
-    NOTICE="${TXT1} %{B#282936}  %{B-} ${TXT2}"
+    NOTICE="${TXT2}"
     echo ${NOTICE}
 }
 
