@@ -1,96 +1,119 @@
 #!/usr/bin/env python
 import sys
-from datetime import datetime
-import customtkinter as c
+import customtkinter
 import json
-import tkinter
+from datetime import datetime
+from collections import namedtuple
+from customtkinter import CTk, CTkLabel
 
-c.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
-c.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+customtkinter.set_appearance_mode("Dark")
+customtkinter.set_default_color_theme("blue")
 
 
-class WeatherWidget(c.CTk):
-    WIDTH = 236
-    HEIGHT = 260
-    DEFAULT_EXIT_TIMER = 100
+class WeatherData:
+    Info = namedtuple("Info", ["icon", "label", "value"])
 
-    def __init__(self, url):
-        super().__init__()
-        self._current_row = 0
-        self._url = url
-        self._exit_timer = WeatherWidget.DEFAULT_EXIT_TIMER
-        self._configure_window()
-        self._add_rows()
+    def __init__(self, path) -> None:
+        json = self.load_json(path)
 
-    def _configure_window(self):
-        self.geometry(f"{WeatherWidget.WIDTH}x{WeatherWidget.HEIGHT}+1500+100")
-        self.title("WeatherWidget")
-        self.resizable(0, 0)
+        self.name = self.Info("", "City", json["name"])
+        self.weather = self.Info("", "Weather", json["weather"][0]["main"])
+        self.temp = self.Info("", "Temp", self.format_temp(json["main"]["temp"]))
+        self.temp_high = self.Info("", "High", self.format_temp(json["main"]["temp_max"]))
+        self.temp_low = self.Info("", "Low", self.format_temp(json["main"]["temp_min"]))
+        self.humidity = self.Info("", "Humidity", self.format_percentage(json["main"]["humidity"]))
+        self.date = self.Info("", "Date", self.format_date(json["dt"]))
+        self.sunrise = self.Info(" ", "Sunrise", self.format_time(json["sys"]["sunrise"]))
+        self.sunset = self.Info(" ", "Sunset", self.format_time(json["sys"]["sunset"]))
 
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure((0, 1), weight=3)
-
-        self.frame = c.CTkFrame(master=self)
-        self.frame.pack(fill="both", expand=True)
-
-        self.bind("<FocusOut>", self._on_focus_out)
-
-    def _add_rows(self):
-        data = self._load_json()
-
-        self._add_row(" City", data["name"])
-        self._add_sep()
-        self._add_row(" Weather", data["weather"][0]["main"])
-        self._add_sep()
-        self._add_row(" Temp", self._format_temp(data["main"]["temp"]))
-        self._add_row(" Temp Max", self._format_temp(data["main"]["temp_max"]))
-        self._add_row(" Temp Min", self._format_temp(data["main"]["temp_min"]))
-        self._add_sep()
-        self._add_row(" Humidity", f'{data["main"]["humidity"]}%')
-        self._add_sep()
-        self._add_row(" Date", self._format_date(data["dt"]))
-        self._add_row(" Sunrise", self._format_time(data["sys"]["sunrise"]))
-        self._add_row(" Sunset", self._format_time(data["sys"]["sunset"]))
-
-    def _load_json(self):
-        with open(self._url, "r") as file:
+    def load_json(self, path: str) -> json:
+        with open(path, "r") as file:
             return json.loads(file.read())
 
-    def _add_row(self, label: str, value: str):
-        font = ("Cousine Nerd Font", 13)
-        lbl1 = c.CTkLabel(master=self.frame, text=label, text_font=font, anchor=c.W, padx=8)
-        lbl2 = c.CTkLabel(master=self.frame, text=value, text_font=font, anchor=c.W, padx=8)
-
-        row = self._get_next_row()
-        lbl1.grid(row=row, column=0)
-        lbl2.grid(row=row, column=1)
-
-    def _add_sep(self):
-        row = self._get_next_row()
-        separator = tkinter.ttk.Separator(master=self.frame, orient="horizontal")
-        separator.grid(row=row, column=0, columnspan=2, ipadx=140)
-
-    def _get_next_row(self):
-        row = self._current_row
-        self._current_row = self._current_row + 1
-
-        return row
-
-    def _format_date(self, value):
+    def format_date(self, value: str) -> str:
         return datetime.fromtimestamp(value).strftime("%b-%d")
 
-    def _format_time(self, value):
+    def format_time(self, value: str) -> str:
         return datetime.fromtimestamp(value).strftime("%-I:%M %p")
 
-    def _format_temp(self, value):
+    def format_temp(self, value: str) -> str:
         return f"{round(value)}°F"
 
-    def _on_focus_out(self, event):
+    def format_percentage(self, value: str) -> str:
+        return f"{value}%"
+
+
+class MenuPopupWidget(CTk):
+    COLOR_LIGHT = "#3a3c4e"
+    DEFAULT_FONT = "Cousine Nerd Font"
+
+    def __init__(self, title: str, width: int, height: int) -> None:
+        super().__init__()
+
+        self.title(title)
+        self.set_geometry(width, height)
+        self.bind("<FocusOut>", self.on_focusout)
+        self.resizable(0, 0)
+
+    def set_geometry(self, width: int, height: int) -> None:
+        x = self.winfo_pointerx() - 20
+        y = 28
+        self.geometry(f"{width}x{height}+{x}+{y}")
+
+    def on_focusout(self, event) -> None:
         if event.widget == self:
             self.destroy()
 
+    def get_next_row(self) -> int:
+        (_, row) = self.grid_size()
+        return row
+
+    def add_separator(self, columnspan: int = 3) -> None:
+        row = self.get_next_row()
+        font = (self.DEFAULT_FONT, 1)
+        separator = CTkLabel(master=self, text="", text_font=font, padx=0, pady=0, height=3, fg_color=self.COLOR_LIGHT)
+        separator.grid(row=row, column=0, columnspan=columnspan, sticky="we")
+
+
+class WeatherWidget(MenuPopupWidget):
+    def __init__(self, path: str) -> None:
+        super().__init__(title="WeatherWidget", width=246, height=264)
+        data = WeatherData(path)
+        self.add_rows(data)
+
+    def add_rows(self, data: WeatherData) -> None:
+        self.add_row(data.name)
+        self.add_sep()
+        self.add_row(data.weather)
+        self.add_sep()
+        self.add_row(data.temp)
+        self.add_row(data.temp_high)
+        self.add_row(data.temp_low)
+        self.add_sep()
+        self.add_row(data.humidity)
+        self.add_sep()
+        self.add_row(data.date)
+        self.add_row(data.sunrise)
+        self.add_row(data.sunset)
+
+    def add_row(self, info: WeatherData.Info) -> None:
+        font = (self.DEFAULT_FONT, 14)
+        icon = CTkLabel(master=self, text=info.icon, text_font=font, padx=8, width=40, fg_color=self.COLOR_LIGHT)
+
+        font = (self.DEFAULT_FONT, 13)
+        label = CTkLabel(master=self, text=info.label, text_font=font, anchor="w", padx=8, width=112)
+        text = CTkLabel(master=self, text=info.value, text_font=font, anchor="w", padx=8, width=100)
+
+        row = self.get_next_row()
+        icon.grid(row=row, column=0)
+        label.grid(row=row, column=1)
+        text.grid(row=row, column=2)
+
+    def add_sep(self) -> None:
+        self.add_separator(columnspan=3)
+
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-    widget = WeatherWidget(url)
+    path = sys.argv[1]
+    widget = WeatherWidget(path)
     widget.mainloop()
