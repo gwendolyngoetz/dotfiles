@@ -1,25 +1,35 @@
 #!/bin/bash
 
 # Weather Code List
-# https://github.com/chubin/wttr.in/blob/master/lib/constants.py
+# https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 
+source ~/.private-env
+JSONFILE=~/.config/polybar/scripts/.weather-owm.json
+curl -s "https://api.openweathermap.org/data/2.5/weather?lat=$OPENWEATHERMAP_LAT&lon=$OPENWEATHERMAP_LON&units=imperial&appid=$OPENWEATHERMAP_API_KEY" -o $JSONFILE
 
-JSONFILE=~/.config/polybar/scripts/.weather.json
-curl -s wttr.in/seattle?format=j1 -o $JSONFILE
+TEMP=$(jq -r '.main.temp' $JSONFILE )
+WEATHERCODE=$(jq -r '.weather[0].id' $JSONFILE)
+SUNRISE=$(jq -r '.sys.sunrise' $JSONFILE)
+SUNSET=$(jq -r '.sys.sunset' $JSONFILE)
+DATEUNIX=$(jq -r '.dt' $JSONFILE)
+DATEYMD=$(date --date="@$DATEUNIX" "+%Y-%m-%d")
 
-TEMP=$(jq -r '.current_condition[0].temp_F' $JSONFILE )
-WEATHERCODE=$(jq -r '.current_condition[0].weatherCode' $JSONFILE)
-SUNRISE=$(jq -r '.weather[0].astronomy[0].sunrise' $JSONFILE)
-SUNSET=$(jq -r '.weather[0].astronomy[0].sunset' $JSONFILE)
-DATEYMD=$(jq -r '.weather[0].date' $JSONFILE)
-
-SUNRISE=$(date --date="$DATEYMD $SUNRISE" "+%k%M")
-SUNSET=$(date --date="$DATEYMD $SUNSET" "+%k%M")
+TEMP=$(echo $TEMP | awk '{print int($1+0.5)}')
+SUNRISE=$(date --date="@$SUNRISE" "+%k%M")
+SUNSET=$(date --date="@$SUNSET" "+%k%M")
 CURRENT=$(date "+%k%M")
 ISDAYTIME=$(($CURRENT >= $SUNRISE && $CURRENT <= $SUNSET))
 
+#echo "----"
+#echo $TEMP
+#echo $WEATHERCODE
+#echo $SUNRISE
+#echo $SUNSET
+#echo $DATEYMD
+#echo "----"
+
 case $WEATHERCODE in
-    # Sunny
-    113) 
+    # Clear
+    800) 
         if (($ISDAYTIME == 1)); then
             WEATHERICON=
         else
@@ -27,7 +37,7 @@ case $WEATHERCODE in
         fi
         ;;
     # Cloudy
-    116 | 119 | 122)
+    801 | 802 | 803 | 804)
         if (($ISDAYTIME == 1)); then
             WEATHERICON=
         else
@@ -35,27 +45,23 @@ case $WEATHERCODE in
         fi
         ;;
     # Rain
-    266 | 293 | 296 | 302 | 308 | 359)
+    500 | 501 | 502 | 503 | 504 | 511 | 520 | 521 | 522 | 531)
         WEATHERICON=
         ;;
     # Showers
-    176 | 263 | 353 | 299 | 305 | 356)
+    300 | 301 | 302 | 310 | 311 | 312 | 313 | 314 | 321)
         WEATHERICON=
         ;;
     # Thunder and Lightning
-    200 | 386 | 389 | 392) 
+    200 | 201 | 202 | 210 | 211 | 212 | 221 | 230 | 231 | 232) 
         WEATHERICON=
         ;;
     # Snow
-    227 | 320 | 230 | 329 | 332 | 338 | 368 | 323 | 326 | 335 | 371 | 395)
-        WEATHERICON=
-        ;;
-    # Sleet
-    182 | 185 | 281 | 284 | 311 | 314 | 317 | 350 | 377 | 179 | 362 | 365 | 374)
+    600 | 601 | 602 | 611 | 612 | 613 | 615 | 616 | 620 | 621 | 622)
         WEATHERICON=
         ;;
     # Foggy
-    143 | 248 | 260) 
+    701 | 741) 
         WEATHERICON=
         ;;
     *) 
