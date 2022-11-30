@@ -177,6 +177,7 @@ for_window [class="obs" window_type="dialog"] floating enable sticky disable bor
 for_window [class="Pavucontrol"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="(?i)soffice" window_type="dialog"] floating enable border normal
 for_window [class="Solaar"] floating enable sticky enable border normal
 for_window [class="Streamdeck UI"] floating enable border normal
 for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
