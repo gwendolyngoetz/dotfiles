@@ -1,0 +1,33 @@
+[Default Applications]
+application/json=code.desktop;
+application/x-remmina=org.remmina.Remmina.desktop
+x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/rdp=org.remmina.Remmina.desktop
+x-scheme-handler/remmina=org.remmina.Remmina.desktop
+x-scheme-handler/spice=org.remmina.Remmina.desktop
+x-scheme-handler/vnc=org.remmina.Remmina.desktop
+
+[Added Associations]
+application/json=org.kde.kwrite.desktop;code.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+application/pkix-cert=org.kde.kwrite.desktop;
+application/vnd.apple.keynote=org.kde.kwrite.desktop;
+application/vnd.ms-publisher=org.kde.kwrite.desktop;
+application/x-remmina=org.remmina.Remmina.desktop;
+application/x-shellscript=code.desktop;org.kde.kwrite.desktop;
+application/x-virtualbox-vbox=org.kde.kwrite.desktop;
+application/x-yaml=org.kde.kwrite.desktop;
+application/xml=org.kde.kwrite.desktop;
+image/gif=feh.desktop;
+image/heif=feh.desktop;
+image/jpeg=feh.desktop;
+image/png=feh.desktop;
+image/svg+xml=org.kde.kwrite.desktop;
+text/csv=org.kde.kwrite.desktop;
+text/html=vim.desktop;
+text/markdown=code.desktop;okularApplication_md.desktop;
+text/plain=org.kde.kwrite.desktop;code.desktop;org.kde.kate.desktop;vim.desktop;
+x-scheme-handler/rdp=org.remmina.Remmina.desktop;
+x-scheme-handler/remmina=org.remmina.Remmina.desktop;
+x-scheme-handler/spice=org.remmina.Remmina.desktop;
+x-scheme-handler/vnc=org.remmina.Remmina.desktop;
