@@ -9,3 +9,4 @@ Categories=Development;IDE;
 Terminal=false
 StartupWMClass=jetbrains-idea
 StartupNotify=true
+MimeType=

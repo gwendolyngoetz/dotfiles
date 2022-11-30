@@ -1,5 +1,18 @@
 [Desktop Entry]
-Type=Application
-Exec=alacritty
 Name=Alacritty
-Categories=Development
+GenericName=Terminal
+Comment=A fast, cross-platform, OpenGL terminal emulator
+Type=Application
+TryExec=alacritty
+Exec=alacritty
+Icon=com.alacritty.Alacritty
+Terminal=false
+Categories=System;TerminalEmulator;
+NoDisplay=true
+StartupWMClass=Alacritty
+Actions=New;
+MimeType=
+
+[Desktop Action New]
+Name=New Terminal
+Exec=alacritty
