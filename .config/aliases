@@ -26,6 +26,7 @@ alias docker-rm-vol='$HOME/.config/docker/scripts/docker-rm-vol.sh'
 alias docker-rm-img='$HOME/.config/docker/scripts/docker-rm-img.sh'
 alias path="$HOME/.config/tools/pretty-print-path.py"
 alias ips='ip -br -c -4 a show'
+alias git-prune-branch='git remote update --prune && git branch -vv | awk "/: gone]/{print }" | xargs git branch -d'
 
 
 if [ -f "/usr/bin/bat" ]; then
@@ -35,3 +36,5 @@ fi
 if [ -f "/usr/bin/fdfind" ]; then
     alias fd='fdfind'
 fi
+
+
