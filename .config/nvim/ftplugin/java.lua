@@ -10,10 +10,10 @@ end
 -- Determine OS
 local home = os.getenv("HOME")
 if vim.fn.has("mac") == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
+  WORKSPACE_PATH = home .. "/.local/java-workspace/"
   CONFIG = "mac"
 elseif vim.fn.has("unix") == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
+  WORKSPACE_PATH = home .. "/.local/java-workspace/"
   CONFIG = "linux"
 else
   print("Unsupported system")
