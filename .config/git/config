@@ -53,3 +53,5 @@
     cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 [pull]
 	rebase = false
+[init]
+	defaultBranch = master
