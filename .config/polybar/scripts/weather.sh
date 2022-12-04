@@ -3,14 +3,14 @@
 # Weather Code List
 # https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 
 source ~/.private-env
-JSONFILE=~/.config/polybar/scripts/.weather-owm.json
-curl -s "https://api.openweathermap.org/data/2.5/weather?lat=$OPENWEATHERMAP_LAT&lon=$OPENWEATHERMAP_LON&units=imperial&appid=$OPENWEATHERMAP_API_KEY" -o $JSONFILE
+JSONFILE=~/.config/polybar/scripts/.weather.json
+curl -s "https://api.openweathermap.org/data/3.0/onecall?lat=$OPENWEATHERMAP_LAT&lon=$OPENWEATHERMAP_LON&units=imperial&exclude=minutely&appid=$OPENWEATHERMAP_API_KEY" -o $JSONFILE
 
-TEMP=$(jq -r '.main.temp' $JSONFILE )
-WEATHERCODE=$(jq -r '.weather[0].id' $JSONFILE)
-SUNRISE=$(jq -r '.sys.sunrise' $JSONFILE)
-SUNSET=$(jq -r '.sys.sunset' $JSONFILE)
-DATEUNIX=$(jq -r '.dt' $JSONFILE)
+TEMP=$(jq -r '.current.temp' $JSONFILE )
+WEATHERCODE=$(jq -r '.current.weather[0].id' $JSONFILE)
+SUNRISE=$(jq -r '.current.sunrise' $JSONFILE)
+SUNSET=$(jq -r '.current.sunset' $JSONFILE)
+DATEUNIX=$(jq -r '.current.dt' $JSONFILE)
 DATEYMD=$(date --date="@$DATEUNIX" "+%Y-%m-%d")
 
 TEMP=$(echo $TEMP | awk '{print int($1+0.5)}')
@@ -19,13 +19,13 @@ SUNSET=$(date --date="@$SUNSET" "+%k%M")
 CURRENT=$(date "+%k%M")
 ISDAYTIME=$(($CURRENT >= $SUNRISE && $CURRENT <= $SUNSET))
 
-#echo "----"
-#echo $TEMP
-#echo $WEATHERCODE
-#echo $SUNRISE
-#echo $SUNSET
-#echo $DATEYMD
-#echo "----"
+# echo "----"
+# echo "TEMP:        $TEMP"
+# echo "WEATHERCODE: $WEATHERCODE"
+# echo "SUNRISE:     $SUNRISE"
+# echo "SUNSET:      $SUNSET"
+# echo "DATEYMD:     $DATEYMD"
+# echo "----"
 
 case $WEATHERCODE in
     # Clear
