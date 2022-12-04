@@ -63,3 +63,7 @@ function cd_git_root {
         cd "$(git rev-parse --show-toplevel)"
     fi
 }
+
+function create_and_enter_dir {
+  mkdir -p "${1}" && cd "${1}";
+}
