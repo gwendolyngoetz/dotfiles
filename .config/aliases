@@ -3,6 +3,7 @@
 alias grep='grep --color=auto --ignore-case'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias xclip='xclip -selection c'
 alias ls='exa --color=auto --icons --group'
 alias ll='ls -alF'
 alias la='ls -a'
