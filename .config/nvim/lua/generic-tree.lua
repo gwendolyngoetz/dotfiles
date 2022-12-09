@@ -22,9 +22,9 @@ M.setup = function()
   local ok_nvim_tree, _ = pcall(require, "nvim-tree")
 
   if ok_neo_tree then
-    require("user.neotree")
+    require("user.tree.neotree")
   elseif ok_nvim_tree then
-    require("user.nvim-tree")
+    require("user.tree.nvim-tree")
   end
 end
 
