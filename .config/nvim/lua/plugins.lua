@@ -374,6 +374,15 @@ return packer.startup({
     use({
       "petertriho/nvim-scrollbar",
       commit = "f45aecb",
+      requires = {
+        "lewis6991/gitsigns.nvim",
+      },
+    })
+
+    -- Winsep
+    use({
+      "nvim-zh/colorful-winsep.nvim",
+      commit = "bb06c86",
     })
 
     -- Whichkey
