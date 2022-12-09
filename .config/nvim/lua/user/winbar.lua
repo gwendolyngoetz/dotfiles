@@ -33,6 +33,7 @@ M.winbar_filetype_exclude = {
   "NvimTree",
   "Trouble",
   "alpha",
+  "dashboard",
   "lir",
   "Outline",
   "spectre_panel",

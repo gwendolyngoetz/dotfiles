@@ -35,6 +35,7 @@ scrollbar.setup({
     "TelescopePrompt",
     "noice",
     "neo-tree",
+    "NvimTree",
   },
 })
 

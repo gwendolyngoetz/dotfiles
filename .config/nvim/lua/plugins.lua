@@ -392,6 +392,7 @@ return packer.startup({
       --commit = "fbf0381", -- started seeing vim.notify message here
     })
 
+    -- Motions
     use({
       "jinh0/eyeliner.nvim",
       commit = "38e090a",
