@@ -397,6 +397,21 @@ return packer.startup({
       commit = "38e090a",
     })
 
+    -- Dashboard
+    use({
+      "goolord/alpha-nvim",
+      disable = true,
+      commit = "21a0f25",
+      requires = {
+        "nvim-tree/nvim-web-devicons",
+      },
+    })
+
+    use({
+      "glepnir/dashboard-nvim",
+      commit = "5ccce7b",
+    })
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
