@@ -10,6 +10,11 @@ if not colors then
   return
 end
 
+local scrollbar_gitsigns = helpers.require("scrollbar.handlers.gitsigns")
+if not scrollbar_gitsigns then
+  return
+end
+
 scrollbar.setup({
   handle = {
     color = colors.bg_highlight,
@@ -32,3 +37,5 @@ scrollbar.setup({
     "neo-tree",
   },
 })
+
+scrollbar_gitsigns.setup()
