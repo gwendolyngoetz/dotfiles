@@ -370,6 +370,13 @@ return packer.startup({
       commit = "a7d8b42",
     })
 
+    -- Scrollbar
+    use({
+      "petertriho/nvim-scrollbar",
+      commit = "f45aecb",
+    })
+
+    -- Whichkey
     use({
       "folke/which-key.nvim",
       commit = "6885b66", -- see the error in messages here
