@@ -346,19 +346,18 @@ return packer.startup({
     use({
       "nvim-neotest/neotest",
       disable = true,
-      commit = "7721205",
+      commit = "21f4b94",
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        --"antoinemadec/FixCursorHold.nvim",
-        --"Issafalcon/neotest-dotnet",
+        "Issafalcon/neotest-dotnet",
       },
     })
 
     use({
       "Issafalcon/neotest-dotnet",
       disable = true,
-      commit = "4e71023",
+      commit = "a90836a",
       requires = {
         "nvim-neotest/neotest",
       },
