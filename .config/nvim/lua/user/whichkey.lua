@@ -25,15 +25,11 @@ local setup = {
   },
 }
 
--- Tree
-local _, treetoggle_cmd = require("generic-tree").get_treetoggle_command()
-
 local mappings = {
   b = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     "Buffers",
   },
-  e = { treetoggle_cmd, "Explorer" },
   w = { "<cmd>w!<CR>", "Save" },
   q = { "<cmd>q!<CR>", "Quit" },
   c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
@@ -101,22 +97,6 @@ local mappings = {
     --5 = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
   },
 
-  t = {
-    name = "Testing",
-    a = { "<cmd>TestSuite<CR>", "Test All" },
-    f = { "<cmd>TestFile<CR>", "Test File" },
-    c = { "<cmd>TestNearest<CR>", "Test Nearest" },
-    r = { "<cmd>TestLast<CR>", "Rerun Last Test" },
-
-    --f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "Test File" },
-    --c = { "<cmd>lua require('neotest').run.run()<CR>", "Test Nearest" },
-    --d = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<CR>", "Debug File" },
-    --h = { "<cmd>lua require('neotest').output.open({ enter = true, short = false })<CR>", "Open Output" },
-    --r = { "<cmd>lua require('neotest').run.run_last()<CR>", "Rerun Last Test" },
-    --s = { "<cmd>lua require('neotest').summary.toggle()<CR>", "Summary" },
-    --a = { "<cmd>lua require('neotest').diagnostic()<CR>", "diagnostic" },
-  },
-
   --T = {
   --  name = "Terminal",
   --  n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
@@ -127,6 +107,18 @@ local mappings = {
   --  h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
   --},
 }
+
+-- Tree
+local treetoggle_enabled, treetoggle_cmds = require("generic-tree").get_treetoggle_commands()
+if treetoggle_enabled then
+  mappings["e"] = treetoggle_cmds
+end
+
+-- Testing
+local testing_enabled, testing_cmds = require("generic-testing").get_testing_commands()
+if testing_enabled then
+  mappings["t"] = vim.tbl_extend("keep", { name = "Testing" }, testing_cmds)
+end
 
 which_key.setup(setup)
 which_key.register(mappings, {

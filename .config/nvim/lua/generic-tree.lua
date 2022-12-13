@@ -1,20 +1,19 @@
-local helpers = require("helpers")
-
 local M = {}
 
-M.get_treetoggle_command = function()
+M.get_treetoggle_commands = function()
   local ok_neo_tree, _ = pcall(require, "neo-tree")
   local ok_nvim_tree, _ = pcall(require, "nvim-tree")
 
-  local command = ""
+  local is_set = false
+  local commands = {}
 
   if ok_neo_tree then
-    command = "<cmd>Neotree toggle<CR>"
+    commands = { "<cmd>Neotree toggle<CR>", "Explorer" }
   elseif ok_nvim_tree then
-    command = "<cmd>NvimTreeToggle<CR>"
+    commands = { "<cmd>NvimTreeToggle<CR>", "Explorer" }
   end
 
-  return not helpers.is_empty(command), command
+  return is_set, commands
 end
 
 M.setup = function()

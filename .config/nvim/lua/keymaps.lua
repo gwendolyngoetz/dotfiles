@@ -74,10 +74,10 @@ keymap("v", ">", ">gv", opts)
 keymap("n", "<C-c>", "<cmd>ColorizerToggle<CR>", opts)
 
 -- Tree
-local treetoggle_cmd_ok, treetoggle_cmd = require("generic-tree").get_treetoggle_command()
+local treetoggle_cmd_ok, treetoggle_cmd = require("generic-tree").get_treetoggle_commands()
 
 if treetoggle_cmd_ok then
-  keymap("n", "<leader>e", treetoggle_cmd, opts)
+  keymap("n", "<leader>e", treetoggle_cmd[0], opts)
 end
 
 -- Telescope
