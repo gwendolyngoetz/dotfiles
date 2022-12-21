@@ -182,6 +182,7 @@ for_window [class="Solaar"] floating enable sticky enable border normal
 for_window [class="Streamdeck UI"] floating enable border normal
 for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
 for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable border normal
+for_window [class="weather-widget"] floating enable border normal
 for_window [instance="origin.exe"] floating enable
 for_window [instance="(?i)xencelabs"] floating enable border normal
 for_window [title="Copying" class="dolphin" window_type="dialog"] floating enable sticky disable border normal
