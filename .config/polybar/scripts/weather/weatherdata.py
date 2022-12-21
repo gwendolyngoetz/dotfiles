@@ -7,13 +7,13 @@ class WeatherData:
     Info = namedtuple("Info", ["icon", "label", "value", "color"], defaults=(None,))
 
     def __init__(self, path) -> None:
-        json = self.load_json(path)
+        self.json = self.load_json(path)
         temp_hour_range = 12
 
-        high_temp = self.find_high_temp(json["hourly"][:temp_hour_range])
-        low_temp = self.find_low_temp(json["hourly"][:temp_hour_range])
+        high_temp = self.find_high_temp(self.json["hourly"][:temp_hour_range])
+        low_temp = self.find_low_temp(self.json["hourly"][:temp_hour_range])
 
-        current = json["current"]
+        current = self.json["current"]
         isdaytime = current["dt"] >= current["sunrise"] and current["dt"] <= current["sunset"]
         weather_icon = self.get_weather_icon(current["weather"][0]["id"], isdaytime)
 
@@ -71,5 +71,36 @@ class WeatherData:
         # Foggy
         if weathercode in [701, 741]:
             return " " if isdaytime else " "
+
+        return weathercode
+
+    def get_polybar_label(self):
+        current = self.json["current"]
+        isdaytime = current["dt"] >= current["sunrise"] and current["dt"] <= current["sunset"]
+        icon = self.get_polybar_weather_icon(current["weather"][0]["id"], isdaytime)
+        return f"%{{F#555}}{icon}%{{F-}} {self.temp.value}"
+
+    def get_polybar_weather_icon(self, weathercode: int, isdaytime: bool) -> str:
+        # Clear
+        if weathercode in [800]:
+            return "" if isdaytime else ""
+        # Cloudy
+        if weathercode in [801, 802, 803, 804]:
+            return "" if isdaytime else ""
+        # Rain
+        if weathercode in [500, 501, 502, 503, 504, 511, 520, 521, 522, 531]:
+            return ""
+        # Showers
+        if weathercode in [300, 301, 302, 310, 311, 312, 313, 314, 321]:
+            return ""
+        # Thunder and Lightning
+        if weathercode in [200, 201, 202, 210, 211, 212, 221, 230, 231, 232]:
+            return ""
+        # Snow
+        if weathercode in [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622]:
+            return ""
+        # Foggy
+        if weathercode in [701, 741]:
+            return ""
 
         return weathercode
