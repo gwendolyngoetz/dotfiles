@@ -82,6 +82,7 @@ local mappings = {
     R = { "<cmd>Telescope registers<CR>", "Registers" },
     k = { "<cmd>Telescope keymaps<CR>", "Keymaps" },
     C = { "<cmd>Telescope commands<CR>", "Commands" },
+    w = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "WorkTree" },
   },
 
   d = {

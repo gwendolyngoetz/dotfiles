@@ -412,6 +412,12 @@ return packer.startup({
       commit = "5ccce7b",
     })
 
+    -- Worktree
+    use({
+      "theprimeagen/git-worktree.nvim",
+      commit = "d7f4e25",
+    })
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
