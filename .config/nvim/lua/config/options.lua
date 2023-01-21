@@ -59,4 +59,8 @@ vim.cmd("let g:loaded_ruby_provider = 0")
 -- Color Scheme
 --local colorscheme = "dracula"
 local colorscheme = "tokyonight-night"
-vim.cmd("colorscheme " .. colorscheme)
+
+local status_ok, _ = pcall(vim.cmd.colorscheme, colorscheme)
+if not status_ok then
+  return
+end
