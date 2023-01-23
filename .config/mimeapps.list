@@ -6,6 +6,7 @@ x-scheme-handler/rdp=org.remmina.Remmina.desktop
 x-scheme-handler/remmina=org.remmina.Remmina.desktop
 x-scheme-handler/spice=org.remmina.Remmina.desktop
 x-scheme-handler/vnc=org.remmina.Remmina.desktop
+x-scheme-handler/nc=com.nextcloud.desktopclient.nextcloud.desktop
 
 [Added Associations]
 application/json=org.kde.kwrite.desktop;code.desktop;
