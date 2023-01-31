@@ -12,19 +12,19 @@
             "current_border_width": 3,
             "floating": "auto_off",
             "geometry": {
-               "height": 1394,
-               "width": 1270,
-               "x": 2563,
-               "y": 41
+                "height": 1394,
+                "width": 1270,
+                "x": 2563,
+                "y": 41
             },
             "marks": [],
             "name": "Slack | deployment-bot | CiviForm",
             "percent": null,
             "swallows": [
-               {
-                 "class": "^Slack$",
-                 "instance": "^slack$"
-               }
+                {
+                    "class": "^Slack$",
+                    "instance": "^slack$"
+                }
             ],
             "type": "con"
         }
@@ -45,19 +45,18 @@
             "current_border_width": 3,
             "floating": "auto_off",
             "geometry": {
-               "height": 1394,
-               "width": 843,
-               "x": 4271,
-               "y": 38
+                "height": 1394,
+                "width": 843,
+                "x": 4271,
+                "y": 38
             },
             "marks": [],
             "name": "Microsoft Teams",
             "percent": 0.6,
             "swallows": [
-               {
-                 "class": "^Microsoft Teams - Preview$",
-                 "instance": "^microsoft teams - preview$"
-               }
+                {
+                    "class": "*cifhbcnohmdccbgoicgdjpfamggdegmo*"
+                }
             ],
             "type": "con"
         },
@@ -66,24 +65,23 @@
             "current_border_width": 3,
             "floating": "auto_off",
             "geometry": {
-               "height": 1378,
-               "width": 1924,
-               "x": 0,
-               "y": 0
+                "height": 1378,
+                "width": 1924,
+                "x": 0,
+                "y": 0
             },
             "marks": [],
             "name": "Blank Firefox Page",
             "percent": 0.4,
             "swallows": [
-               {
-                 "class": "^firefox$",
-                 "instance": "^Navigator$",
-                 "title": "^Mozilla Firefox$",
-                 "window_role": "^browser$"
-               }
+                {
+                    "class": "^firefox$",
+                    "instance": "^Navigator$",
+                    "title": "^Mozilla Firefox$",
+                    "window_role": "^browser$"
+                }
             ],
             "type": "con"
         }
     ]
 }
-
