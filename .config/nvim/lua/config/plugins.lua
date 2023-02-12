@@ -409,6 +409,7 @@ return packer.startup({
 
     use({
       "glepnir/dashboard-nvim",
+      disable = true,
       commit = "5ccce7b",
     })
 
