@@ -32,8 +32,8 @@ if [[ $(bc <<< "${BRIGHTNESS} > 1") == 1 ]]; then
   exit 3
 fi
 
-for DISPLAY_NAME in $(xrandr -q | egrep "(^DisplayPort)" | cut -d' ' -f1); do
-    xrandr --output $DISPLAY_NAME --brightness $BRIGHTNESS
+for DISPLAY_NAME in $(xrandr -q | grep -E "(^DisplayPort)" | cut -d' ' -f1); do
+    xrandr --output "${DISPLAY_NAME}" --brightness "${BRIGHTNESS}"
 done
 
 exit 0
