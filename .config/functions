@@ -67,3 +67,7 @@ function cd_git_root {
 function create_and_enter_dir {
   mkdir -p "${1}" && cd "${1}";
 }
+
+function filter_aliases {
+  alias -p | grep "${1}"
+}

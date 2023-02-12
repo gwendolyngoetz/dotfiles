@@ -1,41 +1,72 @@
 # vim: ft=sh
 
+# aliases
+alias aliases='filter_aliases'
+
+# grep
 alias grep='grep --color=auto --ignore-case'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+# clipboard
 alias xclip='xclip -selection c'
+
+# ls/exa
 alias ls='exa --color=auto --icons --group'
 alias ll='ls -alF'
 alias la='ls -a'
+alias tree='exa --tree --icons'
+
+# system git
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias con='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# directory helpers
 alias ..='cd ..'
 alias ...='cd ../..'
 alias cdr='cd_git_root'
+alias md='create_and_enter_dir'
+
+# clear for easier switching between linux and windows
 alias cls='clear'
+
+# system updates
 alias aptup='sudo apt update && sudo apt list --upgradable'
+
+# force color for diff
 alias diff='diff --color'
-alias tree='exa --tree --icons'
+
+# moves wget-hsts file somewhere I don't have to view it
 alias wget='wget --hsts-file $HOME/.config/wget/wget-hsts'
+
+# vim
 alias vi='/usr/local/bin/nvim'
 alias vim='/usr/local/bin/nvim'
 alias v='vim'
+
+# pretty print env and path
 alias env='$HOME/.config/tools/pretty-print-env.py'
+alias path='$HOME/.config/tools/pretty-print-path.py'
+
+# git
 alias g=git
+alias git-prune-branch='git remote update --prune && git branch -vv | awk "/: gone]/{print }" | xargs git branch -d'
+
+# docker
 alias docker-rm-all='$HOME/.config/docker/scripts/docker-rm-all.sh'
 alias docker-rm-vol='$HOME/.config/docker/scripts/docker-rm-vol.sh'
 alias docker-rm-img='$HOME/.config/docker/scripts/docker-rm-img.sh'
-alias path="$HOME/.config/tools/pretty-print-path.py"
+
+# networking
 alias ips='ip -br -c -4 a show'
-alias git-prune-branch='git remote update --prune && git branch -vv | awk "/: gone]/{print }" | xargs git branch -d'
-alias md='create_and_enter_dir'
 
-
-if [ -f "/usr/bin/bat" ]; then
+# better cat if installed
+if [ -f '/usr/bin/bat' ]; then
     alias cat='bat'
 fi
 
-if [ -f "/usr/bin/fdfind" ]; then
+# better find if installed
+if [ -f '/usr/bin/fdfind' ]; then
     alias fd='fdfind'
 fi
 
