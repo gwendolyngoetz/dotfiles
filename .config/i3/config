@@ -173,7 +173,8 @@ for_window [class="Inkscape" window_type="dialog"] floating enable sticky disabl
 for_window [class="jetbrains-idea" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="kcalc"] floating enable sticky enable border normal
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="(?i)nextcloud" window_type="dialog"] floating enable sticky disable border normal
+for_window [class="(?i)nextcloud" window_type="dialog"] floating enable sticky disable border none
+for_window [title="(?i)Nextcloud settings" class="(?i)nextcloud" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="obs" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="Pavucontrol"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
