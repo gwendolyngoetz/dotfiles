@@ -48,7 +48,7 @@ return packer.startup({
   function(use)
     use({
       "wbthomason/packer.nvim",
-      commit = "6afb674",
+      commit = "1d0cf98",
     })
 
     use({
@@ -58,12 +58,12 @@ return packer.startup({
 
     use({
       "nvim-lua/plenary.nvim",
-      commit = "4b7e520",
+      commit = "253d348",
     })
 
     use({
       "windwp/nvim-autopairs",
-      commit = "6b6e35f",
+      commit = "e755f36",
     })
 
     use({
@@ -73,12 +73,12 @@ return packer.startup({
 
     use({
       "numToStr/Comment.nvim",
-      commit = "ad7ffa8",
+      commit = "8d3aa5c",
     })
 
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
-      commit = "32d9627",
+      commit = "729d83e",
       requires = {
         "nvim-treesitter/nvim-treesitter",
       },
@@ -86,7 +86,7 @@ return packer.startup({
 
     use({
       "kyazdani42/nvim-web-devicons",
-      commit = "9061e2d",
+      commit = "4af94fe",
     })
 
     use({
@@ -111,7 +111,7 @@ return packer.startup({
     use({
       "akinsho/bufferline.nvim",
       disable = true,
-      tag = "v3.*",
+      tag = "v3.5.0",
       requires = {
         "kyazdani42/nvim-web-devicons",
       },
@@ -119,12 +119,12 @@ return packer.startup({
 
     use({
       "famiu/bufdelete.nvim",
-      commit = "027d356",
+      commit = "8933abc",
     })
 
     use({
       "nvim-lualine/lualine.nvim",
-      commit = "3325d5d",
+      commit = "e99d733",
       requires = {
         "kyazdani42/nvim-web-devicons",
       },
@@ -132,22 +132,22 @@ return packer.startup({
 
     use({
       "akinsho/toggleterm.nvim",
-      commit = "3ba6838",
+      commit = "fd63194",
     })
 
     use({
       "ahmedkhalf/project.nvim",
-      commit = "685bc8e",
+      commit = "1c2e9c9",
     })
 
     use({
       "lewis6991/impatient.nvim",
-      commit = "b842e16",
+      commit = "c90e273",
     })
 
     use({
       "lukas-reineke/indent-blankline.nvim",
-      tag = "v2.20.*",
+      tag = "v2.20.4",
     })
 
     -- Colorschemes
@@ -159,13 +159,19 @@ return packer.startup({
 
     use({
       "folke/tokyonight.nvim",
-      commit = "29e2c68",
+      commit = "3ebc29d",
     })
+
+    --use({
+    --  "uloco/bluloco.nvim",
+    --  commit = "29b73b9",
+    --  requires = { "rktjmp/lush.nvim" },
+    --})
 
     -- cmp plugins
     use({
       "hrsh7th/nvim-cmp",
-      commit = "9bb8ee6",
+      commit = "feed47f",
     })
 
     use({
@@ -180,7 +186,7 @@ return packer.startup({
 
     use({
       "hrsh7th/cmp-cmdline",
-      commit = "c66c379",
+      commit = "8fcc934",
     })
 
     use({
@@ -190,34 +196,34 @@ return packer.startup({
 
     use({
       "hrsh7th/cmp-nvim-lsp",
-      commit = "78924d1",
+      commit = "0e6b2ed",
     })
 
     use({
       "hrsh7th/cmp-nvim-lua",
-      commit = "d276254",
+      commit = "f349163",
     })
 
     -- snippets
     use({
       "L3MON4D3/LuaSnip",
-      commit = "619796e",
+      commit = "4368577",
     })
 
     use({
       "rafamadriz/friendly-snippets",
-      commit = "c93311f",
+      commit = "009887b",
     })
 
     -- Install Helper
     use({
       "williamboman/mason.nvim",
-      commit = "b9e8c4a",
+      commit = "e522255",
     })
 
     use({
       "williamboman/mason-lspconfig.nvim",
-      commit = "a910b4d",
+      commit = "a81503f",
       requires = {
         "williamboman/mason.nvim",
         "neovim/nvim-lspconfig",
@@ -226,7 +232,7 @@ return packer.startup({
 
     use({
       "jayp0521/mason-null-ls.nvim",
-      commit = "95cbfde",
+      commit = "4070ec7",
       requires = {
         "williamboman/mason.nvim",
         "jose-elias-alvarez/null-ls.nvim",
@@ -235,7 +241,7 @@ return packer.startup({
 
     use({
       "jayp0521/mason-nvim-dap",
-      commit = "777840e",
+      commit = "8c5d021",
       requires = {
         "williamboman/mason.nvim",
         "mfussenegger/nvim-dap",
@@ -245,22 +251,22 @@ return packer.startup({
     -- LSP
     use({
       "neovim/nvim-lspconfig",
-      commit = "5f4b1fa",
+      commit = "4bb0f18",
     })
 
     use({
       "jose-elias-alvarez/null-ls.nvim",
-      commit = "1ac465b",
+      commit = "e172e1e",
     })
 
     use({
       "RRethy/vim-illuminate",
-      commit = "fb83d83",
+      commit = "49062ab",
     })
 
     use({
       "SmiteshP/nvim-navic",
-      commit = "2fad334",
+      commit = "cdd2453",
       requries = {
         "neovim/nvim-lspconfig",
       },
@@ -269,13 +275,13 @@ return packer.startup({
     -- Treesitter
     use({
       "nvim-treesitter/nvim-treesitter",
-      commit = "58f61e56",
+      commit = "079a50f6",
       run = ":TSUpdate",
     })
 
     use({
       "nvim-treesitter/nvim-treesitter-textobjects",
-      commit = "13739a5",
+      commit = "542e087",
       require = {
         "nvim-treesitter/nvim-treesitter",
       },
@@ -284,7 +290,7 @@ return packer.startup({
     -- Telescope
     use({
       "nvim-telescope/telescope.nvim",
-      commit = "4bd4205",
+      commit = "a3f17d3",
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
@@ -294,7 +300,7 @@ return packer.startup({
     -- Notifications
     use({
       "rcarriga/nvim-notify",
-      commit = "b005821",
+      commit = "281e4d7",
       requires = {
         "nvim-lua/plenary.nvim",
       },
@@ -303,18 +309,18 @@ return packer.startup({
     -- Git
     use({
       "lewis6991/gitsigns.nvim",
-      commit = "d3a8ba0",
+      commit = "b1f9cf7",
     })
 
     -- Java/Scala
     use({
       "mfussenegger/nvim-jdtls",
-      commit = "7bc572f",
+      commit = "9fcc949",
     })
 
     use({
       "scalameta/nvim-metals",
-      commit = "613556d",
+      commit = "0da75dc",
       requires = {
         "nvim-lua/plenary.nvim",
       },
@@ -323,12 +329,12 @@ return packer.startup({
     -- Debugging
     use({
       "mfussenegger/nvim-dap",
-      commit = "3d0d731",
+      commit = "7319607",
     })
 
     use({
       "rcarriga/nvim-dap-ui",
-      commit = "6a82715",
+      commit = "bdb94e3",
     })
 
     -- Colorhightling
@@ -340,7 +346,7 @@ return packer.startup({
     -- Testing
     use({
       "klen/nvim-test",
-      commit = "32f162c",
+      commit = "4e30d07",
     })
 
     use({
@@ -372,7 +378,7 @@ return packer.startup({
     -- Scrollbar
     use({
       "petertriho/nvim-scrollbar",
-      commit = "f45aecb",
+      commit = "75210c5",
       requires = {
         "lewis6991/gitsigns.nvim",
       },
@@ -381,7 +387,7 @@ return packer.startup({
     -- Winsep
     use({
       "nvim-zh/colorful-winsep.nvim",
-      commit = "bb06c86",
+      commit = "4958d55",
     })
 
     -- Whichkey
@@ -394,7 +400,7 @@ return packer.startup({
     -- Motions
     use({
       "jinh0/eyeliner.nvim",
-      commit = "38e090a",
+      commit = "3658815",
     })
 
     -- Dashboard
