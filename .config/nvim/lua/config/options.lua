@@ -55,12 +55,3 @@ vim.opt.whichwrap:append("<,>,[,]")
 
 vim.cmd("let g:loaded_perl_provider = 0")
 vim.cmd("let g:loaded_ruby_provider = 0")
-
--- Color Scheme
---local colorscheme = "dracula"
-local colorscheme = "tokyonight-night"
-
-local status_ok, _ = pcall(vim.cmd.colorscheme, colorscheme)
-if not status_ok then
-  return
-end

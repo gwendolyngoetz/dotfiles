@@ -1,5 +1,12 @@
 local M = {}
 
+M.features = {
+  dashboard = {
+    alpha = false,
+    dashboard = true,
+  },
+}
+
 M.icons = {
   kind = {
     Text = "",
@@ -123,6 +130,29 @@ M.icons = {
     files = "",
     buffer = "﬘",
     git = "",
+  },
+  lazy_nvim = {
+    cmd = " ",
+    config = "",
+    event = "",
+    ft = " ",
+    init = " ",
+    import = " ",
+    keys = " ",
+    lazy = "󰒲 ",
+    loaded = "●",
+    not_loaded = "○",
+    plugin = " ",
+    runtime = " ",
+    source = " ",
+    start = "",
+    task = "✔ ",
+    list = {
+      "●",
+      "➜",
+      "★",
+      "‒",
+    },
   },
 }
 

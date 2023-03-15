@@ -33,10 +33,3 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
   end,
 })
-
--- Winbar
-vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
-  callback = function()
-    require("config.core.winbar").get_winbar()
-  end,
-})
