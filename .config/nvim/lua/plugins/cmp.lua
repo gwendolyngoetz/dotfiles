@@ -103,9 +103,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "hrsh7th/nvim-cmp",
+    enabled = features.cmp,
     commit = "feed47f",
     dependencies = {
       "hrsh7th/cmp-buffer",
@@ -119,26 +122,43 @@ return {
   },
   {
     "hrsh7th/cmp-buffer",
+    enabled = features.cmp,
     commit = "3022dbc",
   },
   {
     "hrsh7th/cmp-path",
+    enabled = features.cmp,
     commit = "91ff86c",
   },
   {
     "hrsh7th/cmp-cmdline",
+    enabled = features.cmp,
     commit = "8fcc934",
   },
   {
     "saadparwaiz1/cmp_luasnip",
+    enabled = features.cmp,
     commit = "1809552",
   },
   {
     "hrsh7th/cmp-nvim-lsp",
+    enabled = features.cmp,
     commit = "0e6b2ed",
   },
   {
     "hrsh7th/cmp-nvim-lua",
+    enabled = features.cmp,
     commit = "f349163",
+  },
+  -- snippets
+  {
+    "L3MON4D3/LuaSnip",
+    enabled = features.cmp,
+    commit = "4368577",
+  },
+  {
+    "rafamadriz/friendly-snippets",
+    enabled = features.cmp,
+    commit = "009887b",
   },
 }

@@ -37,15 +37,19 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    enabled = features.treesitter,
     commit = "079a50f6",
     build = ":TSUpdate",
     config = config,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    enabled = features.treesitter,
     commit = "542e087",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

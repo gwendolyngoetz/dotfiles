@@ -35,10 +35,12 @@ local config = function()
   dashboard.custom_footer = {}
 end
 
+local features = require("config.features")
+
 return {
   {
     "glepnir/dashboard-nvim",
-    enabled = false,
+    enabled = features.dashboard.dashboard,
     commit = "5ccce7b",
     config = config,
   },

@@ -97,10 +97,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "akinsho/bufferline.nvim",
-    enabled = false,
+    enabled = features.bufferline,
     tag = "v3.5.0",
     dependencies = {
       "kyazdani42/nvim-web-devicons",

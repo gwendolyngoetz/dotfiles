@@ -15,9 +15,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "norcalli/nvim-colorizer.lua",
+    enabled = features.colorizer,
     commit = "36c610a",
     config = config,
   },

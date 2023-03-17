@@ -9,9 +9,12 @@ local config = function()
   winsep.setup({})
 end
 
+local features = require("config.features")
+
 return {
   {
     "nvim-zh/colorful-winsep.nvim",
+    enabled = features.colorful_winsep,
     commit = "4958d55",
     config = config,
   },

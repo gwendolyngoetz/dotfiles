@@ -19,9 +19,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "SmiteshP/nvim-navic",
+    enabled = features.winbar,
     commit = "cdd2453",
     dependencies = {
       "neovim/nvim-lspconfig",

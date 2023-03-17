@@ -14,9 +14,12 @@ local config = function()
   )
 end
 
+local features = require("config.features")
+
 return {
   {
     "RRethy/vim-illuminate",
+    enabled = features.illuminate,
     commit = "49062ab",
     config = config,
   },

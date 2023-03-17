@@ -112,9 +112,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "mfussenegger/nvim-dap",
+    enabled = features.dap,
     dependencies = {
       "williamboman/mason.nvim",
       "jay-babu/mason-nvim-dap.nvim",

@@ -9,9 +9,12 @@ local config = function()
   prettyfold.setup()
 end
 
+local features = require("config.features")
+
 return {
   {
     "anuvyklack/pretty-fold.nvim",
+    enabled = features.pretty_fold,
     commit = "a7d8b42",
     config = config,
   },

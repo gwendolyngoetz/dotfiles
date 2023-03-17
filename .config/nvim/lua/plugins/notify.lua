@@ -13,9 +13,12 @@ local config = function()
   vim.notify = notify
 end
 
+local features = require("config.features")
+
 return {
   {
     "rcarriga/nvim-notify",
+    enabled = features.notify,
     commit = "281e4d7",
     dependencies = {
       "nvim-lua/plenary.nvim",

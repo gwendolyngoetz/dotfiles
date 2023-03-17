@@ -16,9 +16,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "klen/nvim-test",
+    enabled = features.testing.nvim_test,
     commit = "4e30d07",
     config = config,
   },

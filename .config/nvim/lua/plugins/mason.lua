@@ -72,14 +72,18 @@ local config = function()
   end
 end
 
+local features = require("config.features")
+
 return {
   {
     "williamboman/mason.nvim",
+    enabled = features.mason,
     commit = "e522255",
     config = config,
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    enabled = features.mason,
     commit = "a81503f",
     dependencies = {
       "williamboman/mason.nvim",
@@ -87,7 +91,8 @@ return {
     },
   },
   {
-    "jayp0521/mason-null-ls.nvim",
+    "jay-babu/mason-null-ls.nvim",
+    enabled = features.mason,
     commit = "4070ec7",
     dependencies = {
       "williamboman/mason.nvim",
@@ -95,7 +100,8 @@ return {
     },
   },
   {
-    "jayp0521/mason-nvim-dap",
+    "jay-babu/mason-nvim-dap.nvim",
+    enabled = features.mason,
     commit = "8c5d021",
     dependencies = {
       "williamboman/mason.nvim",

@@ -114,9 +114,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "nvim-lualine/lualine.nvim",
+    enabled = features.lualine,
     commit = "e99d733",
     dependencies = {
       "kyazdani42/nvim-web-devicons",

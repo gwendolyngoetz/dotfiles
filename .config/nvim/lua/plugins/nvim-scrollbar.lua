@@ -43,9 +43,12 @@ local config = function()
   scrollbar_gitsigns.setup()
 end
 
+local features = require("config.features")
+
 return {
   {
     "petertriho/nvim-scrollbar",
+    enabled = features.nvim_scrollbar,
     commit = "75210c5",
     dependencies = {
       "lewis6991/gitsigns.nvim",

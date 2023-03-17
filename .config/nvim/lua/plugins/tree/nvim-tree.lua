@@ -71,10 +71,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "kyazdani42/nvim-tree.lua",
-    enabled = false,
+    enabled = features.tree.nvimtree,
     commit = "45d386a",
     dependencies = {
       "kyazdani42/nvim-web-devicons",

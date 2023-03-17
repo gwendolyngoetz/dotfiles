@@ -38,9 +38,12 @@ local config = function()
   end
 end
 
+local features = require("config.features")
+
 return {
   {
     "akinsho/toggleterm.nvim",
+    enabled = features.toggleterm,
     commit = "fd63194",
     config = config,
   },

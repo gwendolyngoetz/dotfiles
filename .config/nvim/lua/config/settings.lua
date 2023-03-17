@@ -1,12 +1,5 @@
 local M = {}
 
-M.features = {
-  dashboard = {
-    alpha = false,
-    dashboard = true,
-  },
-}
-
 M.icons = {
   kind = {
     Text = "",

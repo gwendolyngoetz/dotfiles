@@ -9,9 +9,12 @@ local config = function()
   autotag.setup()
 end
 
+local features = require("config.features")
+
 return {
   {
     "windwp/nvim-ts-autotag",
+    enabled = features.autotag,
     commit = "fdefe46",
     config = config,
   },

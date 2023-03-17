@@ -1,6 +1,7 @@
 local config = function()
   local helpers = require("config.helpers")
   local settings = require("config.settings")
+  local features = require("config.features")
   local icons = settings.icons
 
   local which_key = helpers.require("which-key")
@@ -27,18 +28,18 @@ local config = function()
   }
 
   local mappings = {
-    b = {
-      "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-      "Buffers",
-    },
     w = { "<cmd>w!<CR>", "Save" },
     q = { "<cmd>q!<CR>", "Quit" },
     c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
     h = { "<cmd>nohlsearch<CR>", "No Highlight" },
-    F = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
-    P = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  }
 
-    g = {
+  if features.project then
+    mappings["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" }
+  end
+
+  if features.gitsigns then
+    mappings["g"] = {
       name = "Git",
       g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
       j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -53,9 +54,11 @@ local config = function()
       b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
       c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
       d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-    },
+    }
+  end
 
-    l = {
+  if features.lsp then
+    mappings["l"] = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
       d = { "<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics" },
@@ -68,9 +71,18 @@ local config = function()
       l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
       q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
       r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-    },
+    }
+  end
 
-    f = {
+  if features.telescope then
+    mappings["b"] = {
+      "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+      "Buffers",
+    }
+
+    mappings["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" }
+
+    mappings["f"] = {
       name = "Find",
       f = { "<cmd>Telescope find_files<CR>", "Find in Files" },
       g = { "<cmd>Telescope live_grep<CR>", "Live Grep" },
@@ -83,10 +95,15 @@ local config = function()
       R = { "<cmd>Telescope registers<CR>", "Registers" },
       k = { "<cmd>Telescope keymaps<CR>", "Keymaps" },
       C = { "<cmd>Telescope commands<CR>", "Commands" },
-      w = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "WorkTree" },
-    },
+    }
 
-    d = {
+    if features.worktree then
+      mappings["f"]["w"] = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "WorkTree" }
+    end
+  end
+
+  if features.dap then
+    mappings["d"] = {
       name = "Debugging",
       b = { "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Toggle Breakpoint" },
       r = { "<cmd>lua require('dap').repl.toggle()<CR>", "Toggle REPL" },
@@ -97,29 +114,29 @@ local config = function()
       --2 = { "<cmd>lua require('dap').step_over()<CR>", "Step Over" },
       --3 = { "<cmd>lua require('dap').step_into()<CR>", "Step Into" },
       --5 = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
-    },
+    }
+  end
 
-    --T = {
-    --  name = "Terminal",
-    --  n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-    --  u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-    --  t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-    --  p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-    --  f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-    --  h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-    --},
-  }
-
-  -- Tree
   local treetoggle_enabled, treetoggle_cmd = require("plugins.tree.generic-tree").get_treetoggle_command()
   if treetoggle_enabled then
     mappings["e"] = { treetoggle_cmd, "Explorer" }
   end
 
-  -- Testing
   local testing_enabled, testing_cmds = require("plugins.testing.generic-testing").get_testing_commands()
   if testing_enabled then
     mappings["t"] = vim.tbl_extend("keep", { name = "Testing" }, testing_cmds)
+  end
+
+  if features.toggleterm then
+    mappings["T"] = {
+      name = "Terminal",
+      n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
+      u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
+      t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+      p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
+      f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+      h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+    }
   end
 
   which_key.setup(setup)
@@ -129,11 +146,14 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "folke/which-key.nvim",
-    --commit = "fb02773",
-    commit = "6885b66", -- see the error in messages here
+    enabled = features.whichkey,
+    commit = "fb02773",
+    --commit = "6885b66", -- see the error in messages here
     --commit = "fbf0381", -- started seeing vim.notify message here
     config = config,
   },

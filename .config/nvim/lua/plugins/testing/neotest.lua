@@ -25,10 +25,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "nvim-neotest/neotest",
-    enabled = false,
+    enabled = features.testing.neotest,
     commit = "21f4b94",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -39,7 +41,7 @@ return {
   },
   {
     "Issafalcon/neotest-dotnet",
-    enabled = false,
+    enabled = features.testing.neotest_dotnet,
     commit = "a90836a",
     dependencies = {
       "nvim-neotest/neotest",

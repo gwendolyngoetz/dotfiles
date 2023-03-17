@@ -38,9 +38,12 @@ local config = function()
   })
 end
 
+local features = require("config.features")
+
 return {
   {
     "lewis6991/gitsigns.nvim",
+    enabled = features.gitsigns,
     commit = "b1f9cf7",
     config = config,
   },

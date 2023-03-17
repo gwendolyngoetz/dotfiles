@@ -34,10 +34,12 @@ local config = function()
   alpha.setup(dashboard.opts)
 end
 
+local features = require("config.features")
+
 return {
   {
     "goolord/alpha-nvim",
-    enabled = false,
+    enabled = features.dashboard.alpha,
     commit = "21a0f25",
     dependencies = {
       "kyazdani42/nvim-web-devicons",
