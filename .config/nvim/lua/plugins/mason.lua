@@ -26,6 +26,7 @@ local config = function()
     "pyright",
     "bashls",
     "jsonls",
+    "jdtls",
     "yamlls",
     --"omnisharp",
     "csharp_ls",
