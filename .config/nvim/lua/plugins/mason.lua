@@ -27,7 +27,7 @@ local config = function()
     "bashls",
     "jsonls",
     "jdtls",
-    "yamlls",
+    --"yamlls",
     --"omnisharp",
     "csharp_ls",
     "gopls",
