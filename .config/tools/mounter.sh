@@ -9,24 +9,24 @@ COLOR_RESET="\033[0m"
 
 function run_mount {
     echo "Server:"
-    SERVER=$(gum choose --selected=${DEFAULT_SERVER} $(ls /mnt/nfs))
+    SERVER=$(gum choose --selected="${DEFAULT_SERVER}" $(ls "/mnt/nfs"))
     echo "Share:"
-    SHARES=($(gum choose --no-limit --selected=${DEFAULT_SHARE} $(ls /mnt/nfs/${SERVER})))
-    for i in ${!SHARES[@]}; do
+    SHARES=($(gum choose --no-limit --selected="${DEFAULT_SHARE}" $(ls "/mnt/nfs/${SERVER}")))
+    for i in "${!SHARES[@]}"; do
         SHARE="${SHARES[$i]}"
         LOCAL_PATH="/mnt/nfs/${SERVER}/${SHARE}"
         REMOTE_PATH="${SERVER}:/mnt/storage0/${SHARE}"
         sudo mount -t nfs "${REMOTE_PATH}" "${LOCAL_PATH}"
-        printf "${COLOR_GREEN}mounted${COLOR_RESET}: ${LOCAL_PATH}\n"
+        printf "%bmounted%b: %b\n" "${COLOR_GREEN}" "${COLOR_RESET}" "${LOCAL_PATH}"
     done
 }
 
 function run_unmount {
     echo "Share:"
     TO_UNMOUNT=($(gum choose --no-limit $(grep "/mnt/nfs" /proc/mounts | cut -d' ' -f2)))
-    for i in ${!TO_UNMOUNT[@]}; do
-        sudo umount ${TO_UNMOUNT[$i]}
-        printf "${COLOR_BLUE}umounted${COLOR_RESET}: ${TO_UNMOUNT[$i]}\n"
+    for i in "${!TO_UNMOUNT[@]}"; do
+        sudo umount "${TO_UNMOUNT[$i]}"
+        printf "%bunmounted%b: %b\n" "${COLOR_BLUE}" "${COLOR_RESET}" "${TO_UNMOUNT[$i]}"
     done
 }
 
