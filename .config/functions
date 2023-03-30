@@ -71,3 +71,28 @@ function create_and_enter_dir {
 function filter_aliases {
   alias -p | grep "${1}"
 }
+
+# hijack cd to automatically enable/disable python venv if exists
+function cd {
+    builtin cd "$@"
+
+    if [[ -z "${VIRTUAL_ENV}" ]]; then
+        if [[ -d ./.venv ]] ; then
+            source ./.venv/bin/activate
+        fi
+    else
+        parentdir="$(dirname "${VIRTUAL_ENV}")"
+        if [[ "${PWD}"/ != "${parentdir}"/* ]] ; then
+            deactivate
+        fi
+    fi
+}
+
+# create a python venv if one does not exist
+function mkenv {
+    if [[ ! -d ./.venv ]] ; then
+        python -m venv ./.venv
+        source ./.venv/bin/activate
+    fi
+}
+
