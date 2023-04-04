@@ -215,6 +215,7 @@ exec --no-startup-id streamdeck --no-ui
 exec --no-startup-id solaar --window hide
 exec --no-startup-id "~/.config/i3/scripts/load-workspaces.sh"
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nextcloud --background
 
 # navigate workspaces next / previous
 #bindsym $mod+Ctrl+k workspace next
