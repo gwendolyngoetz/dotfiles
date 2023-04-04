@@ -8,6 +8,7 @@ local config = function()
 
   notify.setup({
     background_colour = "Normal",
+    max_width = 40,
   })
 
   vim.notify = notify
