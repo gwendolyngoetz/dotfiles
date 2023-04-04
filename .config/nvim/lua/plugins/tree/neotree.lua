@@ -12,7 +12,7 @@ local config = function()
   vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
   neotree.setup({
-    close_if_last_window = true,
+    close_if_last_window = false,
     popup_border_style = settings.ui.border,
     sources = {
       "filesystem",
