@@ -1,3 +1,14 @@
 #!/bin/bash
 
-docker volume rm $(docker volume ls -q)
+SEARCH="${1}"
+
+echo "Stopping these containers:" 
+
+if [[ -n "${SEARCH}" ]]; then
+    docker ps --all --format "{{.Names}}" | grep "${SEARCH}"
+    docker volume rm $(docker volume ls -q | grep "${SEARCH}")
+else
+    docker ps --all --format "{{.Names}}"
+    docker volume rm $(docker volume ls -q)
+fi
+
