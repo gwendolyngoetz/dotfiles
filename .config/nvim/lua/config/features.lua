@@ -28,13 +28,13 @@ return {
   lualine = true,
   mason = true,
   metals = true,
-  notify = false, --true
+  notify = true,
   nvim_lightbulb = false, -- Not currently using or setup
   nvim_scrollbar = true,
   pretty_fold = true,
   project = true,
   telescope = true,
-  toggleterm = false, -- Not currently using
+  toggleterm = true,
   treesitter = true,
   winbar = true,
   whichkey = true,
