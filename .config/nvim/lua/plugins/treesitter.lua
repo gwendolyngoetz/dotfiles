@@ -43,14 +43,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     enabled = features.treesitter,
-    commit = "079a50f6",
+    commit = "871f566",
     build = ":TSUpdate",
     config = config,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     enabled = features.treesitter,
-    commit = "542e087",
+    commit = "b55fe61",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
