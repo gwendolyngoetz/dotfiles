@@ -7,55 +7,48 @@ function set_prompt {
     fi
 }
 
-
 function workon {
-  function slowfind {
-    local repo_name=$1
-
-    if [[ -z $repo_name ]]; then
-      find $HOME/src -name .git -type d -prune -exec dirname {} \; | 
-      sort --ignore-case |
-      awk 'BEGIN{OFS="/";FS="/"} {$NF="\033[34m"$NF"\033[0m"; print $0}'
-      
-      return
-    fi
-     
-    for dir in $(find $HOME/src -name .git -type d -prune); do
-      dir=$(dirname $dir)
-      if [[ $dir == *$repo_name ]]; then
-        cd $dir
+    if ! command -v fdfind &> /dev/null; then
+        echo "Missing fd command"
+        echo "https://github.com/sharkdp/fd"
         return
-      fi
-    done
-  }
-  
-  function fastfind {
-    local repo_name=$1
-
-    if [[ -z $repo_name ]]; then
-      fd -H --type directory --prune ^.git$ $HOME/src --exec-batch dirname | 
-      sort --ignore-case |
-      awk 'BEGIN{OFS="/";FS="/"} {$NF="\033[34m"$NF"\033[0m"; print $0}'
-      
-      return
     fi
-     
-    for dir in $(fd -H --type directory --prune ^.git$ $HOME/src); do
-      dir=$(dirname $dir)
-      if [[ $dir == *$repo_name ]]; then
-        cd $dir
-        return
-      fi
-    done
-  }
-  
-  local repo_name=$1
 
-  if [[ -f /usr/bin/fdfind ]] || [[ -f /opt/homebrew/bin/fd ]]; then
-    fastfind $repo_name
-  else
-    slowfind $repo_name
-  fi
+    if ! command -v fzf &> /dev/null; then
+        echo "Missing fzf command"
+        echo "https://github.com/junegunn/fzf"
+        return
+    fi
+
+    query="${1}"
+
+    dirname=$(fdfind \
+        -H \
+        --type directory \
+        --type file \
+        --prune "^.git$" \
+        --search-path "${HOME}/src" \
+        --base-directory "${HOME}/src" \
+        --exec dirname {} \
+    | sed "s|${HOME}/src/||" \
+    | sort \
+    | fzf \
+        +s \
+        --border=rounded \
+        --margin=0,25% \
+        --padding=1,0 \
+        --height=80% \
+        --info=hidden \
+        --query="${query}" \
+        --select-1 \
+        --exit-0 \
+        --color="bg+:-1,prompt:4,border:#5a4799,hl:4,hl+:4,fg+:6" \
+        --tac \
+        --pointer=" " \
+        --exact \
+        --prompt="Repo> ")
+
+    cd "${HOME}/src/${dirname}" || return
 }
 
 function cd_git_root {
