@@ -21,16 +21,17 @@ function workon {
     fi
 
     query="${1}"
+    base_dir="${HOME}/src"
 
     dirname=$(fdfind \
         -H \
         --type directory \
         --type file \
         --prune "^.git$" \
-        --search-path "${HOME}/src" \
-        --base-directory "${HOME}/src" \
+        --search-path "${base_dir}" \
+        --base-directory "${base_dir}" \
         --exec dirname {} \
-    | sed "s|${HOME}/src/||" \
+    | sed "s|${base_dir}/||" \
     | sort \
     | fzf \
         +s \
@@ -48,7 +49,7 @@ function workon {
         --exact \
         --prompt="Repo> ")
 
-    cd "${HOME}/src/${dirname}" || return
+    cd "${base_dir}/${dirname}" || return
 }
 
 function cd_git_root {
