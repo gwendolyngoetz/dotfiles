@@ -7,6 +7,10 @@ local config = function()
   end
 
   comment.setup({
+    mappings = {
+      basic = false,
+      extra = false,
+    },
     pre_hook = function(ctx)
       local utils = require("Comment.utils")
       local ts_utils = require("ts_context_commentstring.utils")
