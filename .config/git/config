@@ -23,19 +23,22 @@
     helper = store
 [alias]
     alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | grep -v "alias" | sort | column -t -s'='
-    st = status
-    dt = difftool -d
-    l  = !git --no-pager log -30
     aa = add .
     au = add -u
-    co = commit -m
-    bl = branch -v
     bd = branch -d
+    bl = branch -v
+    co = commit -m
+    dt = difftool -d
+    l  = !git --no-pager log -30
     sl = stash list
+    st = status
     sw = switch
     rl = remote -v
     tree = log --no-show-signature --graph --date=format-local:%H:%M:%S --all \
                --pretty="'%C(#ffe97b ul)%h%C(reset) %C(#568ea6)%cs %C(#305f72)%cd%C(reset)%C(auto)%d%C(reset) %s %C(yellow)(%C(reset)%C(#1abc9c)%an%C(reset)%C(yellow),%C(reset) %C(#007055)%cr%C(reset)%C(yellow))%C(reset)'"
+    wa = !git worktree add -B "${1}" "./${1}"
+    wl = worktree list
+    wr = !git worktree remove
 
 [diff]
     tool = meld
