@@ -71,6 +71,16 @@ class WeatherData:
         # Foggy
         if weathercode in [701, 741]:
             return " " if isdaytime else " "
+        # Needs icons
+        # 721-haze|731-dust|751-sand|761-dust|762-volcanic-ash|771-squall
+        if weathercode in [721, 731, 751, 761, 762, 771]:
+            return weathercode
+        # Tornado
+        if weathercode in [781]:
+            return "󰼸"
+        # Smoke
+        if weathercode in [711]:
+            return "󱞙"
 
         return weathercode
 
@@ -81,6 +91,7 @@ class WeatherData:
         return f"%{{F#555}}{icon}%{{F-}} {self.temp.value}"
 
     def get_polybar_weather_icon(self, weathercode: int, isdaytime: bool) -> str:
+        # https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
         # Clear
         if weathercode in [800]:
             return "" if isdaytime else ""
@@ -102,5 +113,15 @@ class WeatherData:
         # Foggy
         if weathercode in [701, 741]:
             return ""
+        # Needs icons
+        # 721-haze|731-dust|751-sand|761-dust|762-volcanic-ash|771-squall
+        if weathercode in [721, 731, 751, 761, 762, 771]:
+            return weathercode
+        # Tornado
+        if weathercode in [781]:
+            return "󰼸"
+        # Smoke
+        if weathercode in [711]:
+            return "󱞙"
 
         return weathercode
