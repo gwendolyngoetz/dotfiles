@@ -25,14 +25,16 @@
     alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | grep -v "alias" | sort | column -t -s'='
     aa = add .
     au = add -u
-    bd = branch -d
+    #bd = branch -d
+    bd = !~/.config/git/scripts/branch-delete.sh
     bl = branch -v
     co = commit -m
     dt = difftool -d
     l  = !git --no-pager log -30
     sl = stash list
     st = status
-    sw = switch
+    #sw = !git branch -v | sed 's/\\ \\+/ /g' | cut -d' ' -f2 | sort | fzf | xargs git switch
+    sw = !~/.config/git/scripts/branch-switch.sh
     rl = remote -v
     tree = log --no-show-signature --graph --date=format-local:%H:%M:%S --all \
                --pretty="'%C(#ffe97b ul)%h%C(reset) %C(#568ea6)%cs %C(#305f72)%cd%C(reset)%C(auto)%d%C(reset) %s %C(yellow)(%C(reset)%C(#1abc9c)%an%C(reset)%C(yellow),%C(reset) %C(#007055)%cr%C(reset)%C(yellow))%C(reset)'"
