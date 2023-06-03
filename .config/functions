@@ -30,6 +30,7 @@ function workon {
         --prune "^.git$" \
         --search-path "${base_dir}" \
         --base-directory "${base_dir}" \
+        --exclude "github/system-repos" \
         --exec dirname {} \
     | sed "s|${base_dir}/||" \
     | sort \
