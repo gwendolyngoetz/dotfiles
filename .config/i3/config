@@ -169,6 +169,7 @@ for_window [class="firefox" window_role="Organizer"] floating enable border norm
 for_window [class="firefox" window_role="page-info"] floating enable border normal 
 for_window [class="firefox" window_role="GtkFileChooserDialog"] floating enable border normal 
 for_window [class="Galculator"] floating enable sticky enable border normal
+for_window [class="(?i)Gimp-*.*" window_type="dialog"] floating enable border normal
 for_window [class="Inkscape" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="jetbrains-idea" window_type="dialog"] floating enable sticky disable border normal
 for_window [class="kcalc"] floating enable sticky enable border normal
@@ -183,6 +184,7 @@ for_window [class="(?i)soffice" window_type="dialog"] floating enable border nor
 for_window [class="Solaar"] floating enable sticky enable border normal
 for_window [class="Streamdeck UI"] floating enable border normal
 for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
+#for_window [class="VirtualBox" title="^* - Settings"] floating enable border normal
 for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable border normal
 for_window [class="weather-widget"] floating enable border normal
 for_window [instance="origin.exe"] floating enable
