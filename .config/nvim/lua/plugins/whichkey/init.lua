@@ -150,9 +150,7 @@ return {
   {
     "folke/which-key.nvim",
     enabled = features.whichkey,
-    commit = "fb02773",
-    --commit = "6885b66", -- see the error in messages here
-    --commit = "fbf0381", -- started seeing vim.notify message here
+    commit = "d871f2b",
     config = config,
   },
 }

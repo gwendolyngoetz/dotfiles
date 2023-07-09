@@ -20,7 +20,7 @@ return {
   {
     "rcarriga/nvim-notify",
     enabled = features.notify,
-    commit = "281e4d7",
+    commit = "ea9c8ce",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },

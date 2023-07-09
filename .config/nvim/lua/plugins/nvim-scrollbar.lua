@@ -49,7 +49,7 @@ return {
   {
     "petertriho/nvim-scrollbar",
     enabled = features.nvim_scrollbar,
-    commit = "75210c5",
+    commit = "35f99d5",
     dependencies = {
       "lewis6991/gitsigns.nvim",
     },

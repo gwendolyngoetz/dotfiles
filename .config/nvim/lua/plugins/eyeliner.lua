@@ -24,7 +24,7 @@ return {
   {
     "jinh0/eyeliner.nvim",
     enabled = features.eyeliner,
-    commit = "3658815",
+    commit = "a6c05ed",
     config = config,
   },
 }

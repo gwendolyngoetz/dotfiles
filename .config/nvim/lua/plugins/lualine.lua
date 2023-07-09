@@ -120,7 +120,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     enabled = features.lualine,
-    commit = "e99d733",
+    commit = "05d78e9",
     dependencies = {
       "kyazdani42/nvim-web-devicons",
     },

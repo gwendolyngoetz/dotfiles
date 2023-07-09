@@ -75,7 +75,7 @@ return {
   {
     "scalameta/nvim-metals",
     enabled = features.metals,
-    commit = "0da75dc",
+    commit = "cd50bfe",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },

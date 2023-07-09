@@ -44,7 +44,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     enabled = features.gitsigns,
-    commit = "b1f9cf7",
+    commit = "dc2962f",
     config = config,
   },
 }

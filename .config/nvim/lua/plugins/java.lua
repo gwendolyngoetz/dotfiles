@@ -4,6 +4,6 @@ return {
   {
     "mfussenegger/nvim-jdtls",
     enabled = features.java,
-    commit = "9fcc949",
+    commit = "0261cf5",
   },
 }

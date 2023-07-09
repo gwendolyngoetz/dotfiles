@@ -44,7 +44,7 @@ return {
   {
     "akinsho/toggleterm.nvim",
     enabled = features.toggleterm,
-    commit = "fd63194",
+    commit = "2249e97",
     config = config,
   },
 }

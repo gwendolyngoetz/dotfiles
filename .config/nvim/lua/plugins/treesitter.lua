@@ -50,7 +50,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     enabled = features.treesitter,
-    commit = "b55fe61",
+    commit = "52f1f32",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },

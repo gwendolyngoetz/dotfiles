@@ -79,13 +79,13 @@ return {
   {
     "williamboman/mason.nvim",
     enabled = features.mason,
-    commit = "e522255",
+    commit = "5ad3e11",
     config = config,
   },
   {
     "williamboman/mason-lspconfig.nvim",
     enabled = features.mason,
-    commit = "a81503f",
+    commit = "82685fd",
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
@@ -94,7 +94,7 @@ return {
   {
     "jay-babu/mason-null-ls.nvim",
     enabled = features.mason,
-    commit = "4070ec7",
+    commit = "ae0c5fa",
     dependencies = {
       "williamboman/mason.nvim",
       "jose-elias-alvarez/null-ls.nvim",
@@ -103,7 +103,7 @@ return {
   {
     "jay-babu/mason-nvim-dap.nvim",
     enabled = features.mason,
-    commit = "8c5d021",
+    commit = "e4d56b4",
     dependencies = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",

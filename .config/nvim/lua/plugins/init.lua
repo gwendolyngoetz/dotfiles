@@ -19,7 +19,7 @@ return {
   },
   {
     "kyazdani42/nvim-web-devicons",
-    commit = "4af94fe",
+    commit = "9ab9b0b",
   },
   {
     "famiu/bufdelete.nvim",

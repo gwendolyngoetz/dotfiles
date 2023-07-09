@@ -69,7 +69,7 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     enabled = features.dap,
-    commit = "bdb94e3",
+    commit = "c020f66",
     dependencies = {
       "mfussenegger/nvim-dap",
     },

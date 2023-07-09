@@ -20,7 +20,7 @@ return {
   {
     "RRethy/vim-illuminate",
     enabled = features.illuminate,
-    commit = "49062ab",
+    commit = "a290727",
     config = config,
   },
 }

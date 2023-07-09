@@ -109,7 +109,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     enabled = features.cmp,
-    commit = "feed47f",
+    commit = "2743dd9",
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -154,11 +154,11 @@ return {
   {
     "L3MON4D3/LuaSnip",
     enabled = features.cmp,
-    commit = "4368577",
+    commit = "a658ae2",
   },
   {
     "rafamadriz/friendly-snippets",
     enabled = features.cmp,
-    commit = "009887b",
+    commit = "7f6681b",
   },
 }

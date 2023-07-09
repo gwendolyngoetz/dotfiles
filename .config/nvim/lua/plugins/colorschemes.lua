@@ -5,7 +5,7 @@ end
 return {
   {
     "folke/tokyonight.nvim",
-    commit = "3ebc29d",
+    commit = "284667a",
     lazy = false,
     priority = 1000,
     config = config,

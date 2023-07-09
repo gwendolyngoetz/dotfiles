@@ -42,7 +42,7 @@ return {
   {
     "Issafalcon/neotest-dotnet",
     enabled = features.testing.neotest_dotnet,
-    commit = "a90836a",
+    commit = "9de0e49",
     dependencies = {
       "nvim-neotest/neotest",
     },

@@ -25,7 +25,7 @@ return {
   {
     "SmiteshP/nvim-navic",
     enabled = features.winbar,
-    commit = "cdd2453",
+    commit = "6e8850a",
     dependencies = {
       "neovim/nvim-lspconfig",
     },

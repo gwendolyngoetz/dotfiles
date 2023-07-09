@@ -72,7 +72,7 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    commit = "e172e1e",
+    commit = "db09b6c",
     config = config,
   },
 }
