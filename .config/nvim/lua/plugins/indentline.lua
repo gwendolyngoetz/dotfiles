@@ -30,7 +30,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     enabled = features.indentline,
-    tag = "v2.20.4",
+    tag = "v2.20.7",
     config = config,
   },
 }

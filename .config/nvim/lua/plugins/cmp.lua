@@ -133,7 +133,7 @@ return {
   {
     "hrsh7th/cmp-cmdline",
     enabled = features.cmp,
-    commit = "8fcc934",
+    commit = "8ee981b",
   },
   {
     "saadparwaiz1/cmp_luasnip",
@@ -143,12 +143,12 @@ return {
   {
     "hrsh7th/cmp-nvim-lsp",
     enabled = features.cmp,
-    commit = "0e6b2ed",
+    commit = "44b16d1",
   },
   {
     "hrsh7th/cmp-nvim-lua",
     enabled = features.cmp,
-    commit = "f349163",
+    commit = "f12408b",
   },
   -- snippets
   {

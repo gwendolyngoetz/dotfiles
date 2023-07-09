@@ -26,7 +26,7 @@ return {
   {
     "ahmedkhalf/project.nvim",
     enabled = features.project,
-    commit = "1c2e9c9",
+    commit = "8c6bad7",
     config = config,
   },
 }

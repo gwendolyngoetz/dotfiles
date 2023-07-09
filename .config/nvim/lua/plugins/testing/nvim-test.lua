@@ -22,7 +22,7 @@ return {
   {
     "klen/nvim-test",
     enabled = features.testing.nvim_test,
-    commit = "4e30d07",
+    commit = "e06f3d0",
     config = config,
   },
 }

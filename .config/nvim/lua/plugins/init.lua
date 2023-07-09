@@ -7,12 +7,12 @@ return {
   },
   {
     "nvim-lua/plenary.nvim",
-    commit = "253d348",
+    commit = "bda256f",
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     enabled = features.treesitter,
-    commit = "729d83e",
+    commit = "7f62520",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -23,6 +23,6 @@ return {
   },
   {
     "famiu/bufdelete.nvim",
-    commit = "8933abc",
+    commit = "07d1f8b",
   },
 }

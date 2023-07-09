@@ -38,7 +38,7 @@ return {
   {
     "numToStr/Comment.nvim",
     enabled = features.comment,
-    commit = "8d3aa5c",
+    commit = "176e85e",
     config = config,
   },
 }

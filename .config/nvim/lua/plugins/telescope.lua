@@ -39,7 +39,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     enabled = features.telescope,
-    commit = "a3f17d3",
+    commit = "276362a",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",

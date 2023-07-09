@@ -15,7 +15,7 @@ return {
   {
     "ThePrimeagen/harpoon",
     enabled = features.harpoon,
-    commit = "f7040fd",
+    commit = "21f4c47",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
