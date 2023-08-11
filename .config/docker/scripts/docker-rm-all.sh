@@ -2,7 +2,7 @@
 
 SEARCH="${1}"
 
-echo "Removing these containers:" 
+echo "Removing containers:" 
 
 if [[ -n "${SEARCH}" ]]; then
     docker ps --all --format "{{.Names}}" | grep "${SEARCH}"

@@ -2,7 +2,7 @@
 
 SEARCH="${1}"
 
-echo "Stopping these containers:" 
+echo "Removing volumes:" 
 
 if [[ -n "${SEARCH}" ]]; then
     docker ps --all --format "{{.Names}}" | grep "${SEARCH}"
