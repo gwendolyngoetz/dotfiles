@@ -113,15 +113,27 @@ class WeatherData:
         # Foggy
         if weathercode in [701, 741]:
             return ""
-        # Needs icons
-        # 721-haze|731-dust|751-sand|761-dust|762-volcanic-ash|771-squall
-        if weathercode in [721, 731, 751, 761, 762, 771]:
-            return weathercode
         # Tornado
         if weathercode in [781]:
             return "󰼸"
         # Smoke
         if weathercode in [711]:
             return "󱞙"
+        # Needs icons
+        # Haze
+        if weathercode in [721]:
+            return "haze"
+        # Sand
+        if weathercode in [751]:
+            return "sand"
+        # Dust
+        if weathercode in [731, 761]:
+            return "dust"
+        # Volcanic Ash
+        if weathercode in [762]:
+            return "volcanic-ash"
+        # Squall
+        if weathercode in [771]:
+            return "squall"
 
         return weathercode
