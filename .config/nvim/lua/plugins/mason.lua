@@ -34,6 +34,7 @@ local config = function()
     "sqlls",
     "rust_analyzer",
     "terraformls",
+    "ocamllsp",
   }
 
   mason.setup({
