@@ -68,6 +68,11 @@ else
     echo "$HOME/.private-env file not found" 1>&2
 fi
 
+# Rust
+if [[ -f "$HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
+fi
+
 # Ocaml / opam configuration
 if [[ -f "$HOME/.opam/opam-init/init.sh" ]]; then
     . "$HOME/.opam/opam-init/init.sh"
@@ -75,5 +80,4 @@ fi
 
 export HISTFILE="$HOME/.config/bash/bash_history"
 export HISTCONTROL=ignoreboth
-. "$HOME/.cargo/env"
 
