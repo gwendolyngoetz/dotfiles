@@ -214,36 +214,6 @@ local M = {
     end,
   },
 
-  neotest = {
-    test_nearest = function()
-      require("neotest").run.run()
-    end,
-
-    test_file = function()
-      require("neotest").run.run(vim.fn.expand("%"))
-    end,
-
-    debug_file = function()
-      require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
-    end,
-
-    open_output = function()
-      require("neotest").output.open({ enter = true, short = false })
-    end,
-
-    rerun_last_test = function()
-      require("neotest").run.run_last()
-    end,
-
-    show_summary = function()
-      require("neotest").summary.toggle()
-    end,
-
-    show_diagnostic = function()
-      require("neotest").diagnostic()
-    end,
-  },
-
   nvimtest = {
     run_test_suite = function()
       vim.api.nvim_command("TestSuite")

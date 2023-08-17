@@ -66,6 +66,10 @@ local get_filename = function()
 end
 
 local get_navic = function()
+  if not navic then
+    return ""
+  end
+
   local navic_location = navic.get_location(filetype_depth_settings[vim.bo.filetype])
 
   if not navic.is_available() or navic_location == "error" then

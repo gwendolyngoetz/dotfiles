@@ -6,10 +6,6 @@ local config = function()
     return
   end
 
-  local mason_null_ls = helpers.require("mason-null-ls")
-  if not mason_null_ls then
-    return
-  end
 
   local formatting = null_ls.builtins.formatting
   local diagnostics = null_ls.builtins.diagnostics
@@ -51,18 +47,21 @@ local config = function()
     end,
   })
 
-  mason_null_ls.setup({
-    ensure_installed = {
-      "gofumpt",
-      "goimports",
-      "prettier",
-      "stylua",
-      "black",
-      "flake8",
-      "terraform_fmt",
-    },
-    automatic_installation = true,
-  })
+  local ok, mason_null_ls = pcall(require, "mason-null-ls")
+  if ok then
+     mason_null_ls.setup({
+       ensure_installed = {
+         "gofumpt",
+         "goimports",
+         "prettier",
+         "stylua",
+         "black",
+         "flake8",
+         "terraform_fmt",
+       },
+       automatic_installation = true,
+     })
+  end
 end
 
 return {

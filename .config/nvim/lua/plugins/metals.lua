@@ -51,7 +51,7 @@ local config = function()
     },
   }
 
-  metals_config.on_attach = function(client, bufnr)
+  metals_config.on_attach = function()
     require("metals").setup_dap()
   end
 

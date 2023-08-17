@@ -23,7 +23,7 @@ local config = function()
   })
 
   -- Adapters: dotnet
-  local netcoredbg_path = helpers.get_from_data_path("/mason/bin/netcoredbg")
+  local netcoredbg_path = helpers.get_from_data_path("/mason/packages/netcoredbg/netcoredbg")
 
   if not helpers.is_empty(netcoredbg_path) then
     dap.adapters.coreclr = {
@@ -106,10 +106,21 @@ local config = function()
     },
   }
 
-  -- Looks for launch.json files in dotnet projects
-  require("dap.ext.vscode").load_launchjs(nil, {
-    coreclr = { "cs" },
-  })
+  dap.configurations.cs = {
+    {
+      type = "coreclr",
+      name = "launch - netcoredbg",
+      request = "launch",
+      program = function()
+        return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+      end,
+    },
+  }
+
+  ---- Looks for launch.json files in dotnet projects
+  --require("dap.ext.vscode").load_launchjs(nil, {
+  --  coreclr = { "cs" },
+  --})
 end
 
 local features = require("config.features")

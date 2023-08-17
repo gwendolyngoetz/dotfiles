@@ -5,7 +5,6 @@ return {
   },
   lsp = {},
   testing = {
-    neotest = false,
     nvim_test = true,
   },
   tree = {
@@ -16,7 +15,6 @@ return {
   autotag = true,
   bufferline = false, -- Tabs at top, using winbar instead
   cmp = true,
-  colorful_winsep = false, -- Stopped using because redraw flickers
   colorizer = true,
   comment = true,
   dap = true,
@@ -36,10 +34,8 @@ return {
   pretty_fold = true,
   project = true,
   telescope = true,
-  toggler = true,
   toggleterm = true,
   treesitter = true,
-  twilight = false,
   winbar = true,
   whichkey = true,
   worktree = true,

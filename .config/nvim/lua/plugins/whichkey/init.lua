@@ -124,9 +124,14 @@ local config = function()
     mappings["e"] = { treetoggle_cmd, "Explorer" }
   end
 
-  local testing_enabled, testing_cmds = require("plugins.testing.generic-testing").get_testing_commands()
-  if testing_enabled then
-    mappings["t"] = vim.tbl_extend("keep", { name = "Testing" }, testing_cmds)
+  if features.testing.nvim_test then
+    mappings["t"] = {
+      name = "Testing",
+      a = { "<cmd>TestSuite<CR>", "Test All" },
+      f = { "<cmd>TestFile<CR>", "Test File" },
+      c = { "<cmd>TestNearest<CR>", "Test Nearest" },
+      r = { "<cmd>TestLast<CR>", "Rerun Last Test" },
+    }
   end
 
   if features.toggleterm then
