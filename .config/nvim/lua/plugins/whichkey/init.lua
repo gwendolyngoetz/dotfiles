@@ -106,10 +106,7 @@ local config = function()
     -- 5 = { functions.dap.step_out, "Step Out" },
   }
 
-  local treetoggle_enabled, treetoggle_cmd = require("plugins.tree.generic-tree").get_treetoggle_command()
-  if treetoggle_enabled then
-    mappings["e"] = { treetoggle_cmd, "Explorer" }
-  end
+  mappings["e"] = { "<cmd>Neotree toggle<CR>", "Explorer" }
 
   mappings["t"] = {
     name = "Testing",

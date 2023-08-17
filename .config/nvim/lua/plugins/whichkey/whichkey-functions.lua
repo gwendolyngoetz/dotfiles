@@ -1,5 +1,3 @@
--- local _, treetoggle_cmd = require("generic-tree").get_treetoggle_command()
-
 local M = {
   global = {
     quit = function()

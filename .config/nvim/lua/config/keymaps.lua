@@ -74,11 +74,7 @@ keymap("v", ">", ">gv", opts)
 keymap("n", "<C-c>", "<cmd>ColorizerToggle<CR>", opts)
 
 -- Tree
-local treetoggle_cmd_ok, treetoggle_cmd = require("plugins.tree.generic-tree").get_treetoggle_command()
-
-if treetoggle_cmd_ok then
-  keymap("n", "<leader>e", treetoggle_cmd, opts)
-end
+keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 
 -- Telescope
 --vim.api.nvim_del_keymap("n", "<leader>f")
