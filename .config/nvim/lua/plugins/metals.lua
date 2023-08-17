@@ -69,12 +69,9 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "scalameta/nvim-metals",
-    enabled = features.metals,
     commit = "cd50bfe",
     dependencies = {
       "nvim-lua/plenary.nvim",

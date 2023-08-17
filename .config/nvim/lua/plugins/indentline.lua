@@ -24,12 +24,9 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
-    enabled = features.indentline,
     tag = "v2.20.7",
     config = config,
   },

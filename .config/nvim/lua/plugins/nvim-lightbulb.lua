@@ -16,12 +16,10 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "kosayoda/nvim-lightbulb",
-    enabled = features.nvim_lightbulb,
+    enabled = false,
     commit = "56b9ce3",
     dependencies = {
       "antoinemadec/FixCursorHold.nvim",

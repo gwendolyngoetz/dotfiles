@@ -100,7 +100,6 @@ local config = function()
       theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
-      disabled_filetypes = { "alpha", "dashboard" },
       always_divide_middle = true,
     },
     sections = {
@@ -114,12 +113,9 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "nvim-lualine/lualine.nvim",
-    enabled = features.lualine,
     commit = "05d78e9",
     dependencies = {
       "kyazdani42/nvim-web-devicons",

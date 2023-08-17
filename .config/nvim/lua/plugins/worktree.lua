@@ -22,12 +22,9 @@ local config = function()
   telescope.load_extension("git_worktree")
 end
 
-local features = require("config.features")
-
 return {
   {
     "theprimeagen/git-worktree.nvim",
-    enabled = features.worktree,
     commit = "d7f4e25",
     config = config,
   },

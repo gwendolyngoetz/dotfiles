@@ -17,13 +17,10 @@ M.non_code_path_text = {
 M.winbar_filetype_exclude = {
   "help",
   "startify",
-  "dashboard",
   "packer",
   "neogitstatus",
   "NvimTree",
   "Trouble",
-  "alpha",
-  "dashboard",
   "lir",
   "Outline",
   "spectre_panel",

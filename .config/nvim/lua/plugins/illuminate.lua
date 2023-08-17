@@ -1,5 +1,5 @@
 local config = function()
-  vim.g.Illuminate_ftblacklist = { "alpha", "dashboard", "NvimTree", "neo-tree" }
+  vim.g.Illuminate_ftblacklist = { "NvimTree", "neo-tree" }
   vim.api.nvim_set_keymap(
     "n",
     "<a-n>",
@@ -14,12 +14,9 @@ local config = function()
   )
 end
 
-local features = require("config.features")
-
 return {
   {
     "RRethy/vim-illuminate",
-    enabled = features.illuminate,
     commit = "a290727",
     config = config,
   },

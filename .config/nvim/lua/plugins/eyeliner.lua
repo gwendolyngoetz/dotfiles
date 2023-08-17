@@ -18,12 +18,9 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "jinh0/eyeliner.nvim",
-    enabled = features.eyeliner,
     commit = "a6c05ed",
     config = config,
   },

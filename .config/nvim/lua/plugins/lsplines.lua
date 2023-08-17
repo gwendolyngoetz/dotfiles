@@ -16,12 +16,10 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    enabled = features.lsplines,
+    enabled = false,
     commit = "dcff567b",
     dependencies = {
       "neovim/nvim-lspconfig",

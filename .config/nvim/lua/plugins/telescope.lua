@@ -33,12 +33,9 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "nvim-telescope/telescope.nvim",
-    enabled = features.telescope,
     commit = "276362a",
     dependencies = {
       "nvim-lua/plenary.nvim",

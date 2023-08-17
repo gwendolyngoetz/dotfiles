@@ -63,12 +63,9 @@ local config = function()
   end
 end
 
-local features = require("config.features")
-
 return {
   {
     "rcarriga/nvim-dap-ui",
-    enabled = features.dap,
     commit = "c020f66",
     dependencies = {
       "mfussenegger/nvim-dap",

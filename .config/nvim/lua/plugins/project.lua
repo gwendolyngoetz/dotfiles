@@ -20,12 +20,9 @@ local config = function()
   telescope.load_extension("projects")
 end
 
-local features = require("config.features")
-
 return {
   {
     "ahmedkhalf/project.nvim",
-    enabled = features.project,
     commit = "8c6bad7",
     config = config,
   },

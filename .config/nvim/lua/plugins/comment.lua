@@ -32,12 +32,9 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "numToStr/Comment.nvim",
-    enabled = features.comment,
     commit = "176e85e",
     config = config,
   },

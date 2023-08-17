@@ -1,5 +1,3 @@
-local features = require("config.features")
-
 return {
   {
     "nvim-lua/popup.nvim",
@@ -11,7 +9,6 @@ return {
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    enabled = features.treesitter,
     commit = "7f62520",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

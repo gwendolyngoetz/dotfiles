@@ -106,12 +106,10 @@ local config = function()
   })
 end
 
-local features = require("config.features")
-
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = features.tree.neotree,
+    enabled = true,
     commit = "205184a",
     dependencies = {
       "nvim-lua/plenary.nvim",

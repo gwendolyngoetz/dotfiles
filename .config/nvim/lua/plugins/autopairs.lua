@@ -21,12 +21,9 @@ local config = function()
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({}))
 end
 
-local features = require("config.features")
-
 return {
   {
     "windwp/nvim-autopairs",
-    enabled = features.autopairs and features.cmp,
     commit = "e8f7dd7",
     config = config,
   },
