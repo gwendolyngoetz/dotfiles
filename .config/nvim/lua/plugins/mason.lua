@@ -1,43 +1,27 @@
 local config = function()
-  local helpers = require("config.helpers")
   local settings = require("config.settings")
   local icons = settings.icons
 
-  local mason = helpers.require("mason")
-  if not mason then
-    return
-  end
-
-  local mason_lspconfig = helpers.require("mason-lspconfig")
-  if not mason_lspconfig then
-    return
-  end
-
-  local lspconfig = helpers.require("lspconfig")
-  if not lspconfig then
-    return
-  end
-
   local servers = {
-    "lua_ls",
-    "cssls",
-    "html",
-    "tsserver",
-    "pyright",
     "bashls",
-    "jsonls",
-    "jdtls",
-    --"yamlls",
-    --"omnisharp",
     "csharp_ls",
+    "cssls",
     "gopls",
-    "sqlls",
-    "rust_analyzer",
-    "terraformls",
+    "html",
+    "jdtls",
+    "jsonls",
+    "lua_ls",
     "ocamllsp",
+    --"omnisharp",
+    "pyright",
+    "rust_analyzer",
+    "sqlls",
+    "terraformls",
+    "tsserver",
+    --"yamlls",
   }
 
-  mason.setup({
+  require("mason").setup({
     ui = {
       border = settings.ui.border,
       icons = {
@@ -48,7 +32,7 @@ local config = function()
     },
   })
 
-  mason_lspconfig.setup({
+  require("mason-lspconfig").setup({
     ensure_installed = servers,
     automatic_installation = true,
   })
@@ -70,7 +54,7 @@ local config = function()
       opts = vim.tbl_deep_extend("force", conf_opts, opts)
     end
 
-    lspconfig[server].setup(opts)
+    require("lspconfig")[server].setup(opts)
   end
 end
 

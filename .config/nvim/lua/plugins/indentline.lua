@@ -1,13 +1,7 @@
 local config = function()
-  local helpers = require("config.helpers")
   local icons = require("config.settings").icons
 
-  local indent_blankline = helpers.require("indent_blankline")
-  if not indent_blankline then
-    return
-  end
-
-  indent_blankline.setup({
+  require("indent_blankline").setup({
     show_current_context = true,
     indent_blankline_char = icons.indent.blankline_char,
     indent_blankline_show_trailing_blankline_indent = false,

@@ -1,12 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local nvim_test = helpers.require("nvim-test")
-  if not nvim_test then
-    return
-  end
-
-  nvim_test.setup({
+  require("nvim-test").setup({
     term = "toggleterm",
     termOpts = {
       direction = "horizontal",
@@ -21,5 +14,11 @@ return {
     "klen/nvim-test",
     commit = "e06f3d0",
     config = config,
+    dependencies = {
+      {
+        "akinsho/toggleterm.nvim",
+        commit = "2249e97",
+      },
+    },
   },
 }

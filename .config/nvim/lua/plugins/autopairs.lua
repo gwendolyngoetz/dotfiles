@@ -1,24 +1,11 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local autopairs = helpers.require("nvim-autopairs")
-  if not autopairs then
-    return
-  end
-
-  autopairs.setup({
-    check_ts = true, -- treesitter integration
+  require("nvim-autopairs").setup({
+    check_ts = true,
     disable_filetype = { "TelescopePrompt" },
   })
 
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
-  local cmp = helpers.require("cmp")
-  if not cmp then
-    return
-  end
-
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({}))
+  local on_confirm_done = require("nvim-autopairs.completion.cmp").on_confirm_done({})
+  require("cmp").event:on("confirm_done", on_confirm_done)
 end
 
 return {

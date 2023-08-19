@@ -1,12 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local configs = helpers.require("nvim-treesitter.configs")
-  if not configs then
-    return
-  end
-
-  configs.setup({
+  require("nvim-treesitter.configs").setup({
     ensure_installed = {
       "bash",
       "c_sharp",
@@ -22,10 +15,10 @@ local config = function()
       "scala",
       "yaml",
     },
-    ignore_install = { "" }, -- List of parsers to ignore installing
+    ignore_install = { "" },
     highlight = {
-      enable = true, -- false will disable the whole extension
-      disable = { "css" }, -- list of language that will be disabled
+      enable = true,
+      disable = { "css" },
     },
     autopairs = {
       enable = true,

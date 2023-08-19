@@ -16,6 +16,7 @@ local M = {
       vim.api.nvim_command("nohlsearch")
     end,
   },
+
   telescope = {
     show_keymaps = function()
       require("telescope.builtin").keymaps()
@@ -47,10 +48,6 @@ local M = {
 
     show_buffers = function()
       require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false }))
-    end,
-
-    show_projects = function()
-      require("telescope").extensions.projects.projects()
     end,
 
     show_notifications = function()
@@ -133,6 +130,16 @@ local M = {
 
     diff_buffer = function()
       vim.api.nvim_command("Gitsigns diffthis HEAD")
+    end,
+  },
+
+  harpoon = {
+    add_file = function()
+      require("harpoon.mark").add_file()
+    end,
+
+    toggle_ui = function()
+      require("harpoon.ui").toggle_quick_menu()
     end,
   },
 

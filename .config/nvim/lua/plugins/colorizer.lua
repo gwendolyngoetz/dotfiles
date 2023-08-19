@@ -1,12 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-  local colorizer = helpers.require("colorizer")
-
-  if not colorizer then
-    return
-  end
-
-  colorizer.setup({
+  require("colorizer").setup({
     css = {
       rgb_fn = true,
       hsl_fn = true,

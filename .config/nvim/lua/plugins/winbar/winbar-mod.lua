@@ -24,7 +24,6 @@ M.winbar_filetype_exclude = {
   "lir",
   "Outline",
   "spectre_panel",
-  "toggleterm",
 }
 
 local get_buf_option = function(opt)
