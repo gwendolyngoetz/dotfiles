@@ -81,7 +81,6 @@ keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 keymap("n", "<leader>f", "<Nop>", opts)
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", opts)
 keymap("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fp", "<cmd>Telescope projects<CR>", opts)
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<CR>", opts)
 keymap("n", "<leader>fm", "<cmd>lua require('telescope').extensions.notify.notify()<CR>", opts)
 keymap("n", "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>", opts)
@@ -92,20 +91,3 @@ keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-
--- DAP
-keymap("n", "<A-5>", "<cmd>lua require('dap').continue()<cr>", opts)
-keymap("n", "<A-1>", "<cmd>lua require('dap').step_over()<cr>", opts)
-keymap("n", "<A-2>", "<cmd>lua require('dap').step_into()<cr>", opts)
-keymap("n", "<A-3>", "<cmd>lua require('dap').step_out()<cr>", opts)
-keymap("n", "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opts)
-keymap("n", "<leader>dr", "<cmd>lua require('dap').repl.toggle()<CR>", opts)
-keymap("n", "<leader>dl", "<cmd>lua require('dap').run_last()<CR>", opts)
-keymap("n", "<leader>ds", "<cmd>lua require('dapui').toggle()<CR>", opts)
-keymap("n", "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", opts)
-
--- Test Runner
-keymap("n", "<leader>ta", "<cmd>TestSuite<CR>", opts)
-keymap("n", "<leader>tf", "<cmd>TestFile<CR>", opts)
-keymap("n", "<leader>tc", "<cmd>TestNearest<CR>", opts)
-keymap("n", "<leader>tr", "<cmd>TestLast<CR>", opts)

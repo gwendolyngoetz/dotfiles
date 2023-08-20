@@ -1,13 +1,7 @@
 local config = function()
-  local helpers = require("config.helpers")
   local icons = require("config.settings").icons
 
-  local navic = helpers.require("nvim-navic")
-  if not navic then
-    return
-  end
-
-  navic.setup({
+  require("nvim-navic").setup({
     highlight = true,
     separator = " " .. icons.chevron.right .. " ",
   })

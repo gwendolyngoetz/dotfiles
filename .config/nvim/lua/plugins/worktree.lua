@@ -1,12 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local worktree = helpers.require("git-worktree")
-  if not worktree then
-    return
-  end
-
-  worktree.setup({
+  require("git-worktree").setup({
     change_directory_command = "cd",
     update_on_change = true,
     update_on_change_command = "e .",
@@ -14,12 +7,7 @@ local config = function()
     autopush = false,
   })
 
-  local telescope = helpers.require("telescope")
-  if not telescope then
-    return
-  end
-
-  telescope.load_extension("git_worktree")
+  require("telescope").load_extension("git_worktree")
 end
 
 return {

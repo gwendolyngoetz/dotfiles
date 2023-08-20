@@ -1,22 +1,12 @@
 local config = function()
   local helpers = require("config.helpers")
 
-  local scrollbar = helpers.require("scrollbar")
-  if not scrollbar then
-    return
-  end
-
   local colors = helpers.require("tokyonight.colors")
   if not colors then
     return
   end
 
-  local scrollbar_gitsigns = helpers.require("scrollbar.handlers.gitsigns")
-  if not scrollbar_gitsigns then
-    return
-  end
-
-  scrollbar.setup({
+  require("scrollbar").setup({
     handle = {
       color = colors.bg_highlight,
     },
@@ -37,10 +27,11 @@ local config = function()
       "noice",
       "neo-tree",
       "NvimTree",
+      "mason",
     },
   })
 
-  scrollbar_gitsigns.setup()
+  require("scrollbar.handlers.gitsigns").setup()
 end
 
 return {

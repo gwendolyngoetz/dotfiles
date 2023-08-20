@@ -1,15 +1,8 @@
 local config = function()
-  local helpers = require("config.helpers")
   local icons = require("config.settings").icons
-
-  local telescope = helpers.require("telescope")
-  if not telescope then
-    return
-  end
-
   local actions = require("telescope.actions")
 
-  telescope.setup({
+  require("telescope").setup({
     defaults = {
       layout_strategy = "vertical",
       layout_config = {

@@ -1,13 +1,6 @@
 local config = function()
-  local helpers = require("config.helpers")
   local settings = require("config.settings")
   local icons = settings.icons
-
-  local which_key = helpers.require("which-key")
-  if not which_key then
-    return
-  end
-
   local functions = require("plugins.whichkey.whichkey-functions")
 
   local setup = {
@@ -29,13 +22,40 @@ local config = function()
   }
 
   local mappings = {
-    w = { functions.global.save, "Save" },
-    q = { functions.global.quit, "Quit" },
+    b = { functions.telescope.show_buffers, "Buffers" },
     c = { functions.global.close_buffer, "Close Buffer" },
+    e = { "<cmd>Neotree toggle<CR>", "Explorer" },
     h = { functions.global.no_highlight, "No Highlight" },
+    q = { functions.global.quit, "Quit" },
+    w = { functions.global.save, "Save" },
   }
 
-  mappings["P"] = { functions.telescope.show_projects, "Projects" }
+  mappings["d"] = {
+    name = "Debugging",
+    b = { functions.dap.toggle_breakpoint, "Toggle Breakpoint" },
+    l = { functions.dap.run_last, "Run Last" },
+    s = { functions.dap.ui_toggle, "Toggle UI" },
+    t = { functions.dap.terminate, "Terminate" },
+    q = { functions.dap.continue, "Continue" },
+    w = { functions.dap.step_over, "Step Over" },
+    e = { functions.dap.step_into, "Step Into" },
+    r = { functions.dap.step_out, "Step Out" },
+  }
+
+  mappings["f"] = {
+    name = "Find",
+    f = { functions.telescope.show_find_files, "Find in Files" },
+    g = { functions.telescope.show_live_grep, "Live Grep" },
+    b = { functions.telescope.show_buffers2, "Buffers" },
+    m = { functions.telescope.show_notifications, "Messages" },
+    d = { functions.telescope.show_buffer_diagnostics, "Diagnostics - Buffer" },
+    D = { functions.telescope.show_workspace_diagnostics, "Diagnostics - Workspace" },
+    H = { functions.telescope.show_help_tags, "Find Help" },
+    r = { functions.telescope.show_oldfiles, "Open Recent File" },
+    R = { functions.telescope.show_registers, "Registers" },
+    k = { functions.telescope.show_keymaps, "Keymaps" },
+    C = { functions.telescope.show_commands, "Commands" },
+  }
 
   mappings["g"] = {
     name = "Git",
@@ -54,6 +74,12 @@ local config = function()
     d = { functions.git.diff_buffer, "Diff" },
   }
 
+  mappings["h"] = {
+    name = "Harpoon",
+    f = { "<cmd>Telescope harpoon marks<CR>", "Harpoon" },
+    a = { functions.harpoon.add_file, "Harpoon" },
+  }
+
   mappings["l"] = {
     name = "LSP",
     a = { functions.lsp.code_action, "Code Action" },
@@ -69,22 +95,12 @@ local config = function()
     r = { functions.lsp.rename, "Rename" },
   }
 
-  mappings["b"] = { functions.telescope.show_buffers, "Buffers" }
-  mappings["F"] = { functions.telescope.show_live_grep_ivy, "Find Text" }
-
-  mappings["f"] = {
-    name = "Find",
-    f = { functions.telescope.show_find_files, "Find in Files" },
-    g = { functions.telescope.show_live_grep, "Live Grep" },
-    b = { functions.telescope.show_buffers2, "Buffers" },
-    m = { functions.telescope.show_notifications, "Messages" },
-    d = { functions.telescope.show_buffer_diagnostics, "Diagnostics - Buffer" },
-    D = { functions.telescope.show_workspace_diagnostics, "Diagnostics - Workspace" },
-    h = { functions.telescope.show_help_tags, "Find Help" },
-    r = { functions.telescope.show_oldfiles, "Open Recent File" },
-    R = { functions.telescope.show_registers, "Registers" },
-    k = { functions.telescope.show_keymaps, "Keymaps" },
-    C = { functions.telescope.show_commands, "Commands" },
+  mappings["t"] = {
+    name = "Testing",
+    a = { functions.nvimtest.run_test_suite, "Test All" },
+    f = { functions.nvimtest.test_file, "Test File" },
+    c = { functions.nvimtest.test_nearest, "Test Nearest" },
+    r = { functions.nvimtest.rerun_last_test, "Rerun Last Test" },
   }
 
   mappings["W"] = {
@@ -93,37 +109,9 @@ local config = function()
     ["c"] = { functions.telescope.show_create_worktree, "Create" },
   }
 
-  mappings["d"] = {
-    name = "Debugging",
-    b = { functions.dap.toggle_breakpoint, "Toggle Breakpoint" },
-    r = { functions.dap.repl_toggle, "Toggle REPL" },
-    l = { functions.dap.run_last, "Run Last" },
-    s = { functions.dap.ui_toggle, "Toggle UI" },
-    t = { functions.dap.terminate, "Terminate" },
-    -- 1 = { functions.dap.continue, "Continue" },
-    -- 2 = { functions.dap.step_over, "Step Over" },
-    -- 3 = { functions.dap.step_into, "Step Into" },
-    -- 5 = { functions.dap.step_out, "Step Out" },
-  }
-
-  mappings["e"] = { "<cmd>Neotree toggle<CR>", "Explorer" }
-
-  mappings["t"] = {
-    name = "Testing",
-    a = { "<cmd>TestSuite<CR>", "Test All" },
-    f = { "<cmd>TestFile<CR>", "Test File" },
-    c = { "<cmd>TestNearest<CR>", "Test Nearest" },
-    r = { "<cmd>TestLast<CR>", "Rerun Last Test" },
-  }
-
-  mappings["T"] = {
-    name = "Terminal",
-    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-    h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-  }
-
-  which_key.setup(setup)
-  which_key.register(mappings, {
+  local whichkey = require("which-key")
+  whichkey.setup(setup)
+  whichkey.register(mappings, {
     prefix = "<leader>",
     nowait = true,
   })

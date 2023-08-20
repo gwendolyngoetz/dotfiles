@@ -1,12 +1,6 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local harpoon = helpers.require("harpoon")
-  if not harpoon then
-    return
-  end
-
-  harpoon.setup()
+  require("telescope").load_extension("harpoon")
+  require("harpoon").setup()
 end
 
 return {

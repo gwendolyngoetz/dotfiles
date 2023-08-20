@@ -1,12 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local metals = helpers.require("metals")
-  if not metals then
-    return
-  end
-
-  local metals_config = metals.bare_config()
+  local metals_config = require("metals").bare_config()
 
   -- Example of settings
   metals_config.settings = {
@@ -25,13 +18,7 @@ local config = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-  -- Debug settings if you're using nvim-dap
-  local dap = helpers.require("dap")
-  if not dap then
-    return
-  end
-
-  dap.configurations.scala = {
+  require("dap").configurations.scala = {
     {
       type = "scala",
       request = "launch",
@@ -57,6 +44,7 @@ local config = function()
 
   -- Autocmd that will actually be in charging of starting the whole thing
   local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+
   vim.api.nvim_create_autocmd("FileType", {
     -- NOTE: You may or may not want java included here. You will need it if you
     -- want basic Java support but it may also conflict if you are using

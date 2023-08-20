@@ -1,24 +1,15 @@
 local config = function()
-  local helpers = require("config.helpers")
   local settings = require("config.settings")
-  local icons = settings.icons
-
-  local dap = helpers.require("dap")
-  if not dap then
-    return
-  end
-
-  local dapui = helpers.require("dapui")
-  if not dapui then
-    return
-  end
 
   vim.fn.sign_define("DapBreakpoint", {
-    text = icons.debugging.breakpoint,
+    text = settings.icons.debugging.breakpoint,
     texthl = "DiagnosticSignError",
     linehl = "",
     numhl = "",
   })
+
+  local dap = require("dap")
+  local dapui = require("dapui")
 
   dapui.setup({
     layouts = {

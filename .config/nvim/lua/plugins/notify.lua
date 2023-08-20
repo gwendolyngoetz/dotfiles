@@ -1,10 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local notify = helpers.require("notify")
-  if not notify then
-    return
-  end
+  local notify = require("notify")
 
   notify.setup({
     background_colour = "Normal",

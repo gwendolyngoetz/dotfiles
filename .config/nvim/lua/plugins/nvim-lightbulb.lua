@@ -1,12 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local lightbulb = helpers.require("nvim-lightbulb")
-  if not lightbulb then
-    return
-  end
-
-  lightbulb.setup({
+  require("nvim-lightbulb").setup({
     autocmd = {
       enabled = true,
     },

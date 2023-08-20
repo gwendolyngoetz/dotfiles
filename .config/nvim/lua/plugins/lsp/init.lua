@@ -1,17 +1,9 @@
 local config = function()
-  local helpers = require("config.helpers")
-
-  local null_ls = helpers.require("null-ls")
-  if not null_ls then
-    return
-  end
-
-
+  local null_ls = require("null-ls")
   local formatting = null_ls.builtins.formatting
   local diagnostics = null_ls.builtins.diagnostics
   local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-  -- https://github.com/prettier-solidity/prettier-plugin-solidity
   null_ls.setup({
     debug = false,
     sources = {
@@ -49,18 +41,18 @@ local config = function()
 
   local ok, mason_null_ls = pcall(require, "mason-null-ls")
   if ok then
-     mason_null_ls.setup({
-       ensure_installed = {
-         "gofumpt",
-         "goimports",
-         "prettier",
-         "stylua",
-         "black",
-         "flake8",
-         "terraform_fmt",
-       },
-       automatic_installation = true,
-     })
+    mason_null_ls.setup({
+      ensure_installed = {
+        "gofumpt",
+        "goimports",
+        "prettier",
+        "stylua",
+        "black",
+        "flake8",
+        "terraform_fmt",
+      },
+      automatic_installation = true,
+    })
   end
 end
 

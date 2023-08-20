@@ -1,15 +1,5 @@
 local config = function()
-  local helpers = require("config.helpers")
   local icons = require("config.settings").icons
-
-  local lualine = helpers.require("lualine")
-  if not lualine then
-    return
-  end
-
-  local hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
-  end
 
   local diagnostics = {
     "diagnostics",
@@ -31,7 +21,9 @@ local config = function()
       modified = icons.diff.modified,
       removed = icons.diff.removed,
     },
-    cond = hide_in_width,
+    cond = function()
+      return vim.fn.winwidth(0) > 80
+    end,
   }
 
   local mode = {
@@ -93,7 +85,7 @@ local config = function()
     return icons.lualine.spaces .. " " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
   end
 
-  lualine.setup({
+  require("lualine").setup({
     options = {
       globalstatus = true,
       icons_enabled = true,
