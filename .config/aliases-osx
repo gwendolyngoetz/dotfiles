@@ -1,0 +1,5 @@
+# vim: ft=sh
+
+if [[ -f '/opt/homebrew/bin/fd' ]]; then
+    alias fdfind='fd'
+fi
