@@ -1,6 +1,6 @@
 local helpers = require("config.helpers")
 local icons = require("config.settings").icons
-local navic = helpers.require("nvim-navic")
+local navic = require("nvim-navic")
 local M = {}
 
 local filetype_depth_settings = {
@@ -62,13 +62,13 @@ local get_filename = function()
 end
 
 local get_navic = function()
-  if not navic then
+  if not navic or not navic.is_available() then
     return ""
   end
 
   local navic_location = navic.get_location(filetype_depth_settings[vim.bo.filetype])
 
-  if not navic.is_available() or navic_location == "error" then
+  if not navic_location == "error" then
     return ""
   end
 
