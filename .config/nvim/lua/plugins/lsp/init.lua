@@ -54,6 +54,8 @@ local config = function()
       automatic_installation = true,
     })
   end
+
+  require("plugins.lsp.handlers").setup()
 end
 
 return {
