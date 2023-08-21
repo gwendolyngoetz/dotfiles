@@ -5,6 +5,8 @@ local config = function()
       extra = false,
     },
   })
+
+  require("config.helpers").nmap("<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>")
 end
 
 return {
