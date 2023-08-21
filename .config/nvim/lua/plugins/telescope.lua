@@ -24,6 +24,9 @@ local config = function()
       },
     },
   })
+
+  -- Enable telescope fzf native, if installed
+  pcall(require("telescope").load_extension, "fzf")
 end
 
 return {
@@ -33,6 +36,13 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        cond = function()
+          return vim.fn.executable("make") == 1
+        end,
+      },
     },
     config = config,
   },
