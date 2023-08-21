@@ -40,4 +40,8 @@ M.tbl_merge = function(...)
   return retval
 end
 
+M.nmap = function(lhs, rhs)
+  vim.api.nvim_set_keymap("n", lhs, rhs, { silent = true })
+end
+
 return M

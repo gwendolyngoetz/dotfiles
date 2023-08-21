@@ -38,7 +38,7 @@ local options = {
   termguicolors  = true,
   timeoutlen     = 1000,
   undofile       = true,
-  updatetime     = 300,
+  updatetime     = 250,
   wrap           = false,
   writebackup    = false,
 }
@@ -46,6 +46,10 @@ local options = {
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+-- Must set leader and localleader before plugins
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.opt.fillchars.eob = " "
 vim.opt.iskeyword:append("-")
@@ -55,3 +59,13 @@ vim.opt.whichwrap:append("<,>,[,]")
 
 vim.cmd("let g:loaded_perl_provider = 0")
 vim.cmd("let g:loaded_ruby_provider = 0")
+
+-- Only used below in vim.opt.foldtext
+function _G.custom_foldtext()
+  local line = vim.fn.getline(vim.v.foldstart)
+  return "" .. string.sub(line, 2)
+end
+
+vim.opt.foldtext = "v:lua.custom_foldtext()"
+vim.opt.fillchars = { eob = "-", fold = " " }
+--vim.opt.viewoptions:remove("options")

@@ -5,7 +5,6 @@ local opts = { silent = true }
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
 
 -- Modes
 --   normal_mode = "n",
@@ -63,8 +62,7 @@ keymap("v", "p", '"_dP', opts)
 -- Folding
 keymap("n", "<leader>a", "za", opts)
 
--- Visual --
--- Stay in indent mode
+-- Visual - Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
@@ -77,7 +75,6 @@ keymap("n", "<C-c>", "<cmd>ColorizerToggle<CR>", opts)
 keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 
 -- Telescope
---vim.api.nvim_del_keymap("n", "<leader>f")
 keymap("n", "<leader>f", "<Nop>", opts)
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", opts)
 keymap("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", opts)
@@ -88,6 +85,3 @@ keymap("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
 
 -- Git
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
-
--- Comment
-keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
