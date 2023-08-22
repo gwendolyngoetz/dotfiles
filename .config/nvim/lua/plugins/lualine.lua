@@ -34,7 +34,7 @@ local config = function()
   }
 
   local lspinfo = function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     if #clients > 0 then
       return icons.lualine.language_server .. #clients

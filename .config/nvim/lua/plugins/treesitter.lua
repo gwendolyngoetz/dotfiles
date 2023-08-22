@@ -39,13 +39,13 @@ end
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    commit = "d9104a1",
+    commit = "46dee16",
     build = ":TSUpdate",
     config = config,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    commit = "52f1f32",
+    commit = "5627216",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
