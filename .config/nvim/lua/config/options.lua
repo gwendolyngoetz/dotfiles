@@ -59,6 +59,7 @@ vim.opt.whichwrap:append("<,>,[,]")
 
 vim.cmd("let g:loaded_perl_provider = 0")
 vim.cmd("let g:loaded_ruby_provider = 0")
+vim.cmd("let g:python3_host_prog = '/usr/bin/python'")
 
 -- Only used below in vim.opt.foldtext
 function _G.custom_foldtext()
