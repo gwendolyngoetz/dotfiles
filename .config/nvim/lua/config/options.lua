@@ -64,7 +64,7 @@ vim.cmd("let g:python3_host_prog = '/usr/bin/python'")
 -- Only used below in vim.opt.foldtext
 function _G.custom_foldtext()
   local line = vim.fn.getline(vim.v.foldstart)
-  return "" .. string.sub(line, 2)
+  return "" .. string.sub(tostring(line), 2)
 end
 
 vim.opt.foldtext = "v:lua.custom_foldtext()"
