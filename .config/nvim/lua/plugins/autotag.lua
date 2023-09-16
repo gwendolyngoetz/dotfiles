@@ -6,7 +6,7 @@ return {
   {
     "windwp/nvim-ts-autotag",
     commit = "6be1192",
-    enabled = false,
+    enabled = true,
     config = config,
   },
 }

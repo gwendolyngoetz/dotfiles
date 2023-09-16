@@ -11,7 +11,7 @@ return {
   {
     "windwp/nvim-autopairs",
     commit = "e8f7dd7",
-    enabled = false,
+    enabled = true,
     config = config,
   },
 }
