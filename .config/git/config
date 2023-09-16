@@ -30,6 +30,7 @@
     bl = branch -v
     co = commit -m
     dt = difftool -d
+    dc = !~/.config/git/scripts/diff-commits.sh
     l  = !git --no-pager log -30
     sl = stash list
     st = status
