@@ -100,10 +100,12 @@ M.icons = {
   },
   cmp = {
     lsp = "󰊪",
-    lua = "",
+    lua = "",
     snippets = "",
     buffer = "",
     path = "",
+    treesitter = "",
+    nerdfont = "",
   },
   lualine = {
     language_server = "󰒋 ",
