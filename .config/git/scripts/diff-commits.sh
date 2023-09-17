@@ -29,6 +29,11 @@ fi
 
 echo "Comparing commit ${commit_older} and ${commit_newer}"
 
-git difftool -d "${commit_older}" "${commit_newer}"
+if [[ -z "${SSH_CLIENT}" ]]; then
+    git difftool -d "${commit_older}" "${commit_newer}"
+else
+    git diff "${commit_older}" "${commit_newer}"
+fi
+
 
 
