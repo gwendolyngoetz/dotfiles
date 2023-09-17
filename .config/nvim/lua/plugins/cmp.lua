@@ -74,6 +74,7 @@ local config = function()
           luasnip = icons.cmp.snippets,
           buffer = icons.cmp.buffer,
           path = icons.cmp.path,
+          nvim_lua = icons.cmp.lua,
         })[entry.source.name]
         return vim_item
       end,
@@ -106,7 +107,6 @@ return {
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
@@ -120,10 +120,6 @@ return {
   {
     "hrsh7th/cmp-path",
     commit = "91ff86c",
-  },
-  {
-    "hrsh7th/cmp-cmdline",
-    commit = "8ee981b",
   },
   {
     "saadparwaiz1/cmp_luasnip",
