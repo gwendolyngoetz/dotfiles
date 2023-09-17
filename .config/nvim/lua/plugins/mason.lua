@@ -85,7 +85,6 @@ return {
     commit = "6148b51",
     dependencies = {
       "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
     },
   },
 }
