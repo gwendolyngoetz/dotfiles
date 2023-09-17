@@ -68,6 +68,7 @@ local config = {
     -- 💀
     "-jar",
     vim.fn.glob(mason_packages_dir .. "/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    --vim.fn.glob(mason_packages_dir .. "/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar"),
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
     -- eclipse.jdt.ls installation                                           the actual version
