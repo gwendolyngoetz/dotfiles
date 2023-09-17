@@ -17,13 +17,13 @@ class WeatherData:
         isdaytime = current["dt"] >= current["sunrise"] and current["dt"] <= current["sunset"]
         weather_icon = self.get_weather_icon(current["weather"][0]["id"], isdaytime)
 
-        self.name = self.Info("", "City", "Seattle")
+        self.name = self.Info("󰋜", "City", "Seattle")
         self.weather = self.Info(weather_icon, "Weather", current["weather"][0]["main"])
         self.temp = self.Info("", "Temp", self.format_temp(current["temp"]))
         self.temp_high = self.Info("", "High", self.format_temp(high_temp), "#d30000")
         self.temp_low = self.Info("", "Low", self.format_temp(low_temp), "#0080ff")
         self.humidity = self.Info("", "Humidity", self.format_percentage(current["humidity"]))
-        self.date = self.Info("", "Date", self.format_date(current["dt"]))
+        self.date = self.Info("󰃶", "Date", self.format_date(current["dt"]))
         self.sunrise = self.Info(" ", "Sunrise", self.format_time(current["sunrise"]))
         self.sunset = self.Info(" ", "Sunset", self.format_time(current["sunset"]))
 
@@ -71,16 +71,28 @@ class WeatherData:
         # Foggy
         if weathercode in [701, 741]:
             return " " if isdaytime else " "
-        # Needs icons
-        # 721-haze|731-dust|751-sand|761-dust|762-volcanic-ash|771-squall
-        if weathercode in [721, 731, 751, 761, 762, 771]:
-            return weathercode
         # Tornado
         if weathercode in [781]:
             return "󰼸"
         # Smoke
         if weathercode in [711]:
-            return "󱞙"
+            return "󰵼"
+        # Needs icons
+        # Haze
+        if weathercode in [721]:
+            return "haze"
+        # Sand
+        if weathercode in [751]:
+            return "sand"
+        # Dust
+        if weathercode in [731, 761]:
+            return "dust"
+        # Volcanic Ash
+        if weathercode in [762]:
+            return "volcanic-ash"
+        # Squall
+        if weathercode in [771]:
+            return "squall"
 
         return weathercode
 
@@ -97,28 +109,28 @@ class WeatherData:
             return "" if isdaytime else ""
         # Cloudy
         if weathercode in [801, 802, 803, 804]:
-            return "" if isdaytime else ""
+            return "" if isdaytime else ""
         # Rain
         if weathercode in [500, 501, 502, 503, 504, 511, 520, 521, 522, 531]:
-            return ""
+            return "󰖗"
         # Showers
         if weathercode in [300, 301, 302, 310, 311, 312, 313, 314, 321]:
-            return ""
+            return ""
         # Thunder and Lightning
         if weathercode in [200, 201, 202, 210, 211, 212, 221, 230, 231, 232]:
-            return ""
+            return "󰖓"
         # Snow
         if weathercode in [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622]:
             return ""
         # Foggy
         if weathercode in [701, 741]:
-            return ""
+            return "󰖑"
         # Tornado
         if weathercode in [781]:
             return "󰼸"
         # Smoke
         if weathercode in [711]:
-            return "󱞙"
+            return "󰵼"
         # Needs icons
         # Haze
         if weathercode in [721]:
