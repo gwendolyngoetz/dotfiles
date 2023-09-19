@@ -32,6 +32,7 @@
     dt = difftool -d
     dc = !~/.config/git/scripts/diff-commits.sh
     l  = !git --no-pager log -30
+    patch = add --patch
     sl = stash list
     st = status
     #sw = !git branch -v | sed 's/\\ \\+/ /g' | cut -d' ' -f2 | sort | fzf | xargs git switch
