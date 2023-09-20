@@ -27,11 +27,15 @@
     au = add -u
     bd = !~/.config/git/scripts/branch-delete.sh
     bl = branch -v
+    cc = !~/.config/git/scripts/checkout-commit.sh
     co = commit -m
     dt = difftool -d
     dc = !~/.config/git/scripts/diff-commits.sh
     l  = !git --no-pager log -30
+    linkgh = !~/.config/git/scripts/open-on-github.sh
+    linkpr = !~/.config/git/scripts/open-pr-link.sh
     patch = add --patch
+    rollback = !~/.config/git/scripts/rollback-to-commit.sh
     sl = stash list
     st = status
     sw = !~/.config/git/scripts/branch-switch.sh
