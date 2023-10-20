@@ -4,7 +4,7 @@ local config = function()
 
   local servers = {
     "bashls",
-    "csharp_ls",
+    --"csharp_ls",
     "cssls",
     "gopls",
     "html",
@@ -12,7 +12,7 @@ local config = function()
     "jsonls",
     "lua_ls",
     "ocamllsp",
-    --"omnisharp",
+    "omnisharp",
     "pyright",
     "rust_analyzer",
     "sqlls",
