@@ -2,16 +2,14 @@
 
 readonly session_name="${1}"
 readonly pane_index="${2}"
+readonly window_panes="${3}"
 
-readonly color_fg="#bb9af7"
-readonly color_bg="#282936"
+readonly color_fg="#8375b2"
 
-#readonly pill_open="#[fg=${color_fg} bg=${color_bg}]"
-readonly pill_close="#[fg=${color_fg} bg=${color_bg}]"
-readonly pill_color="#[fg=${color_bg} bg=${color_fg}]"
-readonly pill_clear="#[fg=${color_fg} bg=${color_bg}]"
+pane_info=""
 
-readonly session_pill="${pill_color} ${session_name}${pill_clear}"
-readonly pane_pill="${pill_color}:${pane_index}${pill_close}${pill_clear}"
+if [[ "${window_panes}" != "1" ]]; then
+    pane_info=" [${pane_index}:${window_panes}]"
+fi
 
-echo "${session_pill}${pane_pill} ${pill_clear}"
+echo "#[fg=${color_fg},bold]${session_name}${pane_info} "
