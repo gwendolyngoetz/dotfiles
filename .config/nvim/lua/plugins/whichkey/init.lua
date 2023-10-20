@@ -59,7 +59,6 @@ local config = function()
 
   mappings["g"] = {
     name = "Git",
-    g = { functions.git.lazygit, "Lazygit" },
     j = { functions.git.next_hunk, "Next Hunk" },
     k = { functions.git.prev_hunk, "Prev Hunk" },
     l = { functions.git.blame_line, "Blame" },

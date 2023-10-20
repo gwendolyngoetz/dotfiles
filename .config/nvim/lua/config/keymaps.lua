@@ -82,6 +82,3 @@ keymap("n", "<leader>fb", "<cmd>Telescope buffers<CR>", opts)
 keymap("n", "<leader>fm", "<cmd>lua require('telescope').extensions.notify.notify()<CR>", opts)
 keymap("n", "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>", opts)
 keymap("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
-
--- Git
-keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)

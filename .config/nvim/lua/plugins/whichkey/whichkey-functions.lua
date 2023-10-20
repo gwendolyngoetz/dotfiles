@@ -92,10 +92,6 @@ local M = {
   },
 
   git = {
-    lazygit = function()
-      _LAZYGIT_TOGGLE()
-    end,
-
     next_hunk = function()
       require("gitsigns").next_hunk()
     end,
