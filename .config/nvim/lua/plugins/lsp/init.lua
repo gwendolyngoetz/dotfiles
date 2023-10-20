@@ -61,7 +61,7 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    commit = "deade69",
+    commit = "2a101fb",
   },
   {
     "jose-elias-alvarez/null-ls.nvim",

@@ -61,12 +61,12 @@ end
 return {
   {
     "williamboman/mason.nvim",
-    commit = "a51c2d0",
+    commit = "d66c60e",
     config = config,
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    commit = "2997f46",
+    commit = "e270506",
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
