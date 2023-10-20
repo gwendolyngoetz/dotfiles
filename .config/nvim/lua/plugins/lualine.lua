@@ -82,7 +82,9 @@ local config = function()
   end
 
   local spaces = function()
-    return icons.lualine.spaces .. " " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+    return icons.lualine.spaces .. " " .. vim.api.nvim_get_option_value("shiftwidth", {
+      buf = 0,
+    })
   end
 
   require("lualine").setup({
