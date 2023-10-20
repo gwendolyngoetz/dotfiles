@@ -11,10 +11,6 @@ local M = {
     close_buffer = function()
       vim.api.nvim_command("Bdelete!")
     end,
-
-    no_highlight = function()
-      vim.api.nvim_command("nohlsearch")
-    end,
   },
 
   telescope = {

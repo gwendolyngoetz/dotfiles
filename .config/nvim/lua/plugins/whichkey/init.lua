@@ -25,7 +25,6 @@ local config = function()
     b = { functions.telescope.show_buffers, "Buffers" },
     c = { functions.global.close_buffer, "Close Buffer" },
     e = { "<cmd>Neotree toggle<CR>", "Explorer" },
-    h = { functions.global.no_highlight, "No Highlight" },
     q = { functions.global.quit, "Quit" },
     w = { functions.global.save, "Save" },
   }
