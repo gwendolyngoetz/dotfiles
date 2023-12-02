@@ -50,7 +50,8 @@ function workon {
         --exact \
         --prompt="Repo> ")
 
-    cd "${base_dir}/${dirname}" || return
+    session_name="$(basename "${dirname}")"
+    tmux new-session -A -s "${session_name}" -c "${base_dir}/${dirname}" 
 }
 
 function cd_git_root {
