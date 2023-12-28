@@ -50,7 +50,6 @@ fi
 
 # Go
 if [ -f "$HOME/.golang/bin/go" ]; then
-    export GOROOT="$HOME/.golang/bin/go"
     export GOPATH="$HOME/.golang" 
     export PATH="$GOPATH/bin:$PATH"
 fi
