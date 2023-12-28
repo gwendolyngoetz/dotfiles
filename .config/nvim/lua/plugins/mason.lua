@@ -77,7 +77,7 @@ return {
     commit = "ae0c5fa",
     dependencies = {
       "williamboman/mason.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
     },
   },
   {

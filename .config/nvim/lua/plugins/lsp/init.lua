@@ -9,7 +9,7 @@ local config = function()
     sources = {
       formatting.prettier.with({
         extra_filetypes = { "toml" },
-        extra_args = { "--print-width", "120", "--no-semi", "--single-quote", "--jsx-single-quote" },
+        extra_args = { "--print-width", "120", "--single-quote", "--jsx-single-quote" },
       }),
       formatting.black.with({
         extra_args = { "--fast", "--line-length", "120" },
@@ -64,8 +64,8 @@ return {
     commit = "2a101fb",
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    commit = "db09b6c",
+    "nvimtools/none-ls.nvim",
+    commit = "de747e0",
     config = config,
   },
 }
