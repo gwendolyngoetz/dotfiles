@@ -57,7 +57,7 @@ end
 return {
   {
     "rcarriga/nvim-dap-ui",
-    commit = "c020f66",
+    commit = "34160a7",
     dependencies = {
       "mfussenegger/nvim-dap",
     },

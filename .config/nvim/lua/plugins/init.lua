@@ -5,21 +5,21 @@ return {
   },
   {
     "nvim-lua/plenary.nvim",
-    commit = "bda256f",
+    commit = "55d9fe8",
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    commit = "7f62520",
+    commit = "1277b4a",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
   },
   {
-    "kyazdani42/nvim-web-devicons",
-    commit = "9ab9b0b",
+    "nvim-tree/nvim-web-devicons",
+    commit = "cff25ce",
   },
   {
     "famiu/bufdelete.nvim",
-    commit = "07d1f8b",
+    commit = "0b9c0f1",
   },
 }

@@ -17,7 +17,7 @@ end
 return {
   {
     "RRethy/vim-illuminate",
-    commit = "a290727",
+    commit = "3bd2ab6",
     config = config,
   },
 }

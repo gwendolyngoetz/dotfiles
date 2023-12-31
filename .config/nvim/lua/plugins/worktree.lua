@@ -13,7 +13,7 @@ end
 return {
   {
     "theprimeagen/git-worktree.nvim",
-    commit = "d7f4e25",
+    commit = "f247308",
     config = config,
   },
 }

@@ -21,7 +21,7 @@ end
 return {
   {
     "jinh0/eyeliner.nvim",
-    commit = "a6c05ed",
+    commit = "c540d58",
     config = config,
   },
 }

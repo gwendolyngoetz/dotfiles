@@ -3,7 +3,7 @@ local config = function()
 
   notify.setup({
     background_colour = "Normal",
-    max_width = 40,
+    max_width = 60,
   })
 
   vim.notify = notify
@@ -12,7 +12,7 @@ end
 return {
   {
     "rcarriga/nvim-notify",
-    commit = "ea9c8ce",
+    commit = "ebcdd82",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },

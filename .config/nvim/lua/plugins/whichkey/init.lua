@@ -118,7 +118,7 @@ end
 return {
   {
     "folke/which-key.nvim",
-    commit = "d871f2b",
+    commit = "4433e5e",
     config = config,
   },
 }

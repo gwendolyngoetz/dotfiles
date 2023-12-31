@@ -25,7 +25,7 @@ end
 return {
   {
     "lewis6991/gitsigns.nvim",
-    commit = "dc2962f",
+    commit = "d195f0c",
     config = config,
   },
 }

@@ -61,12 +61,12 @@ end
 return {
   {
     "williamboman/mason.nvim",
-    commit = "d66c60e",
+    commit = "a09da6a",
     config = config,
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    commit = "e270506",
+    commit = "56e435e",
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
@@ -74,7 +74,7 @@ return {
   },
   {
     "jay-babu/mason-null-ls.nvim",
-    commit = "ae0c5fa",
+    commit = "d1f7258",
     dependencies = {
       "williamboman/mason.nvim",
       "nvimtools/none-ls.nvim",
@@ -82,7 +82,7 @@ return {
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
-    commit = "6148b51",
+    commit = "9e82ded",
     dependencies = {
       "williamboman/mason.nvim",
     },

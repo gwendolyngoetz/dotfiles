@@ -17,7 +17,6 @@ M.non_code_path_text = {
 M.winbar_filetype_exclude = {
   "help",
   "startify",
-  "packer",
   "neogitstatus",
   "NvimTree",
   "Trouble",
@@ -27,7 +26,7 @@ M.winbar_filetype_exclude = {
 }
 
 local get_buf_option = function(opt)
-  local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
+  local status_ok, buf_option = pcall(vim.api.nvim_get_option_value, 0, opt)
   if not status_ok then
     return nil
   else

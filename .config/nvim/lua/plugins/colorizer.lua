@@ -1,17 +1,11 @@
 local config = function()
   require("colorizer").setup({
-    css = {
-      rgb_fn = true,
-      hsl_fn = true,
-      RRGGBBAA = true,
-    },
+    "css",
     "javascript",
-    html = {
-      mode = "foreground",
-      rgb_fn = true,
-      hsl_fn = true,
-      RRGGBBAA = true,
-    },
+    "html",
+  }, {
+    rgb_fn = true,
+    hsl_fn = true,
   })
 end
 

@@ -1,7 +1,6 @@
 local config = function()
   local helpers = require("config.helpers")
-  local settings = require("config.settings")
-  local icons = settings.icons
+  local icons = require("config.settings").icons
 
   local cmp = helpers.require("cmp")
   if not cmp then
@@ -13,8 +12,6 @@ local config = function()
     return
   end
 
-  require("luasnip.loaders.from_vscode").lazy_load()
-
   local has_word_before = function()
     local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -23,7 +20,7 @@ local config = function()
   cmp.setup({
     snippet = {
       expand = function(args)
-        luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        luasnip.lsp_expand(args.body)
       end,
     },
 
@@ -68,7 +65,7 @@ local config = function()
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
-        vim_item.kind = settings.icons.kind[vim_item.kind]
+        vim_item.kind = icons.kind[vim_item.kind]
         vim_item.menu = ({
           nvim_lsp = icons.cmp.lsp,
           luasnip = icons.cmp.snippets,
@@ -79,13 +76,13 @@ local config = function()
         return vim_item
       end,
     },
-    sources = {
+    sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
       { name = "luasnip" },
       { name = "buffer" },
       { name = "path" },
-    },
+    }),
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
@@ -100,10 +97,14 @@ local config = function()
   })
 end
 
+local configureLuasnip = function()
+  require("luasnip.loaders.from_vscode").lazy_load()
+end
+
 return {
   {
     "hrsh7th/nvim-cmp",
-    commit = "2743dd9",
+    commit = "538e37b",
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -122,12 +123,8 @@ return {
     commit = "91ff86c",
   },
   {
-    "saadparwaiz1/cmp_luasnip",
-    commit = "1809552",
-  },
-  {
     "hrsh7th/cmp-nvim-lsp",
-    commit = "44b16d1",
+    commit = "5af77f5",
   },
   {
     "hrsh7th/cmp-nvim-lua",
@@ -136,10 +133,15 @@ return {
   -- snippets
   {
     "L3MON4D3/LuaSnip",
-    commit = "a658ae2",
+    commit = "2463d68",
+    config = configureLuasnip,
+  },
+  {
+    "saadparwaiz1/cmp_luasnip",
+    commit = "05a9ab2",
   },
   {
     "rafamadriz/friendly-snippets",
-    commit = "7f6681b",
+    commit = "53d3df2",
   },
 }

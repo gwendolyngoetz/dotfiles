@@ -61,11 +61,11 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    commit = "2a101fb",
+    commit = "9bedcfe",
   },
   {
     "nvimtools/none-ls.nvim",
-    commit = "de747e0",
+    commit = "e7382de",
     config = config,
   },
 }

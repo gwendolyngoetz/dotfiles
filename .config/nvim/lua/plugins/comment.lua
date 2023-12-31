@@ -12,8 +12,7 @@ end
 return {
   {
     "numToStr/Comment.nvim",
-    commit = "176e85e",
+    commit = "0236521",
     config = config,
-    lazy = false,
   },
 }

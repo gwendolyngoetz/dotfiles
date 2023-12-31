@@ -110,9 +110,9 @@ end
 return {
   {
     "nvim-lualine/lualine.nvim",
-    commit = "05d78e9",
+    commit = "566b703",
     dependencies = {
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
     },
     config = config,
   },

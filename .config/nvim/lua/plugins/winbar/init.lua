@@ -16,7 +16,7 @@ end
 return {
   {
     "SmiteshP/nvim-navic",
-    commit = "6e8850a",
+    commit = "8649f69",
     dependencies = {
       "neovim/nvim-lspconfig",
     },
