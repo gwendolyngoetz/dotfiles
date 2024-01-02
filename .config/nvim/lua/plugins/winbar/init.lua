@@ -6,7 +6,18 @@ local config = function()
     separator = " " .. icons.chevron.right .. " ",
   })
 
-  vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
+  vim.api.nvim_create_autocmd({
+    "CursorMoved",
+    --"BufWinEnter",
+    "CursorHoldI",
+    "CursorHold",
+    "BufReadPost",
+    "BufFilePost",
+    "InsertEnter",
+    "BufWritePost",
+    "TabClosed",
+    "TabEnter",
+  }, {
     callback = function()
       require("plugins.winbar.winbar-mod").get_winbar()
     end,

@@ -10,14 +10,11 @@ local filetype_depth_settings = {
   },
 }
 
-M.non_code_path_text = {
-  "neo-tree",
-}
-
 M.winbar_filetype_exclude = {
   "help",
   "startify",
   "neogitstatus",
+  "neo-tree",
   "NvimTree",
   "Trouble",
   "lir",
@@ -78,21 +75,8 @@ local get_navic = function()
   end
 end
 
-local skip_non_code_path_text = function()
-  if vim.tbl_contains(M.non_code_path_text, vim.bo.filetype) then
-    return true
-  end
-
-  return false
-end
-
-local exclude_block_list = function()
-  if vim.tbl_contains(M.winbar_filetype_exclude, vim.bo.filetype) then
-    vim.opt_local.winbar = nil
-    return true
-  end
-
-  return false
+local exclude = function()
+  return vim.tbl_contains(M.winbar_filetype_exclude or {}, vim.bo.filetype)
 end
 
 local get_code_path_text = function()
@@ -120,11 +104,7 @@ local get_code_path_text = function()
 end
 
 M.get_winbar = function()
-  if exclude_block_list() then
-    return
-  end
-
-  if skip_non_code_path_text() then
+  if exclude() then
     return
   end
 
