@@ -50,4 +50,11 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    commit = "1277b4a",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
 }

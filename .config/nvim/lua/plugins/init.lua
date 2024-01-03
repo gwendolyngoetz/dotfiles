@@ -8,13 +8,6 @@ return {
     commit = "55d9fe8",
   },
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    commit = "1277b4a",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
-  {
     "nvim-tree/nvim-web-devicons",
     commit = "cff25ce",
   },
