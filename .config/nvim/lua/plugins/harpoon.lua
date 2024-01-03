@@ -7,6 +7,7 @@ return {
   {
     "ThePrimeagen/harpoon",
     commit = "ccae1b9",
+    branch = "harpoon2",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
