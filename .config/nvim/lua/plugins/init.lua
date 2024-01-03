@@ -1,9 +1,5 @@
 return {
   {
-    "nvim-lua/popup.nvim",
-    commit = "b7404d3",
-  },
-  {
     "nvim-lua/plenary.nvim",
     commit = "55d9fe8",
   },
