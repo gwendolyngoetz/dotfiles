@@ -27,7 +27,7 @@ fi
 
 branch_args=(-d)
 
-if [[ "${1}" == "--force" ]]; then
+if [[ "${1}" == "-f" ]]; then
     branch_args=(-D) 
 fi
 
