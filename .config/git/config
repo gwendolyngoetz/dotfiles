@@ -27,6 +27,7 @@
     au = add -u
     bd = !~/.config/git/scripts/branch-delete.sh
     bl = branch -v
+    bp = !~/.config/git/scripts/prune-branches.sh
     cc = !~/.config/git/scripts/checkout-commit.sh
     co = commit -m
 	di = "!f() { cd -- \"${GIT_PREFIX:-.}\"; GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
@@ -36,6 +37,7 @@
     linkgh = !~/.config/git/scripts/open-on-github.sh
     linkpr = !~/.config/git/scripts/open-pr-link.sh
     patch = add --patch
+    pr = !~/.config/git/scripts/create-pr.sh
     rollback = !~/.config/git/scripts/rollback-to-commit.sh
     sl = stash list
     st = status
