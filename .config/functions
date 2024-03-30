@@ -1,9 +1,9 @@
 # vim: ft=bash
 function set_prompt {
     if [[ "$(hostname -s)" != "hestia" ]]; then
-        PS1=$($HOME/.local/bin/prompt --showHostname)
+        PS1=$($HOME/.local/bin/prompt prompt --showHostname)
     else
-        PS1=$($HOME/.local/bin/prompt)
+        PS1=$($HOME/.local/bin/prompt prompt)
     fi
 }
 
@@ -89,6 +89,14 @@ function mkenv {
     if [[ ! -d ./.venv ]] ; then
         python -m venv ./.venv
         source ./.venv/bin/activate
+    fi
+}
+
+function safe_rf {
+    if [[ "$*" == "-rf $HOME" ]]; then
+        echo "Prevent dangerous operation: rf -rf \$HOME"
+    else
+        /bin/rf "$@"
     fi
 }
 
