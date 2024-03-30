@@ -40,7 +40,7 @@ bindsym $mod+v split toggle
 bindsym $mod+f fullscreen toggle
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle border normal
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
