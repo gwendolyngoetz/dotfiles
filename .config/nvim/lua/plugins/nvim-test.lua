@@ -17,7 +17,7 @@ return {
     dependencies = {
       {
         "akinsho/toggleterm.nvim",
-        commit = "e3805fe",
+        commit = "193786e",
       },
     },
   },

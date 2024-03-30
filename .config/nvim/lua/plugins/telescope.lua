@@ -32,7 +32,7 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
-    commit = "3466159",
+    commit = "1bb28df",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",

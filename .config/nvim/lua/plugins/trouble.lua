@@ -12,7 +12,7 @@ end
 return {
   {
     "folke/trouble.nvim",
-    commit = "f1168fe",
+    commit = "b9cf677",
     config = config,
   },
 }

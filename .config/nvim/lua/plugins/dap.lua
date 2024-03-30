@@ -100,7 +100,7 @@ return {
       "williamboman/mason.nvim",
       "jay-babu/mason-nvim-dap.nvim",
     },
-    commit = "f0dca67",
+    commit = "405df1d",
     config = config,
   },
 }

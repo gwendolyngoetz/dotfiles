@@ -18,9 +18,9 @@ local config = function()
         extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
       }),
       --formatting.google_java_format,
-      diagnostics.flake8.with({
-        extra_args = { "--max-line-length", "120" },
-      }),
+      --diagnostics.flake8.with({
+      --  extra_args = { "--max-line-length", "120" },
+      --}),
       formatting.goimports,
       formatting.gofumpt,
       formatting.terraform_fmt,
@@ -61,11 +61,11 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    commit = "9bedcfe",
+    commit = "f4619ab",
   },
   {
     "nvimtools/none-ls.nvim",
-    commit = "e7382de",
+    commit = "18910d0",
     config = config,
   },
 }

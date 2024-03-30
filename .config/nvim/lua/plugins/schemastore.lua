@@ -3,7 +3,7 @@ local config = function() end
 return {
   {
     "b0o/schemastore.nvim",
-    commit = "90149d1",
+    commit = "4ce271f",
     config = config,
     lazy = false,
   },

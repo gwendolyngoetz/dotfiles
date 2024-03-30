@@ -93,7 +93,7 @@ end
 return {
   {
     "hrsh7th/nvim-cmp",
-    commit = "538e37b",
+    commit = "97dc716",
     dependencies = {
       {
         "hrsh7th/cmp-buffer",
@@ -118,11 +118,11 @@ return {
       -- snippets
       {
         "L3MON4D3/LuaSnip",
-        commit = "2463d68",
+        commit = "a7a4b46",
         dependencies = {
           {
             "rafamadriz/friendly-snippets",
-            commit = "53d3df2",
+            commit = "dcd4a58",
           },
         },
       },

@@ -60,7 +60,7 @@ end
 return {
   {
     "scalameta/nvim-metals",
-    commit = "1e269f1",
+    commit = "4f9bf0c",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
