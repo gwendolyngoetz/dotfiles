@@ -1,16 +1,10 @@
 local config = function()
-  local helpers = require("config.helpers")
   local icons = require("config.settings").icons
 
-  local cmp = helpers.require("cmp")
-  if not cmp then
-    return
-  end
+  local cmp = require("cmp")
+  local luasnip = require("luasnip")
 
-  local luasnip = helpers.require("luasnip")
-  if not luasnip then
-    return
-  end
+  require("luasnip.loaders.from_vscode").lazy_load()
 
   local has_word_before = function()
     local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
@@ -96,51 +90,43 @@ local config = function()
   })
 end
 
-local configureLuasnip = function()
-  require("luasnip.loaders.from_vscode").lazy_load()
-end
-
 return {
   {
     "hrsh7th/nvim-cmp",
     commit = "538e37b",
     dependencies = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
+      {
+        "hrsh7th/cmp-buffer",
+        commit = "3022dbc",
+      },
+      {
+        "hrsh7th/cmp-path",
+        commit = "91ff86c",
+      },
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        commit = "5af77f5",
+      },
+      {
+        "hrsh7th/cmp-nvim-lua",
+        commit = "f12408b",
+      },
+      {
+        "saadparwaiz1/cmp_luasnip",
+        commit = "05a9ab2",
+      },
+      -- snippets
+      {
+        "L3MON4D3/LuaSnip",
+        commit = "2463d68",
+        dependencies = {
+          {
+            "rafamadriz/friendly-snippets",
+            commit = "53d3df2",
+          },
+        },
+      },
     },
     config = config,
-  },
-  {
-    "hrsh7th/cmp-buffer",
-    commit = "3022dbc",
-  },
-  {
-    "hrsh7th/cmp-path",
-    commit = "91ff86c",
-  },
-  {
-    "hrsh7th/cmp-nvim-lsp",
-    commit = "5af77f5",
-  },
-  {
-    "hrsh7th/cmp-nvim-lua",
-    commit = "f12408b",
-  },
-  -- snippets
-  {
-    "L3MON4D3/LuaSnip",
-    commit = "2463d68",
-    config = configureLuasnip,
-  },
-  {
-    "saadparwaiz1/cmp_luasnip",
-    commit = "05a9ab2",
-  },
-  {
-    "rafamadriz/friendly-snippets",
-    commit = "53d3df2",
   },
 }
