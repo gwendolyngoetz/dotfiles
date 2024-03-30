@@ -56,17 +56,17 @@
 *color21:      base06
 *color22:      base10
 
-#if WIDTH == 3840
-    Xft.dpi: 232
-    Xft.autohint: 0
-    Xft.lcdfilter: lcddefault
-    Xft.hintstyle: hintfull
-    Xft.hinting: 1
-    Xft.antialias: 1
-    Xft.rgba: rgb
-    polybar.height: 60
-    rofi.dpi: 232
-#endif
+!#if WIDTH == 3840
+!    Xft.dpi: 232
+!    Xft.autohint: 0
+!    Xft.lcdfilter: lcddefault
+!    Xft.hintstyle: hintfull
+!    Xft.hinting: 1
+!    Xft.antialias: 1
+!    Xft.rgba: rgb
+!    polybar.height: 60
+!    rofi.dpi: 232
+!#endif
 
 
 ! urxvt settings
