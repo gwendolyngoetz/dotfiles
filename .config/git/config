@@ -33,7 +33,7 @@
 	di = "!f() { cd -- \"${GIT_PREFIX:-.}\"; GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
     dt = difftool -d
     dc = !~/.config/git/scripts/diff-commits.sh
-    l  = !git --no-pager log -30
+    l  = !git --no-pager log -16
     linkgh = !~/.config/git/scripts/open-on-github.sh
     linkpr = !~/.config/git/scripts/open-pr-link.sh
     patch = add --patch
