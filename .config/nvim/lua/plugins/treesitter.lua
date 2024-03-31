@@ -1,5 +1,7 @@
 local config = function()
   require("nvim-treesitter.configs").setup({
+    auto_install = true,
+    sync_install = false,
     ensure_installed = {
       "bash",
       "c_sharp",
@@ -22,6 +24,7 @@ local config = function()
       "yaml",
     },
     ignore_install = { "" },
+    modules = {},
     highlight = {
       enable = true,
       disable = { "css" },

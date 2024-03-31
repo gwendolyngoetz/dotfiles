@@ -1,10 +1,7 @@
--- Shorten function name
-local keymap = vim.api.nvim_set_keymap
-
-local opts = { silent = true }
+--local { desc = "" } = { silent = true }
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+--vim.keymap.set("", "<Space>", "<Nop>", { desc = "" })
 
 -- Modes
 --   normal_mode = "n",
@@ -15,70 +12,86 @@ keymap("", "<Space>", "<Nop>", opts)
 --   command_mode = "c",
 
 -- Normal --
-keymap("n", "<Up>", "<Nop>", opts)
-keymap("n", "<Down>", "<Nop>", opts)
-keymap("n", "<Left>", "<Nop>", opts)
-keymap("n", "<Right>", "<Nop>", opts)
-keymap("i", "<Up>", "<Nop>", opts)
-keymap("i", "<Down>", "<Nop>", opts)
-keymap("i", "<Left>", "<Nop>", opts)
-keymap("i", "<Right>", "<Nop>", opts)
+vim.keymap.set("n", "<Up>", "<Nop>")
+vim.keymap.set("n", "<Down>", "<Nop>")
+vim.keymap.set("n", "<Left>", "<Nop>")
+vim.keymap.set("n", "<Right>", "<Nop>")
+vim.keymap.set("i", "<Up>", "<Nop>")
+vim.keymap.set("i", "<Down>", "<Nop>")
+vim.keymap.set("i", "<Left>", "<Nop>")
+vim.keymap.set("i", "<Right>", "<Nop>")
 
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
-keymap("n", "<Left>", "<C-w>h", opts)
-keymap("n", "<Down>", "<C-w>j", opts)
-keymap("n", "<Up>", "<C-w>k", opts)
-keymap("n", "<Right>", "<C-w>l", opts)
+vim.keymap.set("n", "<Left>", "<C-w>h")
+vim.keymap.set("n", "<Down>", "<C-w>j")
+vim.keymap.set("n", "<Up>", "<C-w>k")
+vim.keymap.set("n", "<Right>", "<C-w>l")
 
 -- Resize with arrows
-keymap("n", "<C-Up>", "<cmd>resize -2<CR>", opts)
-keymap("n", "<C-Down>", "<cmd>resize +2<CR>", opts)
-keymap("n", "<C-Left>", "<cmd>vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", "<cmd>vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<CR>", { desc = "Resize up" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<CR>", { desc = "Resize down" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Resize left" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Resize right" })
 
 -- Navigate buffers
-keymap("n", "<S-l>", "<cmd>bnext<CR>", opts)
-keymap("n", "<S-h>", "<cmd>bprevious<CR>", opts)
+vim.keymap.set("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Navigate to next buffer" })
+vim.keymap.set("n", "<S-h>", "<cmd>bprevious<CR>", { desc = "Navigate to the previous buffer" })
 
 -- Move text up and down
-keymap("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", opts)
+vim.keymap.set("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line up" })
+vim.keymap.set("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line down" })
 
 -- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
+vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear highlights" })
 
 -- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
-keymap("n", "<S-w>", "<cmd>Bdelete<CR>", opts)
+vim.keymap.set("n", "<S-q>", "<cmd>Bdelete!<CR>", { desc = "Close buffer" })
+vim.keymap.set("n", "<S-w>", "<cmd>Bdelete<CR>", { desc = "Close buffer" })
 
 -- Better paste
-keymap("v", "p", '"_dP', opts)
+vim.keymap.set("v", "p", '"_dP', { desc = "Paste" })
 
 -- Folding
-keymap("n", "<leader>a", "za", opts)
+vim.keymap.set("n", "<leader>a", "za", { desc = "Toggle Fold" })
 
 -- Visual - Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+vim.keymap.set("v", "<", "<gv", { desc = "Outdent" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent" })
+
+-- Diagnostics
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Plugins --
 
 -- Colorizer
-keymap("n", "<C-c>", "<cmd>ColorizerToggle<CR>", opts)
+vim.keymap.set("n", "<C-c>", "<cmd>ColorizerToggle<CR>", { desc = "Toggle Colorizer" })
 
 -- Tree
-keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
 
 -- Telescope
-keymap("n", "<leader>f", "<Nop>", opts)
-keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", opts)
-keymap("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fb", "<cmd>Telescope buffers<CR>", opts)
-keymap("n", "<leader>fm", "<cmd>lua require('telescope').extensions.notify.notify()<CR>", opts)
-keymap("n", "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>", opts)
-keymap("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
+vim.keymap.set("n", "<leader>f", "<Nop>", { desc = "" })
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find in files" })
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Show buffers" })
+vim.keymap.set(
+  "n",
+  "<leader>fm",
+  "<cmd>lua require('telescope').extensions.notify.notify()<CR>",
+  { desc = "Show messages" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>fd",
+  "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>",
+  { desc = "Show diagnostics" }
+)
+vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", { desc = "Show all diagnostics" })

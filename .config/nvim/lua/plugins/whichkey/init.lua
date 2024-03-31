@@ -118,6 +118,7 @@ end
 return {
   {
     "folke/which-key.nvim",
+    event = "VimEnter",
     commit = "4433e5e",
     config = config,
   },
