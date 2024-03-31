@@ -20,27 +20,23 @@ else
 end
 
 -- Find root of project
-local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
-local root_dir = require("jdtls.setup").find_root(root_markers)
-if root_dir == "" then
-  return
-end
+local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-
 local workspace_dir = WORKSPACE_PATH .. project_name
-
-JAVA_DAP_ACTIVE = true
 local mason_packages_dir = home .. "/.local/share/nvim/mason/packages"
+JAVA_DAP_ACTIVE = true
 
 local bundles = {
   vim.fn.glob(mason_packages_dir .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"),
 }
 
 vim.list_extend(bundles, vim.split(vim.fn.glob(mason_packages_dir .. "/java-test/extension/server/*.jar"), "\n"))
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -86,8 +82,7 @@ local config = {
     workspace_dir,
   },
 
-  on_attach = require("plugins.lsp.handlers").on_attach,
-  capabilities = require("plugins.lsp.handlers").capabilities,
+  capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities()),
 
   -- 💀
   -- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -163,7 +158,6 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    -- bundles = {},
     bundles = bundles,
   },
 }
