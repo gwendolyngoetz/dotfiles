@@ -47,7 +47,7 @@ vim.keymap.set("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line up" 
 vim.keymap.set("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line down" })
 
 -- Clear highlights
-vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear highlights" })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights" })
 
 -- Close buffers
 vim.keymap.set("n", "<S-q>", "<cmd>Bdelete!<CR>", { desc = "Close buffer" })
