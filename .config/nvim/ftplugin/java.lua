@@ -45,7 +45,7 @@ local config = {
   cmd = {
 
     -- 💀
-    home .. "/.sdkman/candidates/java/17.0.5-tem/bin/java", -- or '/path/to/java11_or_newer/bin/java'
+    home .. "/.sdkman/candidates/java/17.0.10-tem/bin/java", -- or '/path/to/java11_or_newer/bin/java'
     -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
@@ -100,6 +100,17 @@ local config = {
       },
       configuration = {
         updateBuildConfiguration = "interactive",
+        runtimes = {
+          {
+            name = "JavaSE-11",
+            path = home .. "/.sdkman/candidates/java/11.0.22-tem/",
+            default = true,
+          },
+          {
+            name = "JavaSE-17",
+            path = home .. "/.sdkman/candidates/java/17.0.10-tem/",
+          },
+        },
       },
       maven = {
         downloadSources = true,
