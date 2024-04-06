@@ -38,6 +38,7 @@
     linkpr = !~/.config/git/scripts/open-pr-link.sh
     patch = add --patch
     pr = !~/.config/git/scripts/create-pr.sh
+    renovate = !~/.config/git/scripts/approve-renovate.sh
     rollback = !~/.config/git/scripts/rollback-to-commit.sh
     sl = stash list
     st = status
