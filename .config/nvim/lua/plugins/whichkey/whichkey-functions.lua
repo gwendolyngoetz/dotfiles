@@ -165,7 +165,7 @@ local M = {
     end,
 
     set_loclist = function()
-      vim.lsp.diagnostic.set_loclist()
+        vim.diagnostic.setloclist()
     end,
 
     rename = function()
