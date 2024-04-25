@@ -11,11 +11,19 @@ alias egrep='egrep --color=auto'
 # clipboard
 alias xclip='xclip -selection c'
 
-# ls/exa
-alias ls='exa --color=auto --icons --group'
-alias ll='ls -alF'
-alias la='ls -a'
-alias tree='exa --tree --icons'
+# better ls if eza installed
+if [ -f '/usr/bin/exa' ]; then
+    alias ls='exa --color=auto --icons --group'
+    alias ll='ls -alF'
+    alias la='ls -a'
+    alias tree='exa --tree --icons'
+# better ls if eza installed
+elif [ -f '/usr/bin/eza' ]; then
+    alias ls='eza --color=auto --icons --group'
+    alias ll='ls -alF'
+    alias la='ls -a'
+    alias tree='eza --tree --icons'
+fi
 
 # system git
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
