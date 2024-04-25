@@ -30,12 +30,16 @@
     bp = !~/.config/git/scripts/prune-branches.sh
     cc = !~/.config/git/scripts/checkout-commit.sh
     co = commit -m
+    d = diff
+    ds = diff --staged
 	di = "!f() { cd -- \"${GIT_PREFIX:-.}\"; GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
     dt = difftool -d
+    dts = difftool -d --staged
     dc = !~/.config/git/scripts/diff-commits.sh
     l  = !git --no-pager log -16
     linkgh = !~/.config/git/scripts/open-on-github.sh
     linkpr = !~/.config/git/scripts/open-pr-link.sh
+    nb = !git checkout -b
     patch = add --patch
     pr = !~/.config/git/scripts/create-pr.sh
     renovate = !~/.config/git/scripts/approve-renovate.sh
