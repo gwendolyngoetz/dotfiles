@@ -1,22 +1,17 @@
 gfx.webrender.all true
-
 gfx.webrender.compositor true
+# gfx.webrender.enabled true
 
-gfx.webrender.enabled true
+# layers.advanced.basic-layer.enabled true
+# layers.advanced.fission.enabled true
 
-layers.advanced.basic-layer.enabled true
-
-layers.advanced.fission.enabled true
-
-media.ffmpeg.dmabuf-textures.enabled true
-
-media.ffmpeg.vaapi-drm-display.enabled true
-
+# media.ffmpeg.dmabuf-textures.enabled true
+# media.ffmpeg.vaapi-drm-display.enabled true
 media.ffmpeg.vaapi.enabled true
 
-media.ffvpx.enabled false
+# media.ffvpx.enabled false
 
-webgl.enable-surface-texture true
+# webgl.enable-surface-texture true
 
 dom.webgpu.enabled true
 
