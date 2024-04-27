@@ -180,6 +180,7 @@ for_window [class="obs" window_type="dialog"] floating enable sticky disable bor
 for_window [class="Pavucontrol"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="qt6ct"] floating enable sticky enable border normal
 for_window [class="(?i)soffice" window_type="dialog"] floating enable border normal
 for_window [class="Solaar"] floating enable sticky enable border normal
 for_window [class="Streamdeck UI"] floating enable border normal
@@ -208,7 +209,7 @@ no_focus [title="^Microsoft Teams - * | Microsoft Teams"]
 #exec --no-startup-id compton -b
 #exec --no-startup-id dropbox start
 #exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/kdeconnectd
-#exec --no-startup-id "sleep 2 && QT_QPA_PLATFORMTHEME=qt5ct kdeconnect-indicator"
+#exec --no-startup-id "sleep 2 && QT_QPA_PLATFORMTHEME=qt6ct kdeconnect-indicator"
 exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset dpms 0 0 3600
 exec_always --no-startup-id feh --no-fehbg --bg-scale ~/.config/i3/wallpaper/black.jpg
