@@ -24,7 +24,7 @@ function workon {
     base_dir="${HOME}/src"
 
     dirname=$(fdfind \
-        -H \
+        --unrestricted \
         --type directory \
         --type file \
         --prune "^.git$" \
