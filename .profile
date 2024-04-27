@@ -49,9 +49,12 @@ if [ -d "$HOME/.dotnet" ] ; then
 fi
 
 # Go
-if [ -f "$HOME/.golang/bin/go" ]; then
-    export GOPATH="$HOME/.golang" 
-    export PATH="$GOPATH/bin:$PATH"
+if [ -f "$HOME/.golang/bin/go/bin/go" ]; then
+    export PATH="$HOME/.golang/bin/go/bin:$PATH"
+fi
+
+if [ -d "$HOME/go/bin" ]; then
+    export PATH="$PATH:$HOME/go/bin"
 fi
 
 # Node
