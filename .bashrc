@@ -119,8 +119,8 @@ if [ -f "/usr/bin/terraform" ]; then
     complete -C /usr/bin/terraform terraform
 fi
 
-if [ -f "$HOME/.local/share/nvm" ]; then
-    export NVM_DIR="$HOME/.local/share/nvm"
+if [ -d "$HOME/.config/nvm" ]; then
+    export NVM_DIR="$HOME/.config/nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
