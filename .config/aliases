@@ -12,13 +12,7 @@ alias egrep='egrep --color=auto'
 alias xclip='xclip -selection c'
 
 # better ls if eza installed
-if [ -f '/usr/bin/exa' ]; then
-    alias ls='exa --color=auto --icons --group'
-    alias ll='ls -alF'
-    alias la='ls -a'
-    alias tree='exa --tree --icons'
-# better ls if eza installed
-elif [ -f '/usr/bin/eza' ]; then
+if [ -f "$HOME/.cargo/bin/eza" ]; then
     alias ls='eza --color=auto --icons --group'
     alias ll='ls -alF'
     alias la='ls -a'
@@ -73,7 +67,7 @@ alias w='workon'
 alias ips='ip -br -c -4 a show'
 
 # better cat if installed
-if [ -f '/usr/bin/bat' ]; then
+if [ -f "$HOME/.local/bin/bat" ]; then
     alias cat='bat'
 fi
 
@@ -82,4 +76,6 @@ if [ -f '/usr/bin/fdfind' ]; then
     alias fd='fdfind'
 fi
 
-
+if [ -f '/usr/bin/python3' ]; then
+    alias python='python3'
+fi
