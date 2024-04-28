@@ -76,6 +76,7 @@ if [ -f '/usr/bin/fdfind' ]; then
     alias fd='fdfind'
 fi
 
+# make it easier to call python
 if [ -f '/usr/bin/python3' ]; then
     alias python='python3'
 fi
