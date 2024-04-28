@@ -80,6 +80,9 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 
+# GTK
+export GTK_THEME=Dracula:dark
+
 # Civiform
 export USE_LOCAL_CIVIFORM=1
 
