@@ -1,0 +1,7 @@
+[default]
+region=us-west-2
+output=json
+
+[profile AWSAdministratorAccess]
+region=us-west-2
+output=json
