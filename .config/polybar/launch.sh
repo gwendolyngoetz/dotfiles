@@ -2,7 +2,7 @@
 
 killall -q polybar
 
-export ETHERNET_INT=$(nmcli device | grep connected | grep ethernet | cut -d' ' -f1)
+export ETHERNET_INT=$(ip -o link show | grep "state UP" | cut -d' ' -f2 | cut -d':' -f1)
 export WIFI_INT=$(ls --ignore lo --ignore e* --ignore docker* /sys/class/net)
 
 # The hwmon# directory keeps changing on reboot. Find the right folder and build the path manually
