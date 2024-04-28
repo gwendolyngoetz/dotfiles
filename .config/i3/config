@@ -142,7 +142,7 @@ bindsym $mod+minus exec --no-startup-id alacritty
 bindsym $mod+backslash exec --no-startup-id firefox
 bindsym $mod+s exec --no-startup-id flameshot gui
 bindsym $mod+e exec --no-startup-id thunar
-bindsym $mod+c exec --no-startup-id wmctrl -F -c "ZenityCalendar" || zenity --title ZenityCalendar --calendar
+bindsym $mod+c exec --no-startup-id wmctrl -F -c "ZenityCalendar" || GTK_THEME="Dracula:dark" zenity --title ZenityCalendar --calendar
 
 # polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh &amp;
