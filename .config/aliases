@@ -80,3 +80,8 @@ fi
 if [ -f '/usr/bin/python3' ]; then
     alias python='python3'
 fi
+
+# default cal doesn't want to highlight today's date
+if [ -f '/usr/bin/ncal' ]; then
+    alias cal='ncal -C'
+fi
