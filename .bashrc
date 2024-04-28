@@ -83,6 +83,9 @@ export XDG_CACHE_HOME=$HOME/.cache
 # GTK
 export GTK_THEME=Dracula:dark
 
+# Libvirt/KVM
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+
 # Civiform
 export USE_LOCAL_CIVIFORM=1
 
