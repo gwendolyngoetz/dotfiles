@@ -183,6 +183,7 @@ for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="qt6ct"] floating enable sticky enable border normal
 for_window [class="(?i)soffice" window_type="dialog"] floating enable border normal
 for_window [class="Solaar"] floating enable sticky enable border normal
+for_window [title="Steam Settings"] floating enable sticky enable border normal
 for_window [class="Streamdeck UI"] floating enable border normal
 for_window [class="VirtualBox" window_type="dialog"] floating enable border normal
 #for_window [class="VirtualBox" title="^* - Settings"] floating enable border normal
