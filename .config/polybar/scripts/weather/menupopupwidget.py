@@ -34,5 +34,13 @@ class MenuPopupWidget(CTk):
     def add_separator(self, columnspan: int) -> None:
         row = self.get_next_row()
         font = (self.DEFAULT_FONT, 1)
-        separator = CTkLabel(master=self, text="", text_font=font, padx=0, pady=0, height=3, fg_color=self.COLOR_LIGHT)
+        separator = CTkLabel(
+            master=self,
+            text="",
+            font=font,
+            padx=0,
+            pady=0,
+            height=3,
+            fg_color=self.COLOR_LIGHT,
+        )
         separator.grid(row=row, column=0, columnspan=columnspan, sticky="we")

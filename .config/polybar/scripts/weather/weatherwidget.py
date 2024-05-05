@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import sys
+
 from weatherdata import WeatherData
 
 if __name__ == "__main__":

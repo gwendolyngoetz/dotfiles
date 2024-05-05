@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+source ~/.config/polybar/scripts/weather/.venv/bin/activate
+
 # Weather Code List
 source ~/.private-env
 JSONFILE=~/.config/polybar/scripts/.weather.json

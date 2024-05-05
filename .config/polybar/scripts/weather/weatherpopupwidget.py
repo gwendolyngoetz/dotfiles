@@ -1,6 +1,6 @@
 from customtkinter import CTkLabel
-from weatherdata import WeatherData
 from menupopupwidget import MenuPopupWidget
+from weatherdata import WeatherData
 
 
 class WeatherPopupWidget(MenuPopupWidget):
@@ -25,13 +25,28 @@ class WeatherPopupWidget(MenuPopupWidget):
         self.add_row(data.sunset)
 
     def add_row(self, info: WeatherData.Info) -> None:
-        font = (self.DEFAULT_FONT, 14)
-        icon = CTkLabel(master=self, text=info.icon, text_font=font, padx=8, width=40, fg_color=self.COLOR_LIGHT)
+        font = (self.DEFAULT_FONT, 22)
+        icon = CTkLabel(
+            master=self,
+            text=info.icon,
+            font=font,
+            padx=8,
+            width=40,
+            fg_color=self.COLOR_LIGHT,
+        )
 
-        font = (self.DEFAULT_FONT, 13)
-        label = CTkLabel(master=self, text=info.label, text_font=font, anchor="w", padx=8, width=112)
+        font = (self.DEFAULT_FONT, 16)
+        label = CTkLabel(
+            master=self, text=info.label, font=font, anchor="w", padx=8, width=112
+        )
         text = CTkLabel(
-            master=self, text=info.value, text_font=font, anchor="w", padx=8, width=100, text_color=info.color
+            master=self,
+            text=info.value,
+            font=font,
+            anchor="w",
+            padx=8,
+            width=100,
+            text_color=info.color,
         )
 
         row = self.get_next_row()
