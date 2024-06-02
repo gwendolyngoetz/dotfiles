@@ -67,8 +67,9 @@ alias w='workon'
 alias ips='ip -br -c -4 a show'
 
 # better cat if installed
-if [ -f "$HOME/.local/bin/bat" ]; then
-    alias cat='bat'
+if [ -f "/usr/bin/batcat" ]; then
+    alias bat='batcat'
+    alias cat='batcat'
 fi
 
 # better find if installed
