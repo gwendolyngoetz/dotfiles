@@ -197,8 +197,7 @@ for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [title="ZenityCalendar"] floating enable sticky enable border normal
 
 # default workspace assignments
-workspace $ws2 output DisplayPort-1
-workspace $ws8 output DisplayPort-2
+workspace $ws4 output DisplayPort-1
 for_window [class="Spotify"] move to workspace $ws10
 workspace $ws10 output DisplayPort-1
 
