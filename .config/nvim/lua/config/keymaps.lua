@@ -83,15 +83,15 @@ vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Fin
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find in files" })
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Show buffers" })
 vim.keymap.set(
-  "n",
-  "<leader>fm",
-  "<cmd>lua require('telescope').extensions.notify.notify()<CR>",
-  { desc = "Show messages" }
+    "n",
+    "<leader>fm",
+    "<cmd>lua require('telescope').extensions.notify.notify()<CR>",
+    { desc = "Show messages" }
 )
 vim.keymap.set(
-  "n",
-  "<leader>fd",
-  "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>",
-  { desc = "Show diagnostics" }
+    "n",
+    "<leader>fd",
+    "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>",
+    { desc = "Show diagnostics" }
 )
 vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", { desc = "Show all diagnostics" })
