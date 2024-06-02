@@ -1,14 +1,14 @@
 return {
-  {
-    "nvim-lua/plenary.nvim",
-    commit = "8aad439",
-  },
-  {
-    "nvim-tree/nvim-web-devicons",
-    commit = "3ee60de",
-  },
-  {
-    "famiu/bufdelete.nvim",
-    commit = "f6bcea7",
-  },
+    {
+        "nvim-lua/plenary.nvim",
+        commit = "a3e3bc8",
+    },
+    {
+        "nvim-tree/nvim-web-devicons",
+        commit = "b77921f",
+    },
+    {
+        "famiu/bufdelete.nvim",
+        commit = "f6bcea7",
+    },
 }

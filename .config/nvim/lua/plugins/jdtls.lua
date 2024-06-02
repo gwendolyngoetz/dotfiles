@@ -1,6 +1,6 @@
 return {
-  {
-    "mfussenegger/nvim-jdtls",
-    commit = "8eb5f0d",
-  },
+    {
+        "mfussenegger/nvim-jdtls",
+        commit = "ad5ab1c",
+    },
 }
