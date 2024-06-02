@@ -41,6 +41,7 @@
     l  = !git --no-pager log -16
     linkgh = !~/.config/git/scripts/open-on-github.sh
     linkpr = !~/.config/git/scripts/open-pr-link.sh
+    mt = mergetool
     nb = !git checkout -b
     patch = add --patch
     pr = !~/.config/git/scripts/create-pr.sh
