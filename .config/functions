@@ -31,6 +31,7 @@ function workon {
         --search-path "${base_dir}" \
         --base-directory "${base_dir}" \
         --exclude "github/system-repos" \
+        --exclude "github/work/seattle-deploy-tf/checkout" \
         --exec dirname {} \
     | sed "s|${base_dir}/||" \
     | sort \
