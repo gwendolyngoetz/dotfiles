@@ -1,27 +1,26 @@
 local config = function()
-  vim.api.nvim_set_hl(0, "EyelinerPrimary", {
-    fg = "#ff6347",
-    bg = "#000000",
-    bold = true,
-    underline = true,
-  })
+    vim.api.nvim_set_hl(0, "EyelinerPrimary", {
+        fg = "#ff6347",
+        bg = "#000000",
+        bold = true,
+        underline = true,
+    })
 
-  vim.api.nvim_set_hl(0, "EyelinerSecondary", {
-    fg = "#47e3ff",
-    bg = "#000000",
-    bold = true,
-    underline = true,
-  })
+    vim.api.nvim_set_hl(0, "EyelinerSecondary", {
+        fg = "#47e3ff",
+        bg = "#000000",
+        bold = true,
+        underline = true,
+    })
 
-  require("eyeliner").setup({
-    highlight_on_key = true,
-  })
+    require("eyeliner").setup({
+        highlight_on_key = true,
+    })
 end
 
 return {
-  {
-    "jinh0/eyeliner.nvim",
-    commit = "c540d58",
-    config = config,
-  },
+    {
+        "jinh0/eyeliner.nvim",
+        config = config,
+    },
 }

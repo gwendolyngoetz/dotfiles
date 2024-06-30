@@ -57,12 +57,10 @@ end
 return {
     {
         "rcarriga/nvim-dap-ui",
-        commit = "b726700",
         dependencies = {
             "mfussenegger/nvim-dap",
             {
                 "nvim-neotest/nvim-nio",
-                commit = "6320241",
             },
         },
         config = config,

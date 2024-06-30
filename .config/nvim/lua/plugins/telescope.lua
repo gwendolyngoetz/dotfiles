@@ -51,7 +51,6 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         event = "VimEnter",
-        commit = "dfa230b",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",

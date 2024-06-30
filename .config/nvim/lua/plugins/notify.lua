@@ -12,7 +12,6 @@ end
 return {
     {
         "rcarriga/nvim-notify",
-        commit = "d333b6f",
         dependencies = {
             "nvim-lua/plenary.nvim",
         },

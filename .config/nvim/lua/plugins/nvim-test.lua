@@ -12,12 +12,10 @@ end
 return {
     {
         "klen/nvim-test",
-        commit = "e06f3d0",
         config = config,
         dependencies = {
             {
                 "akinsho/toggleterm.nvim",
-                commit = "fee58a0",
             },
         },
     },

@@ -241,19 +241,15 @@ return {
         dependencies = {
             {
                 "williamboman/mason.nvim",
-                commit = "0950b15",
             },
             {
                 "williamboman/mason-lspconfig.nvim",
-                commit = "a4caa0d",
             },
             {
                 "jay-babu/mason-nvim-dap.nvim",
-                commit = "67210c0",
             },
             {
                 "WhoIsSethDaniel/mason-tool-installer.nvim",
-                commit = "c1fbdcb",
             },
             {
                 "j-hui/fidget.nvim",

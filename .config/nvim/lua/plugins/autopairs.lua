@@ -10,7 +10,6 @@ end
 return {
     {
         "windwp/nvim-autopairs",
-        commit = "c15de7e",
         config = config,
     },
 }

@@ -12,7 +12,6 @@ end
 return {
     {
         "folke/trouble.nvim",
-        commit = "e296940",
         --config = config,
         keys = {
             {

@@ -143,39 +143,31 @@ return {
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
-        commit = "5260e5e",
         dependencies = {
             {
                 "hrsh7th/cmp-buffer",
-                commit = "3022dbc",
             },
             {
                 "hrsh7th/cmp-path",
-                commit = "91ff86c",
             },
             {
                 "hrsh7th/cmp-nvim-lsp",
-                commit = "39e2eda",
             },
             {
                 "hrsh7th/cmp-nvim-lua",
-                commit = "f12408b",
             },
             {
                 "saadparwaiz1/cmp_luasnip",
-                commit = "05a9ab2",
             },
             -- snippets
             {
                 "L3MON4D3/LuaSnip",
-                commit = "878ace1",
                 build = (function()
                     return "make install_jsregexp"
                 end)(),
                 dependencies = {
                     {
                         "rafamadriz/friendly-snippets",
-                        commit = "d061007",
                         config = function()
                             require("luasnip.loaders.from_vscode").lazy_load()
                         end,

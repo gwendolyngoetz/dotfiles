@@ -1,6 +1,5 @@
 return {
     "christoomey/vim-tmux-navigator",
-    commit = "5b3c701",
     lazy = false,
     --config = config,
     cmd = {
