@@ -2,8 +2,7 @@
 
 set -euo pipefail
 
-usage()
-{
+usage() {
     echo "Usage: $0 [<options>] <file1> <file2>"
     echo
     echo "Options:"
@@ -19,7 +18,6 @@ usage()
     echo
 }
 
-
 backgroundcolor=
 color=
 exif_only=false
@@ -28,8 +26,7 @@ name1=
 name2=
 outputPath=
 
-while getopts "hb:c:ef:n:N:o:" opt
-do
+while getopts "hb:c:ef:n:N:o:" opt; do
     case "$opt" in
     h)
         usage
@@ -58,11 +55,9 @@ do
         ;;
     esac
 done
-shift $(( OPTIND - 1 ))
+shift $((OPTIND - 1))
 
-
-if [ -z "${1-}" ] || [ -z "${2-}" ]
-then
+if [ -z "${1-}" ] || [ -z "${2-}" ]; then
     usage
     exit 1
 fi
@@ -70,47 +65,37 @@ fi
 f1="$1"
 f2="$2"
 
-if [[ "$f1" != '/dev/null' ]] && [[ ! -f "$f1" ]]
-then
+if [[ "$f1" != '/dev/null' ]] && [[ ! -f "$f1" ]]; then
     echo "$f1: No such file." >&2
     exit 1
 fi
 
-if [[ -d "$f2" ]]
-then
-   f=$(basename "$f1")
-   f2="$f2/$f"
+if [[ -d "$f2" ]]; then
+    f=$(basename "$f1")
+    f2="$f2/$f"
 fi
 
-if [[ "$f2" != '/dev/null' ]] && [[ ! -f "$f2" ]]
-then
+if [[ "$f2" != '/dev/null' ]] && [[ ! -f "$f2" ]]; then
     echo "$f2: No such file." >&2
     usage
     exit 1
 fi
 
-if [[ -z "$name1" ]]
-then
+if [[ -z "$name1" ]]; then
     name1="$f1"
 fi
-if [[ -z "$name2" ]]
-then
+if [[ -z "$name2" ]]; then
     name2="$f2"
 fi
 
 ext="${name1##*.}"
 
-
-if diff "$f1" "$f2" >/dev/null
-then
-  exit 0
+if diff "$f1" "$f2" >/dev/null; then
+    exit 0
 fi
 
-
-exif()
-{
-    if [[ "$1" = /dev/null ]]
-    then
+exif() {
+    if [[ "$1" = /dev/null ]]; then
         echo /dev/null
         return
     fi
@@ -118,51 +103,45 @@ exif()
     local b="$(basename "$1")"
     local d="$(mktemp -t "$b.XXXXXX")"
 
-    exiftool "$1" | grep -v 'File Name' | \
-                    grep -v 'Directory' | \
-                    grep -v 'ExifTool Version Number' | \
-                    grep -v 'File Inode Change' | \
-                    grep -v 'File Access Date/Time' | \
-                    grep -v 'File Modification Date/Time' | \
-                    grep -v 'File Permissions' | \
-                    grep -v 'File Type Extension' | \
-                    sort \
-        >"$d"
+    exiftool "$1" | grep -v 'File Name' |
+        grep -v 'Directory' |
+        grep -v 'ExifTool Version Number' |
+        grep -v 'File Inode Change' |
+        grep -v 'File Access Date/Time' |
+        grep -v 'File Modification Date/Time' |
+        grep -v 'File Permissions' |
+        grep -v 'File Type Extension' |
+        sort \
+            >"$d"
     echo "$d"
 }
 
-
-diff_clean_names()
-{
+diff_clean_names() {
     diff -u "$1" --label "$name1" "$2" --label "$name2" || true
 }
 
-
 exifdiff=
-if which exiftool > /dev/null
-then
-  d1="$(exif "$f1")"
-  d2="$(exif "$f2")"
-  diff_clean_names "$d1" "$d2"
-  set +e
-  diff -q "$d1" "$d2" >/dev/null
-  exifdiff=$?
-  set -e
+if which exiftool >/dev/null; then
+    d1="$(exif "$f1")"
+    d2="$(exif "$f2")"
+    diff_clean_names "$d1" "$d2"
+    set +e
+    diff -q "$d1" "$d2" >/dev/null
+    exifdiff=$?
+    set -e
 else
-  diff_clean_names "$f1" "$f2"
+    diff_clean_names "$f1" "$f2"
 fi
 
-if $exif_only
-then
+if $exif_only; then
     exit 0
 fi
 
-if \
-    ! which compare > /dev/null || \
-    ! which montage > /dev/null
+if
+    ! which compare >/dev/null ||
+        ! which montage >/dev/null
 then
-    if which gm > /dev/null
-    then
+    if which gm >/dev/null; then
         echo 'GraphicsMagick is installed, but graphicsmagick-imagemagick-compat missing.' >&2
         echo 'Alternatively the minimum required compatibility links can be installed' >&2
         echo 'by running:' >&2
@@ -174,65 +153,57 @@ then
     exit 1
 fi
 
-if [[ $exifdiff = 0 ]] && compare "$f1" "$f2" /dev/null
-then
+if [[ $exifdiff = 0 ]] && compare "$f1" "$f2" /dev/null; then
     exit 0
 fi
 
 bn="$(basename "$f1")"
 destfile="$(mktemp -t "$bn.XXXXXX").png"
 
-if [ -z "$fuzz" ] && ( [ "$ext" = "jpeg" ] || [ "$ext" = "jpg" ] )
-then
+if [ -z "$fuzz" ] && ([ "$ext" = "jpeg" ] || [ "$ext" = "jpg" ]); then
     fuzz='5'
 fi
 
 backgroundcolor_flag=
-if [ -n "$backgroundcolor" ]
-then
+if [ -n "$backgroundcolor" ]; then
     backgroundcolor_flag="-background $backgroundcolor"
 fi
 
 color_flag=
-if [ -n "$color" ]
-then
+if [ -n "$color" ]; then
     color_flag="-highlight-color $color"
 fi
 
 fuzz_flag=
-if [ -n "$fuzz" ]
-then
+if [ -n "$fuzz" ]; then
     fuzz_flag="-fuzz $fuzz%"
 fi
 
 density_flag=
-do_compare()
-{
-  if which gm > /dev/null
-  then
-    echo "NOTICE: GraphicsMagick does not support 'compare -fuzz', so omitting it"
-    compare $density_flag $color_flag $backgroundcolor_flag -file png:- "$f1" "$f2" | \
-        montage $density_flag -geometry +4+4 $backgroundcolor_flag "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
-  else
-    compare $density_flag $color_flag $fuzz_flag $backgroundcolor_flag "$f1" "$f2" png:- | \
-        montage $density_flag -geometry +4+4 $backgroundcolor_flag "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
-  fi
+do_compare() {
+    if which gm >/dev/null; then
+        echo "NOTICE: GraphicsMagick does not support 'compare -fuzz', so omitting it"
+        compare $density_flag $color_flag $backgroundcolor_flag -file png:- "$f1" "$f2" |
+            montage $density_flag -geometry +4+4 $backgroundcolor_flag "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
+    else
+        compare $density_flag $color_flag $fuzz_flag $backgroundcolor_flag "$f1" "$f2" png:- |
+            montage $density_flag -geometry +4+4 $backgroundcolor_flag "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
+    fi
 }
 
-if which xdg-open > /dev/null
-then
+if which xdg-open >/dev/null; then
     # Get width and height of each input image.
     f1_width="$(exiftool -S -ImageWidth "$f1" | cut -d' ' -f2)"
     f2_width="$(exiftool -S -ImageWidth "$f2" | cut -d' ' -f2)"
     f1_height="$(exiftool -S -ImageHeight "$f1" | cut -d' ' -f2)"
     f2_height="$(exiftool -S -ImageHeight "$f2" | cut -d' ' -f2)"
     # find the max of each.
-    if (( $(echo "$f1_width > $f2_width" |bc -l) )); then
+    if (($(echo "$f1_width > $f2_width" | bc -l))); then
         max_file_width=$f1_width
     else
         max_file_width=$f2_width
     fi
-    if (( $(echo "$f1_height > $f2_height" |bc -l) )); then
+    if (($(echo "$f1_height > $f2_height" | bc -l))); then
         max_file_height=$f1_height
     else
         max_file_height=$f2_height
@@ -243,43 +214,39 @@ then
     resolution_height="$(xdpyinfo | grep resolution | sed -e 's/.* \([^ ]*\)x\([^ ]*\) dots per inch.*/\2/')"
     # Assume that the combined size will be the same as the maximum of
     # each.  Add 100 pixels on each side for the window borders.
-    montage_width=$( echo "$f1_width + $max_file_width + $f2_width + 100" |bc -l )
-    montage_height=$( echo "$f1_height + $max_file_height + $f2_height + 100" |bc -l )
+    montage_width=$(echo "$f1_width + $max_file_width + $f2_width + 100" | bc -l)
+    montage_height=$(echo "$f1_height + $max_file_height + $f2_height + 100" | bc -l)
     # Select the most limiting (lowest) density.
-    if (( $(echo "($resolution_width / $montage_width * $screen_width) < ($resolution_height / $montage_height * $screen_height)" |bc -l) )); then
-        density=$( echo "$resolution_width / $montage_width * $screen_width" |bc -l )
+    if (($(echo "($resolution_width / $montage_width * $screen_width) < ($resolution_height / $montage_height * $screen_height)" | bc -l))); then
+        density=$(echo "$resolution_width / $montage_width * $screen_width" | bc -l)
     else
-        density=$( echo "$resolution_height / $montage_height * $screen_height" |bc -l )
+        density=$(echo "$resolution_height / $montage_height * $screen_height" | bc -l)
     fi
 
     # If the density needed is less than either of the inputs, use it.
-    if (( $(echo "$density < $resolution_width || $density < $resolution_height" |bc -l) )); then
+    if (($(echo "$density < $resolution_width || $density < $resolution_height" | bc -l))); then
         density_flag="-density $density"
     fi
 
     do_compare
-    if [ -n "$outputPath" ]
-    then
-      echo "Copy diff image to $outputPath"
-      cp "$destfile" "$outputPath"
+    if [ -n "$outputPath" ]; then
+        echo "Copy diff image to $outputPath"
+        cp "$destfile" "$outputPath"
     else
-      feh --image-bg black --scale-down --auto-zoom "$destfile"
+        feh --image-bg black --scale-down --auto-zoom "$destfile"
     fi
 else
     w=$(exiftool -p '$ImageWidth' "$f1" || true)
-    if [[ $w -ge 10000 ]]
-    then
+    if [[ $w -ge 10000 ]]; then
         cp "$f1" "$destfile"
         exec open "$destfile" "$f2"
     else
         do_compare
-        if [ -n "$outputPath" ]
-        then
-          echo "Copy diff image to $outputPath"
-          cp "$destfile" "$outputPath"
+        if [ -n "$outputPath" ]; then
+            echo "Copy diff image to $outputPath"
+            cp "$destfile" "$outputPath"
         else
-          exec open "$destfile"
+            exec open "$destfile"
         fi
     fi
 fi
-
