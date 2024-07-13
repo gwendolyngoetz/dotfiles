@@ -263,7 +263,7 @@ then
       echo "Copy diff image to $outputPath"
       cp "$destfile" "$outputPath"
     else
-      feh --zoom fill "$destfile"
+      feh --image-bg black --scale-down --auto-zoom "$destfile"
     fi
 else
     w=$(exiftool -p '$ImageWidth' "$f1" || true)
