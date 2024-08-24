@@ -15,7 +15,7 @@ return { -- Autoformat
         -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
         formatters_by_ft = {
             go = { "goimports", "gofumpt" },
-            javascript = { { "prettierd", "prettier" } },
+            javascript = { "prettierd", "prettier", stop_after_first = true },
             lua = { "stylua --indent-type Spaces" },
             python = { "isort", "black" },
             terraform = { "terraform_fmt" },
