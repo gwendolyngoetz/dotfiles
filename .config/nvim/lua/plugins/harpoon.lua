@@ -1,6 +1,6 @@
 local config = function()
     require("telescope").load_extension("harpoon")
-    require("harpoon").setup()
+    require("harpoon"):setup()
 end
 
 return {
