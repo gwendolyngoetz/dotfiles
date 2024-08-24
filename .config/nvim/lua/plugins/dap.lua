@@ -51,6 +51,7 @@ local config = function()
     -- Configurations
     dap.configurations.javascript = {
         {
+            name = "Launch Node",
             type = "node2",
             request = "launch",
             program = "${file}",
@@ -63,6 +64,7 @@ local config = function()
 
     dap.configurations.javascript = {
         {
+            name = "Launch chrome",
             type = "chrome",
             request = "attach",
             program = "${file}",
@@ -76,8 +78,8 @@ local config = function()
 
     dap.configurations.cs = {
         {
+            name = "Launch netcoredbg",
             type = "coreclr",
-            name = "launch - netcoredbg",
             request = "launch",
             program = function()
                 return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
