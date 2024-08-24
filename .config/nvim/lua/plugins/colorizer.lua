@@ -1,17 +1,20 @@
 local config = function()
     require("colorizer").setup({
-        "css",
-        "javascript",
-        "html",
-    }, {
-        rgb_fn = true,
-        hsl_fn = true,
+        filetypes = {
+            "css",
+            "javascript",
+            "html",
+        },
+        user_default_options = {
+            rgb_fn = true,
+            hsl_fn = true,
+        }
     })
 end
 
 return {
     {
-        "norcalli/nvim-colorizer.lua",
+        "NvChad/nvim-colorizer.lua",
         config = config,
     },
 }
