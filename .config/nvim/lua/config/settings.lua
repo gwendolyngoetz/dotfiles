@@ -88,11 +88,6 @@ M.icons = {
         prompt_prefix = " ",
         selection_caret = " ",
     },
-    whichkey = {
-        breadcrumb = "»",
-        separator = "➜",
-        group = "+",
-    },
     mason = {
         package_installed = "✓",
         package_pending = "➜",
