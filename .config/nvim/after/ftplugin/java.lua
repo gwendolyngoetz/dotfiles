@@ -103,7 +103,7 @@ local config = {
                 runtimes = {
                     {
                         name = "JavaSE-17",
-                        path = home .. "/.sdkman/candidates/java/17.0.10-tem/",
+                        path = home .. "/.sdkman/candidates/java/17.0.11-tem/",
                         default = true,
                     },
                 },
