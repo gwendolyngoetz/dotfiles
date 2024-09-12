@@ -172,7 +172,7 @@ local get_server = function()
         terraformls = {},
 
         -- Typescript
-        tsserver = {},
+        ts_ls = {},
 
         -- Yaml
         yamlls = {},
