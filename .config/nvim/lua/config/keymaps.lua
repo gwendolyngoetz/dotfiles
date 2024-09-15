@@ -71,9 +71,6 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 
 -- Plugins --
 
--- Colorizer
-vim.keymap.set("n", "<C-c>", "<cmd>ColorizerToggle<CR>", { desc = "Toggle Colorizer" })
-
 -- Tree
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
 
