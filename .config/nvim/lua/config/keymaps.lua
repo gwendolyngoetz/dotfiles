@@ -69,7 +69,5 @@ vim.keymap.set("n", "]d", "<cmd>vim.diagnostic.jump({ count = -1, float = true }
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- Plugins --
-
--- Tree
+-- Neotree
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
