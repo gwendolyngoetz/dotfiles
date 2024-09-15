@@ -27,7 +27,7 @@ end
 return {
     {
         "lukas-reineke/indent-blankline.nvim",
-        tag = "v3.6.2",
+        tag = "v3.7.2",
         config = config,
     },
 }

@@ -256,7 +256,7 @@ return {
                 opts = {},
             },
             {
-                "folke/neodev.nvim",
+                "folke/lazydev.nvim",
                 opts = {},
             },
         },
