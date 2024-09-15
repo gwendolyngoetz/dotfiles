@@ -73,3 +73,15 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 
 -- Tree
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
+
+-- DAP
+-- vim.keymap.set("n", "<leader>ds", "<cmd>lua require('dapui').toggle()<CR>", { desc = "Toggle UI" })
+-- vim.keymap.set("n", "<leader>dd", "<cmd>lua require('dap').repl.toggle()<CR>", { desc = "Toggle Repl" })
+-- vim.keymap.set("n", "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
+-- vim.keymap.set("n", "<leader>dl", "<cmd>lua require('dap').run_last()<CR>", { desc = "Run Last" })
+-- vim.keymap.set("n", "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", { desc = "Terminate" })
+-- vim.keymap.set("n", "<leader>dq", "<cmd>lua require('dap').continue()<CR>", { desc = "Continue" })
+-- vim.keymap.set("n", "<leader>dw", "<cmd>lua require('dap').step_over()<CR>", { desc = "Step Over" })
+-- vim.keymap.set("n", "<leader>de", "<cmd>lua require('dap').step_info()<CR>", { desc = "Step Into" })
+-- vim.keymap.set("n", "<leader>dr", "<cmd>lua require('dap').step_out()<CR>", { desc = "Step Out" })
+

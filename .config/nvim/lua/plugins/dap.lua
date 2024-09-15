@@ -103,5 +103,16 @@ return {
             "jay-babu/mason-nvim-dap.nvim",
         },
         config = config,
+        keys = {
+            { "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", { desc = "Toggle UI" }},
+            { "<leader>dd", "<cmd>lua require('dap').repl.toggle()<CR>", { desc = "Toggle Repl" }},
+            { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" }},
+            { "<leader>dl", "<cmd>lua require('dap').run_last()<CR>", { desc = "Run Last" }},
+            { "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", { desc = "Terminate" }},
+            { "<leader>dq", "<cmd>lua require('dap').continue()<CR>", { desc = "Continue" }},
+            { "<leader>dw", "<cmd>lua require('dap').step_over()<CR>", { desc = "Step Over" }},
+            { "<leader>de", "<cmd>lua require('dap').step_info()<CR>", { desc = "Step Into" }},
+            { "<leader>dr", "<cmd>lua require('dap').step_out()<CR>", { desc = "Step Out" }}
+        }
     },
 }
