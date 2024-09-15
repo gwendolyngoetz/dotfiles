@@ -31,21 +31,21 @@ local setup_diagnostic_settings = function()
 end
 
 local setup_icons = function()
-    local signs = {
-        { name = "DiagnosticSignError", text = icons.diagnostics.error },
-        { name = "DiagnosticSignWarn",  text = icons.diagnostics.warn },
-        { name = "DiagnosticSignHint",  text = icons.diagnostics.hint },
-        { name = "DiagnosticSignInfo",  text = icons.diagnostics.info },
-    }
-
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#db4b4b", bg = "#4a1717" })
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#e0af68", bg = "#4a3b21" })
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#0db9d7", bg = "#013d49" })
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#1abc9c", bg = "#05392e" })
 
-    for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-    end
+    vim.diagnostic.config({
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
+                [vim.diagnostic.severity.WARN] = icons.diagnostics.warn,
+                [vim.diagnostic.severity.INFO] = icons.diagnostics.info,
+                [vim.diagnostic.severity.HINT] = icons.diagnostics.hint
+            }
+        }
+    })
 end
 
 local setup_lsp_attach = function()

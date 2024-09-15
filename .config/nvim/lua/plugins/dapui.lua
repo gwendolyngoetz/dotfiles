@@ -1,12 +1,12 @@
 local config = function()
     local settings = require("config.settings")
 
-    vim.fn.sign_define("DapBreakpoint", {
-        text = settings.icons.debugging.breakpoint,
-        texthl = "DiagnosticSignError",
-        linehl = "",
-        numhl = "",
-    })
+    -- vim.fn.sign_define("DapBreakpoint", {
+    --     text = settings.icons.debugging.breakpoint,
+    --     texthl = "DiagnosticSignError",
+    --     linehl = "",
+    --     numhl = "",
+    -- })
 
     local dap = require("dap")
     local dapui = require("dapui")
