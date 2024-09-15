@@ -122,21 +122,21 @@ local get_server = function()
                     completion = {
                         callSnippet = "Replace",
                     },
-                    -- diagnostics = {
-                    --   globals = { "vim" },
-                    --   disable = {
-                    --     "missing-fields",
-                    --   },
-                    -- },
+                    diagnostics = {
+                      -- globals = { "vim" },
+                      disable = {
+                        "missing-fields",
+                      },
+                    },
                     -- workspace = {
                     --   library = {
                     --     [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                     --     [vim.fn.stdpath("config") .. "/lua"] = true,
                     --   },
                     -- },
-                    -- telemetry = {
-                    --   enable = false,
-                    -- },
+                    telemetry = {
+                      enable = false,
+                    },
                 },
             },
         },
