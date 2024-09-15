@@ -32,21 +32,6 @@ local config = function()
     -- Enable telescope fzf native, if installed
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
-
-    local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[S]earch [F]iles" })
-    vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Show buffers" })
-    vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Show keymaps" })
-    vim.keymap.set("n", "<leader>fm", "<cmd>lua require('telescope').extensions.notify.notify()<CR>", { desc = "Show messages" })
-    vim.keymap.set("n", "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=-1})<CR>", { desc = "Show diagnostics" })
-    vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", { desc = "Show all diagnostics" })
-
-    vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-    vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-    vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-    vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-    vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 end
 
 return {
@@ -66,5 +51,20 @@ return {
             { "nvim-telescope/telescope-ui-select.nvim" },
         },
         config = config,
+        keys = {
+            { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", { desc = "[S]earch [F]iles" }},
+            { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>", { desc = "[S]earch by [G]rep" }},
+            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", { desc = "Show buffers" }},
+            { "<leader>fk", "<cmd>lua require('telescope.builtin').keymaps()<CR>", { desc = "Show keymaps" }},
+            { "<leader>fm", "<cmd>lua require('telescope').extensions.notify.notify()<CR>", { desc = "Show messages" }},
+            { "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=-1})<CR>", { desc = "Show diagnostics" }},
+            { "<leader>fD", "<cmd>Telescope diagnostics<CR>", { desc = "Show all diagnostics" }},
+            { "<leader>sh", "<cmd>lua require('telescope.builtin').help_tags()<CR>", { desc = "[S]earch [H]elp" }},
+            { "<leader>ss", "<cmd>lua require('telescope.builtin').builtin()<CR>", { desc = "[S]earch [S]elect Telescope" }},
+            { "<leader>sw", "<cmd>lua require('telescope.builtin').grep_string()<CR>", { desc = "[S]earch current [W]ord" }},
+            { "<leader>sr", "<cmd>lua require('telescope.builtin').resume()<CR>", { desc = "[S]earch [R]esume" }},
+            { "<leader>s.", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", { desc = '[S]earch Recent Files ("." for repeat)' }}
+
+        }
     },
 }
