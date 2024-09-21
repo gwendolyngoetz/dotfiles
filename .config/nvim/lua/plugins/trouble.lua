@@ -1,4 +1,4 @@
-local config = function()
+--local config = function()
     -- -- toggle trouble with optional mode
     -- require("trouble").toggle(mode?)
     --
@@ -7,12 +7,11 @@ local config = function()
     --
     -- -- close trouble
     -- require("trouble").close()
-end
+--end
 
 return {
     {
         "folke/trouble.nvim",
-        --config = config,
         keys = {
             {
                 "<leader>xx",

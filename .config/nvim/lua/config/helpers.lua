@@ -26,22 +26,4 @@ M.is_empty = function(value)
   return value == nil or value == ""
 end
 
-M.tbl_merge = function(...)
-  local retval = {}
-  local i = 0
-
-  for _, tbl in ipairs({ ... }) do
-    for _, value in ipairs(tbl) do
-      i = i + 1
-      retval[i] = value
-    end
-  end
-
-  return retval
-end
-
-M.nmap = function(lhs, rhs)
-  vim.api.nvim_set_keymap("n", lhs, rhs, { silent = true })
-end
-
 return M

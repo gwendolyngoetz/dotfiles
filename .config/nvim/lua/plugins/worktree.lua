@@ -1,18 +1,16 @@
-local config = function()
-    require("git-worktree").setup({
-        change_directory_command = "cd",
-        update_on_change = true,
-        update_on_change_command = "e .",
-        clearjumps_on_change = true,
-        autopush = false,
-    })
-
-    require("telescope").load_extension("git_worktree")
-end
-
 return {
     {
         "theprimeagen/git-worktree.nvim",
-        config = config,
+        config = function(_, opts)
+            require("git-worktree").setup(opts)
+            require("telescope").load_extension("git_worktree")
+        end,
+        opts = {
+            change_directory_command = "cd",
+            update_on_change = true,
+            update_on_change_command = "e .",
+            clearjumps_on_change = true,
+            autopush = false,
+        }
     },
 }

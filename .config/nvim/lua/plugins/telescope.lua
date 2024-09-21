@@ -1,39 +1,3 @@
-local config = function()
-    local icons = require("config.settings").icons
-    local actions = require("telescope.actions")
-
-    require("telescope").setup({
-        defaults = {
-            layout_strategy = "vertical",
-            layout_config = {
-                vertical = { width = 0.9 },
-                horizontal = { width = 0.9 },
-            },
-            prompt_prefix = icons.telescope.prompt_prefix,
-            selection_caret = icons.telescope.selection_caret,
-            path_display = { "smart" },
-            file_ignore_patterns = { ".git/", "node_modules" },
-            mappings = {
-                i = {
-                    ["<Down>"] = actions.cycle_history_next,
-                    ["<Up>"] = actions.cycle_history_prev,
-                    ["<C-j>"] = actions.move_selection_next,
-                    ["<C-k>"] = actions.move_selection_previous,
-                },
-            },
-            extensions = {
-                ["ui-select"] = {
-                    require("telescope.themes").get_dropdown(),
-                },
-            },
-        },
-    })
-
-    -- Enable telescope fzf native, if installed
-    pcall(require("telescope").load_extension, "fzf")
-    pcall(require("telescope").load_extension, "ui-select")
-end
-
 return {
     {
         "nvim-telescope/telescope.nvim",
@@ -50,7 +14,39 @@ return {
             },
             { "nvim-telescope/telescope-ui-select.nvim" },
         },
-        config = config,
+        opts = function()
+            local icons = require("config.settings").icons
+            -- Enable telescope fzf native, if installed
+            pcall(require("telescope").load_extension, "fzf")
+            pcall(require("telescope").load_extension, "ui-select")
+
+            return {
+                defaults = {
+                    layout_strategy = "vertical",
+                    layout_config = {
+                        vertical = { width = 0.9 },
+                        horizontal = { width = 0.9 },
+                    },
+                    prompt_prefix = icons.telescope.prompt_prefix,
+                    selection_caret = icons.telescope.selection_caret,
+                    path_display = { "smart" },
+                    file_ignore_patterns = { ".git/", "node_modules" },
+                    mappings = {
+                        i = {
+                            ["<Down>"] = require("telescope.actions").cycle_history_next,
+                            ["<Up>"] = require("telescope.actions").cycle_history_prev,
+                            ["<C-j>"] = require("telescope.actions").move_selection_next,
+                            ["<C-k>"] = require("telescope.actions").move_selection_previous,
+                        },
+                    },
+                    extensions = {
+                        ["ui-select"] = {
+                            require("telescope.themes").get_dropdown(),
+                        },
+                    },
+                },
+            }
+        end,
         keys = {
             { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", { desc = "[S]earch [F]iles" }},
             { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>", { desc = "[S]earch by [G]rep" }},
@@ -66,5 +62,5 @@ return {
             { "<leader>s.", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", { desc = '[S]earch Recent Files ("." for repeat)' }}
 
         }
-    },
+    }
 }

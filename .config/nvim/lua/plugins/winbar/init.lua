@@ -1,10 +1,5 @@
-local config = function()
-    local icons = require("config.settings").icons
-
-    require("nvim-navic").setup({
-        highlight = true,
-        separator = " " .. icons.chevron.right .. " ",
-    })
+local config = function(_, opts)
+    require("nvim-navic").setup(opts)
 
     vim.api.nvim_create_autocmd({
         "CursorMoved",
@@ -31,5 +26,9 @@ return {
             "neovim/nvim-lspconfig",
         },
         config = config,
+        opts = {
+            highlight = true,
+            separator = " " .. require("config.settings").icons.chevron.right .. " ",
+        }
     },
 }

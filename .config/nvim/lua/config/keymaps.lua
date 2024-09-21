@@ -1,16 +1,3 @@
---local { desc = "" } = { silent = true }
-
---Remap space as leader key
---vim.keymap.set("", "<Space>", "<Nop>", { desc = "" })
-
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
-
 -- Normal --
 vim.keymap.set("n", "<Up>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")

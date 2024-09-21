@@ -40,6 +40,6 @@ return {
         dependencies = {
             "lewis6991/gitsigns.nvim",
         },
-        config = config,
+        config = config
     },
 }
