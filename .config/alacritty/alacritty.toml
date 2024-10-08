@@ -1,1 +1,1 @@
-import = ["~/.config/alacritty/common.toml"]
+general.import = ["~/.config/alacritty/common.toml"]

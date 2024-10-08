@@ -1,5 +1,5 @@
-import = ["~/.config/alacritty/themes/dracula.toml"]
-live_config_reload = true
+general.import = ["~/.config/alacritty/themes/dracula.toml"]
+general.live_config_reload = true
 
 [colors.primary]
 background = "#000000"
