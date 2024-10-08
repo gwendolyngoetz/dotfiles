@@ -1,7 +1,7 @@
-.tab-line[selected="true"] {
-    opacity: 0 !important;
+#star-button-box {
+    display: none !important;
 }
 
-#star-button {
-    display: none;
+#alltabs-button {
+    display: none !important; 
 }
