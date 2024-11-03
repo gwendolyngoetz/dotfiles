@@ -30,8 +30,8 @@
                     },
                     "5": {
                         "text": "",
-                        "command": "i3-companion swap --output1=DisplayPort-0 --output2=DisplayPort-2",
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_1_3.png",
+                        "command": "",
+                        "icon": "",
                         "switch_page": 0
                     },
                     "6": {
@@ -53,26 +53,26 @@
                         "command": "/home/gwendolyn/.config/tools/brightness.sh toggle"
                     },
                     "10": {
-                        "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_swap_mon_2_3.png",
-                        "text": "",
-                        "command": "i3-companion swap --output1=DisplayPort-1 --output2=DisplayPort-2"
+                        "command": "obs-cmd scene-item toggle \"Chat - Moon\" \"Image - Reply Yes\"",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/reply-yes.png",
+                        "text": ""
                     },
                     "11": {
+                        "text": "",
+                        "icon": "/home/gwendolyn/.config/streamdeck/icons/reply-no.png",
+                        "command": "obs-cmd scene-item toggle \"Chat - Moon\" \"Image - Reply No\"",
+                        "text_vertical_align": ""
+                    },
+                    "12": {
+                        "icon": "",
+                        "text": "",
+                        "command": ""
+                    },
+                    "13": {
                         "command": "",
                         "text": "",
                         "icon": "",
                         "write": ""
-                    },
-                    "12": {
-                        "command": "1",
-                        "icon": "",
-                        "text": ""
-                    },
-                    "13": {
-                        "text": "",
-                        "icon": "",
-                        "command": "2",
-                        "text_vertical_align": ""
                     },
                     "14": {
                         "icon": "/home/gwendolyn/.config/streamdeck/icons/streamdeck_key_load_workspaces.png",
@@ -238,7 +238,9 @@
                 }
             },
             "brightness": 43,
-            "page": 0
+            "page": 0,
+            "display_timeout": 0,
+            "brightness_dimmed": 33
         }
     }
 }
