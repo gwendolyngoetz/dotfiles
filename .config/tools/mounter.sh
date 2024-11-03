@@ -15,9 +15,10 @@ function run_mount {
     for i in "${!SHARES[@]}"; do
         SHARE="${SHARES[$i]}"
         LOCAL_PATH="/mnt/nfs/${SERVER}/${SHARE}"
-        REMOTE_PATH="${SERVER}:/mnt/storage0/${SHARE}"
-        sudo mount -t nfs "${REMOTE_PATH}" "${LOCAL_PATH}"
+        POOLNAME="$(get_pool_name ${SERVER})"
+        REMOTE_PATH="${SERVER}:/mnt/${POOLNAME}${SHARE}"
         printf "%bmounted%b: %b\n" "${COLOR_GREEN}" "${COLOR_RESET}" "${LOCAL_PATH}"
+        sudo mount -t nfs "${REMOTE_PATH}" "${LOCAL_PATH}"
     done
 }
 
@@ -32,6 +33,22 @@ function run_unmount {
 
 function run_default {
     grep "/mnt/nfs" /proc/mounts | cut -d' ' -f2
+}
+
+function get_pool_name {
+    local server="${1}"
+    local result=""
+
+    case "${server}" in
+        "truenas")
+            result="storage0/" ;;
+        "nas1")
+            result="main-pool/" ;;
+        *)
+            result="";;
+    esac
+
+    echo "${result}"
 }
 
 function main {
