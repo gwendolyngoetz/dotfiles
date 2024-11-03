@@ -6,6 +6,7 @@ return {
         formatters_by_ft = {
             go = { "goimports", "gofumpt" },
             javascript = { "prettierd", "prettier", stop_after_first = true },
+            json = { "prettierd", "prettier", stop_after_first = true },
             lua = { "stylua --indent-type Spaces" },
             python = { "isort", "black" },
             terraform = { "terraform_fmt" },
