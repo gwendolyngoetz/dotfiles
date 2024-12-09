@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mozilla Thunderbird
+GenericName=Thunderbird
+Icon=/.local/share/icons/mozilla/thunderbird/thunderbird.svg
+Exec="/opt/mozilla/thunderbird/thunderbird"
+Comment=Mozilla Thunderbird 
+Categories=Office
+Terminal=false
+#StartupNotify=true
