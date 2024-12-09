@@ -21,10 +21,12 @@ local setup_diagnostic_settings = function()
 
     vim.diagnostic.config(config)
 
+    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.with(vim.lsp.buf.hover, {
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = settings.ui.border,
     })
 
+    -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.with(vim.lsp.buf.signature_help, {
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
         border = settings.ui.border,
     })
