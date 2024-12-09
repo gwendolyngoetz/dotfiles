@@ -226,7 +226,7 @@ local config = function()
         "json-lsp",
         "lua-language-server",
         "netcoredbg",
-        "ocaml-lsp ",
+        -- "ocaml-lsp ",
         "omnisharp",
         "prettier",
         "pyright",
