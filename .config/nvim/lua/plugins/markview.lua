@@ -9,6 +9,9 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons"
         },
+        opts = {
+            initial_state = false,
+        },
         keys = {
             { "<leader>mm", "<cmd>Markview toggleAll<CR>", { desc = "Toggle Markview" }},
         }
