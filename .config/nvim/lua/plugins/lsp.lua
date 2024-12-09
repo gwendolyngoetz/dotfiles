@@ -209,14 +209,36 @@ local config = function()
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
+        "bash-language-server",
         "black",
-        -- "flake8",
+        "css-lsp",
+        "docker-compose-language-service",
+        "dockerfile-language-server",
+        "firefox-debug-adapter",
         "gofumpt",
         "goimports",
+        "google-java-format",
+        "gopls",
+        "html-lsp",
         "isort",
+        "jdtls",
+        "jq-lsp",
+        "json-lsp",
+        "lua-language-server",
+        "netcoredbg",
+        "ocaml-lsp ",
+        "omnisharp",
         "prettier",
+        "pyright",
+        "rust-analyzer",
+        "shellcheck",
+        "sql-formatter",
+        "sqlls",
         "stylua",
-        "xmlformatter"
+        "terraform-ls",
+        "typescript-language-server",
+        "xmlformatter",
+        "yaml-language-server"
     })
 
     require("lspconfig.ui.windows").default_options.border = settings.ui.border
