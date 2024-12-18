@@ -84,3 +84,5 @@
 	default = current
 [diff "image"]
 	command = ~/.config/git/scripts/diff-image/git-diff-image.sh
+[rebase]
+	updateRefs = true
