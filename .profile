@@ -73,6 +73,11 @@ if [[ -f "$HOME/.opam/opam-init/init.sh" ]]; then
     . "$HOME/.opam/opam-init/init.sh"
 fi
 
+# Zig
+if [[ -d "$HOME/.local/share/zig" ]]; then
+    export PATH="$PATH:$HOME/.local/share/zig/current"
+fi
+
 # environment variables not to check in to source control
 if [ -f "$HOME/.private-env" ] ; then
     source "$HOME/.private-env"
