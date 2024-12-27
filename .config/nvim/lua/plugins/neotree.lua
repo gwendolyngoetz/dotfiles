@@ -3,17 +3,12 @@ local icons = require("config.settings").icons
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
-        tag = "3.26",
+        tag = "3.27",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
         },
-        config = function(_, opts)
-            -- Remove the deprecated commands from v1.x
-            vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-            require("neo-tree").setup(opts)
-        end,
         opts = {
             close_if_last_window = false,
             popup_border_style = require("config.settings").ui.border,
@@ -52,47 +47,8 @@ return {
             },
             window = {
                 width = 32,
-                mappings = {
-                    ["<space>"] = { "toggle_node", nowait = false },
-                    ["<2-LeftMouse>"] = "open",
-                    ["<cr>"] = "open",
-                    ["<esc>"] = "revert_preview",
-                    ["P"] = { "toggle_preview", config = { use_float = true } },
-                    ["S"] = "open_split",
-                    ["s"] = "open_vsplit",
-                    ["t"] = "open_tabnew",
-                    ["w"] = "open_with_window_picker",
-                    ["C"] = "close_node",
-                    ["z"] = "close_all_nodes",
-                    ["R"] = "refresh",
-                    ["a"] = "add",
-                    ["A"] = "add_directory",
-                    ["d"] = "delete",
-                    ["r"] = "rename",
-                    ["y"] = "copy_to_clipboard",
-                    ["x"] = "cut_to_clipboard",
-                    ["p"] = "paste_from_clipboard",
-                    ["c"] = "copy",
-                    ["m"] = "move",
-                    ["q"] = "close_window",
-                    ["?"] = "show_help",
-                    ["<"] = "prev_source",
-                    [">"] = "next_source",
-                },
             },
             filesystem = {
-                window = {
-                    mappings = {
-                        ["<bs>"] = "navigate_up",
-                        ["."] = "set_root",
-                        ["/"] = "fuzzy_finder",
-                        ["D"] = "fuzzy_finder_directory",
-                        ["f"] = "filter_on_submit",
-                        ["<C-x>"] = "clear_filter",
-                        ["[g"] = "prev_git_modified",
-                        ["]g"] = "next_git_modified",
-                    },
-                },
                 filtered_items = {
                     show_hidden_count = false,
                     hide_dotfiles = false,
