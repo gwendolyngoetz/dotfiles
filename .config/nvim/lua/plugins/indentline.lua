@@ -1,7 +1,7 @@
 return {
     {
         "lukas-reineke/indent-blankline.nvim",
-        tag = "v3.7.2",
+        tag = "v3.8.6",
         main = "ibl",
         opts = {
             indent = {
