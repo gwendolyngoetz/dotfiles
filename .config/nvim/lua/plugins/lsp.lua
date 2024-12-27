@@ -125,10 +125,10 @@ local get_server = function()
                         callSnippet = "Replace",
                     },
                     diagnostics = {
-                      -- globals = { "vim" },
-                      disable = {
-                        "missing-fields",
-                      },
+                        -- globals = { "vim" },
+                        disable = {
+                            "missing-fields",
+                        },
                     },
                     -- workspace = {
                     --   library = {
@@ -137,7 +137,7 @@ local get_server = function()
                     --   },
                     -- },
                     telemetry = {
-                      enable = false,
+                        enable = false,
                     },
                 },
             },
