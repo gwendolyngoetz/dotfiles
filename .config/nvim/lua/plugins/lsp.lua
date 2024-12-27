@@ -195,8 +195,6 @@ local config = function()
 
     capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-    local servers = get_server()
-
     require("mason").setup({
         ui = {
             border = settings.ui.border,
@@ -207,6 +205,8 @@ local config = function()
             },
         },
     })
+
+    local servers = get_server()
 
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
