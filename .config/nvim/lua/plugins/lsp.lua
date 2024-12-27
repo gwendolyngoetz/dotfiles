@@ -178,6 +178,9 @@ local get_server = function()
 
         -- Yaml
         yamlls = {},
+
+        -- Zig
+        zls = {}
     }
     return servers
 end
@@ -238,7 +241,8 @@ local config = function()
         "terraform-ls",
         "typescript-language-server",
         "xmlformatter",
-        "yaml-language-server"
+        "yaml-language-server",
+        "zls"
     })
 
     require("lspconfig.ui.windows").default_options.border = settings.ui.border
