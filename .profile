@@ -22,28 +22,28 @@ if [ -n "$TMUX" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+if [ -d "$HOME/bin" ]; then
     export PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
+if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # Java-11
-if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ] ; then
+if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ]; then
     export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
     export PATH="$JAVA_HOME/bin":$PATH
 fi
 
 # Coursier
-if [ -d "$HOME/.local/share/coursier/bin" ] ; then
+if [ -d "$HOME/.local/share/coursier/bin" ]; then
     export PATH="$PATH:$HOME/.local/share/coursier/bin"
 fi
 
 # Dotnet
-if [ -d "$HOME/.dotnet" ] ; then
+if [ -d "$HOME/.dotnet" ]; then
     export DOTNET_ROOT=$HOME/.dotnet
     export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
 fi
@@ -59,8 +59,8 @@ fi
 
 # Node
 if [ -d "$HOME/.local/share/nvm" ]; then
-  export NVM_DIR="$HOME/.local/share/nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    export NVM_DIR="$HOME/.local/share/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
 # Rust
@@ -79,7 +79,7 @@ if [[ -d "$HOME/.local/share/zig" ]]; then
 fi
 
 # environment variables not to check in to source control
-if [ -f "$HOME/.private-env" ] ; then
+if [ -f "$HOME/.private-env" ]; then
     source "$HOME/.private-env"
 else
     echo "$HOME/.private-env file not found" 1>&2
@@ -87,4 +87,3 @@ fi
 
 export HISTFILE="$HOME/.config/bash/bash_history"
 export HISTCONTROL=ignoreboth
-
