@@ -195,6 +195,7 @@ for_window [title="Copying" class="dolphin" window_type="dialog"] floating enabl
 for_window [title="i3_help"] floating enable sticky enable border normal
 #for_window [title="Microsoft Teams Notification"] floating enable
 for_window [title="ZenityCalendar"] floating enable sticky enable border normal
+for_window [class="(?i)thunderbird" window_type="dialog"] floating enable border normal 
 
 # default workspace assignments
 for_window [class="Spotify"] move to workspace $ws10
