@@ -52,6 +52,7 @@ alias path='$HOME/.config/tools/pretty-print-path.py'
 
 # git
 alias g=git
+alias gs='git st'
 alias git-prune-branch='git remote update --prune && git branch -vv | awk "/: gone]/{print }" | xargs git branch -d'
 
 # docker
