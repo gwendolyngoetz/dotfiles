@@ -31,8 +31,17 @@ return {
             local metals_config = require("metals").bare_config()
 
             metals_config.settings = {
+                serverVersion = "latest.release",
+                sbtScript = "sbt",
                 showImplicitArguments = true,
-                excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+                superMethodLensesEnabled = true,
+                showInferredType = true,
+                excludedPackages = {
+                    "akka.actor.typed.javadsl",
+                    "org.apache.pekko.actor.typed.javadsl",
+                    "com.github.swagger.akka.javadsl",
+                    "com.github.swagger.pekko.javadsl"
+                },
             }
 
             metals_config.on_attach = function()

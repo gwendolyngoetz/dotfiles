@@ -10,10 +10,12 @@ return {
             "nvim-tree/nvim-web-devicons"
         },
         opts = {
-            initial_state = false,
+            preview = {
+                enable = false
+            }
         },
         keys = {
-            { "<leader>mm", "<cmd>Markview toggleAll<CR>", { desc = "Toggle Markview" }},
+            { "<leader>mm", "<cmd>Markview toggleAll<CR>", { desc = "Toggle Markview" } },
         }
     }
 }
