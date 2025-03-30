@@ -8,4 +8,8 @@ return {
     {
         "famiu/bufdelete.nvim",
     },
+    {
+        "j-hui/fidget.nvim",
+        opts = {},
+    },
 }

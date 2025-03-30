@@ -1,4 +1,5 @@
 local prettier = { "prettierd", "prettier", stop_after_first = true }
+-- local prettier = { "prettierd", "eslint_d" }
 
 return {
     "stevearc/conform.nvim",
@@ -6,6 +7,7 @@ return {
         notify_on_error = true,
         -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
         formatters_by_ft = {
+            cs = { "csharpier" },
             css = prettier,
             go = { "goimports", "gofumpt" },
             java = { "google-java-format" },
@@ -19,8 +21,7 @@ return {
             scala = { "scalafmt" },
             scss = prettier,
             sql = { "sql_formatter" },
-            sh = { "shfmt" },
-            -- sh = { "shfmt", "shellcheck" },
+            sh = { "shfmt", "shellcheck" },
             terraform = { "terraform_fmt" },
             ts = prettier,
             xml = { "xmlformat" },

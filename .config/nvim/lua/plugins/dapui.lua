@@ -1,7 +1,7 @@
 local config = function()
     local settings = require("config.settings")
 
-     vim.diagnostic.config {
+    vim.diagnostic.config {
         signs = {
             DapBreakpoint = {
                 text = settings.icons.debugging.breakpoint,
