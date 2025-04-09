@@ -36,11 +36,21 @@ local config = function()
     local lspinfo = function()
         local clients = vim.lsp.get_clients({ bufnr = 0 })
 
-        if #clients > 0 then
-            return icons.lualine.language_server .. #clients
+        if #clients == 0 then
+            return ""
         end
 
-        return ""
+        -- return icons.lualine.language_server .. #clients
+
+        local names = vim.iter(clients)
+            :map(function(client)
+                local name = client.name:gsub("language.server", "ls")
+                return name
+            end)
+            :totable()
+
+        -- TODO: Use icons instead of names
+        return icons.lualine.language_server .. #clients .. " [" .. table.concat(names, ", ") .. "]"
     end
 
     local filetype_exclusions = {
