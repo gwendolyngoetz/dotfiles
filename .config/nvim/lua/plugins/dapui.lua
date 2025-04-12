@@ -1,61 +1,3 @@
-local config = function()
-    local settings = require("config.settings")
-
-    vim.diagnostic.config {
-        signs = {
-            DapBreakpoint = {
-                text = settings.icons.debugging.breakpoint,
-                texthl = "DiagnosticSignError"
-            }
-        }
-    }
-
-    local dap = require("dap")
-    local dapui = require("dapui")
-
-    dapui.setup({
-        layouts = {
-            {
-                elements = {
-                    "scopes",
-                    "watches",
-                    "stacks",
-                    "breakpoints",
-                },
-                size = 40,
-                position = "right",
-            },
-            {
-                elements = {
-                    "repl",
-                    "console",
-                },
-                size = 0.25,
-                position = "bottom",
-            },
-        },
-        controls = {
-            enabled = true,
-            element = "repl",
-        },
-        floating = {
-            border = settings.ui.border,
-        },
-    })
-
-    dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-    end
-
-    dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-    end
-
-    dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-    end
-end
-
 return {
     {
         "rcarriga/nvim-dap-ui",
@@ -65,6 +7,50 @@ return {
                 "nvim-neotest/nvim-nio",
             },
         },
-        config = config,
+        config = function()
+            vim.diagnostic.config {
+                signs = {
+                    DapBreakpoint = {
+                        text = require("config.settings").icons.debugging.breakpoint,
+                        texthl = "DiagnosticSignError"
+                    }
+                }
+            }
+
+            require("dapui").setup({
+                layouts = {
+                    {
+                        elements = {
+                            "scopes",
+                            "watches",
+                            "stacks",
+                            "breakpoints",
+                        },
+                        size = 40,
+                        position = "right",
+                    },
+                    {
+                        elements = {
+                            "repl",
+                            "console",
+                        },
+                        size = 0.25,
+                        position = "bottom",
+                    },
+                },
+            })
+
+            require("dap").listeners.after.event_initialized["dapui_config"] = function()
+                require("dapui").open()
+            end
+
+            require("dap").listeners.before.event_terminated["dapui_config"] = function()
+                require("dapui").close()
+            end
+
+            require("dap").listeners.before.event_exited["dapui_config"] = function()
+                require("dapui").close()
+            end
+        end
     },
 }
