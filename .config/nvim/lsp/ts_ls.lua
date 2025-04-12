@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
     cmd = { vim.fn.stdpath('data') .. '/mason/bin/typescript-language-server', "--stdio" },
     filetypes = {
