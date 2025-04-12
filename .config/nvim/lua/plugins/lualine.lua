@@ -40,17 +40,16 @@ local config = function()
             return ""
         end
 
-        -- return icons.lualine.language_server .. #clients
-
         local names = vim.iter(clients)
             :map(function(client)
+                local icon = require('nvim-web-devicons').get_icon_by_filetype(vim.bo.filetype, { default = true })
                 local name = client.name:gsub("language.server", "ls")
-                return name
+                return icon or name
             end)
             :totable()
 
-        -- TODO: Use icons instead of names
-        return icons.lualine.language_server .. #clients .. " [" .. table.concat(names, ", ") .. "]"
+        -- return icons.lualine.language_server .. #clients
+        return icons.lualine.language_server .. table.concat(names, ", ") .. " "
     end
 
     local filetype_exclusions = {
