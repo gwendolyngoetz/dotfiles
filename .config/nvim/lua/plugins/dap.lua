@@ -2,21 +2,11 @@ local config = function()
     local helpers = require("config.helpers")
     local dap = require("dap")
 
-    require("mason-nvim-dap").setup({
-        ensure_installed = {
-            --"chrome",
-            --"go-debug-adapter",
-            "coreclr",
-            --"node2",
-            "firefox",
-        },
-        automatic_installation = true,
-    })
 
     -- Adapters: dotnet
-    local netcoredbg_path = helpers.get_from_data_path("/mason/packages/netcoredbg/netcoredbg")
+    local ok_netcoredbg, netcoredbg_path = helpers.get_from_data_path("/mason/packages/netcoredbg/netcoredbg")
 
-    if not helpers.is_empty(netcoredbg_path) then
+    if ok_netcoredbg then
         dap.adapters.coreclr = {
             type = "executable",
             command = netcoredbg_path,
@@ -24,29 +14,32 @@ local config = function()
         }
     end
 
-    ---- Adapters: Node and TypeScript
-    --local node2_path = helpers.get_from_data_path("/mason/packages/node-debug2-adapter/out/src/nodeDebug.js")
+    --[[
+    -- Adapters: Node and TypeScript
+    local ok_node2, node2_path = helpers.get_from_data_path("/mason/packages/node-debug2-adapter/out/src/nodeDebug.js")
 
-    --if not helpers.is_empty(node2_path) then
-    --  dap.adapters.node2 = {
-    --    type = "executable",
-    --    command = "node",
-    --    args = { node2_path },
-    --  }
-    --end
+    if ok_node2 then
+        dap.adapters.node2 = {
+            type = "executable",
+            command = "node",
+            args = { node2_path },
+        }
+    end
+    --]]
 
     --[[
-  -- Adapters: Chrome
-  local chrome_path = helpers.get_from_data_path("/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js")
+    -- Adapters: Chrome
+    local ok_chrome, chrome_path = helpers.get_from_data_path(
+        "/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js")
 
-  if not helpers.is_empty(chrome_path) then
-    dap.adapters.chrome = {
-      type = "executable",
-      command = "node",
-      args = { chrome_path },
-    }
-  end
-  --]]
+    if ok_chrome then
+        dap.adapters.chrome = {
+            type = "executable",
+            command = "node",
+            args = { chrome_path },
+        }
+    end
+    --]]
 
     -- Configurations
     dap.configurations.javascript = {
@@ -100,7 +93,6 @@ return {
         "mfussenegger/nvim-dap",
         dependencies = {
             "williamboman/mason.nvim",
-            "jay-babu/mason-nvim-dap.nvim",
         },
         config = config,
         keys = {

@@ -29,8 +29,11 @@ return {
                         "zls",
 
                         -- DAP -------------------
+                        -- "chrome",
                         "firefox-debug-adapter",
+                        -- "go-debug-adapter",
                         "netcoredbg",
+                        -- "node2",
 
                         -- Linter ----------------
                         "shellcheck",
@@ -49,9 +52,6 @@ return {
                     }
                 }
             },
-            -- {
-            --     "jay-babu/mason-nvim-dap.nvim",
-            -- },
         },
         opts = {
             ui = {
