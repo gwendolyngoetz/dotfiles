@@ -1,22 +1,27 @@
 local settings = require("config.settings")
 local icons = settings.icons
 
--- diagnostic settings
-vim.diagnostic.config({
+---@type vim.diagnostic.Opts
+local diagnostic_config = {
+    -- virtual_lines = {
+    --     current_line = true
+    -- }
     virtual_text = true,
     signs = true,
     update_in_insert = true,
     underline = true,
     severity_sort = true,
     float = {
-        focusable = true,
+        focusable = false,
         style = "minimal",
-        border = settings.ui.border,
+        -- border = settings.ui.border,
         source = true,
         header = "",
         prefix = "",
     },
-})
+}
+
+vim.diagnostic.config(diagnostic_config)
 
 -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.with(vim.lsp.buf.hover, {
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
