@@ -1,6 +1,15 @@
 ---@type vim.lsp.Config
 return {
-    cmd = { vim.fn.stdpath('data') .. '/mason/bin/omnisharp', "--languageserver" },
+    cmd = {
+        vim.fn.stdpath('data') .. '/mason/bin/omnisharp',
+        '-z', -- https://github.com/OmniSharp/omnisharp-vscode/pull/4300
+        '--hostPID',
+        tostring(vim.fn.getpid()),
+        'DotNet:enablePackageRestore=false',
+        '--encoding',
+        'utf-8',
+        '--languageserver',
+    },
     filetypes = { 'cs' },
     root_markers = { '.sln', '.csproj', 'omnisharp.json', 'function.json' },
     settings = {
