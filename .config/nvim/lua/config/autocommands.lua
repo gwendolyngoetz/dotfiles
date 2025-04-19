@@ -68,13 +68,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-        -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-        -- if client ~= nil then
-        --     local illuminate = require("config.helpers").require("illuminate")
-        --     if illuminate then
-        --         illuminate.on_attach(client)
-        --     end
-        -- end
+        if client:supports_method('textDocument/foldingRange') then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        end
     end,
 })
