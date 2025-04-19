@@ -74,5 +74,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
             local win = vim.api.nvim_get_current_win()
             vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
         end
+
+
+        -- -- Enable CodeLens if supported by the server
+        -- if client.server_capabilities.codeLensProvider then
+        --     -- Add keybinding to manually refresh CodeLens
+        --     local opts = { buffer = event.buf, noremap = true, silent = true }
+        --     vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, opts)
+        --     vim.keymap.set('n', '<leader>cr', vim.lsp.codelens.refresh, opts)
+
+        --     -- Automatically show CodeLens
+        --     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        --         buffer = event.buf,
+        --         callback = vim.lsp.codelens.refresh
+        --     })
+        -- end
     end,
 })
