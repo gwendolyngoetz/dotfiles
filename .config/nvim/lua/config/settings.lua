@@ -88,11 +88,6 @@ M.icons = {
         prompt_prefix = " ",
         selection_caret = " ",
     },
-    mason = {
-        package_installed = "✓",
-        package_pending = "➜",
-        package_uninstalled = "✗",
-    },
     cmp = {
         lsp = "LSP",
         lua = "",

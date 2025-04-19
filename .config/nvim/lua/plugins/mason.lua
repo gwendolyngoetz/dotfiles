@@ -1,26 +1,7 @@
-local settings = require("config.settings")
-local icons = settings.icons
-
-local config = function()
-    require("mason").setup({
-        ui = {
-            border = settings.ui.border,
-            icons = {
-                package_installed = icons.mason.package_installed,
-                package_pending = icons.mason.package_pending,
-                package_uninstalled = icons.mason.package_uninstalled,
-            },
-        },
-    })
-end
-
 return {
     {
-        "neovim/nvim-lspconfig",
+        "williamboman/mason.nvim",
         dependencies = {
-            {
-                "williamboman/mason.nvim",
-            },
             {
                 "WhoIsSethDaniel/mason-tool-installer.nvim",
                 opts = {
@@ -71,11 +52,16 @@ return {
             -- {
             --     "jay-babu/mason-nvim-dap.nvim",
             -- },
-            -- {
-            --     "folke/lazydev.nvim",
-            --     opts = {},
-            -- },
         },
-        config = config
+        opts = {
+            ui = {
+                border = require("config.settings").ui.border,
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗",
+                },
+            },
+        }
     },
 }
