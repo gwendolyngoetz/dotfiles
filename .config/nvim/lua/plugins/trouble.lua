@@ -1,17 +1,19 @@
 --local config = function()
-    -- -- toggle trouble with optional mode
-    -- require("trouble").toggle(mode?)
-    --
-    -- -- open trouble with optional mode
-    -- require("trouble").open(mode?)
-    --
-    -- -- close trouble
-    -- require("trouble").close()
+-- -- toggle trouble with optional mode
+-- require("trouble").toggle(mode?)
+--
+-- -- open trouble with optional mode
+-- require("trouble").open(mode?)
+--
+-- -- close trouble
+-- require("trouble").close()
 --end
 
 return {
     {
         "folke/trouble.nvim",
+        opts = {}, -- for default options, refer to the configuration section for custom setup.
+        cmd = "Trouble",
         keys = {
             {
                 "<leader>xx",
@@ -44,6 +46,5 @@ return {
                 desc = "Quickfix List (Trouble)",
             },
         },
-        opts = {}, -- for default options, refer to the configuration section for custom setup.
     },
 }
