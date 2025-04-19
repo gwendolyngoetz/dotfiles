@@ -18,6 +18,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+-- Reset filetype for docker compose files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "compose.yaml", "compose.yml", "docker-compose.yaml", "docker-compose.yml" },
+    callback = function()
+        vim.opt.filetype = "yaml.docker-compose"
+    end
+})
+
 -- Fixes Autocomment
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     callback = function()
