@@ -1,12 +1,8 @@
 return {
     {
         'Bekaboo/dropbar.nvim',
-        dependencies = {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'make'
-        },
         ---@module "dropbar"
-        ---@type dropbar_configs_t
+        ---@type dropbar_configs_t?
         opts = {
             sources = {
                 path = {

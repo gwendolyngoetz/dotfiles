@@ -54,7 +54,7 @@ return {
             local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()
-            metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+            metals_config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
             setup_dap()
 

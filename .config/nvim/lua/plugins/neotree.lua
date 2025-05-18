@@ -9,6 +9,8 @@ return {
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
         },
+        ---@module "neo-tree"
+        ---@type neotree.Config?
         opts = {
             close_if_last_window = false,
             popup_border_style = require("config.settings").ui.border,

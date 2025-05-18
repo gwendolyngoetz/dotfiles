@@ -83,7 +83,7 @@ local config = {
         workspace_dir,
     },
 
-    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities()),
+    capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities()),
 
     -- 💀
     -- This is the default if not provided, you can remove it. Or adjust as needed.

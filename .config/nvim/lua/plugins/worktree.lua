@@ -1,6 +1,7 @@
 return {
     {
         "theprimeagen/git-worktree.nvim",
+        enabled = false,
         config = function(_, opts)
             require("git-worktree").setup(opts)
             require("telescope").load_extension("git_worktree")

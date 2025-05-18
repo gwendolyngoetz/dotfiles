@@ -18,6 +18,7 @@ return {
                         "jq-lsp",
                         "json-lsp",
                         "lua-language-server",
+                        -- "nginx-language-server",
                         -- "ocaml-lsp ",
                         "omnisharp",
                         "pyright",

@@ -5,6 +5,13 @@ return {
     "stevearc/conform.nvim",
     opts = {
         notify_on_error = true,
+        formatters = {
+            csharpier = {
+                command = vim.fn.stdpath('data') .. '/mason/bin/csharpier',
+                args = { "format" },
+                stdin = true
+            }
+        },
         -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
         formatters_by_ft = {
             cs = { "csharpier" },
