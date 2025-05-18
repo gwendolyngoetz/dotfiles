@@ -99,3 +99,5 @@
     wl = worktree list
     wr = !git worktree remove
 
+[includeIf "gitdir:~/src/github/work/"]
+    path = ./config.github

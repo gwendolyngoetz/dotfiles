@@ -1,0 +1,6 @@
+[user]
+    signingkey = ~/.ssh/github
+[gpg]
+    format = ssh
+[commit]
+    gpgsign = true
