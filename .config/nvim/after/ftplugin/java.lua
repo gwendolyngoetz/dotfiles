@@ -112,6 +112,20 @@ local config = {
             maven = {
                 downloadSources = true,
             },
+            -- BEGIN CRUCIAL
+            project = {
+                sourcePaths = {
+                    'app',
+                    -- 'target/scala-2.13/classes',
+                    'target/scala-2.13/src_managed/main',
+                    'target/scala-2.13/routes/main',
+                },
+                resourcePaths = {
+                    'conf',
+                    'public'
+                }
+            },
+            -- END CRUCIAL
             implementationsCodeLens = {
                 enabled = true,
             },
