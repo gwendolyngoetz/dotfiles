@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=LACT
+Comment=Control your graphics cards
+GenericName=GPU Control Application
+Exec=env GTK_THEME=Dracula:dark /usr/bin/lact gui
+Icon=io.github.ilya_zlobintsev.LACT
+Categories=System;
+Keywords=AMD;GPU;Radeon;
