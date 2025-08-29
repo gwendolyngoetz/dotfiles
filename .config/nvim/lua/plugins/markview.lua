@@ -12,6 +12,9 @@ return {
         opts = {
             preview = {
                 enable = false
+            },
+            experimental = {
+                check_rtp = false
             }
         },
         keys = {
