@@ -84,7 +84,7 @@
     linkgh = !~/.config/git/scripts/open-on-github.sh
     linkpr = !~/.config/git/scripts/open-pr-link.sh
     mt = mergetool
-    nb = !git checkout -b
+    nb = !~/.config/git/scripts/new-branch.sh
     patch = add --patch
     pr = !~/.config/git/scripts/create-pr.sh
     renovate = !~/.config/git/scripts/approve-renovate.sh
