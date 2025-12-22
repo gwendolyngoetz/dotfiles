@@ -1,6 +1,6 @@
 return {
     {
-        "NvChad/nvim-colorizer.lua",
+        "catgoose/nvim-colorizer.lua",
         keys = {
             { "<C-c>", "<cmd>ColorizerToggle<CR>", desc = "Toggle Colorizer" }
         },
@@ -11,8 +11,8 @@ return {
                 "html",
             },
             user_default_options = {
-                rgb_fn = true,
-                hsl_fn = true,
+                css = true,
+                names = false
             }
         }
     },

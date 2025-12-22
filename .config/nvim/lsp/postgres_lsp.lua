@@ -1,6 +1,6 @@
 ---@type vim.lsp.Config
 return {
-    cmd = { vim.fn.stdpath('data') .. '/mason/bin/postgrestools', 'lsp-proxy' },
+    cmd = { vim.fn.stdpath('data') .. '/mason/bin/postgres-language-server', 'lsp-proxy' },
     filetypes = {
         'sql',
     },
