@@ -54,6 +54,7 @@
 [diff "image"]
     command = ~/.config/git/scripts/diff-image/git-diff-image.sh
 [rebase]
+    autosquash = true
     updateRefs = true
 [tag]
     sort = version:refname
@@ -78,6 +79,7 @@
     dt = difftool -d
     dts = difftool -d --staged
     dc = !~/.config/git/scripts/diff-commits.sh
+    fix = !~/.config/git/scripts/autosquash-naming.sh fixup
     gclone = "!f() { git clone https://github.com/${1}; }; f"
     gsclone = "!f() { git clone git@github.com:${1}; }; f"
     l  = !git --no-pager log -16
@@ -90,12 +92,14 @@
     renovate = !~/.config/git/scripts/approve-renovate.sh
     rollback = !~/.config/git/scripts/rollback-to-commit.sh
     sl = stash list
+    squash = !~/.config/git/scripts/autosquash-naming.sh squash
     st = status
     sw = !~/.config/git/scripts/branch-switch.sh
     rl = remote -v
     tree = log --no-show-signature --graph --date=format-local:%H:%M:%S --all \
                --pretty="'%C(#ffe97b ul)%h%C(reset) %C(#568ea6)%cs %C(#305f72)%cd%C(reset)%C(auto)%d%C(reset) %s %C(yellow)(%C(reset)%C(#1abc9c)%an%C(reset)%C(yellow),%C(reset) %C(#007055)%cr%C(reset)%C(yellow))%C(reset)'"
     wa = !git worktree add -B "${1}" "./${1}"
+    wip = "!git commit -m \"$(git log -1 --pretty=%B | awk 'NR==1 {gsub(/wip/, \"\"); print \"wip\" $1 + 1}')\""
     wl = worktree list
     wr = !git worktree remove
 
