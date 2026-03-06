@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=MQTT Explorer
+Exec=.local/bin/MQTT-Explorer.AppImage
+Type=Application
+Icon=.local/share/icons/mqtt-explorer/mqtt-explorer.png
+Categories=Development;Network;
+Comment=MQTT client for exploring and interactive with MQTT brokers
