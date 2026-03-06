@@ -16,7 +16,7 @@ if [ -f "$HOME/.cargo/bin/eza" ]; then
     alias ls='eza --color=auto --icons --group'
     alias ll='ls -alF'
     alias la='ls -a'
-    alias tree='eza --tree --icons'
+    alias tree='eza --tree --icons --group-directories-first'
 fi
 
 # system git
