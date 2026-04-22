@@ -16,7 +16,7 @@
 	<unique-id>1640648588898489-1</unique-id>
 	<command>$HOME/.config/tools/unzip.sh %f</command>
 	<description>Unzip</description>
-	<patterns>*.zip</patterns>
+	<patterns>*.zip;*.7z;*.rar</patterns>
 	<other-files/>
 </action>
 <action>
