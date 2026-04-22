@@ -61,11 +61,17 @@ if [[ -f "$HOME/.config/aliases-osx" && "$(uname -s)" == "Darwin" ]]; then
     source $HOME/.config/aliases-osx
 fi
 
+# Console do not track convention
+export DO_NOT_TRACK=true
+
 # Disable less history
 export LESSHISTFILE=-
 
-# Opt-out of dotnet telemtry
+# Opt-out of dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# Opt-out of github cli telemetry
+export GH_TELEMETRY=false
 
 # AWS
 export AWS_CONFIG_FILE=~/.config/aws/config
