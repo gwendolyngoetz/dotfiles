@@ -4,4 +4,4 @@ origin="$(git ls-remote --get-url origin | sed -n "s/^.*github.com\/*:*\s*\(\S*\
 branch_name="$(git rev-parse --abbrev-ref HEAD)"
 url="$(curl --silent "https://api.github.com/repos/${origin}/pulls?page_page=1&head=civiform:${branch_name}" | jq -r .[0].html_url)"
 
-xdg-open "${url}"
+xdg-open "${url}" 2>/dev/null
