@@ -53,6 +53,11 @@ if [ -f "$HOME/.golang/bin/go/bin/go" ]; then
     export PATH="$HOME/.golang/bin/go/bin:$PATH"
 fi
 
+# Odin
+if [ -f "$HOME/.odin/odin/odin" ]; then
+    export PATH="$HOME/.odin/odin:$PATH"
+fi
+
 if [ -d "$HOME/go/bin" ]; then
     export PATH="$PATH:$HOME/go/bin"
 fi
