@@ -71,7 +71,7 @@ function filter_aliases {
 
 # hijack cd to automatically enable/disable python venv if exists
 function cd {
-    builtin cd "$@"
+    builtin cd "$@" || return $?
 
     if [[ -z "${VIRTUAL_ENV}" ]]; then
         if [[ -d ./.venv ]] ; then
