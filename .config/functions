@@ -8,13 +8,13 @@ function set_prompt {
 }
 
 function workon {
-    if ! command -v fdfind &> /dev/null; then
+    if ! command -v fdfind &>/dev/null; then
         echo "Missing fd command"
         echo "https://github.com/sharkdp/fd"
         return
     fi
 
-    if ! command -v fzf &> /dev/null; then
+    if ! command -v fzf &>/dev/null; then
         echo "Missing fzf command"
         echo "https://github.com/junegunn/fzf"
         return
@@ -32,41 +32,41 @@ function workon {
         --base-directory "${base_dir}" \
         --exclude "github/system-repos" \
         --exclude "github/work/seattle-deploy-tf/checkout" \
-        --exec dirname {} \
-    | sed "s|${base_dir}/||" \
-    | sort \
-    | fzf \
-        +s \
-        --border=rounded \
-        --margin=0,25% \
-        --padding=1,0 \
-        --height=80% \
-        --info=hidden \
-        --query="${query}" \
-        --select-1 \
-        --exit-0 \
-        --color="bg+:-1,prompt:4,border:#5a4799,hl:4,hl+:4,fg+:6" \
-        --tac \
-        --pointer=" " \
-        --exact \
-        --prompt="Repo> ")
+        --exec dirname {} |
+        sed "s|${base_dir}/||" |
+        sort |
+        fzf \
+            +s \
+            --border=rounded \
+            --margin=0,25% \
+            --padding=1,0 \
+            --height=80% \
+            --info=hidden \
+            --query="${query}" \
+            --select-1 \
+            --exit-0 \
+            --color="bg+:-1,prompt:4,border:#5a4799,hl:4,hl+:4,fg+:6" \
+            --tac \
+            --pointer=" " \
+            --exact \
+            --prompt="Repo> ")
 
     session_name="$(basename "${dirname}")"
-    tmux new-session -A -s "${session_name}" -c "${base_dir}/${dirname}" 
+    tmux new-session -A -s "${session_name}" -c "${base_dir}/${dirname}"
 }
 
 function cd_git_root {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
+    if git rev-parse --git-dir >/dev/null 2>&1; then
         cd "$(git rev-parse --show-toplevel)"
     fi
 }
 
 function create_and_enter_dir {
-  mkdir -p "${1}" && cd "${1}";
+    mkdir -p "${1}" && cd "${1}"
 }
 
 function filter_aliases {
-  alias -p | grep "${1}"
+    alias -p | grep "${1}"
 }
 
 # hijack cd to automatically enable/disable python venv if exists
@@ -74,12 +74,12 @@ function cd {
     builtin cd "$@" || return $?
 
     if [[ -z "${VIRTUAL_ENV}" ]]; then
-        if [[ -d ./.venv ]] ; then
+        if [[ -d ./.venv ]]; then
             source ./.venv/bin/activate
         fi
     else
         parentdir="$(dirname "${VIRTUAL_ENV}")"
-        if [[ "${PWD}"/ != "${parentdir}"/* ]] ; then
+        if [[ "${PWD}"/ != "${parentdir}"/* ]]; then
             deactivate
         fi
     fi
@@ -87,7 +87,7 @@ function cd {
 
 # create a python venv if one does not exist
 function mkenv {
-    if [[ ! -d ./.venv ]] ; then
+    if [[ ! -d ./.venv ]]; then
         python -m venv ./.venv
         source ./.venv/bin/activate
     fi
@@ -100,4 +100,3 @@ function safe_rf {
         /bin/rf "$@"
     fi
 }
-
