@@ -3,7 +3,7 @@ local icons = require("config.settings").icons
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
-        tag = "3.31.1",
+        tag = "3.41.0",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",

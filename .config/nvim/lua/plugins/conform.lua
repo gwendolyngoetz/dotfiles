@@ -3,41 +3,44 @@ local prettier = { "prettierd", "prettier", stop_after_first = true }
 
 return {
     "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
     opts = {
-        notify_on_error = true,
         formatters = {
-            csharpier = {
-                command = vim.fn.stdpath('data') .. '/mason/bin/csharpier',
-                args = { "format" },
-                stdin = true
-            }
+            isort = {
+                prepend_args = { "--profile", "black" },
+            },
+            stylua = {
+                prepend_args = { "--indent-type", "Spaces" },
+            },
         },
         -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
         formatters_by_ft = {
             cs = { "csharpier" },
             css = prettier,
             go = { "goimports", "gofumpt" },
+            html = prettier,
             java = { "google-java-format" },
             javascript = prettier,
+            javascriptreact = prettier,
             json = prettier,
-            html = prettier,
-            lua = { "stylua --indent-type Spaces" },
-            md = prettier,
+            lua = { "stylua" },
+            markdown = prettier,
             python = { "isort", "black" },
             sass = prettier,
             scala = { "scalafmt" },
             scss = prettier,
-            sql = { "sql_formatter" },
             sh = { "shfmt", "shellcheck" },
+            sql = { "sql_formatter" },
             terraform = { "terraform_fmt" },
-            ts = prettier,
+            typescript = prettier,
+            typescriptreact = prettier,
             xml = { "xmlformat" },
             yaml = prettier,
-            yml = prettier
         },
         format_on_save = {
-            timeout_ms = 500,
-            lsp_format = "fallback"
+            timeout_ms = 2000,
+            lsp_format = "fallback",
         },
     },
     -- keys = {

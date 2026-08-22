@@ -2,7 +2,6 @@ local config = function()
     local helpers = require("config.helpers")
     local dap = require("dap")
 
-
     -- Adapters: dotnet
     local ok_netcoredbg, netcoredbg_path = helpers.get_from_data_path("/mason/packages/netcoredbg/netcoredbg")
 
@@ -42,18 +41,18 @@ local config = function()
     --]]
 
     -- Configurations
-    dap.configurations.javascript = {
-        {
-            name = "Launch Node",
-            type = "node2",
-            request = "launch",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            protocol = "inspector",
-            console = "integratedTerminal",
-        },
-    }
+    -- dap.configurations.javascript = {
+    --     {
+    --         name = "Launch Node",
+    --         type = "node2",
+    --         request = "launch",
+    --         program = "${file}",
+    --         cwd = vim.fn.getcwd(),
+    --         sourceMaps = true,
+    --         protocol = "inspector",
+    --         console = "integratedTerminal",
+    --     },
+    -- }
 
     dap.configurations.javascript = {
         {
@@ -96,15 +95,15 @@ return {
         },
         config = config,
         keys = {
-            { "<leader>du", "<cmd>lua require('dapui').toggle()<CR>",          { desc = "Toggle UI" } },
-            { "<leader>dd", "<cmd>lua require('dap').repl.toggle()<CR>",       { desc = "Toggle Repl" } },
+            { "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", { desc = "Toggle UI" } },
+            { "<leader>dd", "<cmd>lua require('dap').repl.toggle()<CR>", { desc = "Toggle Repl" } },
             { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" } },
-            { "<leader>dl", "<cmd>lua require('dap').run_last()<CR>",          { desc = "Run Last" } },
-            { "<leader>dt", "<cmd>lua require('dap').terminate()<CR>",         { desc = "Terminate" } },
-            { "<leader>dq", "<cmd>lua require('dap').continue()<CR>",          { desc = "Continue" } },
-            { "<leader>dw", "<cmd>lua require('dap').step_over()<CR>",         { desc = "Step Over" } },
-            { "<leader>de", "<cmd>lua require('dap').step_info()<CR>",         { desc = "Step Into" } },
-            { "<leader>dr", "<cmd>lua require('dap').step_out()<CR>",          { desc = "Step Out" } }
-        }
+            { "<leader>dl", "<cmd>lua require('dap').run_last()<CR>", { desc = "Run Last" } },
+            { "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", { desc = "Terminate" } },
+            { "<leader>dq", "<cmd>lua require('dap').continue()<CR>", { desc = "Continue" } },
+            { "<leader>dw", "<cmd>lua require('dap').step_over()<CR>", { desc = "Step Over" } },
+            { "<leader>de", "<cmd>lua require('dap').step_into()<CR>", { desc = "Step Into" } },
+            { "<leader>dr", "<cmd>lua require('dap').step_out()<CR>", { desc = "Step Out" } },
+        },
     },
 }

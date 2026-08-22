@@ -17,7 +17,7 @@ local settings = require("config.settings")
 local opts = {
     lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json", -- lockfile generated after running update.
     install = {
-        colorscheme = { "tokoyonight-night" },
+        colorscheme = { "tokyonight-night" },
     },
     ui = {
         border = settings.ui.border,
@@ -29,8 +29,8 @@ local opts = {
         },
     },
     rocks = {
-        enabled = false
-    }
+        enabled = false,
+    },
 }
 
 require("lazy").setup("plugins", opts)
