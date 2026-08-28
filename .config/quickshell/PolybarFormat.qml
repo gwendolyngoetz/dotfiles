@@ -5,7 +5,7 @@ import Quickshell
 // Converts polybar formatting tags in script output (%{F#555}...%{F-}) into Qt rich text so
 // scripts like weatherwidget.py render the same as they did under polybar.
 Singleton {
-    function escape(s) {
+    function escapeHtml(s) {
         return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
@@ -30,14 +30,14 @@ Singleton {
         while (i < s.length) {
             const start = s.indexOf("%{", i);
             if (start < 0) {
-                out += escape(s.slice(i));
+                out += escapeHtml(s.slice(i));
                 break;
             }
 
-            out += escape(s.slice(i, start));
+            out += escapeHtml(s.slice(i, start));
             const end = s.indexOf("}", start);
             if (end < 0) {
-                out += escape(s.slice(start));
+                out += escapeHtml(s.slice(start));
                 break;
             }
 
