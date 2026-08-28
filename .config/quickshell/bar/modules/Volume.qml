@@ -4,8 +4,8 @@ import Quickshell.Services.Pipewire
 import qs
 import qs.bar
 
-// [module/pulseaudio]: format-volume = <ramp-volume> (icon only), label-muted, scroll = +/-5%,
-// click-right = pavucontrol -t 4; internal/pulseaudio toggles mute on left click by default
+// Default sink volume as an icon; left click toggles mute, scroll changes volume by 5%,
+// right click opens pavucontrol
 Module {
     id: root
 

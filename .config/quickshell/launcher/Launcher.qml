@@ -3,9 +3,7 @@ import Quickshell
 import Quickshell.Io
 import qs
 
-// rofi -modi drun -show drun -sidebar-mode -show-icons, themed by ~/.config/rofi/config.rasi.
-// The mainbox children list in that theme is [inputbar, message, listview], so the sidebar
-// never rendered; it is omitted here too.
+// Application launcher (desktop entries with icons).
 //
 // Toggle with: qs ipc call launcher toggle
 // i3 floats it via: for_window [class="quickshell" title="launcher"] floating enable, border none

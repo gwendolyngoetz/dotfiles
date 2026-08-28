@@ -3,10 +3,7 @@ import Quickshell
 import qs
 import qs.bar.modules
 
-// [bar/main]
-// modules-left   = i3 spotify
-// modules-center = date time
-// modules-right  = cpu memory filesystem temperature weather airquality eth otp pulseaudio shutdown-menu
+// Top bar: workspaces and spotify on the left, date and time centered, system modules on the right.
 PanelWindow {
     id: bar
 
@@ -34,7 +31,6 @@ PanelWindow {
             Spotify {}
         }
 
-        // fixed-center = true
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height

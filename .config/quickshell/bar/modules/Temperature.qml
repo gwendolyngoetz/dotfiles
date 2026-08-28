@@ -3,7 +3,7 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// [module/temperature]: interval 2, hwmon-path = k10temp temp1_input, label = %temperature-c%
+// TEMPERATURE_PATH (k10temp) in °C every 2s
 Module {
     id: root
 

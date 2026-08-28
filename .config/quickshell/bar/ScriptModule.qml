@@ -2,8 +2,8 @@ import QtQuick
 import Quickshell.Io
 import qs
 
-// custom/script: run `exec` every `interval` ms, show its output, hide when the output is empty.
-// polybar format tags (%{F#555}...%{F-}) in the output are honored.
+// Run `exec` every `interval` ms, show its output, hide when the output is empty.
+// %{F#...} / %{B#...} tags in the output are honored.
 Module {
     id: root
 

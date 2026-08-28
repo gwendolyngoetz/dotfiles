@@ -4,8 +4,7 @@ import Quickshell.Services.Mpris
 import qs
 import qs.bar
 
-// [module/spotify]: scripts/spotify.sh read MPRIS metadata over dbus every second and printed
-// "title - artist" cut to 30 characters. Same data straight from the Mpris service, no polling.
+// Spotify "title - artist" cut to 30 characters, from Mpris; click jumps to workspace 10
 Module {
     id: root
 

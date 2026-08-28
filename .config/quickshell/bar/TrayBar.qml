@@ -3,7 +3,7 @@ import Quickshell
 import qs
 import qs.bar.modules
 
-// [bar/secondary]: bottom = true, height = 20, background = #000000, modules-right = tray
+// Bottom bar holding the system tray
 PanelWindow {
     id: bar
 

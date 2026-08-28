@@ -4,7 +4,7 @@ import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import qs
 
-// [module/tray]: tray-padding = 2
+// System tray icons
 Row {
     id: root
     height: parent ? parent.height : Config.trayBarHeight

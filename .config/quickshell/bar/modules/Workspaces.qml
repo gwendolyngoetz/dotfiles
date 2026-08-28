@@ -5,19 +5,19 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// [module/i3]: format = <label-state> <label-mode>, index-sort, strip-wsnumbers, pin-workspaces
+// i3 workspaces on this output, followed by the binding mode when one is active
 Module {
     id: root
 
     required property string screenName
     property string mode: "default"
 
-    // pin-workspaces = true: only workspaces on this bar's output, index-sort = true
+    // only workspaces on this bar's output, sorted by number
     readonly property var workspaces: I3.workspaces.values
         .filter(ws => ws.monitor && ws.monitor.name === root.screenName)
         .sort((a, b) => a.num - b.num)
 
-    // strip-wsnumbers = true: "1:1" -> "1", "10:<icon>" -> "<icon>"
+    // "1:1" -> "1", "10:<icon>" -> "<icon>"
     function stripNumber(name) {
         const idx = name.indexOf(":");
         return idx >= 0 ? name.slice(idx + 1) : name;
@@ -43,7 +43,7 @@ Module {
                 Label {
                     id: label
                     anchors.centerIn: parent
-                    // Workspace names mix digits (font-0) and FA glyphs; rely on fontconfig fallback
+                    // Workspace names mix digits and FA glyphs; rely on fontconfig fallback
                     text: root.stripNumber(item.modelData.name)
                 }
 
@@ -55,10 +55,10 @@ Module {
             }
         }
 
-        // literal space between <label-state> and <label-mode>
+        // gap before the mode label
         Label { text: " " }
 
-        // label-mode: shown while in a binding mode (e.g. resize)
+        // binding mode, shown while in one (e.g. resize)
         Rectangle {
             visible: root.mode !== "default"
             height: root.height

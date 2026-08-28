@@ -3,7 +3,7 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// [module/filesystem]: interval 25, mount-0 = /, label-mounted = "%percentage_used%%"
+// Used percentage of `mount` every 25s
 Module {
     id: root
 

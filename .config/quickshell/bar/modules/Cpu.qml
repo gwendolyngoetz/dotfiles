@@ -3,7 +3,7 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// [module/cpu]: interval 2, label = "%percentage:2%%" (min width 2, left padded)
+// CPU usage from /proc/stat every 2s, left-padded to two digits
 Module {
     id: root
 

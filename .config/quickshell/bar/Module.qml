@@ -1,9 +1,8 @@
 import QtQuick
 import qs
 
-// One polybar module: module-margin-left/right, format-padding, format-prefix,
-// format-background/foreground, format-underline and click/scroll handling.
-// Hidden (zero width, no margins) when `active` is false, like a script with empty output.
+// One bar module: margins, padding, prefix icon, background, underline and click/scroll handling.
+// Hidden (zero width, no margins) when `active` is false.
 Item {
     id: root
 
@@ -15,11 +14,12 @@ Item {
     property color foreground: Colors.foreground
     property color background: "transparent"
     property color underline: "transparent"
-    property int padding: 0            // format-padding, in spaces
-    property real marginLeft: Config.moduleMarginLeft   // module-margin-left, in spaces
-    property real marginRight: Config.moduleMarginRight // module-margin-right, in spaces
+    property int padding: 0            // in spaces
+    property real marginLeft: Config.moduleMarginLeft   // in spaces
+    property real marginRight: Config.moduleMarginRight // in spaces
     property bool active: true
-    property bool clickable: false     // cursor-click = pointer
+    property bool clickable: false     // pointer cursor on hover
+    readonly property alias hovered: mouseArea.containsMouse
     default property alias content: slot.data
 
     signal leftClicked()
@@ -77,9 +77,11 @@ Item {
 
         // Below the content so per-item MouseAreas (workspace boxes) get first pick of clicks
         MouseArea {
+            id: mouseArea
             anchors.fill: parent
             z: -1
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+            hoverEnabled: true
             cursorShape: root.clickable ? Qt.PointingHandCursor : Qt.ArrowCursor
 
             onClicked: mouse => {

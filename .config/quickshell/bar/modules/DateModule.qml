@@ -2,7 +2,7 @@ import QtQuick
 import qs
 import qs.bar
 
-// [module/date]: scripts/date.sh -> "Thu, Aug 28th", refreshed every 300s
+// "Thu, Aug 28th", refreshed every 5 min
 Module {
     id: root
 

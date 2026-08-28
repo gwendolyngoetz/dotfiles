@@ -2,14 +2,13 @@ pragma Singleton
 import QtQuick
 import Quickshell
 
-// Converts polybar formatting tags in script output (%{F#555}...%{F-}) into Qt rich text so
-// scripts like weatherwidget.py render the same as they did under polybar.
+// Converts polybar-style formatting tags in script output (%{F#555}...%{F-}) into Qt rich text.
 Singleton {
     function escapeHtml(s) {
         return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // polybar accepts #RGB, #ARGB, #RRGGBB, #AARRGGBB; Qt rich text wants #RRGGBB
+    // tags may use #RGB, #ARGB, #RRGGBB or #AARRGGBB; Qt rich text wants #RRGGBB
     function normalizeColor(c) {
         if (c.length === 4) return "#" + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
         if (c.length === 5) return "#" + c[2] + c[2] + c[3] + c[3] + c[4] + c[4];

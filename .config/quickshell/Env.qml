@@ -3,8 +3,8 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-// The environment polybar/launch.sh exported (ETHERNET_INT, WIFI_INT, TEMPERATURE_PATH) plus
-// the xrandr primary-output lookup. Existing env vars win so the old launcher's exports still apply.
+// Network interfaces, temperature sensor path and the xrandr primary output.
+// Values already set in the environment win over the detected ones.
 Singleton {
     id: root
 

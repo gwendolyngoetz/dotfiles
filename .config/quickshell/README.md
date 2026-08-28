@@ -34,7 +34,9 @@ output and rendering `%{F#...}` / `%{B#...}` tags from script output.
   under `~/.config/polybar/scripts/weather/.venv` unless one exists under `scripts/weather/`).
 - **pulseaudio** – `Quickshell.Services.Pipewire` default sink. Icon only, muted icon, scroll
   changes volume by 5%, right click opens `pavucontrol -t 4`.
-- **otp / shutdown-menu** – static icons with the same xmenu click handlers.
+- **otp / shutdown-menu** – native popup menus (`bar/Menu.qml`) instead of xmenu. The otp
+  menu lists `~/.password-store` and runs `scripts/otp-copy.sh <name>`; right click copies the
+  default account (`work`). The shutdown menu offers logout / sleep / reboot / poweroff.
 - **tray** – `Quickshell.Services.SystemTray` at 16px with 2px padding; left click activates,
   right click opens the item menu, middle click is secondary activate.
 

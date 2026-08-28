@@ -1,8 +1,7 @@
 import QtQuick
 import qs
 
-// A Font Awesome 5 glyph. polybar listed Regular (font-2) before Solid (font-3), so glyphs that
-// exist in both styles rendered Regular; pick the style per icon to match.
+// A Font Awesome 5 glyph; pick the style per icon.
 Text {
     property string iconStyle: "regular"   // regular | solid | brands
 

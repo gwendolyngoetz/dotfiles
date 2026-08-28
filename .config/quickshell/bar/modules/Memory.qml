@@ -3,7 +3,7 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// [module/memory]: interval 2, label = "%percentage_used%%" ((MemTotal - MemAvailable) / MemTotal)
+// Used memory percentage ((MemTotal - MemAvailable) / MemTotal) every 2s
 Module {
     id: root
 

@@ -3,8 +3,10 @@ import Quickshell
 import qs
 import qs.bar
 
-// [module/shutdown-menu]: scripts/xmenu-button.sh printed a power icon; click-left = shutdown-menu.sh
+// Power icon; left click opens the session menu
 Module {
+    id: root
+
     padding: 1
     clickable: true
 
@@ -14,5 +16,21 @@ Module {
         text: "\uf011"   // power-off
     }
 
-    onLeftClicked: Quickshell.execDetached([Quickshell.shellDir + "/scripts/shutdown-menu.sh"])
+    Menu {
+        id: menu
+        anchorItem: root
+        anchorHovered: root.hovered
+        entries: [
+            { icon: "\uf2f5", label: "Logout",   command: ["i3-msg", "exit"] },        // sign-out-alt
+            { icon: "\uf236", label: "Sleep",    command: ["systemctl", "suspend"] },  // bed
+            { separator: true },
+            { icon: "\uf2f1", label: "Reboot",   command: ["reboot"] },                // sync-alt
+            { separator: true },
+            { icon: "\uf011", label: "Shutdown", command: ["poweroff"] }               // power-off
+        ]
+
+        onActivated: entry => Quickshell.execDetached(entry.command)
+    }
+
+    onLeftClicked: menu.toggle()
 }

@@ -3,7 +3,7 @@ import Quickshell
 import qs
 import qs.bar
 
-// [module/weather]: scripts/weather.sh every 900s, click-left opens weather-menu.sh
+// scripts/weather.sh every 15 min, left click opens weather-menu.sh
 ScriptModule {
     exec: Quickshell.shellDir + "/scripts/weather.sh"
     interval: 900000

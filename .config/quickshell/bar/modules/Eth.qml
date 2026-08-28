@@ -3,8 +3,7 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// [module/eth]: internal/network on ETHERNET_INT, interval 3, label-connected = %local_ip%,
-// nothing shown while disconnected
+// Local IPv4 address of ETHERNET_INT every 3s, hidden while disconnected
 Module {
     id: root
 

@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import qs
 
-// Layout and colors follow rofi/config.rasi block for block.
+// Launcher contents: prompt, search entry and the filtered application list.
 Item {
     id: root
 
@@ -14,13 +14,12 @@ Item {
     signal accepted()
     signal dismissed()
 
-    // * { font: "Roboto Mono 13"; spacing: 0 }
     readonly property string fontFamily: "Roboto Mono"
     readonly property int fontPointSize: 13
     readonly property int spacing: 0
 
-    // rofi matching = normal: every whitespace-separated token must appear (case-insensitive)
-    // in one of the drun match fields (name, generic, exec, categories, keywords, comment).
+    // every whitespace-separated token must appear (case-insensitive) in one of
+    // name, generic name, exec, categories, keywords or comment
     readonly property var entries: {
         const tokens = query.toLowerCase().split(/\s+/).filter(t => t !== "");
 
@@ -57,7 +56,7 @@ Item {
 
     onQueryChanged: list.currentIndex = 0
 
-    // rofi closes when it loses focus
+    // close when the window loses focus
     property bool hadFocus: false
     readonly property bool windowActive: Window.active
     onWindowActiveChanged: {
@@ -65,7 +64,6 @@ Item {
         else if (hadFocus) { hadFocus = false; root.dismissed(); }
     }
 
-    // window { background-color: @color-bg }  mainbox { border: 1px; border-color: @color-pri }
     Rectangle {
         id: mainbox
         anchors.fill: parent
@@ -73,7 +71,6 @@ Item {
         border.width: 1
         border.color: Colors.rofiPri
 
-        // mainbox { padding: 20px 0; spacing: 20px; children: [inputbar, message, listview] }
         Column {
             anchors.fill: parent
             anchors.margins: 1
@@ -81,14 +78,13 @@ Item {
             bottomPadding: 20
             spacing: 20
 
-            // inputbar { padding: 0 20px; children: [prompt, textbox-prompt-colon, entry, case-indicator] }
+            // input bar: prompt, colon, entry, case indicator
             Row {
                 id: inputbar
                 x: 20
                 width: parent.width - 40
                 spacing: root.spacing
 
-                // prompt { text-color: @color-pri }
                 Text {
                     id: prompt
                     text: "drun"
@@ -97,7 +93,6 @@ Item {
                     font.pointSize: root.fontPointSize
                 }
 
-                // textbox-prompt-colon { str: ":"; margin: 0 1ch 0 0 }
                 Text {
                     id: colon
                     text: ":"
@@ -107,7 +102,6 @@ Item {
                     rightPadding: chMetrics.advanceWidth
                 }
 
-                // entry { text-color: @color-fg }
                 TextInput {
                     id: entry
                     width: inputbar.width - prompt.width - colon.width - caseIndicator.width
@@ -176,7 +170,7 @@ Item {
                 }
             }
 
-            // listview { margin: 0 10px 0 20px; scrollbar: true }  scrollbar { margin: 0 0 0 20px }
+            // application list with scrollbar
             Item {
                 id: listArea
                 x: 20
@@ -190,7 +184,6 @@ Item {
                     anchors.bottom: parent.bottom
                     width: parent.width - scrollbar.width - 20
                     clip: true
-                    // listview default spacing (rofi default theme)
                     spacing: 5
                     model: root.entries
                     highlightMoveDuration: 0
@@ -201,8 +194,6 @@ Item {
                     readonly property int rowHeight: entryMetrics.height + 10 + spacing
                     readonly property int visibleRows: Math.max(1, Math.floor(height / rowHeight))
 
-                    // element { padding: 5px }  element selected normal { background-color: @color-pri }
-                    // element normal normal, element alternate normal { background-color: @color-bg }
                     delegate: Rectangle {
                         id: element
                         required property var modelData
@@ -217,7 +208,6 @@ Item {
                             x: 5
                             y: 5
                             width: parent.width - 10
-                            // element-icon size 1em, element spacing 5px (rofi default theme)
                             spacing: 5
 
                             IconImage {
@@ -249,8 +239,6 @@ Item {
                     onCurrentIndexChanged: positionViewAtIndex(currentIndex, ListView.Contain)
                 }
 
-                // scrollbar { background-color: @color-alt; handle-color: @color-pri; handle-width: 10px;
-                //             border: 0 1px; border-color: @color-pri }
                 Rectangle {
                     id: scrollbar
                     anchors.right: parent.right

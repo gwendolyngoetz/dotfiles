@@ -1,6 +1,5 @@
 #! /bin/bash
-# Quickshell counterpart of ~/.config/polybar/launch.sh. Interface / hwmon detection now lives in
-# Env.qml, so this only restarts the shell.
+# Restart quickshell. Interface / hwmon detection lives in Env.qml.
 
 pkill -x quickshell || pkill -x qs || true
 
