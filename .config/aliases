@@ -8,11 +8,6 @@ alias grep='grep --color=auto --ignore-case'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# clear
-alias claer=clear
-alias clera=clear
-alias cls=clear
-
 # clipboard
 alias xclip='xclip -selection c'
 
@@ -38,6 +33,8 @@ alias md='mdview'
 
 # clear for easier switching between linux and windows
 alias cls='clear'
+alias claer=clear
+alias clera=clear
 
 # system updates
 alias aptup='sudo apt update && sudo apt list --upgradable'
