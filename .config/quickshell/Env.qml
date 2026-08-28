@@ -32,8 +32,10 @@ Singleton {
         `]
 
         stdout: StdioCollector {
+            id: detected
+
             onStreamFinished: {
-                for (const line of this.text.split("\n")) {
+                for (const line of detected.text.split("\n")) {
                     const idx = line.indexOf("=");
                     if (idx < 0) continue;
 

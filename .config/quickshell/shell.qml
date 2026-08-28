@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import qs
@@ -11,7 +12,7 @@ ShellRoot {
         model: Quickshell.screens
 
         delegate: Bar {
-            required property var modelData
+            required property ShellScreen modelData
             screen: modelData
         }
     }
@@ -21,7 +22,7 @@ ShellRoot {
         model: Quickshell.screens.filter(s => s.name === Env.primaryMonitor)
 
         delegate: TrayBar {
-            required property var modelData
+            required property ShellScreen modelData
             screen: modelData
         }
     }

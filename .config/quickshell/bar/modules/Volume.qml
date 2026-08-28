@@ -9,11 +9,12 @@ import qs.bar
 Module {
     id: root
 
-    readonly property var sink: Pipewire.defaultAudioSink
-    readonly property var audio: sink ? sink.audio : null
+    readonly property PwNode sink: Pipewire.defaultAudioSink
+    readonly property PwNodeAudio audio: sink?.audio ?? null
     readonly property int percentage: audio ? Math.round(audio.volume * 100) : 0
     readonly property var ramp: [" ", " ", " "]
 
+    // bind the sink so its volume/mute properties are populated
     PwObjectTracker { objects: root.sink ? [root.sink] : [] }
 
     active: audio !== null
@@ -22,7 +23,7 @@ Module {
     Icon {
         iconStyle: "solid"
         color: Colors.foreground
-        text: root.audio && root.audio.muted ? " "
+        text: root.audio?.muted ? " "
             : root.ramp[Math.min(2, Math.max(0, Math.round(root.percentage * 2 / 100)))]
     }
 

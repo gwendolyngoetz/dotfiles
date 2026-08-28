@@ -13,20 +13,25 @@ Module {
     prefixStyle: "solid"
     text: percentage + "%"
 
-    Process {
-        id: proc
-        command: ["awk", "/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {printf \"%d\", (t-a)*100/t + 0.5}", "/proc/meminfo"]
+    function sample(contents) {
+        const total = Number(contents.match(/MemTotal:\s+(\d+)/)?.[1] ?? 0);
+        const available = Number(contents.match(/MemAvailable:\s+(\d+)/)?.[1] ?? 0);
+        if (total <= 0) return;
 
-        stdout: StdioCollector {
-            onStreamFinished: root.percentage = parseInt(this.text) || 0
-        }
+        root.percentage = Math.round((total - available) * 100 / total);
+    }
+
+    // read in-process instead of forking `awk` on every tick
+    FileView {
+        id: meminfo
+        path: "/proc/meminfo"
+        onLoaded: root.sample(meminfo.text())
     }
 
     Timer {
         interval: 2000
         running: true
         repeat: true
-        triggeredOnStart: true
-        onTriggered: proc.running = true
+        onTriggered: meminfo.reload()
     }
 }

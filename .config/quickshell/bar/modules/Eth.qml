@@ -19,7 +19,8 @@ Module {
         command: ["bash", "-c", `ip -4 -o addr show dev "${Env.ethernetInterface}" up 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1`]
 
         stdout: StdioCollector {
-            onStreamFinished: root.localIp = this.text.trim()
+            id: collector
+            onStreamFinished: root.localIp = collector.text.trim()
         }
     }
 

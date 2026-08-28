@@ -15,24 +15,25 @@ Module {
     prefixStyle: "solid"
     text: celsius + "°C"
 
-    Process {
-        id: proc
-        command: ["cat", Env.temperaturePath]
+    // read the hwmon file in-process; an empty path (sensor not found) loads nothing
+    FileView {
+        id: sensor
+        path: Env.temperaturePath
+        printErrors: false
 
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const v = parseInt(this.text);
-                root.available = !isNaN(v);
-                if (root.available) root.celsius = Math.floor(v / 1000);
-            }
+        onLoaded: {
+            const v = parseInt(sensor.text());
+            root.available = !isNaN(v);
+            if (root.available) root.celsius = Math.floor(v / 1000);
         }
+
+        onLoadFailed: root.available = false
     }
 
     Timer {
         interval: 2000
         running: Env.temperaturePath !== ""
         repeat: true
-        triggeredOnStart: true
-        onTriggered: proc.running = true
+        onTriggered: sensor.reload()
     }
 }

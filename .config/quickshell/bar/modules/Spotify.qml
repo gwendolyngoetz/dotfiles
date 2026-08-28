@@ -8,7 +8,7 @@ import qs.bar
 Module {
     id: root
 
-    readonly property var player: Mpris.players.values.find(p =>
+    readonly property MprisPlayer player: Mpris.players.values.find(p =>
         p.dbusName === "org.mpris.MediaPlayer2.spotify" || p.identity === "Spotify") ?? null
 
     active: player !== null

@@ -11,8 +11,10 @@ Module {
     property int interval: 5000
     property string output: ""
 
-    text: PolybarFormat.hasTags(output) ? PolybarFormat.toRichText(output) : output
-    richText: PolybarFormat.hasTags(output)
+    readonly property bool tagged: PolybarFormat.hasTags(output)
+
+    text: tagged ? PolybarFormat.toRichText(output) : output
+    richText: tagged
     active: output !== ""
 
     Process {
@@ -20,7 +22,8 @@ Module {
         command: ["bash", "-c", root.exec]
 
         stdout: StdioCollector {
-            onStreamFinished: root.output = this.text.trim().replace(/\n+/g, " ")
+            id: collector
+            onStreamFinished: root.output = collector.text.trim().replace(/\n+/g, " ")
         }
     }
 

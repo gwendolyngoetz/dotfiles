@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Window
 import Quickshell
@@ -185,7 +186,8 @@ Item {
                     width: parent.width - scrollbar.width - 20
                     clip: true
                     spacing: 5
-                    model: root.entries
+                    // ScriptModel diffs by object identity, so rows that survive a keystroke are reused
+                    model: ScriptModel { values: root.entries }
                     highlightMoveDuration: 0
                     highlightResizeDuration: 0
                     keyNavigationEnabled: false
@@ -196,7 +198,7 @@ Item {
 
                     delegate: Rectangle {
                         id: element
-                        required property var modelData
+                        required property DesktopEntry modelData
                         required property int index
 
                         width: ListView.view.width

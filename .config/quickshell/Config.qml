@@ -46,10 +46,12 @@ Singleton {
         running: true
 
         stdout: StdioCollector {
+            id: xrdbOut
+
             onStreamFinished: {
                 const map = {};
 
-                for (const line of this.text.split("\n")) {
+                for (const line of xrdbOut.text.split("\n")) {
                     const idx = line.indexOf(":");
                     if (idx < 0) continue;
 

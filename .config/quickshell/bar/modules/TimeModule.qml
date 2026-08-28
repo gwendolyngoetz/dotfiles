@@ -1,20 +1,17 @@
 import QtQuick
+import Quickshell
 import qs
 import qs.bar
 
-// "3:07 PM", refreshed every 5s
+// "3:07 PM"; SystemClock ticks exactly at each minute boundary
 Module {
     id: root
 
-    property date now: new Date()
-
     prefix: " "
-    text: Qt.formatTime(now, "h:mm AP")
+    text: Qt.formatTime(clock.date, "h:mm AP")
 
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-        onTriggered: root.now = new Date()
+    SystemClock {
+        id: clock
+        precision: SystemClock.Minutes
     }
 }

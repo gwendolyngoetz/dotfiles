@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
@@ -7,7 +8,7 @@ import qs
 // System tray icons
 Row {
     id: root
-    height: parent ? parent.height : Config.trayBarHeight
+    height: parent?.height ?? Config.trayBarHeight
     spacing: 0
 
     Repeater {

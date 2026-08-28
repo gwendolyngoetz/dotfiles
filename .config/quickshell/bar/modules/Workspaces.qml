@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.I3
@@ -12,11 +13,6 @@ Module {
     required property string screenName
     property string mode: "default"
 
-    // only workspaces on this bar's output, sorted by number
-    readonly property var workspaces: I3.workspaces.values
-        .filter(ws => ws.monitor && ws.monitor.name === root.screenName)
-        .sort((a, b) => a.num - b.num)
-
     // "1:1" -> "1", "10:<icon>" -> "<icon>"
     function stripNumber(name) {
         const idx = name.indexOf(":");
@@ -27,11 +23,17 @@ Module {
         spacing: 0
 
         Repeater {
-            model: root.workspaces
+            // ScriptModel diffs the array so existing boxes are kept when the list changes,
+            // instead of every delegate being torn down and rebuilt on each workspace event
+            model: ScriptModel {
+                values: I3.workspaces.values
+                    .filter(ws => ws.monitor?.name === root.screenName)
+                    .sort((a, b) => a.num - b.num)
+            }
 
             delegate: Rectangle {
                 id: item
-                required property var modelData
+                required property I3Workspace modelData
 
                 height: root.height
                 width: label.width + 2 * Config.i3Padding * Config.spaceWidth
@@ -74,6 +76,7 @@ Module {
         }
     }
 
+    // Quickshell.I3 does not expose binding modes, so subscribe to them directly
     Process {
         id: modeWatcher
         command: ["i3-msg", "-t", "subscribe", "-m", "[\"mode\"]"]

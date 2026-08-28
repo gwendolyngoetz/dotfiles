@@ -30,7 +30,8 @@ Module {
         command: ["bash", "-c", "ls ~/.password-store | sort"]
 
         stdout: StdioCollector {
-            onStreamFinished: root.accounts = this.text.split("\n")
+            id: collector
+            onStreamFinished: root.accounts = collector.text.split("\n")
                 .map(l => l.trim())
                 .filter(l => l !== "")
                 .map(l => l.replace(/\.[^.]*$/, ""))

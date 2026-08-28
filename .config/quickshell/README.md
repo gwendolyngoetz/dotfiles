@@ -27,11 +27,17 @@ output and rendering `%{F#...}` / `%{B#...}` tags from script output.
   binding-mode label comes from `i3-msg -t subscribe`.
 - **spotify** – `Quickshell.Services.Mpris` instead of polling `dbus-send` once a second. Same
   `title - artist` cut to 30 characters, same underline and click to workspace 10.
-- **date / time** – computed in QML with the same formats as `date.sh` / `time.sh`.
-- **cpu / memory / filesystem / temperature / eth** – read from `/proc`, `df`, hwmon and `ip`
-  on the same intervals. `%percentage:2%` on cpu is left-padded like polybar.
+- **date / time** – `SystemClock` with the same formats as `date.sh` / `time.sh`; it ticks on
+  the minute boundary instead of polling.
+- **cpu / memory / temperature** – `FileView` on `/proc/stat`, `/proc/meminfo` and the hwmon
+  file, reloaded every 2s without forking. `%percentage:2%` on cpu is left-padded like polybar.
+- **filesystem / eth** – still shell out to `df` and `ip` on the same intervals.
 - **weather / airquality** – still shell out to the scripts (`scripts/weather.sh` uses the venv
-  under `~/.config/polybar/scripts/weather/.venv` unless one exists under `scripts/weather/`).
+  under `~/.config/polybar/scripts/weather/.venv` unless one exists under `scripts/weather/`;
+  the label only needs the standard library). Left click on the weather label opens a native
+  popup (`bar/Menu.qml` with `interactive: false`) built from `scripts/.weather.json` — city,
+  conditions, temp / high / low over the next 12h, humidity, date, sunrise and sunset. This
+  replaces the customtkinter popup, which needed a package that was never installed.
 - **pulseaudio** – `Quickshell.Services.Pipewire` default sink. Icon only, muted icon, scroll
   changes volume by 5%, right click opens `pavucontrol -t 4`.
 - **otp / shutdown-menu** – native popup menus (`bar/Menu.qml`) instead of xmenu. The otp
@@ -49,11 +55,18 @@ comment, categories or keywords). Entries are sorted by name; rofi orders by lau
 first, which is the one intentional difference. Enter/Escape/Up/Down/Tab/Ctrl-n/Ctrl-p/PgUp/PgDn
 work as in rofi; it also closes when it loses focus.
 
+## Conventions
+
+- Files with delegates set `pragma ComponentBehavior: Bound` and give `modelData` its real type
+  (`ShellScreen`, `I3Workspace`, `SystemTrayItem`, `DesktopEntry`).
+- JS-array models go through `ScriptModel`, so delegates are diffed rather than rebuilt.
+- Components size themselves with `implicitWidth` / `implicitHeight`; parents may override.
+- `launch.sh` uses `qs kill` / `qs --daemonize`; `qs log` reads the daemon's log.
+
 ## Things to check on first run
 
 - Quickshell logs: `qs log` (or run `qs` in a terminal).
-- Font: `Config.fontFamily` defaults to `fixed` to match `font-0`. If Qt 6 refuses the bitmap
-  face, change it to `monospace`.
+- Font: `Config.fontFamily` is `Noto Sans`; icons are Font Awesome 5 Free / Brands.
 - Transparency: `Colors.rofiBg` keeps rofi's `CC` alpha. Without a compositor it renders black,
   so drop the alpha in that case.
 - The weather and air-quality scripts need the same environment as before (`~/.private-env`,

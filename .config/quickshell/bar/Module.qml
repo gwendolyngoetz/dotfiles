@@ -28,8 +28,8 @@ Item {
     signal scrolled(int delta)
 
     visible: active
-    height: parent ? parent.height : Config.barHeight
-    width: active ? box.x + box.width + root.marginRight * Config.spaceWidth : 0
+    implicitHeight: parent?.height ?? Config.barHeight
+    implicitWidth: active ? box.x + box.width + root.marginRight * Config.spaceWidth : 0
 
     Rectangle {
         id: box

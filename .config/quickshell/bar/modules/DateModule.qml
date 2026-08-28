@@ -1,12 +1,11 @@
 import QtQuick
+import Quickshell
 import qs
 import qs.bar
 
-// "Thu, Aug 28th", refreshed every 5 min
+// "Thu, Aug 28th"; SystemClock ticks exactly at each minute boundary, so the date rolls over at midnight
 Module {
     id: root
-
-    property date now: new Date()
 
     function daySuffix(d) {
         switch (d) {
@@ -18,12 +17,10 @@ Module {
     }
 
     prefix: " "
-    text: Qt.formatDate(now, "ddd, MMM d") + daySuffix(now.getDate())
+    text: Qt.formatDate(clock.date, "ddd, MMM d") + daySuffix(clock.date.getDate())
 
-    Timer {
-        interval: 300000
-        running: true
-        repeat: true
-        onTriggered: root.now = new Date()
+    SystemClock {
+        id: clock
+        precision: SystemClock.Minutes
     }
 }

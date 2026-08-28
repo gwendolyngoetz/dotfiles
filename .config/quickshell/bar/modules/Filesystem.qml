@@ -20,9 +20,11 @@ Module {
         command: ["bash", "-c", `df -P -B1 "${root.mount}" | awk 'NR==2 {printf "%d", $3*100/($3+$4) + 0.5}'`]
 
         stdout: StdioCollector {
+            id: collector
+
             onStreamFinished: {
-                root.mounted = this.text.trim() !== "";
-                root.percentage = parseInt(this.text) || 0;
+                root.mounted = collector.text.trim() !== "";
+                root.percentage = parseInt(collector.text) || 0;
             }
         }
     }
