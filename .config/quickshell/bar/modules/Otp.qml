@@ -12,7 +12,7 @@ Module {
     Icon {
         iconStyle: "solid"
         color: Colors.foreground
-        text: ""
+        text: "\uf023"   // lock
     }
 
     onLeftClicked: Quickshell.execDetached([Quickshell.shellDir + "/scripts/otp-menu.sh"])

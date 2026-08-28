@@ -16,6 +16,8 @@ Item {
     property color background: "transparent"
     property color underline: "transparent"
     property int padding: 0            // format-padding, in spaces
+    property real marginLeft: Config.moduleMarginLeft   // module-margin-left, in spaces
+    property real marginRight: Config.moduleMarginRight // module-margin-right, in spaces
     property bool active: true
     property bool clickable: false     // cursor-click = pointer
     default property alias content: slot.data
@@ -27,11 +29,11 @@ Item {
 
     visible: active
     height: parent ? parent.height : Config.barHeight
-    width: active ? box.x + box.width + Config.moduleMarginRight * Config.spaceWidth : 0
+    width: active ? box.x + box.width + root.marginRight * Config.spaceWidth : 0
 
     Rectangle {
         id: box
-        x: Config.moduleMarginLeft * Config.spaceWidth
+        x: root.marginLeft * Config.spaceWidth
         height: parent.height
         width: row.width + 2 * root.padding * Config.spaceWidth
         color: root.background
@@ -73,8 +75,10 @@ Item {
             visible: root.underline.a > 0
         }
 
+        // Below the content so per-item MouseAreas (workspace boxes) get first pick of clicks
         MouseArea {
             anchors.fill: parent
+            z: -1
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
             cursorShape: root.clickable ? Qt.PointingHandCursor : Qt.ArrowCursor
 

@@ -19,8 +19,13 @@ Singleton {
             echo "ETHERNET_INT=\${ETHERNET_INT:-$(ip -o link show | grep "state UP" | cut -d' ' -f2 | cut -d':' -f1 | head -n1)}"
             echo "WIFI_INT=\${WIFI_INT:-$(ls --ignore lo --ignore 'e*' --ignore 'docker*' /sys/class/net 2>/dev/null | head -n1)}"
             if [ -z "$TEMPERATURE_PATH" ]; then
-                dir=$(find /sys/class/hwmon/* -maxdepth 1 -exec grep -rw --include=name "{}/" -l -e "k10temp" \; 2>/dev/null | head -n1 | xargs -r dirname)
-                [ -n "$dir" ] && TEMPERATURE_PATH="$dir/temp1_input"
+                # hwmon numbering changes across reboots; find the k10temp sensor by name
+                for n in /sys/class/hwmon/hwmon*/name; do
+                    if grep -qw k10temp "$n" 2>/dev/null; then
+                        TEMPERATURE_PATH="$(dirname "$n")/temp1_input"
+                        break
+                    fi
+                done
             fi
             echo "TEMPERATURE_PATH=$TEMPERATURE_PATH"
             echo "PRIMARY_MONITOR=$(xrandr --query | grep -E 'connected primary [0-9]' | cut -d' ' -f1 | head -n1)"

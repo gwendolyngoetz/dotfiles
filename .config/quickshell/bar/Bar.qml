@@ -29,7 +29,8 @@ PanelWindow {
             height: parent.height
             spacing: 0
 
-            Workspaces { screenName: bar.screen.name }
+            // first module: no margin, so the workspace boxes start flush with the screen edge
+            Workspaces { screenName: bar.screen.name; marginLeft: 0 }
             Spotify {}
         }
 
@@ -58,7 +59,8 @@ PanelWindow {
             Eth {}
             Otp {}
             Volume {}
-            ShutdownMenu {}
+            // last module: no margin, so it ends flush with the screen edge
+            ShutdownMenu { marginRight: 0 }
         }
     }
 }

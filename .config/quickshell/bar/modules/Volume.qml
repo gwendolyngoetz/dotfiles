@@ -5,7 +5,7 @@ import qs
 import qs.bar
 
 // [module/pulseaudio]: format-volume = <ramp-volume> (icon only), label-muted, scroll = +/-5%,
-// click-right = pavucontrol -t 4
+// click-right = pavucontrol -t 4; internal/pulseaudio toggles mute on left click by default
 Module {
     id: root
 
@@ -26,6 +26,7 @@ Module {
             : root.ramp[Math.min(2, Math.max(0, Math.round(root.percentage * 2 / 100)))]
     }
 
+    onLeftClicked: if (audio) audio.muted = !audio.muted
     onRightClicked: Quickshell.execDetached(["pavucontrol", "-t", "4"])
 
     onScrolled: delta => {

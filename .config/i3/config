@@ -14,7 +14,9 @@ bindsym $mod+Shift+q kill
 bindsym button2 kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec --no-startup-id "rofi -modi drun -show drun -sidebar-mode -show-icons"
+# quickshell launcher; swap back to rofi by uncommenting the next line and removing the qs one
+#bindsym $mod+d exec --no-startup-id "rofi -modi drun -show drun -sidebar-mode -show-icons"
+bindsym $mod+d exec --no-startup-id "qs ipc call launcher toggle"
 
 # play/pause spotify
 bindsym $mod+slash exec --no-startup-id "~/.config/i3/scripts/playpause.sh"
@@ -144,8 +146,9 @@ bindsym $mod+s exec --no-startup-id flameshot gui
 bindsym $mod+e exec --no-startup-id thunar
 bindsym $mod+c exec --no-startup-id calendarwidget
 
-# polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh &amp;
+# quickshell bar; swap back to polybar by uncommenting the next line and removing the quickshell one
+#exec_always --no-startup-id ~/.config/polybar/launch.sh &
+exec_always --no-startup-id ~/.config/quickshell/launch.sh
 
 # i3-gaps
 for_window [class="^.*"] border pixel 3
@@ -197,6 +200,9 @@ for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="calendarwidget"] floating enable sticky enable border disable
 for_window [class="calculatorwidget"] floating enable sticky enable border disable
 for_window [class="(?i)thunderbird" window_type="dialog"] floating enable border normal 
+
+# quickshell launcher (rofi replacement) is a plain window; float it without decoration
+for_window [class="(?i)quickshell" title="^launcher$"] floating enable, border none, sticky enable
 
 # default workspace assignments
 for_window [class="Spotify"] move to workspace $ws10

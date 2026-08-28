@@ -11,7 +11,7 @@ Module {
     Icon {
         iconStyle: "solid"
         color: Colors.foreground
-        text: ""
+        text: "\uf011"   // power-off
     }
 
     onLeftClicked: Quickshell.execDetached([Quickshell.shellDir + "/scripts/shutdown-menu.sh"])
