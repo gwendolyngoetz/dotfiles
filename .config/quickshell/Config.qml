@@ -11,6 +11,8 @@ Singleton {
     readonly property int lineSize: 2
     // extra strut reserved beyond the bar
     readonly property int wmMargin: 5
+    // slide-down panels (bottom corners) and the album art
+    readonly property int panelRadius: 4
 
     property string fontFamily: "Noto Sans"
     property int fontPixelSize: 15

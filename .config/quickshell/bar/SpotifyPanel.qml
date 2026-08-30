@@ -2,20 +2,22 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import qs
 
-// Panel that slides down from the spotify module: album art spanning the full panel height,
-// title / artist / album, a read-only elapsed / total progress bar and the prev / play-pause /
-// next controls, disabled when the player refuses the action. `player` going null while open
-// (spotify quit) closes the panel. Closes once the pointer has left both the module and the panel.
+// Panel that slides down from the spotify module: album art beside title / artist / album (the
+// title wrapping to up to two lines) and the prev / play-pause / next controls, disabled when
+// the player refuses the action, with a full-width read-only elapsed / total progress bar as
+// the footer. `player` going null while open (spotify quit) closes the panel.
+// Closes once the pointer has left both the module and the panel.
 PopupWindow {
     id: root
 
     required property Item anchorItem
     property bool anchorHovered: false
     property MprisPlayer player: null
-    property int textWidth: 220   // text column is fixed so the panel does not resize per track
+    property int textWidth: 320   // text column is fixed so the panel does not resize per track
     property real artScale: 1.5   // art height relative to the info column's height
     property int panelPadding: 10
     property int buttonSize: 36
@@ -74,24 +76,46 @@ PopupWindow {
         onTriggered: root.player.positionChanged()
     }
 
+    // one line of the title font, for the two-line height reservation in `artBox.side`
+    TextMetrics {
+        id: titleMetrics
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontPixelSize + 2
+        font.bold: true
+        text: "Ag"
+    }
+
+    // the track's total-time string, reserving the elapsed label's width so the ticking
+    // digits never shift the bar
+    TextMetrics {
+        id: timeMetrics
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontPixelSize
+        text: root.formatTime(root.trackLength)
+    }
+
     // one prev / play-pause / next button
     component ControlButton: Rectangle {
         id: button
 
         property alias icon: buttonIcon.text
         property bool allowed: true
+        property real size: root.buttonSize
 
         signal clicked()
 
-        width: root.buttonSize
-        height: root.buttonSize
-        radius: root.buttonSize / 2
+        anchors.verticalCenter: parent.verticalCenter
+        width: size
+        height: size
+        radius: size / 2
         color: allowed && buttonArea.containsMouse ? Colors.backgroundAlt : "transparent"
 
         Icon {
             id: buttonIcon
             anchors.centerIn: parent
             iconStyle: "solid"
+            // the glyph grows with the button
+            font.pixelSize: Config.iconPixelSize * button.size / root.buttonSize
             color: button.allowed ? Colors.foreground : Colors.foregroundAlt
         }
 
@@ -114,6 +138,8 @@ PopupWindow {
         color: Colors.background
         border.width: 1
         border.color: Colors.borderPrimary
+        bottomLeftRadius: Config.panelRadius
+        bottomRightRadius: Config.panelRadius
         implicitWidth: layout.implicitWidth + 2 * (root.panelPadding + border.width)
         implicitHeight: layout.implicitHeight + 2 * (root.panelPadding + border.width)
 
@@ -132,129 +158,146 @@ PopupWindow {
             onHoveredChanged: if (root.open) closeTimer.restart()
         }
 
-        RowLayout {
+        ColumnLayout {
             id: layout
             anchors.fill: parent
             anchors.margins: root.panelPadding + frame.border.width
             spacing: root.panelPadding
 
-            // Album art at the image's own aspect ratio, `artScale` times the info column's
-            // height; the panel height follows it and the info column centers beside it. Sized
-            // off implicitHeight rather than the laid-out height so the size is right on the
-            // first pass; a square with the spotify glyph while there is no art or it is
-            // still loading.
-            Rectangle {
-                id: artBox
+            RowLayout {
+                spacing: root.panelPadding
 
-                readonly property bool ready: art.status === Image.Ready && art.implicitHeight > 0
-                readonly property real side: root.artScale * info.implicitHeight
+                // Album art at the image's own aspect ratio, `artScale` times the info column's
+                // height. The title wraps to one or two lines, so the unused line is added back
+                // to keep the art — and with it the panel — the same size either way; sized off
+                // implicitHeights rather than laid-out heights so the size is right on the
+                // first pass. A square with the spotify glyph while there is no art or it is
+                // still loading.
+                ClippingRectangle {
+                    id: artBox
 
-                Layout.preferredHeight: side
-                Layout.preferredWidth: (ready ? art.implicitWidth / art.implicitHeight : 1) * side
-                color: Colors.backgroundAlt
+                    readonly property bool ready: art.status === Image.Ready && art.implicitHeight > 0
+                    readonly property real side: root.artScale
+                        * (info.implicitHeight + (2 - titleLabel.lineCount) * titleMetrics.height)
 
-                Image {
-                    id: art
-                    anchors.fill: parent
-                    fillMode: Image.PreserveAspectFit
-                    asynchronous: true
-                    source: root.player?.trackArtUrl ?? ""
+                    Layout.preferredHeight: side
+                    Layout.preferredWidth: (ready ? art.implicitWidth / art.implicitHeight : 1) * side
+                    radius: Config.panelRadius
+                    color: Colors.backgroundAlt
+                    // dimmed while paused so the state reads at a glance
+                    opacity: root.playing ? 1 : 0.5
+
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150 }
+                    }
+
+                    Image {
+                        id: art
+                        anchors.fill: parent
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+                        source: root.player?.trackArtUrl ?? ""
+                    }
+
+                    Icon {
+                        anchors.centerIn: parent
+                        visible: !artBox.ready
+                        iconStyle: "brands"
+                        text: "\uf1bc"   // spotify
+                        color: Colors.spotify
+                    }
                 }
 
-                Icon {
-                    anchors.centerIn: parent
-                    visible: !artBox.ready
-                    iconStyle: "brands"
-                    text: "\uf1bc"   // spotify
-                    color: Colors.spotify
+                ColumnLayout {
+                    id: info
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: root.textWidth
+                    Layout.maximumWidth: root.textWidth
+                    spacing: 4
+
+                    Label {
+                        id: titleLabel
+                        Layout.fillWidth: true
+                        font.pixelSize: Config.fontPixelSize + 2
+                        font.bold: true
+                        wrapMode: Text.Wrap
+                        maximumLineCount: 2
+                        elide: Text.ElideRight
+                        text: root.player?.trackTitle ?? ""
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        elide: Text.ElideRight
+                        text: root.player?.trackArtist ?? ""
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        elide: Text.ElideRight
+                        color: Colors.foregroundMuted
+                        text: root.player?.trackAlbum ?? ""
+                    }
+
+                    // labels stick to the top, the controls to the bottom
+                    Item { Layout.fillHeight: true }
+
+                    Row {
+                        Layout.alignment: Qt.AlignHCenter
+                        spacing: root.panelPadding
+
+                        ControlButton {
+                            icon: "\uf048"   // step-backward
+                            allowed: root.player?.canGoPrevious ?? false
+                            onClicked: root.player.previous()
+                        }
+
+                        ControlButton {
+                            size: 1.5 * root.buttonSize
+                            icon: root.playing ? "\uf04c" : "\uf04b"   // pause / play
+                            allowed: root.player?.canTogglePlaying ?? false
+                            onClicked: root.player.togglePlaying()
+                        }
+
+                        ControlButton {
+                            icon: "\uf051"   // step-forward
+                            allowed: root.player?.canGoNext ?? false
+                            onClicked: root.player.next()
+                        }
+                    }
                 }
             }
 
-            ColumnLayout {
-                id: info
-                Layout.fillHeight: true
-                Layout.preferredWidth: root.textWidth
-                Layout.maximumWidth: root.textWidth
-                spacing: 2
+            // footer: elapsed / total around a read-only progress bar spanning the full panel
+            // width, art included; hidden when the player reports no track length
+            RowLayout {
+                visible: root.trackLength > 0
+                Layout.fillWidth: true
+                spacing: Config.spaceWidth
 
                 Label {
-                    Layout.fillWidth: true
-                    font.pixelSize: Config.fontPixelSize + 2
-                    font.bold: true
-                    elide: Text.ElideRight
-                    text: root.player?.trackTitle ?? ""
+                    Layout.preferredWidth: timeMetrics.advanceWidth
+                    horizontalAlignment: Text.AlignRight
+                    color: Colors.foregroundMuted
+                    text: root.formatTime(root.trackPosition)
                 }
 
-                Label {
+                Rectangle {
                     Layout.fillWidth: true
-                    elide: Text.ElideRight
-                    text: root.player?.trackArtist ?? ""
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    elide: Text.ElideRight
-                    color: Colors.foregroundAlt
-                    text: root.player?.trackAlbum ?? ""
-                }
-
-                // labels stick to the top, the progress bar and controls to the bottom
-                Item { Layout.fillHeight: true }
-
-                // elapsed / total around a read-only progress bar; hidden when the player
-                // reports no track length
-                RowLayout {
-                    visible: root.trackLength > 0
-                    Layout.fillWidth: true
-                    Layout.topMargin: root.panelPadding
-                    spacing: Config.spaceWidth
-
-                    Label {
-                        color: Colors.foregroundAlt
-                        text: root.formatTime(root.trackPosition)
-                    }
+                    Layout.preferredHeight: 2 * Config.lineSize
+                    color: Colors.backgroundAlt
 
                     Rectangle {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 2 * Config.lineSize
-                        color: Colors.backgroundAlt
-
-                        Rectangle {
-                            height: parent.height
-                            width: parent.width * (root.trackLength > 0
-                                ? Math.min(1, root.trackPosition / root.trackLength) : 0)
-                            color: Colors.borderPrimary
-                        }
-                    }
-
-                    Label {
-                        color: Colors.foregroundAlt
-                        text: root.formatTime(root.trackLength)
+                        height: parent.height
+                        width: parent.width * (root.trackLength > 0
+                            ? Math.min(1, root.trackPosition / root.trackLength) : 0)
+                        color: Colors.borderPrimary
                     }
                 }
 
-                Row {
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.topMargin: root.panelPadding
-                    spacing: root.panelPadding
-
-                    ControlButton {
-                        icon: "\uf048"   // step-backward
-                        allowed: root.player?.canGoPrevious ?? false
-                        onClicked: root.player.previous()
-                    }
-
-                    ControlButton {
-                        icon: root.playing ? "\uf04c" : "\uf04b"   // pause / play
-                        allowed: root.player?.canTogglePlaying ?? false
-                        onClicked: root.player.togglePlaying()
-                    }
-
-                    ControlButton {
-                        icon: "\uf051"   // step-forward
-                        allowed: root.player?.canGoNext ?? false
-                        onClicked: root.player.next()
-                    }
+                Label {
+                    color: Colors.foregroundMuted
+                    text: root.formatTime(root.trackLength)
                 }
             }
         }

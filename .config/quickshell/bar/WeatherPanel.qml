@@ -65,6 +65,8 @@ PopupWindow {
         color: Colors.background
         border.width: 1
         border.color: Colors.borderPrimary
+        bottomLeftRadius: Config.panelRadius
+        bottomRightRadius: Config.panelRadius
         implicitWidth: Math.max(root.minWidth, column.implicitWidth) + 2 * border.width
         implicitHeight: column.implicitHeight + 2 * border.width
 

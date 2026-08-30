@@ -16,6 +16,7 @@ Singleton {
     readonly property color backgroundAlt: "#444"
     readonly property color foreground:    base05
     readonly property color foregroundAlt: "#555"
+    readonly property color foregroundMuted: base03   // muted but still readable text
     readonly property color primary:       base0E
     readonly property color alert:         base08
     readonly property color spotify:       base0A
