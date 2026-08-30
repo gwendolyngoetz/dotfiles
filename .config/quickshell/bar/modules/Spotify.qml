@@ -4,7 +4,8 @@ import Quickshell.Services.Mpris
 import qs
 import qs.bar
 
-// Spotify "title - artist" cut to 30 characters, from Mpris; click jumps to workspace 10
+// Spotify "title - artist" cut to 30 characters, from Mpris; left click slides open the
+// player panel (see SpotifyPanel), right click jumps to workspace 10
 Module {
     id: root
 
@@ -22,5 +23,13 @@ Module {
     padding: 1
     clickable: true
 
-    onLeftClicked: Quickshell.execDetached(["i3-msg", "workspace 10:"])
+    SpotifyPanel {
+        id: panel
+        anchorItem: root
+        anchorHovered: root.hovered
+        player: root.player
+    }
+
+    onLeftClicked: panel.toggle()
+    onRightClicked: Quickshell.execDetached(["i3-msg", "workspace 10:"])
 }
