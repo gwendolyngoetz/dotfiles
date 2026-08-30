@@ -19,7 +19,7 @@ configs are untouched; to swap back, flip the three marked lines in `~/.config/i
 `bar/Module.qml` reproduces polybar's format model: `module-margin-left/right`, `format-padding`
 (both in spaces of font-0), `format-prefix`, `format-background`, `format-underline`, and the
 click / scroll actions. `bar/ScriptModule.qml` is `custom/script`, including hiding on empty
-output and rendering `%{F#...}` / `%{B#...}` tags from script output.
+output; polybar `%{...}` tags are not interpreted, modules draw their own icons via `prefix`.
 
 ## Module notes
 
@@ -32,12 +32,13 @@ output and rendering `%{F#...}` / `%{B#...}` tags from script output.
 - **cpu / memory / temperature** – `FileView` on `/proc/stat`, `/proc/meminfo` and the hwmon
   file, reloaded every 2s without forking. `%percentage:2%` on cpu is left-padded like polybar.
 - **filesystem / eth** – still shell out to `df` and `ip` on the same intervals.
-- **weather / airquality** – still shell out to the scripts (`scripts/weather.sh` uses the venv
-  under `~/.config/polybar/scripts/weather/.venv` unless one exists under `scripts/weather/`;
-  the label only needs the standard library). Left click on the weather label opens a native
-  popup (`bar/Menu.qml` with `interactive: false`) built from `scripts/.weather.json` — city,
-  conditions, temp / high / low over the next 12h, humidity, date, sunrise and sunset. This
-  replaces the customtkinter popup, which needed a package that was never installed.
+- **weather** – `scripts/weather.sh` is now only the `curl` into `scripts/.weather.json`
+  (written via a temp file so a failed fetch keeps the last response); the bar label, condition
+  icon and popup are all built in `Weather.qml` from that file. Left click opens a native popup
+  (`bar/Menu.qml` with `interactive: false`) — city, conditions, temp / high / low over the next
+  12h, humidity, date, sunrise and sunset. The Python widget, its venv and the customtkinter
+  popup are gone.
+- **airquality** – still shells out to `scripts/air-quality.sh` via `ScriptModule`.
 - **pulseaudio** – `Quickshell.Services.Pipewire` default sink. Icon only, muted icon, scroll
   changes volume by 5%, right click opens `pavucontrol -t 4`.
 - **otp / shutdown-menu** – native popup menus (`bar/Menu.qml`) instead of xmenu. The otp

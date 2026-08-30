@@ -4,9 +4,10 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// scripts/weather.sh every 15 min. It writes the OpenWeatherMap one-call response to
-// scripts/.weather.json and prints the bar label; left click opens a popup with the details.
-ScriptModule {
+// Current temperature with a condition icon, every 15 min. scripts/weather.sh fetches the
+// OpenWeatherMap one-call response into scripts/.weather.json; everything shown comes from
+// that file. Left click opens a popup with the details.
+Module {
     id: root
 
     // one-call responses carry no place name
@@ -14,9 +15,14 @@ ScriptModule {
     property int forecastHours: 12   // window for the high / low
     property var data: null
 
-    exec: Quickshell.shellDir + "/scripts/weather.sh"
-    interval: 900000
-    prefix: ""
+    readonly property var current: data?.current ?? null
+    readonly property bool day: current !== null
+        && current.dt >= current.sunrise && current.dt <= current.sunset
+
+    active: current !== null
+    prefix: current ? conditionIcon(current.weather?.[0]?.id ?? -1, day) + " " : ""
+    prefixStyle: "solid"
+    text: current ? formatTemp(current.temp) : ""
     padding: 0
     clickable: true
 
@@ -30,39 +36,55 @@ ScriptModule {
 
     // https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2, as Font Awesome 5 glyphs
     function conditionIcon(code, day) {
-        if (code === 800) return day ? "" : "";                 // sun / moon
-        if (code >= 801 && code <= 804) return day ? "" : "";   // cloud-sun / cloud-moon
-        if (code >= 500 && code <= 531) return "";                    // cloud-showers-heavy
-        if (code >= 300 && code <= 321) return day ? "" : "";   // cloud-sun-rain / cloud-moon-rain
-        if (code >= 200 && code <= 232) return "";                    // bolt
-        if (code >= 600 && code <= 622) return "";                    // snowflake
-        if (code === 781) return "";                                  // wind (tornado)
-        if (code >= 701 && code <= 771) return "";                    // smog (mist, haze, dust, ...)
-        return "";                                                    // cloud
+        if (code === 800) return day ? "\uf185" : "\uf186";                 // sun / moon
+        if (code >= 801 && code <= 804) return day ? "\uf6c4" : "\uf6c3";   // cloud-sun / cloud-moon
+        if (code >= 500 && code <= 531) return "\uf740";                    // cloud-showers-heavy
+        if (code >= 300 && code <= 321) return day ? "\uf743" : "\uf73c";   // cloud-sun-rain / cloud-moon-rain
+        if (code >= 200 && code <= 232) return "\uf0e7";                    // bolt
+        if (code >= 600 && code <= 622) return "\uf2dc";                    // snowflake
+        if (code === 781) return "\uf72e";                                  // wind (tornado)
+        if (code >= 701 && code <= 771) return "\uf75f";                    // smog (mist, haze, dust, ...)
+        return "\uf0c2";                                               // cloud
     }
 
     readonly property var entries: {
-        if (!data) return [{ icon: "", label: "No weather data" }];   // exclamation-triangle
+        if (!current) return [{ icon: "\uf071", label: "No weather data" }];   // exclamation-triangle
 
-        const current = data.current;
         const hourly = (data.hourly ?? []).slice(0, forecastHours).map(h => h.temp);
-        const day = current.dt >= current.sunrise && current.dt <= current.sunset;
+        const high = hourly.length ? formatTemp(Math.max(...hourly)) : "–";
+        const low = hourly.length ? formatTemp(Math.min(...hourly)) : "–";
+        const weather = current.weather?.[0] ?? {};
 
         return [
-            { icon: "", label: "City",     value: city },                                                     // city
+            { icon: "\uf64f", label: "City",     value: city },                                                     // city
             { separator: true },
-            { icon: conditionIcon(current.weather[0].id, day), label: "Weather", value: current.weather[0].main },
+            { icon: conditionIcon(weather.id ?? -1, day), label: "Weather", value: weather.main ?? "?" },
             { separator: true },
-            { icon: "", label: "Temp",     value: formatTemp(current.temp) },                                  // thermometer-half
-            { icon: "", label: "High",     value: formatTemp(Math.max(...hourly)), valueColor: "#d30000" },    // temperature-high
-            { icon: "", label: "Low",      value: formatTemp(Math.min(...hourly)), valueColor: "#0080ff" },    // temperature-low
+            { icon: "\uf2c9", label: "Temp",     value: formatTemp(current.temp) },                                  // thermometer-half
+            { icon: "\uf769", label: "High",     value: high, valueColor: "#d30000" },                              // temperature-high
+            { icon: "\uf76b", label: "Low",      value: low, valueColor: "#0080ff" },                               // temperature-low
             { separator: true },
-            { icon: "", label: "Humidity", value: `${current.humidity}%` },                                     // tint
+            { icon: "\uf043", label: "Humidity", value: `${current.humidity}%` },                                     // tint
             { separator: true },
-            { icon: "", label: "Date",     value: Qt.formatDate(new Date(current.dt * 1000), "MMM-dd") },      // calendar
-            { icon: "", label: "Sunrise",  value: formatTime(current.sunrise) },                              // arrow-up
-            { icon: "", label: "Sunset",   value: formatTime(current.sunset) }                                // arrow-down
+            { icon: "\uf133", label: "Date",     value: Qt.formatDate(new Date(current.dt * 1000), "MMM-dd") },      // calendar
+            { icon: "\uf062", label: "Sunrise",  value: formatTime(current.sunrise) },                              // arrow-up
+            { icon: "\uf063", label: "Sunset",   value: formatTime(current.sunset) }                                // arrow-down
         ];
+    }
+
+    // fetch; the JSON is re-read once the script has exited
+    Process {
+        id: fetcher
+        command: [Quickshell.shellDir + "/scripts/weather.sh"]
+        onExited: json.reload()
+    }
+
+    Timer {
+        interval: 900000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: fetcher.running = true
     }
 
     FileView {
@@ -87,9 +109,6 @@ ScriptModule {
         anchorHovered: root.hovered
         interactive: false
         entries: root.entries
-
-        // re-read the file on open; weather.sh rewrites it before every label update
-        onVisibleChanged: if (visible) json.reload()
     }
 
     onLeftClicked: popup.toggle()

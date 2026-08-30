@@ -3,7 +3,6 @@ import Quickshell.Io
 import qs
 
 // Run `exec` every `interval` ms, show its output, hide when the output is empty.
-// %{F#...} / %{B#...} tags in the output are honored.
 Module {
     id: root
 
@@ -11,10 +10,7 @@ Module {
     property int interval: 5000
     property string output: ""
 
-    readonly property bool tagged: PolybarFormat.hasTags(output)
-
-    text: tagged ? PolybarFormat.toRichText(output) : output
-    richText: tagged
+    text: output
     active: output !== ""
 
     Process {

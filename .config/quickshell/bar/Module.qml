@@ -7,7 +7,6 @@ Item {
     id: root
 
     property string text: ""
-    property bool richText: false
     property string prefix: ""
     property string prefixStyle: "regular"
     property color prefixColor: Colors.foregroundAlt
@@ -55,7 +54,6 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 visible: text !== ""
                 text: root.text
-                textFormat: root.richText ? Text.RichText : Text.PlainText
                 color: root.foreground
             }
 

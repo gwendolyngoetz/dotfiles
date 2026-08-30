@@ -1,13 +1,16 @@
 #!/bin/bash
+# Fetch the OpenWeatherMap one-call response into scripts/.weather.json for bar/modules/Weather.qml.
+# Needs OPENWEATHERMAP_LAT / _LON / _API_KEY from ~/.private-env.
 
-
-# Reuse the venv already built for the polybar scripts unless one exists here
-VENV=~/.config/quickshell/scripts/weather/.venv
-[ -d "$VENV" ] || VENV=~/.config/polybar/scripts/weather/.venv
-source "$VENV/bin/activate"
-
-# Weather Code List
 source ~/.private-env
+
 JSONFILE=~/.config/quickshell/scripts/.weather.json
-curl -s "https://api.openweathermap.org/data/3.0/onecall?lat=$OPENWEATHERMAP_LAT&lon=$OPENWEATHERMAP_LON&units=imperial&exclude=minutely&appid=$OPENWEATHERMAP_API_KEY" -o $JSONFILE
-~/.config/quickshell/scripts/weather/weatherwidget.py $JSONFILE
+TMP="$JSONFILE.tmp"
+
+# write to a temp file so a failed or partial download never clobbers the last good response
+if curl -sf "https://api.openweathermap.org/data/3.0/onecall?lat=$OPENWEATHERMAP_LAT&lon=$OPENWEATHERMAP_LON&units=imperial&exclude=minutely&appid=$OPENWEATHERMAP_API_KEY" -o "$TMP"; then
+    mv "$TMP" "$JSONFILE"
+else
+    rm -f "$TMP"
+    exit 1
+fi
