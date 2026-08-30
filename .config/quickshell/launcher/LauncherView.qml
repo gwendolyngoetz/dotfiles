@@ -68,9 +68,9 @@ Item {
     Rectangle {
         id: mainbox
         anchors.fill: parent
-        color: Colors.rofiBg
+        color: Colors.launcherBg
         border.width: 1
-        border.color: Colors.rofiPri
+        border.color: Colors.launcherAccent
 
         Column {
             anchors.fill: parent
@@ -79,7 +79,7 @@ Item {
             bottomPadding: 20
             spacing: 20
 
-            // input bar: prompt, colon, entry, case indicator
+            // input bar: prompt, colon, entry
             Row {
                 id: inputbar
                 x: 20
@@ -89,7 +89,7 @@ Item {
                 Text {
                     id: prompt
                     text: "drun"
-                    color: Colors.rofiPri
+                    color: Colors.launcherAccent
                     font.family: root.fontFamily
                     font.pointSize: root.fontPointSize
                 }
@@ -97,7 +97,7 @@ Item {
                 Text {
                     id: colon
                     text: ":"
-                    color: Colors.rofiPri
+                    color: Colors.launcherAccent
                     font.family: root.fontFamily
                     font.pointSize: root.fontPointSize
                     rightPadding: chMetrics.advanceWidth
@@ -105,9 +105,9 @@ Item {
 
                 TextInput {
                     id: entry
-                    width: inputbar.width - prompt.width - colon.width - caseIndicator.width
-                    color: Colors.rofiFg
-                    selectionColor: Colors.rofiPri
+                    width: inputbar.width - prompt.width - colon.width
+                    color: Colors.launcherFg
+                    selectionColor: Colors.launcherAccent
                     font.family: root.fontFamily
                     font.pointSize: root.fontPointSize
                     focus: true
@@ -160,15 +160,6 @@ Item {
                         event.accepted = true;
                     }
                 }
-
-                // case-indicator: empty unless case-sensitive matching is on
-                Text {
-                    id: caseIndicator
-                    text: ""
-                    color: Colors.rofiFg
-                    font.family: root.fontFamily
-                    font.pointSize: root.fontPointSize
-                }
             }
 
             // application list with scrollbar
@@ -203,7 +194,7 @@ Item {
 
                         width: ListView.view.width
                         height: elementRow.height + 10
-                        color: ListView.isCurrentItem ? Colors.rofiPri : Colors.rofiBg
+                        color: ListView.isCurrentItem ? Colors.launcherAccent : Colors.launcherBg
 
                         Row {
                             id: elementRow
@@ -222,7 +213,7 @@ Item {
                                 anchors.verticalCenter: parent.verticalCenter
                                 width: parent.width - entryMetrics.height - parent.spacing
                                 text: element.modelData.name
-                                color: Colors.rofiFg
+                                color: Colors.launcherFg
                                 font.family: root.fontFamily
                                 font.pointSize: root.fontPointSize
                                 elide: Text.ElideRight
@@ -247,7 +238,7 @@ Item {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     width: 10 + 2
-                    color: Colors.rofiAlt
+                    color: Colors.launcherAlt
                     border.width: 0
 
                     Rectangle {
@@ -255,7 +246,7 @@ Item {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         width: 1
-                        color: Colors.rofiPri
+                        color: Colors.launcherAccent
                     }
 
                     Rectangle {
@@ -263,13 +254,13 @@ Item {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         width: 1
-                        color: Colors.rofiPri
+                        color: Colors.launcherAccent
                     }
 
                     Rectangle {
                         x: 1
                         width: 10
-                        color: Colors.rofiPri
+                        color: Colors.launcherAccent
                         visible: list.contentHeight > list.height
                         height: list.contentHeight > 0
                             ? Math.max(4, scrollbar.height * list.height / list.contentHeight)

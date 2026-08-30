@@ -7,11 +7,10 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    // xrdb -query, keyed without the leading "*" (color0, Xft.dpi, polybar.height, ...)
+    // xrdb -query, keyed without the leading "*" (color0, Xft.dpi, ...); Colors.qml reads color*
     property var xrdb: ({})
 
-    // bar height comes from the polybar.height X resource
-    readonly property int barHeight: parseInt(xrdb["polybar.height"] ?? "30")
+    readonly property int barHeight: 30
     readonly property int trayBarHeight: 20
     readonly property int lineSize: 2
     // extra strut reserved beyond the bar

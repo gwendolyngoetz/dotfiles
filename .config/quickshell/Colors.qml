@@ -19,8 +19,8 @@ Singleton {
 
     // Launcher. The alpha only shows through with a compositor running; drop the CC prefix if
     // the launcher background renders black.
-    readonly property color rofiBg:  "#CC282936"
-    readonly property color rofiFg:  "#f7f7fb"
-    readonly property color rofiAlt: "#626483"
-    readonly property color rofiPri: "#5a4799"
+    readonly property color launcherBg:     "#CC282936"
+    readonly property color launcherFg:     "#f7f7fb"
+    readonly property color launcherAlt:    "#626483"
+    readonly property color launcherAccent: "#5a4799"
 }
