@@ -8,8 +8,8 @@ import qs
 
 // Panel that slides down from the spotify module: album art beside title / artist / album (the
 // title wrapping to up to two lines) and the prev / play-pause / next controls, disabled when
-// the player refuses the action, with a full-width read-only elapsed / total progress bar as
-// the footer. `player` going null while open (spotify quit) closes the panel.
+// the player refuses the action, with a full-width elapsed / total progress bar as the
+// footer, click-to-seek when the player allows it. `player` going null while open (spotify quit) closes the panel.
 // Closes once the pointer has left both the module and the panel.
 PopupWindow {
     id: root
@@ -268,8 +268,9 @@ PopupWindow {
                 }
             }
 
-            // footer: elapsed / total around a read-only progress bar spanning the full panel
-            // width, art included; hidden when the player reports no track length
+            // footer: elapsed / total around a progress bar spanning the full panel width,
+            // art included; a click seeks when the player allows it; hidden when the player
+            // reports no track length
             RowLayout {
                 visible: root.trackLength > 0
                 Layout.fillWidth: true
@@ -283,15 +284,33 @@ PopupWindow {
                 }
 
                 Rectangle {
+                    id: progressTrack
+
+                    // position is writable only under both flags (see MprisPlayer docs)
+                    readonly property bool seekable: (root.player?.canSeek ?? false)
+                        && (root.player?.positionSupported ?? false)
+
                     Layout.fillWidth: true
                     Layout.preferredHeight: 2 * Config.lineSize
-                    color: Colors.backgroundAlt
+                    color: Colors.progressTrack
 
                     Rectangle {
                         height: parent.height
                         width: parent.width * (root.trackLength > 0
                             ? Math.min(1, root.trackPosition / root.trackLength) : 0)
-                        color: Colors.borderPrimary
+                        color: Colors.progress
+                    }
+
+                    // the bar is only a few px tall; grow the hit area so seeking
+                    // does not take pixel-perfect aim
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.topMargin: -root.panelPadding
+                        anchors.bottomMargin: -root.panelPadding
+                        enabled: progressTrack.seekable
+                        cursorShape: progressTrack.seekable ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        onClicked: mouse =>
+                            root.player.position = mouse.x / progressTrack.width * root.trackLength
                     }
                 }
 
