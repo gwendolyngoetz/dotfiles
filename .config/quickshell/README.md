@@ -16,7 +16,7 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 | `bar/OtpPanel.qml` | slide-down panel over the password store: generates, shows and copies OTP codes |
 | `bar/ShutdownPanel.qml` | slide-down panel with the session actions: logout, sleep, reboot, shutdown |
 | `bar/WeatherPanel.qml` | slide-down info panel: read-only icon / label / value detail rows |
-| `bar/SpotifyPanel.qml` | slide-down player panel: album art, track info, prev / play-pause / next |
+| `bar/SpotifyPanel.qml` | slide-down player panel: album art, track info, progress bar, prev / play-pause / next |
 | `bar/modules/*.qml` | the modules |
 | `launcher/` | the app launcher |
 
@@ -27,8 +27,8 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 - **Spotify** – `Quickshell.Services.Mpris`; `title - artist` cut to 30 characters. Left click
   slides `SpotifyPanel` down from the bar: album art spanning
   the panel height (the spotify glyph until it loads),
-  title / artist / album, and prev / play-pause / next buttons, disabled when the player
-  refuses the action. Right click jumps to workspace 10.
+  title / artist / album, elapsed / total around a read-only progress bar, and
+  prev / play-pause / next buttons, disabled when the player refuses the action. Right click jumps to workspace 10.
 - **DateModule / TimeModule** – `SystemClock` ticking on the minute boundary.
 - **Cpu / Memory / Temperature** – `FileView` on `/proc/stat`, `/proc/meminfo` and the hwmon
   file, reloaded every 2s without forking. Temperature reads `TEMPERATURE_PATH`; when unset it
