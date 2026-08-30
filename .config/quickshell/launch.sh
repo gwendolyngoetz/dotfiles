@@ -1,5 +1,5 @@
 #! /bin/bash
-# Restart quickshell. Interface / hwmon detection lives in Env.qml.
+# Restart quickshell.
 
 # ask the running instance to exit; fall back to pkill for instances qs cannot see
 qs kill > /dev/null 2>&1 || pkill -x quickshell || pkill -x qs || true

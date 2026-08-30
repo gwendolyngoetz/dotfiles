@@ -7,10 +7,9 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 
 | file | role |
 | --- | --- |
-| `shell.qml` | one `Bar` per screen, a `TrayBar` on the primary screen, the `Launcher` |
-| `Config.qml` | geometry, fonts, spacing; reads `xrdb -query` once |
-| `Colors.qml` | palette; bar colors come from xrdb `color*` where set, launcher colors are fixed |
-| `Env.qml` | `ETHERNET_INT`, `WIFI_INT`, `TEMPERATURE_PATH`, `MONITOR` from the environment, detected when unset |
+| `shell.qml` | one `Bar` per screen, a `TrayBar` on the primary screen (`MONITOR`, else `xrandr` / `swaymsg`, else the first screen), the `Launcher` |
+| `Config.qml` | geometry, fonts, spacing |
+| `Colors.qml` | palette; the base16 Dracula scheme as constants, with the bar and launcher colors derived from it |
 | `bar/Bar.qml` | top bar: workspaces and spotify left, date and time centered, system modules right |
 | `bar/TrayBar.qml` | bottom bar holding the system tray |
 | `bar/Module.qml` | one bar module: margins and padding (in spaces of the bar font), prefix icon, background, underline, click / scroll signals; hidden when `active` is false |
@@ -28,9 +27,11 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
   workspace 10.
 - **DateModule / TimeModule** – `SystemClock` ticking on the minute boundary.
 - **Cpu / Memory / Temperature** – `FileView` on `/proc/stat`, `/proc/meminfo` and the hwmon
-  file, reloaded every 2s without forking. Temperature reads `TEMPERATURE_PATH` (k10temp
-  `temp1_input`, found by `Env.qml` when unset) and hides when the sensor is missing.
-- **Filesystem / Eth** – shell out to `df` and `ip` on their intervals.
+  file, reloaded every 2s without forking. Temperature reads `TEMPERATURE_PATH`; when unset it
+  scans `/sys/class/hwmon/*/temp*_label` once for `Tdie` / `Package id` (falling back to `Tctl`)
+  and hides when nothing is found.
+- **Filesystem / Eth** – shell out to `df` and `ip` on their intervals. Eth uses `ETHERNET_INT`,
+  else the first `e*` interface that is up.
 - **Weather** – `scripts/weather.sh` fetches the OpenWeatherMap one-call response into
   `scripts/.weather.json` every 15 min (written through a temp file so a failed fetch keeps the
   last response; needs `OPENWEATHERMAP_*` from `~/.private-env`). The label, condition icon and
@@ -54,6 +55,10 @@ categories or keywords of an entry; entries are sorted by name. Enter / Escape /
 Tab / Ctrl-n / Ctrl-p / PgUp / PgDn navigate; it also closes when it loses focus.
 
 ## Conventions
+
+- Detected values (`ETHERNET_INT`, `TEMPERATURE_PATH`, `MONITOR`) live in the file that uses them:
+  the environment variable wins, otherwise a one-shot `Process` detects it, otherwise the
+  module hides / falls back.
 
 - Files with delegates set `pragma ComponentBehavior: Bound` and give `modelData` its real type
   (`ShellScreen`, `I3Workspace`, `SystemTrayItem`, `DesktopEntry`).

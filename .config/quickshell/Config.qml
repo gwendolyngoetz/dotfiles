@@ -1,14 +1,10 @@
 pragma Singleton
 import QtQuick
 import Quickshell
-import Quickshell.Io
 
 // Bar geometry, fonts and spacing.
 Singleton {
     id: root
-
-    // xrdb -query, keyed without the leading "*" (color0, Xft.dpi, ...); Colors.qml reads color*
-    property var xrdb: ({})
 
     readonly property int barHeight: 30
     readonly property int trayBarHeight: 20
@@ -38,28 +34,5 @@ Singleton {
         font.family: root.fontFamily
         font.pixelSize: root.fontPixelSize
         text: " "
-    }
-
-    Process {
-        command: ["xrdb", "-query"]
-        running: true
-
-        stdout: StdioCollector {
-            id: xrdbOut
-
-            onStreamFinished: {
-                const map = {};
-
-                for (const line of xrdbOut.text.split("\n")) {
-                    const idx = line.indexOf(":");
-                    if (idx < 0) continue;
-
-                    const key = line.slice(0, idx).trim().replace(/^\*\.?/, "");
-                    map[key] = line.slice(idx + 1).trim();
-                }
-
-                root.xrdb = map;
-            }
-        }
     }
 }

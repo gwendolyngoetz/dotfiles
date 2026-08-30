@@ -2,25 +2,32 @@ pragma Singleton
 import QtQuick
 import Quickshell
 
-// Bar and launcher palette. Bar colors come from xrdb where set.
 Singleton {
-    readonly property color background:    Config.xrdb["color0"]  ?? "#dd222222"
+    readonly property color base00: "#282936"   // background
+    readonly property color base03: "#626483"   // comments, muted
+    readonly property color base05: "#e9e9f4"   // foreground
+    readonly property color base07: "#f7f7fb"   // bright foreground
+    readonly property color base08: "#ea51b2"   // red / alert
+    readonly property color base0A: "#00f769"   // yellow slot, green here
+    readonly property color base0E: "#5a4799"   // purple / accent
+
+    // bar
+    readonly property color background:    base00
     readonly property color backgroundAlt: "#444"
-    readonly property color foreground:    Config.xrdb["color7"]  ?? "#dfdfdf"
+    readonly property color foreground:    base05
     readonly property color foregroundAlt: "#555"
-    readonly property color primary:       Config.xrdb["color13"] ?? "#9f78e1"
-    readonly property color secondary:     "#e60053"
-    readonly property color alert:         Config.xrdb["color1"]  ?? "#bd2c40"
-    readonly property color spotify:       Config.xrdb["color3"]  ?? "#00ff00"
-    readonly property color borderPrimary: Config.xrdb["color13"] ?? "#9f78e1"
+    readonly property color primary:       base0E
+    readonly property color alert:         base08
+    readonly property color spotify:       base0A
+    readonly property color borderPrimary: base0E
 
     // tray bar background
     readonly property color trayBarBackground: "#000000"
 
-    // Launcher. The alpha only shows through with a compositor running; drop the CC prefix if
+    // Launcher. The alpha only shows through with a compositor running; use base00 directly if
     // the launcher background renders black.
-    readonly property color launcherBg:     "#CC282936"
-    readonly property color launcherFg:     "#f7f7fb"
-    readonly property color launcherAlt:    "#626483"
-    readonly property color launcherAccent: "#5a4799"
+    readonly property color launcherBg:     Qt.rgba(base00.r, base00.g, base00.b, 0.8)
+    readonly property color launcherFg:     base07
+    readonly property color launcherAlt:    base03
+    readonly property color launcherAccent: base0E
 }
