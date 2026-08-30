@@ -16,6 +16,7 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 | `bar/ScriptModule.qml` | runs a shell command on an interval and shows its output; hidden when empty |
 | `bar/Menu.qml` | popup menu / info panel anchored to a module |
 | `bar/OtpPanel.qml` | slide-down panel over the password store: generates, shows and copies OTP codes |
+| `bar/ShutdownPanel.qml` | slide-down panel with the session actions: logout, sleep, reboot, shutdown |
 | `bar/modules/*.qml` | the modules |
 | `launcher/` | the app launcher |
 | `scripts/` | shell scripts used by modules |
@@ -50,7 +51,8 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
   the clipboard is cleared if it still holds the code. Right click copies the default account
   (`work`) without opening the panel and reports through `notify-send`. Needs `pass-otp` and
   `xclip`.
-- **ShutdownMenu** – logout / sleep / reboot / poweroff.
+- **ShutdownMenu** – left click slides `ShutdownPanel` down from the bar: logout / sleep / reboot /
+  poweroff; picking one runs its command.
 - **Tray** – `Quickshell.Services.SystemTray` at 16px with 2px padding; left click activates,
   right click opens the item menu, middle click is secondary activate.
 
