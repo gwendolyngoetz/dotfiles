@@ -8,7 +8,7 @@ import qs.bar
 Module {
     id: root
 
-    property string interface: Quickshell.env("ETHERNET_INT") ?? ""
+    property string iface: Quickshell.env("ETHERNET_INT") ?? ""
     property string localIp: ""
 
     active: localIp !== ""
@@ -17,18 +17,18 @@ Module {
     text: localIp
 
     Process {
-        running: root.interface === ""
+        running: root.iface === ""
         command: ["bash", "-c", `ip -o link show up | awk -F': ' '$2 ~ /^e/ {print $2; exit}'`]
 
         stdout: StdioCollector {
             id: detected
-            onStreamFinished: root.interface = detected.text.trim()
+            onStreamFinished: root.iface = detected.text.trim()
         }
     }
 
     Process {
         id: proc
-        command: ["bash", "-c", `ip -4 -o addr show dev "${root.interface}" up 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1`]
+        command: ["bash", "-c", `ip -4 -o addr show dev "${root.iface}" up 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1`]
 
         stdout: StdioCollector {
             id: collector
@@ -38,7 +38,7 @@ Module {
 
     Timer {
         interval: 3000
-        running: root.interface !== ""
+        running: root.iface !== ""
         repeat: true
         triggeredOnStart: true
         onTriggered: proc.running = true
