@@ -15,6 +15,7 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 | `bar/Module.qml` | one bar module: margins and padding (in spaces of the bar font), prefix icon, background, underline, click / scroll signals; hidden when `active` is false |
 | `bar/ScriptModule.qml` | runs a shell command on an interval and shows its output; hidden when empty |
 | `bar/Menu.qml` | popup menu / info panel anchored to a module |
+| `bar/OtpPanel.qml` | slide-down panel over the password store: generates, shows and copies OTP codes |
 | `bar/modules/*.qml` | the modules |
 | `launcher/` | the app launcher |
 | `scripts/` | shell scripts used by modules |
@@ -40,8 +41,13 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 - **AirQuality** – `scripts/air-quality.sh` every 15 min (needs `AIRNOW_API_*`).
 - **Volume** – `Quickshell.Services.Pipewire` default sink. Icon only; click toggles mute, scroll
   changes volume by 5%, right click opens `pavucontrol -t 4`.
-- **Otp** – lists `~/.password-store` in a popup and runs `scripts/otp-copy.sh <name>`; right
-  click copies the default account (`work`).
+- **Otp** – left click slides `OtpPanel` down from the bar: the `*.gpg` entries of
+  `PASSWORD_STORE_DIR` (else `~/.password-store`) via `FolderListModel`. Picking one runs
+  `pass otp <name>`, pipes the code into `xclip` and shows it beside the entry with a bar draining
+  over the 30s TOTP period; the code is regenerated when the period rolls over. 45s after a copy
+  the clipboard is cleared if it still holds the code. Right click copies the default account
+  (`work`) without opening the panel and reports through `notify-send`. Needs `pass-otp` and
+  `xclip`.
 - **ShutdownMenu** – logout / sleep / reboot / poweroff.
 - **Tray** – `Quickshell.Services.SystemTray` at 16px with 2px padding; left click activates,
   right click opens the item menu, middle click is secondary activate.
@@ -75,3 +81,4 @@ Tab / Ctrl-n / Ctrl-p / PgUp / PgDn navigate; it also closes when it loses focus
   the `CC` prefix in that case.
 - The weather and air-quality scripts need `~/.private-env` and `AIRNOW_API_*` in the
   environment.
+- Otp needs `pass-otp`, `xclip` and a `notify-send` provider.
