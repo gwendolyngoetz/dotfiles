@@ -18,7 +18,7 @@ PopupWindow {
     property bool anchorHovered: false
     property MprisPlayer player: null
     property int textWidth: 320   // text column is fixed so the panel does not resize per track
-    property real artScale: 1.5   // art height relative to the info column's height
+    property real artScale: 1.25   // art height relative to the info column's height
     property int panelPadding: 10
     property int buttonSize: 36
 
@@ -239,7 +239,8 @@ PopupWindow {
                         text: root.player?.trackAlbum ?? ""
                     }
 
-                    // labels stick to the top, the controls to the bottom
+                    // the leftover column height (the art overshoot) splits evenly
+                    // around the controls: text on top, transport floating below it
                     Item { Layout.fillHeight: true }
 
                     Row {
@@ -265,6 +266,8 @@ PopupWindow {
                             onClicked: root.player.next()
                         }
                     }
+
+                    Item { Layout.fillHeight: true }
                 }
             }
 

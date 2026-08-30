@@ -9,7 +9,6 @@ Singleton {
     readonly property color base07: "#f7f7fb"   // bright foreground
     readonly property color base08: "#ea51b2"   // red / alert
     readonly property color base0A: "#00f769"   // yellow slot, green here
-    readonly property color base0C: "#62d6e8"   // cyan
     readonly property color base0E: "#5a4799"   // purple / accent
 
     // bar
@@ -21,7 +20,7 @@ Singleton {
     readonly property color primary:       base0E
     readonly property color alert:         base08
     readonly property color spotify:       base0A
-    readonly property color progress:      base0C   // elapsed part of progress bars
+    readonly property color progress:      "#7aa2f7"   // elapsed part of progress bars
     readonly property color progressTrack: base03   // remaining part, visible against base00
     readonly property color borderPrimary: base0E
 
