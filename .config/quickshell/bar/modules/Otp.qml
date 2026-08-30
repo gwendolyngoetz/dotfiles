@@ -7,7 +7,7 @@ import qs.bar
 Module {
     id: root
 
-    property string defaultAccount: "work"
+    property string defaultAccount: "tools/github"
 
     padding: 1
     clickable: true

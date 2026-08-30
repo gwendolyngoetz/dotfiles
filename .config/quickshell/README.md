@@ -42,7 +42,9 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 - **Volume** – `Quickshell.Services.Pipewire` default sink. Icon only; click toggles mute, scroll
   changes volume by 5%, right click opens `pavucontrol -t 4`.
 - **Otp** – left click slides `OtpPanel` down from the bar: the `*.gpg` entries of
-  `PASSWORD_STORE_DIR` (else `~/.password-store`) via `FolderListModel`. Picking one runs
+  `PASSWORD_STORE_DIR` (else `~/.password-store`) via `find`, grouped into tabs by pass's
+  folder layout (`work/github` is `github` on the `work` tab; top-level entries go on the
+  `other` tab). Picking one runs
   `pass otp <name>`, pipes the code into `xclip` and shows it beside the entry with a bar draining
   over the 30s TOTP period; the code is regenerated when the period rolls over. 45s after a copy
   the clipboard is cleared if it still holds the code. Right click copies the default account

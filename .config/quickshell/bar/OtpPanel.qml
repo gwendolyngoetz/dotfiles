@@ -1,12 +1,13 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import Qt.labs.folderlistmodel
 import Quickshell
 import Quickshell.Io
 import qs
 
-// Panel that slides down from a bar module and lists the password-store entries. Picking one
+// Panel that slides down from a bar module and lists the password-store entries, grouped into
+// tabs by pass's native folder layout (`work/github.gpg` is `github` on the `work` tab; entries
+// at the top level of the store land on the `ungroupedName` tab). Picking one
 // runs `pass otp <name>`, copies the code to the clipboard and shows it next to the entry with
 // a bar draining over the TOTP period; the code is regenerated when the period rolls over. The
 // clipboard is cleared `clipboardTtl` ms after the last copy if it still holds our code.
@@ -20,6 +21,9 @@ PopupWindow {
     property string store: Quickshell.env("PASSWORD_STORE_DIR") ?? (Quickshell.env("HOME") + "/.password-store")
     property int period: 30            // TOTP step in seconds
     property int clipboardTtl: 45000   // ms until the clipboard is cleared again
+    property string ungroupedName: "other"
+    property string defaultGroup: "tools"      // tab selected whenever the panel opens
+    property var hiddenGroups: ["archive"]     // groups left out of the panel entirely
     property int minWidth: 200
     property int rowHeight: Config.barHeight
     property int rowPadding: 10
@@ -29,6 +33,21 @@ PopupWindow {
     property string code: ""
     property string error: ""
     property string copied: ""    // last code put on the clipboard
+    property string group: ""     // selected tab
+
+    // [{ name, group, label }] for every *.gpg in the store, sorted by name; `name` is the
+    // path pass wants (`work/github`), `label` the part shown on the tab (`github`)
+    property var accounts: []
+    readonly property var groups: [...new Set(accounts.map(a => a.group))].sort()
+    readonly property var rows: accounts.filter(a => a.group === group)
+
+    // the name column is sized to the longest label of any group, so switching tabs does not resize the panel
+    readonly property string longestLabel: accounts.reduce((l, a) => a.label.length > l.length ? a.label : l, "")
+
+    // width of the code / error column, from metrics only — sizing the label off its own
+    // implicitWidth loops through the row layout
+    readonly property real detailWidth: Math.max(codeMetrics.advanceWidth,
+        error !== "" ? errorMetrics.advanceWidth : 0)
 
     readonly property int nowSeconds: Math.floor(clock.date.getTime() / 1000)
     readonly property int remaining: period - nowSeconds % period
@@ -44,6 +63,9 @@ PopupWindow {
     implicitHeight: frame.implicitHeight
 
     function show() {
+        lister.running = true;
+        if (root.groups.includes(root.defaultGroup)) root.group = root.defaultGroup;
+
         // the module drifts as modules left of it change width; re-anchor before each show
         root.anchor.updateAnchor();
         root.visible = true;
@@ -75,6 +97,15 @@ PopupWindow {
         root.error = "";
     }
 
+    // "work/github" -> the `github` row on the `work` tab; "personal/aws/prod" stays
+    // "aws/prod" on the `personal` tab; a top-level "email" goes on the `ungroupedName` tab
+    function parse(name) {
+        const idx = name.indexOf("/");
+        return idx > 0
+            ? { name, group: name.slice(0, idx), label: name.slice(idx + 1) }
+            : { name, group: root.ungroupedName, label: name };
+    }
+
     // "482913" -> "482 913"
     function formatCode(c) {
         return c.replace(/^(\d{3})(\d{3})$/, "$1 $2");
@@ -85,19 +116,37 @@ PopupWindow {
     // a shown code is stale once the period rolls over
     onStepChanged: if (open && account !== "" && code !== "") copy(account)
 
+    // gated on visible, not on the code: the code is written from onStepChanged, which the
+    // clock itself drives, so enabling the clock from it is a binding loop
     SystemClock {
         id: clock
         precision: SystemClock.Seconds
-        enabled: root.code !== ""
+        enabled: root.visible
     }
 
-    FolderListModel {
-        id: entries
-        folder: "file://" + root.store
-        nameFilters: ["*.gpg"]
-        showDirs: false
-        showDotAndDotDot: false
-        sortField: FolderListModel.Name
+    // Every *.gpg under the store as store-relative paths, pruning dot dirs (.git, .extensions).
+    // -mindepth keeps the prune off the store root itself, which is a dot dir (~/.password-store).
+    Process {
+        id: lister
+        command: ["find", "-L", root.store, "-mindepth", "1", "-name", ".*", "-prune",
+            "-o", "-type", "f", "-name", "*.gpg", "-printf", "%P\n"]
+        running: true
+
+        stdout: StdioCollector {
+            id: listerOut
+
+            onStreamFinished: {
+                root.accounts = listerOut.text.split("\n")
+                    .filter(l => l !== "")
+                    .map(l => root.parse(l.replace(/\.gpg$/, "")))
+                    .filter(a => !root.hiddenGroups.includes(a.group))
+                    .sort((a, b) => a.label.localeCompare(b.label));
+
+                if (root.group === "" && root.groups.includes(root.defaultGroup))
+                    root.group = root.defaultGroup;
+                if (!root.groups.includes(root.group)) root.group = root.groups[0] ?? "";
+            }
+        }
     }
 
     Process {
@@ -170,6 +219,20 @@ PopupWindow {
         text: "000 000"
     }
 
+    TextMetrics {
+        id: errorMetrics
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontPixelSize
+        text: root.error
+    }
+
+    TextMetrics {
+        id: nameMetrics
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontPixelSize
+        text: root.longestLabel
+    }
+
     Rectangle {
         id: frame
         width: parent.width
@@ -208,9 +271,56 @@ PopupWindow {
             anchors.margins: frame.border.width
             spacing: 0
 
+            // one tab per group; hidden when there is only one
+            Row {
+                visible: root.groups.length > 1
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.rowHeight
+                spacing: 0
+
+                Repeater {
+                    model: ScriptModel { values: root.groups }
+
+                    delegate: Rectangle {
+                        id: tab
+                        required property string modelData
+
+                        readonly property bool current: root.group === modelData
+
+                        height: root.rowHeight
+                        width: tabLabel.width + 2 * root.rowPadding
+                        color: current ? Colors.primary
+                             : tabArea.containsMouse ? Colors.backgroundAlt
+                             : "transparent"
+
+                        Label {
+                            id: tabLabel
+                            anchors.centerIn: parent
+                            text: tab.modelData
+                            color: Colors.foreground
+                        }
+
+                        MouseArea {
+                            id: tabArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.group = tab.modelData
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                visible: root.groups.length > 1
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
+                color: Colors.foregroundAlt
+            }
+
             // empty store
             Label {
-                visible: entries.count === 0
+                visible: root.accounts.length === 0
                 Layout.preferredHeight: root.rowHeight
                 leftPadding: root.rowPadding
                 rightPadding: root.rowPadding
@@ -219,13 +329,13 @@ PopupWindow {
             }
 
             Repeater {
-                model: entries
+                model: ScriptModel { values: root.rows }
 
                 delegate: Rectangle {
                     id: row
-                    required property string fileBaseName
+                    required property var modelData
 
-                    readonly property bool selected: root.account === fileBaseName
+                    readonly property bool selected: root.account === modelData.name
                     readonly property string detail: !selected ? ""
                         : root.error !== "" ? root.error
                         : root.code !== "" ? root.formatCode(root.code)
@@ -233,8 +343,8 @@ PopupWindow {
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: root.rowHeight
-                    // name column, a gap, then the code column; an error message may be wider than a code
-                    implicitWidth: content.implicitWidth + 3 * Config.spaceWidth + detailLabel.width + 2 * root.rowPadding
+                    // icon, the widest name of any group, a gap, then the code column; an error message may be wider than a code
+                    implicitWidth: icon.width + content.spacing + nameMetrics.advanceWidth + 3 * Config.spaceWidth + root.detailWidth + 2 * root.rowPadding
                     color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
 
                     Row {
@@ -244,6 +354,7 @@ PopupWindow {
                         spacing: Config.spaceWidth
 
                         Icon {
+                            id: icon
                             anchors.verticalCenter: parent.verticalCenter
                             iconStyle: "solid"
                             color: Colors.foreground
@@ -252,7 +363,7 @@ PopupWindow {
 
                         Label {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: row.fileBaseName
+                            text: row.modelData.label
                         }
                     }
 
@@ -261,7 +372,7 @@ PopupWindow {
                         anchors.right: parent.right
                         anchors.rightMargin: root.rowPadding
                         anchors.verticalCenter: parent.verticalCenter
-                        width: row.selected && root.error !== "" ? implicitWidth : codeMetrics.advanceWidth
+                        width: root.detailWidth
                         horizontalAlignment: Text.AlignRight
                         font.bold: root.error === ""
                         text: row.detail
@@ -288,7 +399,7 @@ PopupWindow {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: root.copy(row.fileBaseName)
+                        onClicked: root.copy(row.modelData.name)
                     }
                 }
             }
