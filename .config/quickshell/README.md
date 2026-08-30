@@ -13,13 +13,11 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 | `bar/Bar.qml` | top bar: workspaces and spotify left, date and time centered, system modules right |
 | `bar/TrayBar.qml` | bottom bar holding the system tray |
 | `bar/Module.qml` | one bar module: margins and padding (in spaces of the bar font), prefix icon, background, underline, click / scroll signals; hidden when `active` is false |
-| `bar/ScriptModule.qml` | runs a shell command on an interval and shows its output; hidden when empty |
-| `bar/Menu.qml` | popup menu / info panel anchored to a module |
 | `bar/OtpPanel.qml` | slide-down panel over the password store: generates, shows and copies OTP codes |
 | `bar/ShutdownPanel.qml` | slide-down panel with the session actions: logout, sleep, reboot, shutdown |
+| `bar/WeatherPanel.qml` | slide-down info panel: read-only icon / label / value detail rows |
 | `bar/modules/*.qml` | the modules |
 | `launcher/` | the app launcher |
-| `scripts/` | shell scripts used by modules |
 
 ## Modules
 
@@ -34,12 +32,14 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
   and hides when nothing is found.
 - **Filesystem / Eth** – shell out to `df` and `ip` on their intervals. Eth uses `ETHERNET_INT`,
   else the first `e*` interface that is up.
-- **Weather** – `scripts/weather.sh` fetches the OpenWeatherMap one-call response into
-  `scripts/.weather.json` every 15 min (written through a temp file so a failed fetch keeps the
-  last response; needs `OPENWEATHERMAP_*` from `~/.private-env`). The label, condition icon and
-  the left-click popup — city, conditions, temp / high / low over the next 12h, humidity, date,
-  sunrise, sunset — are built from that file.
-- **AirQuality** – `scripts/air-quality.sh` every 15 min (needs `AIRNOW_API_*`).
+- **Weather** – fetches the OpenWeatherMap one-call response with `curl` every 15 min, straight
+  into memory; a failed fetch keeps the last response, and the last good one is cached in
+  `$XDG_CACHE_HOME/quickshell-weather.json` so a restart starts from it (needs
+  `OPENWEATHERMAP_*` in the environment, otherwise the module hides). The label shows the
+  condition icon and temp; left click slides `WeatherPanel` down from the bar: city, conditions,
+  temp / high / low over the next 12h, humidity, date, sunrise, sunset.
+- **AirQuality** – PM2.5 AQI with the category initial ("42-G") from the AirNow API with `curl`
+  every 15 min (needs `AIRNOW_API_*` in the environment, otherwise the module hides).
 - **Volume** – `Quickshell.Services.Pipewire` default sink. Icon only; click toggles mute, scroll
   changes volume by 5%, right click opens `pavucontrol -t 4`.
 - **Otp** – left click slides `OtpPanel` down from the bar: the `*.gpg` entries of
@@ -83,6 +83,6 @@ Tab / Ctrl-n / Ctrl-p / PgUp / PgDn navigate; it also closes when it loses focus
 - Fonts: `Config.fontFamily` is `Noto Sans`; icons need Font Awesome 5 Free and Brands.
 - Transparency: `Colors.launcherBg` has alpha. Without a compositor it renders black, so drop
   the `CC` prefix in that case.
-- The weather and air-quality scripts need `~/.private-env` and `AIRNOW_API_*` in the
-  environment.
+- Weather needs `OPENWEATHERMAP_*` and AirQuality `AIRNOW_API_*` in the environment (both
+  come from `~/.private-env` via `.profile`).
 - Otp needs `pass-otp`, `xclip` and a `notify-send` provider.

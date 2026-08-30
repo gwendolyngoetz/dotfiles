@@ -4,34 +4,23 @@ import QtQuick.Layouts
 import Quickshell
 import qs
 
-// Popup menu hanging off a bar module. `entries` is a list of
-// { icon, iconStyle, label } objects, or { separator: true } for a divider line. An entry may
-// also carry { value, valueColor } to show a read-only detail column (see the weather popup);
-// set `interactive: false` for a popup that only displays information.
-// Closes after an entry is picked, or once the pointer has left both the module and the menu.
+// Read-only panel that slides down from a bar module and shows detail rows. `entries` is a
+// list of { icon, iconStyle, label, value, valueColor } objects, or { separator: true } for a
+// divider line; values line up under one column, sized to the widest label (see the weather
+// module). Closes once the pointer has left both the module and the panel.
 PopupWindow {
     id: root
 
     required property Item anchorItem
-    property var entries: []
     property bool anchorHovered: false
+    property var entries: []
     property int minWidth: 160
     property int rowHeight: Config.barHeight
     property int rowPadding: 10
-    property bool interactive: true
 
-    signal activated(var entry)
+    property bool open: false
 
-    // value rows line their values up under one column, sized to the widest label
     readonly property real labelColumnWidth: labelMetrics.advanceWidth + Config.spaceWidth
-
-    TextMetrics {
-        id: labelMetrics
-        font.family: Config.fontFamily
-        font.pixelSize: Config.fontPixelSize
-        text: root.entries.reduce((longest, e) =>
-            (e.value ?? "") !== "" && (e.label ?? "").length > longest.length ? e.label : longest, "")
-    }
 
     anchor.item: anchorItem
     anchor.edges: Edges.Bottom | Edges.Left
@@ -42,30 +31,58 @@ PopupWindow {
     implicitWidth: frame.implicitWidth
     implicitHeight: frame.implicitHeight
 
-    function toggle() {
+    function show() {
         // the module drifts as modules left of it change width; re-anchor before each show
-        if (!root.visible) root.anchor.updateAnchor();
-
-        root.visible = !root.visible;
+        root.anchor.updateAnchor();
+        root.visible = true;
+        root.open = true;
     }
 
-    onAnchorHoveredChanged: if (visible) closeTimer.restart()
+    function hide() {
+        root.open = false;
+    }
+
+    function toggle() {
+        if (root.open) hide(); else show();
+    }
+
+    onAnchorHoveredChanged: if (open) closeTimer.restart()
+
+    TextMetrics {
+        id: labelMetrics
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontPixelSize
+        text: root.entries.reduce((longest, e) =>
+            (e.label ?? "").length > longest.length ? e.label : longest, "")
+    }
 
     Rectangle {
         id: frame
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
+        // slides down out of the bar; while closed it sits above the (clipped) window
+        y: root.open ? 0 : -height
         color: Colors.background
         border.width: 1
         border.color: Colors.borderPrimary
         implicitWidth: Math.max(root.minWidth, column.implicitWidth) + 2 * border.width
         implicitHeight: column.implicitHeight + 2 * border.width
 
-        HoverHandler {
-            id: hover
-            onHoveredChanged: if (root.visible) closeTimer.restart()
+        Behavior on y {
+            enabled: root.visible
+
+            NumberAnimation {
+                duration: 150
+                easing.type: Easing.OutCubic
+                onRunningChanged: if (!running && !root.open) root.visible = false
+            }
         }
 
-        // ColumnLayout's implicit width is the widest row, which sizes the menu to its content
+        HoverHandler {
+            id: hover
+            onHoveredChanged: if (root.open) closeTimer.restart()
+        }
+
         ColumnLayout {
             id: column
             anchors.fill: parent
@@ -73,19 +90,18 @@ PopupWindow {
             spacing: 0
 
             Repeater {
-                model: root.entries
+                model: ScriptModel { values: root.entries }
 
                 delegate: Rectangle {
                     id: row
                     required property var modelData
 
                     readonly property bool separator: modelData.separator === true
-                    readonly property bool hasValue: (modelData.value ?? "") !== ""
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: separator ? Config.lineSize * 2 : root.rowHeight
                     implicitWidth: separator ? 0 : content.implicitWidth + 2 * root.rowPadding
-                    color: root.interactive && !separator && rowArea.containsMouse ? Colors.borderPrimary : "transparent"
+                    color: "transparent"
 
                     Rectangle {
                         visible: row.separator
@@ -105,8 +121,8 @@ PopupWindow {
                         Icon {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: text !== ""
-                            // glyphs differ in width; give value rows a fixed icon column
-                            width: row.hasValue ? Config.iconPixelSize * 1.5 : implicitWidth
+                            // glyphs differ in width; a fixed icon column keeps the labels aligned
+                            width: Config.iconPixelSize * 1.5
                             horizontalAlignment: Text.AlignHCenter
                             text: row.modelData.icon ?? ""
                             iconStyle: row.modelData.iconStyle ?? "solid"
@@ -115,28 +131,15 @@ PopupWindow {
 
                         Label {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: row.hasValue ? Math.max(implicitWidth, root.labelColumnWidth) : implicitWidth
+                            width: Math.max(implicitWidth, root.labelColumnWidth)
                             text: row.modelData.label ?? ""
                         }
 
                         Label {
                             anchors.verticalCenter: parent.verticalCenter
-                            visible: row.hasValue
+                            visible: (row.modelData.value ?? "") !== ""
                             text: row.modelData.value ?? ""
                             color: row.modelData.valueColor ?? Colors.foreground
-                        }
-                    }
-
-                    MouseArea {
-                        id: rowArea
-                        anchors.fill: parent
-                        enabled: !row.separator
-                        hoverEnabled: true
-                        cursorShape: root.interactive ? Qt.PointingHandCursor : Qt.ArrowCursor
-
-                        onClicked: {
-                            root.visible = false;
-                            if (root.interactive) root.activated(row.modelData);
                         }
                     }
                 }
@@ -144,10 +147,10 @@ PopupWindow {
         }
     }
 
-    // small grace period so moving from the module down into the menu does not close it
+    // small grace period so moving from the module down into the panel does not close it
     Timer {
         id: closeTimer
         interval: 400
-        onTriggered: if (!hover.hovered && !root.anchorHovered) root.visible = false
+        onTriggered: if (!hover.hovered && !root.anchorHovered) root.hide()
     }
 }
