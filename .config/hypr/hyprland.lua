@@ -63,6 +63,11 @@ hl.config({
     preserve_split = true,
   },
 
+  -- i3 has no animations; keep it that way
+  animations = {
+    enabled = false,
+  },
+
   input = {
     -- i3: focus_follows_mouse no
     follow_mouse = 0,
