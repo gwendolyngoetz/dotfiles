@@ -12,23 +12,19 @@ import qs
 // a bar draining over the TOTP period; the code is regenerated when the period rolls over. The
 // clipboard is cleared `clipboardTtl` ms after the last copy if it still holds our code.
 // `copy(name)` does the same without opening the panel and reports through notify-send.
-// Closes once the pointer has left both the module and the panel.
-PopupWindow {
+// The window chrome — frame, slide animation, hover-close — lives in SlidePanel.
+SlidePanel {
     id: root
 
-    required property Item anchorItem
-    property bool anchorHovered: false
     property string store: Quickshell.env("PASSWORD_STORE_DIR") ?? (Quickshell.env("HOME") + "/.password-store")
     property int period: 30            // TOTP step in seconds
     property int clipboardTtl: 45000   // ms until the clipboard is cleared again
     property string ungroupedName: "other"
     property string defaultGroup: "tools"      // tab selected whenever the panel opens
     property var hiddenGroups: ["archive"]     // groups left out of the panel entirely
-    property int minWidth: 200
     property int rowHeight: Config.barHeight
     property int rowPadding: 10
 
-    property bool open: false
     property string account: ""   // entry whose code is shown
     property string code: ""
     property string error: ""
@@ -53,32 +49,16 @@ PopupWindow {
     readonly property int remaining: period - nowSeconds % period
     readonly property int step: Math.floor(nowSeconds / period)
 
-    anchor.item: anchorItem
-    anchor.edges: Edges.Bottom | Edges.Left
-    anchor.gravity: Edges.Bottom | Edges.Right
+    minWidth: 200
 
-    visible: false
-    color: "transparent"
-    implicitWidth: frame.implicitWidth
-    implicitHeight: frame.implicitHeight
-
-    function show() {
+    // refresh the store listing and land on the default tab on every open
+    onAboutToShow: {
         lister.running = true;
         if (root.groups.includes(root.defaultGroup)) root.group = root.defaultGroup;
-
-        // the module drifts as modules left of it change width; re-anchor before each show
-        root.anchor.updateAnchor();
-        root.visible = true;
-        root.open = true;
     }
 
-    function hide() {
-        root.open = false;
-    }
-
-    function toggle() {
-        if (root.open) hide(); else show();
-    }
+    // wipe the shown code once the close slide has finished
+    onCloseFinished: root.reset()
 
     // generate the code for `name` and put it on the clipboard
     function copy(name) {
@@ -110,8 +90,6 @@ PopupWindow {
     function formatCode(c) {
         return c.replace(/^(\d{3})(\d{3})$/, "$1 $2");
     }
-
-    onAnchorHoveredChanged: if (open) closeTimer.restart()
 
     // a shown code is stale once the period rolls over
     onStepChanged: if (open && account !== "" && code !== "") copy(account)
@@ -233,185 +211,142 @@ PopupWindow {
         text: root.longestLabel
     }
 
-    Rectangle {
-        id: frame
-        width: parent.width
-        height: parent.height
-        // slides down out of the bar; while closed it sits above the (clipped) window
-        y: root.open ? 0 : -height
-        color: Colors.background
-        border.width: 1
-        border.color: Colors.borderPrimary
-        bottomLeftRadius: Config.panelRadius
-        bottomRightRadius: Config.panelRadius
-        implicitWidth: Math.max(root.minWidth, column.implicitWidth) + 2 * border.width
-        implicitHeight: column.implicitHeight + 2 * border.width
+    ColumnLayout {
+        id: column
+        anchors.fill: parent
+        spacing: 0
 
-        Behavior on y {
-            enabled: root.visible
-
-            NumberAnimation {
-                duration: 150
-                easing.type: Easing.OutCubic
-                onRunningChanged: {
-                    if (running || root.open) return;
-
-                    root.visible = false;
-                    root.reset();
-                }
-            }
-        }
-
-        HoverHandler {
-            id: hover
-            onHoveredChanged: if (root.open) closeTimer.restart()
-        }
-
-        ColumnLayout {
-            id: column
-            anchors.fill: parent
-            anchors.margins: frame.border.width
+        // one tab per group; hidden when there is only one
+        Row {
+            visible: root.groups.length > 1
+            Layout.fillWidth: true
+            Layout.preferredHeight: root.rowHeight
             spacing: 0
 
-            // one tab per group; hidden when there is only one
-            Row {
-                visible: root.groups.length > 1
-                Layout.fillWidth: true
-                Layout.preferredHeight: root.rowHeight
-                spacing: 0
-
-                Repeater {
-                    model: ScriptModel { values: root.groups }
-
-                    delegate: Rectangle {
-                        id: tab
-                        required property string modelData
-
-                        readonly property bool current: root.group === modelData
-
-                        height: root.rowHeight
-                        width: tabLabel.width + 2 * root.rowPadding
-                        color: current ? Colors.primary
-                             : tabArea.containsMouse ? Colors.backgroundAlt
-                             : "transparent"
-
-                        Label {
-                            id: tabLabel
-                            anchors.centerIn: parent
-                            text: tab.modelData
-                            color: Colors.foreground
-                        }
-
-                        MouseArea {
-                            id: tabArea
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: root.group = tab.modelData
-                        }
-                    }
-                }
-            }
-
-            Rectangle {
-                visible: root.groups.length > 1
-                Layout.fillWidth: true
-                Layout.preferredHeight: 1
-                color: Colors.foregroundAlt
-            }
-
-            // empty store
-            Label {
-                visible: root.accounts.length === 0
-                Layout.preferredHeight: root.rowHeight
-                leftPadding: root.rowPadding
-                rightPadding: root.rowPadding
-                text: "No entries in " + root.store
-                color: Colors.foregroundAlt
-            }
-
             Repeater {
-                model: ScriptModel { values: root.rows }
+                model: ScriptModel { values: root.groups }
 
                 delegate: Rectangle {
-                    id: row
-                    required property var modelData
+                    id: tab
+                    required property string modelData
 
-                    readonly property bool selected: root.account === modelData.name
-                    readonly property string detail: !selected ? ""
-                        : root.error !== "" ? root.error
-                        : root.code !== "" ? root.formatCode(root.code)
-                        : "…"
+                    readonly property bool current: root.group === modelData
 
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: root.rowHeight
-                    // icon, the widest name of any group, a gap, then the code column; an error message may be wider than a code
-                    implicitWidth: icon.width + content.spacing + nameMetrics.advanceWidth + 3 * Config.spaceWidth + root.detailWidth + 2 * root.rowPadding
-                    color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
-
-                    Row {
-                        id: content
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: root.rowPadding
-                        spacing: Config.spaceWidth
-
-                        Icon {
-                            id: icon
-                            anchors.verticalCenter: parent.verticalCenter
-                            iconStyle: "solid"
-                            color: Colors.foreground
-                            text: ""   // key
-                        }
-
-                        Label {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: row.modelData.label
-                        }
-                    }
+                    height: root.rowHeight
+                    width: tabLabel.width + 2 * root.rowPadding
+                    color: current ? Colors.primary
+                         : tabArea.containsMouse ? Colors.backgroundAlt
+                         : "transparent"
 
                     Label {
-                        id: detailLabel
-                        anchors.right: parent.right
-                        anchors.rightMargin: root.rowPadding
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: root.detailWidth
-                        horizontalAlignment: Text.AlignRight
-                        font.bold: root.error === ""
-                        text: row.detail
-                        color: root.error !== "" && row.selected ? Colors.alert : Colors.foreground
-                    }
-
-                    // time left in the current TOTP period
-                    Rectangle {
-                        visible: row.selected && root.code !== ""
-                        anchors.left: parent.left
-                        anchors.bottom: parent.bottom
-                        height: Config.lineSize
-                        width: parent.width * root.remaining / root.period
-                        color: Colors.primary
-
-                        Behavior on width {
-                            enabled: root.remaining < root.period
-                            NumberAnimation { duration: 1000 }
-                        }
+                        id: tabLabel
+                        anchors.centerIn: parent
+                        text: tab.modelData
+                        color: Colors.foreground
                     }
 
                     MouseArea {
-                        id: rowArea
+                        id: tabArea
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: root.copy(row.modelData.name)
+                        onClicked: root.group = tab.modelData
                     }
                 }
             }
         }
-    }
 
-    // small grace period so moving from the module down into the panel does not close it
-    Timer {
-        id: closeTimer
-        interval: 400
-        onTriggered: if (!hover.hovered && !root.anchorHovered) root.hide()
+        Rectangle {
+            visible: root.groups.length > 1
+            Layout.fillWidth: true
+            Layout.preferredHeight: 1
+            color: Colors.foregroundAlt
+        }
+
+        // empty store
+        Label {
+            visible: root.accounts.length === 0
+            Layout.preferredHeight: root.rowHeight
+            leftPadding: root.rowPadding
+            rightPadding: root.rowPadding
+            text: "No entries in " + root.store
+            color: Colors.foregroundAlt
+        }
+
+        Repeater {
+            model: ScriptModel { values: root.rows }
+
+            delegate: Rectangle {
+                id: row
+                required property var modelData
+
+                readonly property bool selected: root.account === modelData.name
+                readonly property string detail: !selected ? ""
+                    : root.error !== "" ? root.error
+                    : root.code !== "" ? root.formatCode(root.code)
+                    : "…"
+
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.rowHeight
+                // icon, the widest name of any group, a gap, then the code column; an error message may be wider than a code
+                implicitWidth: icon.width + content.spacing + nameMetrics.advanceWidth + 3 * Config.spaceWidth + root.detailWidth + 2 * root.rowPadding
+                color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
+
+                Row {
+                    id: content
+                    anchors.verticalCenter: parent.verticalCenter
+                    x: root.rowPadding
+                    spacing: Config.spaceWidth
+
+                    Icon {
+                        id: icon
+                        anchors.verticalCenter: parent.verticalCenter
+                        iconStyle: "solid"
+                        color: Colors.foreground
+                        text: ""   // key
+                    }
+
+                    Label {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: row.modelData.label
+                    }
+                }
+
+                Label {
+                    id: detailLabel
+                    anchors.right: parent.right
+                    anchors.rightMargin: root.rowPadding
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: root.detailWidth
+                    horizontalAlignment: Text.AlignRight
+                    font.bold: root.error === ""
+                    text: row.detail
+                    color: root.error !== "" && row.selected ? Colors.alert : Colors.foreground
+                }
+
+                // time left in the current TOTP period
+                Rectangle {
+                    visible: row.selected && root.code !== ""
+                    anchors.left: parent.left
+                    anchors.bottom: parent.bottom
+                    height: Config.lineSize
+                    width: parent.width * root.remaining / root.period
+                    color: Colors.primary
+
+                    Behavior on width {
+                        enabled: root.remaining < root.period
+                        NumberAnimation { duration: 1000 }
+                    }
+                }
+
+                MouseArea {
+                    id: rowArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: root.copy(row.modelData.name)
+                }
+            }
+        }
     }
 }
