@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
@@ -11,7 +12,9 @@ import qs
 // footer. When the player allows seeking, the bar thickens on hover into a scrubber with a
 // playhead knob and a cursor-time readout; click or drag seeks. Track changes crossfade the
 // album art and fade the new text in. `player` going null while open (spotify quit) closes
-// the panel. The window chrome — frame, slide animation, hover-close — lives in SlidePanel.
+// the panel. The cover, blurred into a wash of color, backs the content as the panel's
+// ambient layer. The window chrome — frame, slide animation, hover-close, ambient scrim —
+// lives in SlidePanel.
 SlidePanel {
     id: root
 
@@ -28,6 +31,36 @@ SlidePanel {
         player?.trackAlbum].join("\n")
 
     padding: 10
+
+    // ambient identity: the cover blurred beyond recognition, so every track re-colors the
+    // panel; hidden while loading and dimmed with the pause state, like the art itself
+    ambient: Item {
+        anchors.fill: parent
+        opacity: ambientArt.status !== Image.Ready ? 0 : root.playing ? 1 : 0.5
+
+        Behavior on opacity {
+            NumberAnimation { duration: 300 }
+        }
+
+        Image {
+            id: ambientArt
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
+            asynchronous: true
+            visible: false
+            // decoded tiny: the blur erases detail anyway, and small sources blur cheaper
+            sourceSize.width: 128
+            source: root.player?.trackArtUrl ?? ""
+        }
+
+        MultiEffect {
+            anchors.fill: parent
+            source: ambientArt
+            blurEnabled: true
+            blur: 1
+            blurMax: 64
+        }
+    }
 
     // 83 -> "1:23", 3753 -> "1:02:33"
     function formatTime(s) {

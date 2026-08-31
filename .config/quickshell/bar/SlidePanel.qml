@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
+import Quickshell.Widgets
 import qs
 
 // Chrome shared by every panel that slides down from a bar module: the anchored PopupWindow,
@@ -8,7 +9,11 @@ import qs
 // once the pointer has left both the module and the panel (with a small grace period).
 // Content goes in the default slot, inset by `padding`; the frame takes the content's
 // implicit size, at least `minWidth` wide. `aboutToShow()` fires before each open for
-// per-open prep; `closeFinished()` fires once the close slide has ended.
+// per-open prep; `closeFinished()` fires once the close slide has ended. A panel may
+// declare an `ambient` layer — atmosphere drawn behind the content (blurred album art, a
+// weather tint); it is clipped to the frame and covered by a scrim that keeps the top edge
+// exactly the bar background (no seam while sliding) and fades to `scrim` coverage below,
+// so the content keeps its contrast. Without an ambient, the frame stays flat.
 PopupWindow {
     id: root
 
@@ -16,10 +21,14 @@ PopupWindow {
     property bool anchorHovered: false
     property int padding: 0   // content inset inside the frame border
     property int minWidth: 0
+    // how much background covers the ambient below the seam: 1 hides it, 0 is raw
+    property real scrim: 0.8
 
     property bool open: false
 
     default property alias content: slot.data
+    // optional atmosphere behind the content; see the header comment
+    property alias ambient: ambientSlot.data
 
     signal aboutToShow()
     signal closeFinished()
@@ -85,6 +94,36 @@ PopupWindow {
         HoverHandler {
             id: hover
             onHoveredChanged: if (root.open) closeTimer.restart()
+        }
+
+        // ambient layer, only rendered when a panel declares one
+        ClippingRectangle {
+            visible: ambientSlot.children.length > 0
+            anchors.fill: parent
+            anchors.margins: frame.border.width
+            radius: Config.panelRadius
+            color: "transparent"
+
+            Item {
+                id: ambientSlot
+                anchors.fill: parent
+            }
+
+            // the seam-safe scrim over the ambient
+            Rectangle {
+                id: scrimRect
+
+                readonly property color veil: Qt.rgba(Colors.background.r,
+                    Colors.background.g, Colors.background.b, root.scrim)
+
+                anchors.fill: parent
+
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: Colors.background }
+                    GradientStop { position: 0.35; color: scrimRect.veil }
+                    GradientStop { position: 1.0; color: scrimRect.veil }
+                }
+            }
         }
 
         // content parent; sized to the single content item's implicit size
