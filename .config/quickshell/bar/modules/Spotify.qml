@@ -20,7 +20,6 @@ Module {
     prefixColor: Colors.spotify
     foreground: Colors.foreground
     background: Colors.background
-    underline: Colors.spotify
     padding: 1
     clickable: true
     // paused reads at a glance, matching the panel's art dim

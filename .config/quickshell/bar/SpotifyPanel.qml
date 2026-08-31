@@ -9,8 +9,10 @@ import qs
 // Panel that slides down from the spotify module: album art beside title / artist / album (the
 // title wrapping to up to two lines) and the prev / play-pause / next controls, disabled when
 // the player refuses the action, with a full-width elapsed / total progress bar as the
-// footer, click-to-seek when the player allows it. `player` going null while open (spotify quit) closes the panel.
-// Closes once the pointer has left both the module and the panel.
+// footer. When the player allows seeking, the bar thickens on hover into a scrubber with a
+// playhead knob and a cursor-time readout; click or drag seeks. Track changes crossfade the
+// album art and fade the new text in. `player` going null while open (spotify quit) closes
+// the panel. Closes once the pointer has left both the module and the panel.
 PopupWindow {
     id: root
 
@@ -27,6 +29,9 @@ PopupWindow {
     readonly property bool playing: player?.playbackState === MprisPlaybackState.Playing
     readonly property real trackLength: player?.length ?? 0
     readonly property real trackPosition: player?.position ?? 0
+    // one string that changes exactly when the displayed track does
+    readonly property string trackKey: [player?.trackTitle, player?.trackArtist,
+        player?.trackAlbum].join("\n")
 
     anchor.item: anchorItem
     anchor.edges: Edges.Bottom | Edges.Left
@@ -66,6 +71,9 @@ PopupWindow {
     // spotify quit while the panel was open
     onPlayerChanged: if (player === null) hide()
 
+    // the art crossfades on its own (see artBox); this brings the new text in with it
+    onTrackKeyChanged: if (visible) trackIntro.restart()
+
     // quickshell recomputes `position` only when the player reports a change; nudge it every
     // second while the panel is open so the progress bar advances
     Timer {
@@ -74,6 +82,32 @@ PopupWindow {
         repeat: true
         triggeredOnStart: true
         onTriggered: root.player.positionChanged()
+    }
+
+    // the new track's text snaps hidden, then fades in with a slight rise
+    SequentialAnimation {
+        id: trackIntro
+
+        PropertyAction { target: info; property: "textOpacity"; value: 0 }
+        PropertyAction { target: info; property: "textShift"; value: 6 }
+
+        ParallelAnimation {
+            NumberAnimation {
+                target: info
+                property: "textOpacity"
+                to: 1
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+
+            NumberAnimation {
+                target: info
+                property: "textShift"
+                to: 0
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+        }
     }
 
     // one line of the title font, for the two-line height reservation in `artBox.side`
@@ -117,6 +151,22 @@ PopupWindow {
             // the glyph grows with the button
             font.pixelSize: Config.iconPixelSize * button.size / root.buttonSize
             color: button.allowed ? Colors.foreground : Colors.foregroundAlt
+            // the play <-> pause swap lands with a little tick instead of teleporting
+            onTextChanged: glyphTick.restart()
+
+            SequentialAnimation {
+                id: glyphTick
+
+                NumberAnimation { target: buttonIcon; property: "scale"; to: 0.8; duration: 60 }
+
+                NumberAnimation {
+                    target: buttonIcon
+                    property: "scale"
+                    to: 1
+                    duration: 120
+                    easing.type: Easing.OutBack
+                }
+            }
         }
 
         MouseArea {
@@ -126,6 +176,21 @@ PopupWindow {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: button.clicked()
+        }
+    }
+
+    // one of the two stacked cover images in artBox: the front one is visible, the back one
+    // preloads the incoming cover and crossfades in once it is ready
+    component ArtImage: Image {
+        id: img
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectFit
+        asynchronous: true
+        opacity: artBox.front === img ? 1 : 0
+        onStatusChanged: if (artBox.back === img && status === Image.Ready) artBox.swapArt()
+
+        Behavior on opacity {
+            NumberAnimation { duration: 200 }
         }
     }
 
@@ -172,16 +237,41 @@ PopupWindow {
                 // to keep the art — and with it the panel — the same size either way; sized off
                 // implicitHeights rather than laid-out heights so the size is right on the
                 // first pass. A square with the spotify glyph while there is no art or it is
-                // still loading.
+                // still loading. Track changes preload the new cover into the hidden back
+                // image and crossfade the pair once it is ready.
                 ClippingRectangle {
                     id: artBox
 
-                    readonly property bool ready: art.status === Image.Ready && art.implicitHeight > 0
+                    property Image front: artA
+                    property Image back: artB
+                    readonly property string artUrl: root.player?.trackArtUrl ?? ""
+                    readonly property bool ready: front.status === Image.Ready && front.implicitHeight > 0
                     readonly property real side: root.artScale
                         * (info.implicitHeight + (2 - titleLabel.lineCount) * titleMetrics.height)
 
+                    function swapArt() {
+                        const shown = front;
+                        front = back;
+                        back = shown;
+                    }
+
+                    onArtUrlChanged: {
+                        if (artUrl === "") {
+                            // nothing to load; fade straight to the placeholder
+                            back.source = "";
+                            swapArt();
+                        } else if (String(back.source) === artUrl && back.status === Image.Ready) {
+                            // the outgoing cover is being brought back (e.g. prev after next)
+                            swapArt();
+                        } else {
+                            back.source = artUrl;
+                        }
+                    }
+
+                    Component.onCompleted: back.source = artUrl
+
                     Layout.preferredHeight: side
-                    Layout.preferredWidth: (ready ? art.implicitWidth / art.implicitHeight : 1) * side
+                    Layout.preferredWidth: (ready ? front.implicitWidth / front.implicitHeight : 1) * side
                     radius: Config.panelRadius
                     color: Colors.backgroundAlt
                     // dimmed while paused so the state reads at a glance
@@ -191,13 +281,8 @@ PopupWindow {
                         NumberAnimation { duration: 150 }
                     }
 
-                    Image {
-                        id: art
-                        anchors.fill: parent
-                        fillMode: Image.PreserveAspectFit
-                        asynchronous: true
-                        source: root.player?.trackArtUrl ?? ""
-                    }
+                    ArtImage { id: artA }
+                    ArtImage { id: artB }
 
                     Icon {
                         anchors.centerIn: parent
@@ -210,6 +295,11 @@ PopupWindow {
 
                 ColumnLayout {
                     id: info
+
+                    // driven by trackIntro on track change; the labels share both values
+                    property real textOpacity: 1
+                    property real textShift: 0
+
                     Layout.fillHeight: true
                     Layout.preferredWidth: root.textWidth
                     Layout.maximumWidth: root.textWidth
@@ -223,18 +313,24 @@ PopupWindow {
                         wrapMode: Text.Wrap
                         maximumLineCount: 2
                         elide: Text.ElideRight
+                        opacity: info.textOpacity
+                        transform: Translate { y: info.textShift }
                         text: root.player?.trackTitle ?? ""
                     }
 
                     Label {
                         Layout.fillWidth: true
                         elide: Text.ElideRight
+                        opacity: info.textOpacity
+                        transform: Translate { y: info.textShift }
                         text: root.player?.trackArtist ?? ""
                     }
 
                     Label {
                         Layout.fillWidth: true
                         elide: Text.ElideRight
+                        opacity: info.textOpacity
+                        transform: Translate { y: info.textShift }
                         color: Colors.foregroundMuted
                         text: root.player?.trackAlbum ?? ""
                     }
@@ -272,8 +368,9 @@ PopupWindow {
             }
 
             // footer: elapsed / total around a progress bar spanning the full panel width,
-            // art included; a click seeks when the player allows it; hidden when the player
-            // reports no track length
+            // art included; hidden when the player reports no track length. When seeking is
+            // allowed, hovering thickens the bar into a scrubber with a playhead knob and a
+            // cursor-time readout; click or drag commits the seek on release
             RowLayout {
                 visible: root.trackLength > 0
                 Layout.fillWidth: true
@@ -283,37 +380,103 @@ PopupWindow {
                     Layout.preferredWidth: timeMetrics.advanceWidth
                     horizontalAlignment: Text.AlignRight
                     color: Colors.foregroundMuted
-                    text: root.formatTime(root.trackPosition)
+                    text: root.formatTime(seekArea.pressed
+                        ? seekArea.targetFraction * root.trackLength : root.trackPosition)
                 }
 
-                Rectangle {
-                    id: progressTrack
+                Item {
+                    id: progressArea
 
                     // position is writable only under both flags (see MprisPlayer docs)
                     readonly property bool seekable: (root.player?.canSeek ?? false)
                         && (root.player?.positionSupported ?? false)
+                    readonly property bool engaged: seekable
+                        && (seekArea.containsMouse || seekArea.pressed)
+                    // the fill previews the scrub target while pressed, tracks playback otherwise
+                    readonly property real fraction: seekArea.pressed
+                        ? seekArea.targetFraction
+                        : (root.trackLength > 0
+                            ? Math.min(1, root.trackPosition / root.trackLength) : 0)
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 2 * Config.lineSize
-                    color: Colors.progressTrack
+                    // reserves the engaged height up front so the layout never shifts
+                    Layout.preferredHeight: 4 * Config.lineSize
 
                     Rectangle {
-                        height: parent.height
-                        width: parent.width * (root.trackLength > 0
-                            ? Math.min(1, root.trackPosition / root.trackLength) : 0)
-                        color: Colors.progress
+                        id: track
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: parent.width
+                        // a quiet line at rest, a scrubber while engaged
+                        height: (progressArea.engaged ? 4 : 2) * Config.lineSize
+                        radius: height / 2
+                        color: Colors.progressTrack
+
+                        Behavior on height {
+                            NumberAnimation { duration: 100 }
+                        }
+
+                        Rectangle {
+                            height: parent.height
+                            width: parent.width * progressArea.fraction
+                            radius: parent.radius
+                            color: Colors.progress
+                        }
                     }
 
-                    // the bar is only a few px tall; grow the hit area so seeking
-                    // does not take pixel-perfect aim
+                    // playhead knob riding the end of the fill
+                    Rectangle {
+                        anchors.verticalCenter: parent.verticalCenter
+                        x: progressArea.fraction * track.width - width / 2
+                        width: 6 * Config.lineSize
+                        height: width
+                        radius: width / 2
+                        color: Colors.foreground
+                        opacity: progressArea.engaged ? 1 : 0
+                        scale: opacity
+
+                        Behavior on opacity {
+                            NumberAnimation { duration: 100 }
+                        }
+                    }
+
+                    // where a click would land, following the cursor above the bar
+                    Rectangle {
+                        x: Math.max(0, Math.min(parent.width - width, seekArea.mouseX - width / 2))
+                        anchors.bottom: track.top
+                        anchors.bottomMargin: 8
+                        width: cursorTimeLabel.implicitWidth + 12
+                        height: cursorTimeLabel.implicitHeight + 4
+                        radius: height / 2
+                        color: Colors.backgroundAlt
+                        opacity: progressArea.engaged ? 1 : 0
+                        visible: opacity > 0
+
+                        Behavior on opacity {
+                            NumberAnimation { duration: 100 }
+                        }
+
+                        Label {
+                            id: cursorTimeLabel
+                            anchors.centerIn: parent
+                            font.pixelSize: Config.fontPixelSize - 2
+                            text: root.formatTime(seekArea.targetFraction * root.trackLength)
+                        }
+                    }
+
+                    // generous hit area: the whole footer strip around the bar
                     MouseArea {
+                        id: seekArea
+
+                        readonly property real targetFraction: Math.max(0, Math.min(1, mouseX / width))
+
                         anchors.fill: parent
                         anchors.topMargin: -root.panelPadding
                         anchors.bottomMargin: -root.panelPadding
-                        enabled: progressTrack.seekable
-                        cursorShape: progressTrack.seekable ? Qt.PointingHandCursor : Qt.ArrowCursor
-                        onClicked: mouse =>
-                            root.player.position = mouse.x / progressTrack.width * root.trackLength
+                        enabled: progressArea.seekable
+                        hoverEnabled: progressArea.seekable
+                        cursorShape: progressArea.seekable ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        // pressing previews via fraction; releasing commits the seek
+                        onReleased: if (root.player) root.player.position = targetFraction * root.trackLength
                     }
                 }
 
