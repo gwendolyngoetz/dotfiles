@@ -20,22 +20,40 @@ Item {
     readonly property int spacing: 0
 
     // every whitespace-separated token must appear (case-insensitive) in one of
-    // name, generic name, exec, categories, keywords or comment
+    // name, generic name, categories, keywords or comment; name matches rank
+    // above matches in the other fields (exact name, then prefix, then substring)
     readonly property var entries: {
-        const tokens = query.toLowerCase().split(/\s+/).filter(t => t !== "");
+        const q = query.toLowerCase().trim();
+        const tokens = q.split(/\s+/).filter(t => t !== "");
+
+        function rank(e) {
+            const name = e.name.toLowerCase();
+
+            if (name === q) return 0;
+            if (name.startsWith(q)) return 1;
+            if (name.indexOf(q) >= 0) return 2;
+            return 3;
+        }
 
         return DesktopEntries.applications.values
             .filter(e => !e.noDisplay)
             .filter(e => {
                 if (tokens.length === 0) return true;
 
-                const fields = [e.name, e.genericName, e.execString, e.comment,
+                const fields = [e.name, e.genericName, e.comment,
                     (e.categories ?? []).join(" "), (e.keywords ?? []).join(" ")]
                     .map(f => (f ?? "").toLowerCase());
 
                 return tokens.every(t => fields.some(f => f.indexOf(t) >= 0));
             })
-            .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+            .sort((a, b) => {
+                if (tokens.length > 0) {
+                    const d = rank(a) - rank(b);
+                    if (d !== 0) return d;
+                }
+
+                return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+            });
     }
 
     function focusEntry() {
@@ -55,7 +73,12 @@ Item {
         root.accepted();
     }
 
-    onQueryChanged: list.currentIndex = 0
+    onQueryChanged: {
+        list.currentIndex = 0;
+        // the view keeps reused rows visible across model diffs, so scroll back
+        // to the top once the new model has been applied
+        Qt.callLater(() => list.positionViewAtBeginning());
+    }
 
     // close when the window loses focus
     property bool hadFocus: false
