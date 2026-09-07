@@ -23,7 +23,7 @@ Module {
 
     Process {
         id: fetcher
-        command: ["curl", "-sfL", "https://www.airnowapi.org/aq/observation/zipCode/current/"
+        command: ["curl", "-sfL", "https://www.airnowapi.org/aq/observation/current/ziplatlong/"
             + `?format=application/json&zipCode=${root.zipcode}&API_KEY=${root.apiKey}`]
 
         stdout: StdioCollector { id: fetcherOut }
@@ -32,8 +32,9 @@ Module {
             if (exitCode !== 0) return;
 
             try {
-                const pm = JSON.parse(fetcherOut.text).find(o => o.ParameterName === "PM2.5");
-                if (pm) root.reading = `${pm.AQI}-${(pm.Category?.Name ?? "?").charAt(0)}`;
+                const pm = JSON.parse(fetcherOut.text).find(o => o.parameterName === "PM2.5");
+                const aqi = pm?.nowcastAQI ?? pm?.aqi;
+                if (aqi !== undefined) root.reading = `${aqi}-${(pm.aqiCategoryName ?? "?").charAt(0)}`;
             } catch (e) {}
         }
     }
