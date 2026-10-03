@@ -1,7 +1,3 @@
-# Sway config, ported from ~/.config/i3/config.
-# Everything i3-only (Xresources colors, xset, feh, i3-nagbar, append_layout)
-# has been replaced with the sway equivalent and marked with "sway:" comments.
-
 set $mod Mod4
 
 # Font for window titles
@@ -14,7 +10,6 @@ floating_modifier $mod normal
 # names (0-indexed). DisplayPort-0 -> DP-1 etc. Check with: swaymsg -t get_outputs
 set $out1 DP-1
 set $out2 DP-2
-set $out3 DP-3
 
 # start a terminal
 bindsym $mod+Return exec alacritty
