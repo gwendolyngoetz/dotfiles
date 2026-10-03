@@ -37,8 +37,12 @@ SlidePanel {
     readonly property var groups: [...new Set(accounts.map(a => a.group))].sort()
     readonly property var rows: accounts.filter(a => a.group === group)
 
-    // the name column is sized to the longest label of any group, so switching tabs does not resize the panel
+    // the name column is sized to the longest label of any group and the row area to the tallest
+    // group, so switching tabs does not resize the panel; resizing the mapped popup makes the
+    // compositor re-constrain it against the screen edge and the frame draws distorted meanwhile
     readonly property string longestLabel: accounts.reduce((l, a) => a.label.length > l.length ? a.label : l, "")
+    readonly property int maxRows: groups.reduce((m, g) =>
+        Math.max(m, accounts.filter(a => a.group === g).length), 0)
 
     // width of the code / error column, from metrics only — sizing the label off its own
     // implicitWidth loops through the row layout
@@ -263,90 +267,100 @@ SlidePanel {
             color: Colors.foregroundAlt
         }
 
-        // empty store
-        Label {
-            visible: root.accounts.length === 0
-            Layout.preferredHeight: root.rowHeight
-            leftPadding: root.rowPadding
-            rightPadding: root.rowPadding
-            text: "No entries in " + root.store
-            color: Colors.foregroundAlt
-        }
+        // the row area keeps the height of the tallest group; see maxRows
+        ColumnLayout {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Math.max(1, root.maxRows) * root.rowHeight
+            spacing: 0
 
-        Repeater {
-            model: ScriptModel { values: root.rows }
-
-            delegate: Rectangle {
-                id: row
-                required property var modelData
-
-                readonly property bool selected: root.account === modelData.name
-                readonly property string detail: !selected ? ""
-                    : root.error !== "" ? root.error
-                    : root.code !== "" ? root.formatCode(root.code)
-                    : "…"
-
-                Layout.fillWidth: true
+            // empty store
+            Label {
+                visible: root.accounts.length === 0
                 Layout.preferredHeight: root.rowHeight
-                // icon, the widest name of any group, a gap, then the code column; an error message may be wider than a code
-                implicitWidth: icon.width + content.spacing + nameMetrics.advanceWidth + 3 * Config.spaceWidth + root.detailWidth + 2 * root.rowPadding
-                color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
+                leftPadding: root.rowPadding
+                rightPadding: root.rowPadding
+                text: "No entries in " + root.store
+                color: Colors.foregroundAlt
+            }
 
-                Row {
-                    id: content
-                    anchors.verticalCenter: parent.verticalCenter
-                    x: root.rowPadding
-                    spacing: Config.spaceWidth
+            Repeater {
+                model: ScriptModel { values: root.rows }
 
-                    Icon {
-                        id: icon
+                delegate: Rectangle {
+                    id: row
+                    required property var modelData
+
+                    readonly property bool selected: root.account === modelData.name
+                    readonly property string detail: !selected ? ""
+                        : root.error !== "" ? root.error
+                        : root.code !== "" ? root.formatCode(root.code)
+                        : "…"
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: root.rowHeight
+                    // icon, the widest name of any group, a gap, then the code column; an error message may be wider than a code
+                    implicitWidth: icon.width + content.spacing + nameMetrics.advanceWidth + 3 * Config.spaceWidth + root.detailWidth + 2 * root.rowPadding
+                    color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
+
+                    Row {
+                        id: content
                         anchors.verticalCenter: parent.verticalCenter
-                        iconStyle: "solid"
-                        color: Colors.foreground
-                        text: ""   // key
+                        x: root.rowPadding
+                        spacing: Config.spaceWidth
+
+                        Icon {
+                            id: icon
+                            anchors.verticalCenter: parent.verticalCenter
+                            iconStyle: "solid"
+                            color: Colors.foreground
+                            text: ""   // key
+                        }
+
+                        Label {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: row.modelData.label
+                        }
                     }
 
                     Label {
+                        id: detailLabel
+                        anchors.right: parent.right
+                        anchors.rightMargin: root.rowPadding
                         anchors.verticalCenter: parent.verticalCenter
-                        text: row.modelData.label
+                        width: root.detailWidth
+                        horizontalAlignment: Text.AlignRight
+                        font.bold: root.error === ""
+                        text: row.detail
+                        color: root.error !== "" && row.selected ? Colors.alert : Colors.foreground
                     }
-                }
 
-                Label {
-                    id: detailLabel
-                    anchors.right: parent.right
-                    anchors.rightMargin: root.rowPadding
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: root.detailWidth
-                    horizontalAlignment: Text.AlignRight
-                    font.bold: root.error === ""
-                    text: row.detail
-                    color: root.error !== "" && row.selected ? Colors.alert : Colors.foreground
-                }
+                    // time left in the current TOTP period
+                    Rectangle {
+                        visible: row.selected && root.code !== ""
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        height: Config.lineSize
+                        width: parent.width * root.remaining / root.period
+                        color: Colors.primary
 
-                // time left in the current TOTP period
-                Rectangle {
-                    visible: row.selected && root.code !== ""
-                    anchors.left: parent.left
-                    anchors.bottom: parent.bottom
-                    height: Config.lineSize
-                    width: parent.width * root.remaining / root.period
-                    color: Colors.primary
-
-                    Behavior on width {
-                        enabled: root.remaining < root.period
-                        NumberAnimation { duration: 1000 }
+                        Behavior on width {
+                            enabled: root.remaining < root.period
+                            NumberAnimation { duration: 1000 }
+                        }
                     }
-                }
 
-                MouseArea {
-                    id: rowArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: root.copy(row.modelData.name)
+                    MouseArea {
+                        id: rowArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: root.copy(row.modelData.name)
+                    }
                 }
             }
+
+            // soaks up the space of the missing rows so the ones present stay at the top
+            Item { Layout.fillHeight: true }
         }
     }
 }
