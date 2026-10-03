@@ -256,6 +256,7 @@ exec swayidle -w \
     resume 'swaymsg "output * power on"'
 
 # start applications
+exec_always gsettings set org.gnome.desktop.interface font-name 'DejaVu Sans 11'
 exec_always "~/.config/sway/scripts/start-dunst.sh"
 exec ~/src/github/system-repos/streamdeck-ui/start.sh
 exec solaar --window hide
