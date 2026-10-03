@@ -49,6 +49,17 @@ SlidePanel {
     readonly property real detailWidth: Math.max(codeMetrics.advanceWidth,
         error !== "" ? errorMetrics.advanceWidth : 0)
 
+    // The window is sized from these, not from the layout: a layout only measures itself when
+    // its window renders, and the rows arrive from `find` while the window has never been
+    // shown, so on the first open the popup would map at a stale size and then resize.
+    // A row is icon, gap, the widest name of any group, a gap, then the code column.
+    readonly property real rowWidth: iconMetrics.advanceWidth + 4 * Config.spaceWidth
+        + nameMetrics.advanceWidth + detailWidth + 2 * rowPadding
+    readonly property real tabsWidth: groups.length > 1
+        ? tabMetrics.advanceWidth + groups.length * 2 * rowPadding : 0
+    readonly property real contentHeight: (groups.length > 1 ? rowHeight + 1 : 0)
+        + Math.max(1, maxRows) * rowHeight
+
     readonly property int nowSeconds: Math.floor(clock.date.getTime() / 1000)
     readonly property int remaining: period - nowSeconds % period
     readonly property int step: Math.floor(nowSeconds / period)
@@ -215,152 +226,173 @@ SlidePanel {
         text: root.longestLabel
     }
 
-    ColumnLayout {
-        id: column
-        anchors.fill: parent
-        spacing: 0
+    TextMetrics {
+        id: iconMetrics
+        font.family: Config.iconFontFamily
+        font.styleName: "Solid"
+        font.pixelSize: Config.iconPixelSize
+        text: "\uf084"   // key, as in the rows
+    }
 
-        // one tab per group; hidden when there is only one
-        Row {
-            visible: root.groups.length > 1
-            Layout.fillWidth: true
-            Layout.preferredHeight: root.rowHeight
+    // the tab labels run together: the advance of the concatenation is the sum of the advances
+    TextMetrics {
+        id: tabMetrics
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontPixelSize
+        text: root.groups.join("")
+    }
+
+    // the content; its implicit size is what SlidePanel sizes the window from
+    Item {
+        implicitWidth: Math.max(root.rowWidth, root.tabsWidth)
+        implicitHeight: root.contentHeight
+
+        ColumnLayout {
+            id: column
+            anchors.fill: parent
             spacing: 0
 
-            Repeater {
-                model: ScriptModel { values: root.groups }
+            // one tab per group; hidden when there is only one
+            Row {
+                visible: root.groups.length > 1
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.rowHeight
+                spacing: 0
 
-                delegate: Rectangle {
-                    id: tab
-                    required property string modelData
+                Repeater {
+                    model: ScriptModel { values: root.groups }
 
-                    readonly property bool current: root.group === modelData
+                    delegate: Rectangle {
+                        id: tab
+                        required property string modelData
 
-                    height: root.rowHeight
-                    width: tabLabel.width + 2 * root.rowPadding
-                    color: current ? Colors.primary
-                         : tabArea.containsMouse ? Colors.backgroundAlt
-                         : "transparent"
+                        readonly property bool current: root.group === modelData
 
-                    Label {
-                        id: tabLabel
-                        anchors.centerIn: parent
-                        text: tab.modelData
-                        color: Colors.foreground
-                    }
+                        height: root.rowHeight
+                        width: tabLabel.width + 2 * root.rowPadding
+                        color: current ? Colors.primary
+                             : tabArea.containsMouse ? Colors.backgroundAlt
+                             : "transparent"
 
-                    MouseArea {
-                        id: tabArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: root.group = tab.modelData
+                        Label {
+                            id: tabLabel
+                            anchors.centerIn: parent
+                            text: tab.modelData
+                            color: Colors.foreground
+                        }
+
+                        MouseArea {
+                            id: tabArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.group = tab.modelData
+                        }
                     }
                 }
             }
-        }
 
-        Rectangle {
-            visible: root.groups.length > 1
-            Layout.fillWidth: true
-            Layout.preferredHeight: 1
-            color: Colors.foregroundAlt
-        }
-
-        // the row area keeps the height of the tallest group; see maxRows
-        ColumnLayout {
-            Layout.fillWidth: true
-            Layout.preferredHeight: Math.max(1, root.maxRows) * root.rowHeight
-            spacing: 0
-
-            // empty store
-            Label {
-                visible: root.accounts.length === 0
-                Layout.preferredHeight: root.rowHeight
-                leftPadding: root.rowPadding
-                rightPadding: root.rowPadding
-                text: "No entries in " + root.store
+            Rectangle {
+                visible: root.groups.length > 1
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
                 color: Colors.foregroundAlt
             }
 
-            Repeater {
-                model: ScriptModel { values: root.rows }
+            // the row area keeps the height of the tallest group; see maxRows
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.preferredHeight: Math.max(1, root.maxRows) * root.rowHeight
+                spacing: 0
 
-                delegate: Rectangle {
-                    id: row
-                    required property var modelData
-
-                    readonly property bool selected: root.account === modelData.name
-                    readonly property string detail: !selected ? ""
-                        : root.error !== "" ? root.error
-                        : root.code !== "" ? root.formatCode(root.code)
-                        : "…"
-
-                    Layout.fillWidth: true
+                // empty store
+                Label {
+                    visible: root.accounts.length === 0
                     Layout.preferredHeight: root.rowHeight
-                    // icon, the widest name of any group, a gap, then the code column; an error message may be wider than a code
-                    implicitWidth: icon.width + content.spacing + nameMetrics.advanceWidth + 3 * Config.spaceWidth + root.detailWidth + 2 * root.rowPadding
-                    color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
+                    leftPadding: root.rowPadding
+                    rightPadding: root.rowPadding
+                    text: "No entries in " + root.store
+                    color: Colors.foregroundAlt
+                }
 
-                    Row {
-                        id: content
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: root.rowPadding
-                        spacing: Config.spaceWidth
+                Repeater {
+                    model: ScriptModel { values: root.rows }
 
-                        Icon {
-                            id: icon
+                    delegate: Rectangle {
+                        id: row
+                        required property var modelData
+
+                        readonly property bool selected: root.account === modelData.name
+                        readonly property string detail: !selected ? ""
+                            : root.error !== "" ? root.error
+                            : root.code !== "" ? root.formatCode(root.code)
+                            : "…"
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: root.rowHeight
+                        implicitWidth: root.rowWidth
+                        color: rowArea.containsMouse ? Colors.borderPrimary : "transparent"
+
+                        Row {
+                            id: content
                             anchors.verticalCenter: parent.verticalCenter
-                            iconStyle: "solid"
-                            color: Colors.foreground
-                            text: ""   // key
+                            x: root.rowPadding
+                            spacing: Config.spaceWidth
+
+                            Icon {
+                                id: icon
+                                anchors.verticalCenter: parent.verticalCenter
+                                iconStyle: "solid"
+                                color: Colors.foreground
+                                text: ""   // key
+                            }
+
+                            Label {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: row.modelData.label
+                            }
                         }
 
                         Label {
+                            id: detailLabel
+                            anchors.right: parent.right
+                            anchors.rightMargin: root.rowPadding
                             anchors.verticalCenter: parent.verticalCenter
-                            text: row.modelData.label
+                            width: root.detailWidth
+                            horizontalAlignment: Text.AlignRight
+                            font.bold: root.error === ""
+                            text: row.detail
+                            color: root.error !== "" && row.selected ? Colors.alert : Colors.foreground
                         }
-                    }
 
-                    Label {
-                        id: detailLabel
-                        anchors.right: parent.right
-                        anchors.rightMargin: root.rowPadding
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: root.detailWidth
-                        horizontalAlignment: Text.AlignRight
-                        font.bold: root.error === ""
-                        text: row.detail
-                        color: root.error !== "" && row.selected ? Colors.alert : Colors.foreground
-                    }
+                        // time left in the current TOTP period
+                        Rectangle {
+                            visible: row.selected && root.code !== ""
+                            anchors.left: parent.left
+                            anchors.bottom: parent.bottom
+                            height: Config.lineSize
+                            width: parent.width * root.remaining / root.period
+                            color: Colors.primary
 
-                    // time left in the current TOTP period
-                    Rectangle {
-                        visible: row.selected && root.code !== ""
-                        anchors.left: parent.left
-                        anchors.bottom: parent.bottom
-                        height: Config.lineSize
-                        width: parent.width * root.remaining / root.period
-                        color: Colors.primary
-
-                        Behavior on width {
-                            enabled: root.remaining < root.period
-                            NumberAnimation { duration: 1000 }
+                            Behavior on width {
+                                enabled: root.remaining < root.period
+                                NumberAnimation { duration: 1000 }
+                            }
                         }
-                    }
 
-                    MouseArea {
-                        id: rowArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: root.copy(row.modelData.name)
+                        MouseArea {
+                            id: rowArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.copy(row.modelData.name)
+                        }
                     }
                 }
-            }
 
-            // soaks up the space of the missing rows so the ones present stay at the top
-            Item { Layout.fillHeight: true }
+                // soaks up the space of the missing rows so the ones present stay at the top
+                Item { Layout.fillHeight: true }
+            }
         }
     }
 }
