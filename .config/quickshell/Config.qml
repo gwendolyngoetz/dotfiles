@@ -10,7 +10,7 @@ Singleton {
     readonly property int trayBarHeight: 20
     readonly property int lineSize: 2
     // extra strut reserved beyond the bar
-    readonly property int wmMargin: 5
+    readonly property int wmMargin: 0
     // slide-down panels (bottom corners) and the album art
     readonly property int panelRadius: 4
 
