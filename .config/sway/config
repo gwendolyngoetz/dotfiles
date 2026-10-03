@@ -11,6 +11,9 @@ floating_modifier $mod normal
 set $out1 DP-1
 set $out2 DP-2
 
+output $out1 pos 0 0
+output $out2 pos 3840 0
+
 # start a terminal
 bindsym $mod+Return exec alacritty
 
@@ -238,6 +241,8 @@ for_window [app_id="(?i)quickshell" title="^launcher$"] floating enable, border 
 # default workspace assignments
 for_window [class="Spotify"] move to workspace $ws10
 for_window [app_id="(?i)spotify"] move to workspace $ws10
+workspace $ws1 output $out1
+workspace $ws6 output $out2
 workspace $ws10 output $out2
 
 # wallpaper
