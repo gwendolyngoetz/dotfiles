@@ -1,0 +1,270 @@
+# Sway config, ported from ~/.config/i3/config.
+# Everything i3-only (Xresources colors, xset, feh, i3-nagbar, append_layout)
+# has been replaced with the sway equivalent and marked with "sway:" comments.
+
+set $mod Mod4
+
+# Font for window titles
+font pango:monospace 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod normal
+
+# sway: outputs use kernel DRM connector names (1-indexed) instead of xrandr
+# names (0-indexed). DisplayPort-0 -> DP-1 etc. Check with: swaymsg -t get_outputs
+set $out1 DP-1
+set $out2 DP-2
+set $out3 DP-3
+
+# start a terminal
+bindsym $mod+Return exec alacritty
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym button2 kill
+
+# start rofi (a program launcher)
+# quickshell launcher; swap back to rofi by uncommenting the next line and removing the qs one
+#bindsym $mod+d exec "rofi -modi drun -show drun -sidebar-mode -show-icons"
+bindsym $mod+d exec "qs ipc call launcher toggle"
+
+# play/pause spotify
+bindsym $mod+slash exec "~/.config/sway/scripts/playpause.sh"
+bindsym $mod+comma exec "~/.config/sway/scripts/prev.sh"
+bindsym $mod+period exec "~/.config/sway/scripts/next.sh"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split orientation
+bindsym $mod+v split toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle, border normal
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1:1"
+set $ws2 "2:2"
+set $ws3 "3:3"
+set $ws4 "4:4"
+set $ws5 "5:5"
+set $ws6 "6:6"
+set $ws7 "7:7"
+set $ws8 "8:8"
+set $ws9 "9:9"
+set $ws10 "10:"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# sway: there is no in-place restart; reload re-reads the config and re-runs exec_always
+bindsym $mod+Shift+r reload
+
+# exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec "swaynag -t warning -m '' -b 'Log Out' 'swaymsg exit' -b 'Shutdown' 'shutdown -h now' -b 'Reboot' 'reboot'"
+
+bindsym $mod+y resize shrink width 10 px or 10 ppt
+bindsym $mod+u resize grow height 10 px or 10 ppt
+bindsym $mod+i resize shrink height 10 px or 10 ppt
+bindsym $mod+o resize grow width 10 px or 10 ppt
+
+
+######################################################
+# Customizations
+######################################################
+
+# sway: set_from_resource is not available (no Xresources on Wayland).
+# Values copied from ~/.Xresources (Dracula-based scheme). Slots used by the i3 config:
+#   color0=base00 color1/9=base08 color2/10=base0B color3/11=base0A color4/12=base0D
+#   color5/13=base0E color6=base0C color7=base05 color15=base07 color20=base04 color22=base10
+set $darkred     #ea51b2
+set $red         #ea51b2
+set $darkgreen   #a1b56c
+set $green       #a1b56c
+set $darkyellow  #00f769
+set $yellow      #00f769
+set $darkblue    #62d6e8
+set $blue        #62d6e8
+set $darkmagenta #5a4799
+set $magenta     #5a4799
+set $darkcyan    #a1efe4
+set $cyan        #62d6e8
+set $darkwhite   #e9e9f4
+set $white       #f7f7fb
+set $border      #282936
+set $indicator   #e1c078
+# Use custom colors for black
+set $black       #282828
+set $darkblack   #1d2021
+set $clear #00000000
+
+#                          border      background    text        indicator   child-border
+client.focused             #4c7899     $magenta      $white      $indicator  $magenta
+client.focused_inactive    $border     $black        $white      $darkblack  $border
+client.unfocused           $border     $clear        $clear      $clear      $border
+client.urgent              $darkred    $darkred      $black      $darkred    $darkred
+client.placeholder         $darkred    $darkred      $black      $darkred    $darkred
+client.background          $black
+
+# apps
+bindsym $mod+minus exec alacritty
+bindsym $mod+backslash exec firefox
+# sway: flameshot needs xdg-desktop-portal-wlr and is unreliable on multi-head; grim+slurp is native.
+# swap back by uncommenting the flameshot line and removing the grim one
+#bindsym $mod+s exec flameshot gui
+bindsym $mod+s exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+e exec thunar
+bindsym $mod+c exec calendarwidget
+
+# quickshell bar; swap back to polybar by uncommenting the next line and removing the quickshell one
+#exec_always ~/.config/polybar/launch.sh &
+exec_always ~/.config/quickshell/launch.sh
+
+# gaps (built into sway)
+# sway: default_border covers both Xwayland and native windows; a class= rule would only hit Xwayland
+default_border pixel 3
+default_floating_border normal
+gaps inner 8
+gaps outer 0
+gaps left -8
+gaps right -8
+gaps bottom -6
+smart_gaps on
+smart_borders on
+
+focus_follows_mouse no
+hide_edge_borders smart
+
+# open specific applications in floating mode
+# sway: class=, instance=, window_role= and window_type= only match Xwayland windows.
+# Native Wayland windows match on app_id= instead, so apps that run natively get a
+# second rule. Sway floats transient dialogs (file choosers, settings popups) of
+# native apps automatically, so the window_type="dialog" rules only need the X form.
+for_window [class="Code" window_type="dialog"] floating enable, border normal
+for_window [class="Conky"] floating enable, border normal
+for_window [class="etcher"] floating enable, sticky enable, border normal
+# Organizer is firefox history
+for_window [class="firefox" window_role="Organizer"] floating enable, border normal
+for_window [class="firefox" window_role="page-info"] floating enable, border normal
+for_window [class="firefox" window_role="GtkFileChooserDialog"] floating enable, border normal
+for_window [app_id="firefox" title="^Library$"] floating enable, border normal
+for_window [app_id="firefox" title="^Page Info"] floating enable, border normal
+for_window [class="Galculator"] floating enable, sticky enable, border normal
+for_window [app_id="galculator"] floating enable, sticky enable, border normal
+for_window [class="(?i)Gimp-*.*" window_type="dialog"] floating enable, border normal
+for_window [class="Inkscape" window_type="dialog"] floating enable, sticky disable, border normal
+for_window [class="jetbrains-idea" window_type="dialog"] floating enable, sticky disable, border normal
+for_window [class="kcalc"] floating enable, sticky enable, border normal
+for_window [app_id="org.kde.kcalc"] floating enable, sticky enable, border normal
+for_window [class="Lxappearance"] floating enable, sticky enable, border normal
+for_window [app_id="lxappearance"] floating enable, sticky enable, border normal
+for_window [class="(?i)nextcloud" window_type="dialog"] floating enable, sticky disable, border none
+for_window [title="(?i)Nextcloud settings" class="(?i)nextcloud" window_type="dialog"] floating enable, sticky disable, border normal
+for_window [title="(?i)Nextcloud settings" app_id="(?i)nextcloud"] floating enable, sticky disable, border normal
+for_window [class="obs" window_type="dialog"] floating enable, sticky disable, border normal
+for_window [class="Pavucontrol"] floating enable, sticky enable, border normal
+for_window [app_id="(?i)pavucontrol"] floating enable, sticky enable, border normal
+for_window [class="Qtconfig-qt4"] floating enable, sticky enable, border normal
+for_window [class="qt5ct"] floating enable, sticky enable, border normal
+for_window [app_id="qt5ct"] floating enable, sticky enable, border normal
+for_window [class="qt6ct"] floating enable, sticky enable, border normal
+for_window [app_id="qt6ct"] floating enable, sticky enable, border normal
+for_window [class="(?i)soffice" window_type="dialog"] floating enable, border normal
+for_window [class="Solaar"] floating enable, sticky enable, border normal
+for_window [app_id="solaar"] floating enable, sticky enable, border normal
+for_window [title="Steam Settings"] floating enable, sticky enable, border normal
+for_window [class="Streamdeck UI"] floating enable, border normal
+for_window [class="VirtualBox" window_type="dialog"] floating enable, border normal
+#for_window [class="VirtualBox" title="^* - Settings"] floating enable, border normal
+for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable, border normal
+for_window [class="weather-widget"] floating enable, border normal
+for_window [app_id="weather-widget"] floating enable, border normal
+for_window [instance="origin.exe"] floating enable
+for_window [instance="(?i)xencelabs"] floating enable, border normal
+for_window [title="Copying" class="dolphin" window_type="dialog"] floating enable, sticky disable, border normal
+for_window [title="i3_help"] floating enable, sticky enable, border normal
+#for_window [title="Microsoft Teams Notification"] floating enable
+for_window [class="calendarwidget"] floating enable, sticky enable, border none
+for_window [app_id="calendarwidget"] floating enable, sticky enable, border none
+for_window [class="calculatorwidget"] floating enable, sticky enable, border none
+for_window [app_id="calculatorwidget"] floating enable, sticky enable, border none
+for_window [class="(?i)thunderbird" window_type="dialog"] floating enable, border normal
+
+# quickshell launcher (rofi replacement) is a plain window; float it without decoration
+for_window [class="(?i)quickshell" title="^launcher$"] floating enable, border none, sticky enable
+for_window [app_id="(?i)quickshell" title="^launcher$"] floating enable, border none, sticky enable
+
+# default workspace assignments
+for_window [class="Spotify"] move to workspace $ws10
+for_window [app_id="(?i)spotify"] move to workspace $ws10
+workspace $ws10 output $out2
+
+# wallpaper
+# sway: replaces feh --bg-scale ~/.config/i3/wallpaper/black.jpg with a solid color
+output * bg #000000 solid_color
+
+# idle / dpms
+# sway: replaces "xset s off" and "xset dpms 0 0 3600": no screensaver, screens off after 3600s
+exec swayidle -w \
+    timeout 3600 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"'
+
+# start applications
+exec_always "~/.config/sway/scripts/start-dunst.sh"
+exec ~/src/github/system-repos/streamdeck-ui/start.sh
+exec solaar --window hide
+exec "~/.config/sway/scripts/load-workspaces.sh"
+exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec nextcloud --background
+
+# lock screen
+# add bindsym here
+
+# sway: distro drop-ins (dbus/systemd environment import, portals). Keep last.
+include /etc/sway/config.d/*
