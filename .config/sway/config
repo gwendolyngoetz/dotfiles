@@ -11,8 +11,8 @@ floating_modifier $mod normal
 set $out1 DP-1
 set $out2 DP-2
 
-output $out1 pos 0 0
-output $out2 pos 3840 0
+output $out1 pos 0 0    mode 3840x2160@143.999Hz
+output $out2 pos 3840 0 mode 3840x2160@143.999Hz
 
 # start a terminal
 bindsym $mod+Return exec alacritty
