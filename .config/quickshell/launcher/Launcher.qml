@@ -6,7 +6,7 @@ import qs
 // Application launcher (desktop entries with icons).
 //
 // Toggle with: qs ipc call launcher toggle
-// i3 floats it via: for_window [class="quickshell" title="launcher"] floating enable, border none
+// sway floats it via: for_window [app_id="quickshell" title="launcher"] floating enable, border none
 FloatingWindow {
     id: win
 

@@ -27,8 +27,7 @@ Singleton {
     // tray bar background
     readonly property color trayBarBackground: "#000000"
 
-    // Launcher. The alpha only shows through with a compositor running; use base00 directly if
-    // the launcher background renders black.
+    // launcher
     readonly property color launcherBg:     Qt.rgba(base00.r, base00.g, base00.b, 0.8)
     readonly property color launcherFg:     base07
     readonly property color launcherAlt:    base03

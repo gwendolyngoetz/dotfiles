@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.I3
 import Quickshell.Services.Mpris
 import qs
 import qs.bar
@@ -35,5 +36,5 @@ Module {
     }
 
     onLeftClicked: panel.toggle()
-    onRightClicked: Quickshell.execDetached(["i3-msg", "workspace 10:"])
+    onRightClicked: I3.dispatch("workspace 10:")
 }

@@ -154,10 +154,10 @@ SlidePanel {
         }
     }
 
-    // xclip reads the code from stdin, then forks to serve the selection
+    // wl-copy reads the code from stdin, then forks to serve the selection
     Process {
         id: clip
-        command: ["xclip", "-selection", "clipboard"]
+        command: ["wl-copy"]
         stdinEnabled: true
 
         onStarted: {
@@ -175,7 +175,7 @@ SlidePanel {
 
     Process {
         id: clipCheck
-        command: ["xclip", "-o", "-selection", "clipboard"]
+        command: ["wl-paste", "-n"]
 
         stdout: StdioCollector {
             id: clipText
@@ -185,7 +185,7 @@ SlidePanel {
 
     Process {
         id: clipClear
-        command: ["xclip", "-selection", "clipboard", "/dev/null"]
+        command: ["wl-copy", "--clear"]
     }
 
     // the code column keeps its width so the panel does not resize when a code appears

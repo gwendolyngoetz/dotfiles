@@ -6,7 +6,7 @@ import Quickshell.Io
 import qs
 import qs.bar
 
-// i3 workspaces on this output, followed by the binding mode when one is active
+// sway workspaces on this output, followed by the binding mode when one is active
 Module {
     id: root
 
@@ -36,7 +36,7 @@ Module {
                 required property I3Workspace modelData
 
                 height: root.height
-                width: label.width + 2 * Config.i3Padding * Config.spaceWidth
+                width: label.width + 2 * Config.workspacePadding * Config.spaceWidth
                 color: modelData.focused ? Colors.borderPrimary
                      : modelData.urgent ? Colors.alert
                      : modelData.active ? Colors.backgroundAlt
@@ -64,7 +64,7 @@ Module {
         Rectangle {
             visible: root.mode !== "default"
             height: root.height
-            width: modeLabel.width + 2 * Config.i3Padding * Config.spaceWidth
+            width: modeLabel.width + 2 * Config.workspacePadding * Config.spaceWidth
             color: Colors.primary
 
             Label {
@@ -79,7 +79,7 @@ Module {
     // Quickshell.I3 does not expose binding modes, so subscribe to them directly
     Process {
         id: modeWatcher
-        command: ["i3-msg", "-t", "subscribe", "-m", "[\"mode\"]"]
+        command: ["swaymsg", "-t", "subscribe", "-m", "[\"mode\"]"]
         running: true
 
         stdout: SplitParser {
@@ -90,7 +90,7 @@ Module {
             }
         }
 
-        // i3-msg exits when i3 restarts; resubscribe
+        // swaymsg exits when sway restarts; resubscribe
         onExited: restart.start()
     }
 

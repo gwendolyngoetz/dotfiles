@@ -27,7 +27,7 @@ Singleton {
     readonly property int paddingRight: 2
     readonly property int moduleMarginLeft: 1
     readonly property int moduleMarginRight: 2
-    readonly property int i3Padding: 3
+    readonly property int workspacePadding: 3
     readonly property int trayPadding: 2
     readonly property int trayIconSize: 16
 

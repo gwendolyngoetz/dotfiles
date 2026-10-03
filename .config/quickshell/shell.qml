@@ -10,15 +10,14 @@ import qs.launcher
 ShellRoot {
     id: root
 
-    // Screen carrying the tray bar. MONITOR in the environment wins; otherwise the primary
-    // output is asked of the display server, falling back to the first screen.
+    // Screen carrying the tray bar. MONITOR in the environment wins; otherwise sway's focused
+    // output at startup (sway has no primary output), falling back to the first screen.
     property string primaryMonitor: Quickshell.env("MONITOR") ?? ""
 
     Process {
         running: root.primaryMonitor === ""
-        command: ["bash", "-c", Quickshell.env("WAYLAND_DISPLAY")
-            ? `swaymsg -t get_outputs 2>/dev/null | jq -r 'first(.[] | select(.focused) | .name) // empty'`
-            : `xrandr --query | grep -E 'connected primary [0-9]' | cut -d' ' -f1 | head -n1`]
+        command: ["bash", "-c",
+            `swaymsg -t get_outputs 2>/dev/null | jq -r 'first(.[] | select(.focused) | .name) // empty'`]
 
         stdout: StdioCollector {
             id: detected

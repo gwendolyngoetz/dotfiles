@@ -15,7 +15,7 @@ SlidePanel {
 
     // { icon, label, command } rows, or { separator: true } for a divider line
     property var entries: [
-        { icon: "", label: "Logout",   command: ["i3-msg", "exit"] },        // sign-out-alt
+        { icon: "", label: "Logout",   command: ["swaymsg", "exit"] },       // sign-out-alt
         { icon: "", label: "Sleep",    command: ["systemctl", "suspend"] },  // bed
         { separator: true },
         { icon: "", label: "Reboot",   command: ["reboot"] },                // sync-alt
