@@ -58,7 +58,10 @@ Quickshell (0.3.1) bars and app launcher for i3. `launch.sh` restarts it (`qs ki
 - **ShutdownMenu** – left click slides `ShutdownPanel` down from the bar: logout / sleep / reboot /
   poweroff; picking one runs its command.
 - **Tray** – `Quickshell.Services.SystemTray` at 16px with 2px padding; left click activates,
-  right click opens the item menu, middle click is secondary activate.
+  right click opens the item menu, middle click is secondary activate. Menu-only items open
+  their menu on left click too. Native tray menus require `//@ pragma UseQApplication` in
+  `shell.qml`; adding or changing this startup pragma requires a full restart with `launch.sh`,
+  not just a QML reload.
 
 ## Launcher
 

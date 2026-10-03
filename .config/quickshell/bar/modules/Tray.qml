@@ -30,7 +30,6 @@ Row {
             QsMenuAnchor {
                 id: menu
                 menu: item.modelData.menu
-                anchor.window: item.QsWindow.window
                 anchor.item: item
                 anchor.edges: Edges.Top
                 anchor.gravity: Edges.Top
