@@ -1,9 +1,19 @@
+:root {
+  --tab-border-radius: 4px !important;
+  --border-radius-xsmall: 4px !important;
+  --border-radius-small: 4px !important;
+  --border-radius-medium: 4px !important;
+  --border-radius-large: 4px !important;
+  --border-radius-xlarge: 4px !important;
+  --border-radius-circle: 4px !important;
+}
+
 #star-button-box {
-    display: none !important;
+  display: none !important;
 }
 
 #alltabs-button {
-    display: none !important; 
+  display: none !important;
 }
 
 /*
