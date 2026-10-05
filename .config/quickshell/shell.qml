@@ -5,8 +5,9 @@ import Quickshell
 import Quickshell.Io
 import qs.bar
 import qs.launcher
+import qs.notifications
 
-// Top bar on every monitor, tray bar on the primary one, and the app launcher.
+// Top bar on every monitor, tray bar on the primary one, the app launcher and the notification daemon.
 ShellRoot {
     id: root
 
@@ -50,4 +51,6 @@ ShellRoot {
     }
 
     Launcher {}
+
+    Notifications {}
 }

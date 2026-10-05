@@ -1,13 +1,13 @@
 # quickshell
 
-Quickshell (0.3.1) bars and app launcher for sway. `launch.sh` restarts it (`qs kill`, then
+Quickshell (0.3.1) bars, app launcher and notification daemon for sway. `launch.sh` restarts it (`qs kill`, then
 `qs --daemonize`); `qs log` reads the daemon's log.
 
 ## Layout
 
 | file | role |
 | --- | --- |
-| `shell.qml` | one `Bar` per screen, a `TrayBar` on the primary screen (`MONITOR`, else the output `swaymsg` reports focused at startup, else the first screen), the `Launcher` |
+| `shell.qml` | one `Bar` per screen, a `TrayBar` on the primary screen (`MONITOR`, else the output `swaymsg` reports focused at startup, else the first screen), the `Launcher`, the `Notifications` daemon |
 | `Config.qml` | geometry, fonts, spacing |
 | `Colors.qml` | palette; the base16 Dracula scheme as constants, with the bar and launcher colors derived from it |
 | `bar/Bar.qml` | top bar: workspaces and spotify left, date and time centered, system modules right |
@@ -19,6 +19,9 @@ Quickshell (0.3.1) bars and app launcher for sway. `launch.sh` restarts it (`qs 
 | `bar/SpotifyPanel.qml` | slide-down player panel: album art, track info, progress bar, prev / play-pause / next |
 | `bar/modules/*.qml` | the modules |
 | `launcher/` | the app launcher |
+| `notifications/Notifications.qml` | the notification daemon: `NotificationServer` and the open stack |
+| `notifications/NotificationConfig.qml` | the dunst look: geometry, frame, font, format, icon size, progress bar, urgency colors and timeouts, per-app rules |
+| `notifications/NotificationCard.qml` | one notification: frame / separator, icon, formatted text, progress bar, timeout, clicks |
 
 ## Modules
 
@@ -74,6 +77,28 @@ Every whitespace-separated token of the query must match the name, generic name,
 categories or keywords of an entry; entries are sorted by name. Enter / Escape / Up / Down /
 Tab / Ctrl-n / Ctrl-p / PgUp / PgDn navigate; it also closes when it loses focus.
 
+## Notifications
+
+A dunst replacement that keeps dunst's look; `NotificationConfig.qml` carries the values from the
+old `dunstrc` under their dunst names, including the `[urgency_*]` sections and the per-app rules
+(`Solaar` hidden, `Chromium` styled as Teams with its own icon and format, `CiviForm Staging
+Deploy` by urgency, `Slack` purple). Only one process can own `org.freedesktop.Notifications`,
+so dunst must not be started alongside it (sway's `start-dunst.sh`).
+
+- **Placement** – a layer-shell overlay on `DP-1` (first screen when absent), top-right at offset
+  `10x50` from the screen corner, ignoring the bar's exclusive zone like dunst does. Constant
+  width 300, one notification at most 300 high, frame 3 with a 2px separator in the frame color
+  between notifications, critical ones on top.
+- **Content** – `Monospace 11`, format `%a
+<b>%s</b>
+%b` rendered as StyledText; icon from a
+  rule's `new_icon`, else the notification image, else the icon theme, scaled down to 64 (48 for
+  Teams) and never up; the `value` hint draws dunst's progress bar (10 high, 1px frame, 150–300
+  wide, highlight `#7f7fff`). Qt elides wrapped text at the end, not in the middle.
+- **Behaviour** – low / normal time out after 10s, critical never, a client's own timeout wins.
+  Left click dismisses, middle click fires the `default` action (or the only one) and dismisses,
+  right click dismisses all. No history, duplicate stacking or age display.
+
 ## Conventions
 
 - Detected values (`ETHERNET_INT`, `TEMPERATURE_PATH`, `MONITOR`) live in the file that uses them:
@@ -93,4 +118,6 @@ Tab / Ctrl-n / Ctrl-p / PgUp / PgDn navigate; it also closes when it loses focus
 - Fonts: `Config.fontFamily` is `Noto Sans`; icons need Font Awesome 5 Free and Brands.
 - Weather needs `OPENWEATHERMAP_*` and AirQuality `AIRNOW_API_*` in the environment (both
   come from `~/.private-env` via `.profile`).
-- Otp needs `pass-otp`, `wl-clipboard` and a `notify-send` provider.
+- Otp needs `pass-otp` and `wl-clipboard`; its `notify-send` calls land in the notification daemon here.
+- Notifications: stop dunst first (`start-dunst.sh` in the sway config), or the server cannot
+  claim the D-Bus name; `qs log` shows the failure.
