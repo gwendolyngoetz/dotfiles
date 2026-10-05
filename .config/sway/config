@@ -107,11 +107,15 @@ bindsym $mod+Shift+r reload
 # exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec "swaynag -t warning -m '' -b 'Log Out' 'swaymsg exit' -b 'Shutdown' 'shutdown -h now' -b 'Reboot' 'reboot'"
 
-bindsym $mod+y resize shrink width 10 px or 10 ppt
-bindsym $mod+u resize grow height 10 px or 10 ppt
-bindsym $mod+i resize shrink height 10 px or 10 ppt
-bindsym $mod+o resize grow width 10 px or 10 ppt
+# bindsym $mod+y resize shrink width  150px
+# bindsym $mod+u resize grow height   150px
+# bindsym $mod+i resize shrink height 150px
+# bindsym $mod+o resize grow width    150px
 
+bindsym $mod+y resize shrink width  5ppt
+bindsym $mod+u resize grow height   5ppt
+bindsym $mod+i resize shrink height 5ppt
+bindsym $mod+o resize grow width    5ppt
 
 ######################################################
 # Customizations
