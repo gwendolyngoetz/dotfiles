@@ -261,7 +261,8 @@ exec swayidle -w \
 
 # start applications
 exec_always gsettings set org.gnome.desktop.interface font-name 'DejaVu Sans 11'
-exec_always "~/.config/sway/scripts/start-dunst.sh"
+# quickshell notifications (started by launch.sh above); swap back to dunst by uncommenting the next line
+#exec_always "~/.config/sway/scripts/start-dunst.sh"
 exec ~/src/github/system-repos/streamdeck-ui/start.sh
 exec solaar --window hide
 exec "~/.config/sway/scripts/load-workspaces.sh"
