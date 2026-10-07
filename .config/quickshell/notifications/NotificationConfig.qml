@@ -29,7 +29,7 @@ Singleton {
     readonly property int verticalAlignment: Qt.AlignVCenter   // icon against text
 
     // icons: scaled down to this, never up
-    readonly property int maxIconSize: 64
+    readonly property int maxIconSize: 48
 
     // progress bar, shown for the `value` hint
     readonly property int progressBarHeight: 10          // frame included
