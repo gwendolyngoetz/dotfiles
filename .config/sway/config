@@ -112,10 +112,10 @@ bindsym $mod+Shift+e exec "swaynag -t warning -m '' -b 'Log Out' 'swaymsg exit' 
 # bindsym $mod+i resize shrink height 150px
 # bindsym $mod+o resize grow width    150px
 
-bindsym $mod+y resize shrink width  5ppt
-bindsym $mod+u resize grow height   5ppt
-bindsym $mod+i resize shrink height 5ppt
-bindsym $mod+o resize grow width    5ppt
+bindsym $mod+y resize shrink width  6ppt
+bindsym $mod+u resize grow height   6ppt
+bindsym $mod+i resize shrink height 6ppt
+bindsym $mod+o resize grow width    6ppt
 
 ######################################################
 # Customizations
