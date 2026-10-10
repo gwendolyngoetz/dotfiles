@@ -157,15 +157,11 @@ client.background          $black
 # apps
 bindsym $mod+minus exec alacritty
 bindsym $mod+backslash exec firefox
-# sway: flameshot needs xdg-desktop-portal-wlr and is unreliable on multi-head; grim+slurp is native.
-# swap back by uncommenting the flameshot line and removing the grim one
-#bindsym $mod+s exec flameshot gui
-bindsym $mod+s exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+s exec chough
 bindsym $mod+e exec thunar
 bindsym $mod+c exec calendarwidget
 
 # quickshell bar; swap back to polybar by uncommenting the next line and removing the quickshell one
-#exec_always ~/.config/polybar/launch.sh &
 exec_always ~/.config/quickshell/launch.sh
 
 # gaps (built into sway)
@@ -223,7 +219,6 @@ for_window [app_id="solaar"] floating enable, sticky enable, border normal
 for_window [title="Steam Settings"] floating enable, sticky enable, border normal
 for_window [class="Streamdeck UI"] floating enable, border normal
 for_window [class="VirtualBox" window_type="dialog"] floating enable, border normal
-#for_window [class="VirtualBox" title="^* - Settings"] floating enable, border normal
 for_window [class="(?i)virtualboxvm" window_type="dialog"] floating enable, border normal
 for_window [class="weather-widget"] floating enable, border normal
 for_window [app_id="weather-widget"] floating enable, border normal
@@ -231,7 +226,6 @@ for_window [instance="origin.exe"] floating enable
 for_window [instance="(?i)xencelabs"] floating enable, border normal
 for_window [title="Copying" class="dolphin" window_type="dialog"] floating enable, sticky disable, border normal
 for_window [title="i3_help"] floating enable, sticky enable, border normal
-#for_window [title="Microsoft Teams Notification"] floating enable
 for_window [class="calendarwidget"] floating enable, sticky enable, border none
 for_window [app_id="calendarwidget"] floating enable, sticky enable, border none
 for_window [class="calculatorwidget"] floating enable, sticky enable, border none
@@ -261,8 +255,6 @@ exec swayidle -w \
 
 # start applications
 exec_always gsettings set org.gnome.desktop.interface font-name 'DejaVu Sans 11'
-# quickshell notifications (started by launch.sh above); swap back to dunst by uncommenting the next line
-#exec_always "~/.config/sway/scripts/start-dunst.sh"
 exec ~/src/github/system-repos/streamdeck-ui/start.sh
 exec solaar --window hide
 exec "~/.config/sway/scripts/load-workspaces.sh"
