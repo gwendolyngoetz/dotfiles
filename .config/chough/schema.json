@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Config",
+  "description": "chough configuration. Every key is optional; anything left out takes its\nbuilt-in default, and command line flags override anything set here.\n\nIn code this doubles as the resolved configuration: `Config::apply`\nmerges flags into it and the rest of the program reads from the result.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Location of the JSON Schema for this file, so editors can validate\nand complete it. Typically a path to `schema.json` from the chough\nrepository or the output of `chough --schema`. Ignored by chough.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "filename_pattern": {
+      "description": "Filename for saved screenshots. Must contain `{timestamp}`, which is\nreplaced by the capture time as `YYYY-MM-DD_HH-MM-SS`.",
+      "$ref": "#/$defs/FilenamePattern",
+      "default": "chough-{timestamp}.png"
+    },
+    "font_family": {
+      "description": "Font for text labels: a family name such as `DejaVu Sans` or a\ngeneric one (`sans-serif`, `serif`, `monospace`). Used when the\nsystem has it; otherwise labels fall back to the bundled DejaVu\nSans.",
+      "$ref": "#/$defs/FontFamily",
+      "default": "sans-serif"
+    },
+    "font_size": {
+      "description": "Size of text labels in logical pixels, at least 4.",
+      "$ref": "#/$defs/FontSize",
+      "default": 16.0
+    },
+    "palette": {
+      "description": "Annotation colors: one to eight `#rrggbb` strings, picked by the\nnumber keys `1` to `8` in this order. The default is red, orange,\nyellow, green, blue, purple, white, black.",
+      "$ref": "#/$defs/Palette",
+      "default": [
+        "#ff0000",
+        "#ff8000",
+        "#ffff00",
+        "#00c000",
+        "#0080ff",
+        "#8000ff",
+        "#ffffff",
+        "#000000"
+      ]
+    },
+    "pixelate_block": {
+      "description": "Side of a pixelate block in physical pixels, at least 2. Blocks grow\nwith the pixelated area: the size used is the larger of this value\nand a twenty-fourth of the area's shorter side, so a wide area gets\nproportionally larger blocks. The default is 12.",
+      "$ref": "#/$defs/PixelateBlock",
+      "default": 12
+    },
+    "save_dir": {
+      "description": "Directory screenshots are written to. A leading `~` expands to the\nhome directory. When omitted, `$XDG_PICTURES_DIR/Screenshots` is\nused (falling back to `~/Pictures/Screenshots`).",
+      "type": [
+        "string",
+        "null"
+      ],
+      "default": null
+    },
+    "targets": {
+      "description": "Where the PNG goes when `--to` is not given: any non-empty,\nduplicate-free combination of `file`, `clipboard`, and `stdout`.\nThe default is `clipboard` alone; nothing is written to disk unless\n`file` is listed here or in `--to`.",
+      "$ref": "#/$defs/Targets",
+      "default": [
+        "clipboard"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "FilenamePattern": {
+      "type": "string",
+      "pattern": "\\{timestamp\\}"
+    },
+    "FontFamily": {
+      "type": "string",
+      "minLength": 1
+    },
+    "FontSize": {
+      "type": "number",
+      "minimum": 4.0
+    },
+    "Palette": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^#[0-9a-fA-F]{6}$"
+      },
+      "maxItems": 8,
+      "minItems": 1
+    },
+    "PixelateBlock": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "Targets": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "file",
+          "clipboard",
+          "stdout"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

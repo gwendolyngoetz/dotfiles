@@ -1,0 +1,21 @@
+{
+  "$schema": "./schema.json",
+  "save_dir": null,
+  "filename_pattern": "chough-{timestamp}.png",
+  "targets": [
+    "clipboard"
+  ],
+  "palette": [
+    "#ff0000",
+    "#ff8000",
+    "#ffff00",
+    "#00c000",
+    "#0080ff",
+    "#8000ff",
+    "#ffffff",
+    "#000000"
+  ],
+  "pixelate_block": 12,
+  "font_family": "sans-serif",
+  "font_size": 16.0
+}
