@@ -27,13 +27,15 @@ function workon {
         --unrestricted \
         --type directory \
         --type file \
-        --prune "^.git$" \
-        --search-path "${base_dir}" \
+        --prune \
         --base-directory "${base_dir}" \
         --exclude "github/system-repos" \
         --exclude "github/work/seattle-deploy-tf/checkout" \
-        --exec dirname {} |
-        sed "s|${base_dir}/||" |
+        '^\.git$' |
+        sed -E 's|/?\.git/?$|/|' |
+        LC_ALL=C sort |
+        awk 'NR == 1 || index($0, top) != 1 { print; top = $0 }' |
+        sed 's|/$||' |
         sort |
         fzf \
             +s \
