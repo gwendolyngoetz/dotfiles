@@ -1,0 +1,43 @@
+# chough configuration. Every key is optional; anything left out takes
+# its built-in default, and command line flags override anything set
+# here.
+
+# Directory screenshots are written to. A leading ~ expands to the
+# home directory. When omitted, $XDG_PICTURES_DIR/Screenshots is
+# used (falling back to ~/Pictures/Screenshots).
+# save_dir = "~/Pictures/Screenshots"
+
+# Filename for saved screenshots. Must contain {timestamp}, which is
+# replaced by the capture time as YYYY-MM-DD_HH-MM-SS.
+filename_pattern = "chough-{timestamp}.png"
+
+# Where the PNG goes when --to is not given: any non-empty,
+# duplicate-free combination of "file", "clipboard", and "stdout".
+# Nothing is written to disk unless "file" is listed here or in --to.
+targets = ["clipboard"]
+
+# Annotation colors: one to eight "#rrggbb" strings, picked by the
+# number keys 1 to 8 in this order.
+palette = [
+  "#ff0000",
+  "#ff8000",
+  "#ffff00",
+  "#00c000",
+  "#0080ff",
+  "#8000ff",
+  "#ffffff",
+  "#000000"
+]
+
+# Side of a pixelate block in physical pixels, at least 2. Blocks grow
+# with the pixelated area: the size used is the larger of this value
+# and a twenty-fourth of the area's shorter side.
+pixelate_block = 12
+
+# Font for text labels: a family name such as "DejaVu Sans" or a
+# generic one ("sans-serif", "serif", "monospace"). Used when the
+# system has it; otherwise labels fall back to the bundled DejaVu Sans.
+font_family = "sans-serif"
+
+# Size of text labels in logical pixels, at least 4.
+font_size = 16.0
