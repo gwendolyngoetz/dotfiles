@@ -158,8 +158,8 @@ client.background          $black
 bindsym $mod+minus exec alacritty
 bindsym $mod+backslash exec firefox
 bindsym $mod+s exec chough
-bindsym $mod+e exec thunar
 bindsym $mod+c exec calendarwidget
+bindsym $mod+e exec thunar
 
 # quickshell bar; swap back to polybar by uncommenting the next line and removing the quickshell one
 exec_always ~/.config/quickshell/launch.sh
@@ -228,8 +228,7 @@ for_window [title="Copying" class="dolphin" window_type="dialog"] floating enabl
 for_window [title="i3_help"] floating enable, sticky enable, border normal
 for_window [class="calendarwidget"] floating enable, sticky enable, border none
 for_window [app_id="calendarwidget"] floating enable, sticky enable, border none
-for_window [class="calculatorwidget"] floating enable, sticky enable, border none
-for_window [app_id="calculatorwidget"] floating enable, sticky enable, border none
+for_window [app_id="dev.calc.Calc"] floating enable, sticky enable, border none
 for_window [class="(?i)thunderbird" window_type="dialog"] floating enable, border normal
 
 # quickshell launcher (rofi replacement) is a plain window; float it without decoration
